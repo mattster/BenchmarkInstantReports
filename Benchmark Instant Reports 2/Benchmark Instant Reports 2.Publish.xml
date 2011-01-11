@@ -1,0 +1,66 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<publishData>
+  <publishProfile publishUrl="S:\BenchmarkInstantReports" deleteExistingFiles="False" ftpAnonymousLogin="False" ftpPassiveMode="True" msdeploySite="" msdeploySiteID="" msdeployRemoteSitePhysicalPath="" msdeployAllowUntrustedCertificate="False" msdeploySkipExtraFilesOnServer="True" msdeployMarkAsApp="False" profileName="aci_webs_bip" publishMethod="FileSystem" replaceMatchingFiles="True" userName="" savePWD="False" userPWD="" SelectedForPublish="True">
+    <file relUrl="bin/BenchmarkStatsRep1c.rdlc" publishTime="11/23/2010 11:41:10" />
+    <file relUrl="BenchmarkStatsRep1a.rdlc" publishTime="11/23/2010 11:48:32" />
+    <file relUrl="bin/BenchmarkStatsRep4c.rdlc" publishTime="12/14/2010 09:49:29" />
+    <file relUrl="BenchmarkStatsRep2.rdlc" publishTime="10/19/2010 14:22:01" />
+    <file relUrl="BenchmarkStatsRep3c.rdlc" publishTime="12/14/2010 09:49:29" />
+    <file relUrl="Global.asax" publishTime="10/06/2010 10:27:47" />
+    <file relUrl="BenchmarkStatsRep1.rdlc" publishTime="11/17/2010 17:01:52" />
+    <file relUrl="Site.Master" publishTime="12/17/2010 15:12:47" />
+    <file relUrl="Styles/Site.css" publishTime="10/12/2010 09:58:38" />
+    <file relUrl="bin/StudentSummaryRep.rdlc" publishTime="12/16/2010 12:26:10" />
+    <file relUrl="StudentStatsRep2.rdlc" publishTime="12/16/2010 16:06:43" />
+    <file relUrl="About.aspx" publishTime="10/06/2010 10:27:47" />
+    <file relUrl="Scripts/jquery-1.4.1.js" publishTime="10/06/2010 10:27:47" />
+    <file relUrl="StudentSummary.aspx" publishTime="11/29/2010 09:41:22" />
+    <file relUrl="WebForm2.aspx" publishTime="10/07/2010 12:47:30" />
+    <file relUrl="BenchmarkStatsRep4c.rdlc" publishTime="12/14/2010 09:49:29" />
+    <file relUrl="bin/BenchmarkStatsRep2.rdlc" publishTime="10/19/2010 14:22:01" />
+    <file relUrl="BenchmarkStatsRep1b.rdlc" publishTime="11/23/2010 11:48:32" />
+    <file relUrl="BenchmarkStatsRep4a.rdlc" publishTime="12/14/2010 09:49:29" />
+    <file relUrl="bin/BenchmarkStatsRep1a.rdlc" publishTime="11/23/2010 11:48:32" />
+    <file relUrl="BenchmarkStatsRep1c.rdlc" publishTime="11/23/2010 11:41:10" />
+    <file relUrl="Account/Web.config" publishTime="10/06/2010 10:27:47" />
+    <file relUrl="bin/StudentStatsRep2.rdlc" publishTime="12/16/2010 16:06:43" />
+    <file relUrl="Account/Login.aspx" publishTime="10/06/2010 10:27:47" />
+    <file relUrl="BenchmarkStatsRep2a.rdlc" publishTime="11/23/2010 09:25:15" />
+    <file relUrl="bin/Benchmark Instant Reports 2.dll" publishTime="12/17/2010 15:09:49" />
+    <file relUrl="StudentStatsRep1.rdlc" publishTime="10/08/2010 10:02:48" />
+    <file relUrl="bin/BenchmarkStatsRep3.rdlc" publishTime="11/16/2010 17:05:05" />
+    <file relUrl="Scripts/jquery-1.4.1.min.js" publishTime="10/06/2010 10:27:47" />
+    <file relUrl="BenchmarkStatsRep4.rdlc" publishTime="10/19/2010 14:19:37" />
+    <file relUrl="bin/BenchmarkStatsRep3b.rdlc" publishTime="12/14/2010 09:49:29" />
+    <file relUrl="BenchmarkStatsRep3.rdlc" publishTime="11/16/2010 17:05:05" />
+    <file relUrl="Default.aspx" publishTime="11/23/2010 11:23:44" />
+    <file relUrl="Account/ChangePasswordSuccess.aspx" publishTime="10/06/2010 10:27:47" />
+    <file relUrl="bin/Benchmark Instant Reports 2.pdb" publishTime="12/17/2010 15:09:49" />
+    <file relUrl="bin/BenchmarkStatsRep2a.rdlc" publishTime="11/23/2010 09:25:15" />
+    <file relUrl="BenchmarkStatsRep3a.rdlc" publishTime="12/14/2010 09:49:29" />
+    <file relUrl="BenchmarkStatsRep2b.rdlc" publishTime="11/23/2010 09:25:15" />
+    <file relUrl="ScanReportRep1.rdlc" publishTime="10/26/2010 13:24:53" />
+    <file relUrl="Account/Register.aspx" publishTime="10/06/2010 10:27:47" />
+    <file relUrl="BenchmarkStats.aspx" publishTime="11/23/2010 11:23:04" />
+    <file relUrl="ScanReport.aspx" publishTime="11/23/2010 11:24:28" />
+    <file relUrl="bin/BenchmarkStatsRep4b.rdlc" publishTime="12/14/2010 09:49:29" />
+    <file relUrl="bin/BenchmarkStatsRep3a.rdlc" publishTime="12/14/2010 09:49:29" />
+    <file relUrl="BenchmarkStatsRep3b.rdlc" publishTime="12/14/2010 09:49:29" />
+    <file relUrl="bin/BenchmarkStatsRep4a.rdlc" publishTime="12/14/2010 09:49:29" />
+    <file relUrl="bin/StudentStatsRep1.rdlc" publishTime="10/08/2010 10:02:48" />
+    <file relUrl="Account/ChangePassword.aspx" publishTime="10/06/2010 10:27:47" />
+    <file relUrl="bin/BenchmarkStatsRep4.rdlc" publishTime="10/19/2010 14:19:37" />
+    <file relUrl="bin/ScanReportRep1.rdlc" publishTime="10/26/2010 13:24:53" />
+    <file relUrl="Web.config" publishTime="11/29/2010 13:58:25" />
+    <file relUrl="BenchmarkStatsRep4b.rdlc" publishTime="12/14/2010 09:49:29" />
+    <file relUrl="bin/BenchmarkStatsRep1b.rdlc" publishTime="11/23/2010 11:48:32" />
+    <file relUrl="bin/BenchmarkStatsRep1.rdlc" publishTime="11/17/2010 17:01:52" />
+    <file relUrl="StudentStats1.aspx" publishTime="11/23/2010 11:25:03" />
+    <file relUrl="bin/BenchmarkStatsRep3c.rdlc" publishTime="12/14/2010 09:49:29" />
+    <file relUrl="StudentSummaryRep.rdlc" publishTime="12/16/2010 12:26:10" />
+    <file relUrl="bin/BenchmarkStatsRep2b.rdlc" publishTime="11/23/2010 09:25:15" />
+    <file relUrl="bin/BenchmarkStatsRep2c.rdlc" publishTime="11/23/2010 09:38:57" />
+    <file relUrl="BenchmarkStatsRep2c.rdlc" publishTime="11/23/2010 09:38:57" />
+    <file relUrl="Scripts/jquery-1.4.1-vsdoc.js" publishTime="10/06/2010 10:27:47" />
+  </publishProfile>
+</publishData>
