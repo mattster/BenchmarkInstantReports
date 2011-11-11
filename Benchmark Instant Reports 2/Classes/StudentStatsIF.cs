@@ -145,7 +145,7 @@ namespace Benchmark_Instant_Reports_2
             DataSet ds = new DataSet();
             string qs = "SELECT * FROM " + studentStatsResultsDatatableName;
             string findcriteria1 = "";
-            string findcriteria2 = "";
+            //string findcriteria2 = "";
             DateTime datetimeNew, datetimeExisting = new DateTime();
 
             // get connection to the database
@@ -168,7 +168,24 @@ namespace Benchmark_Instant_Reports_2
                     // check and see if current record already exists and is the latest one
                     findcriteria1 = "TEST_ID = \'" + row["TEST_ID"].ToString() + "\' " +
                                     "AND STUDENT_ID = \'" + row["STUDENT_ID"].ToString() + "\' ";
-                    findcriteria2 = "SCAN_DATETIME = \'" + row["SCAN_DATETIME"].ToString() + "\'";
+                    //findcriteria2 = "SCAN_DATETIME = \'" + row["SCAN_DATETIME"].ToString() + "\'";
+
+                    // delete existing row if it is there
+                    //DataRow[] foundrows = ds.Tables[0].Select(findcriteria1);
+                    //if (foundrows.Length > 1)
+                    //{
+                    //    //ds.Tables[0].LoadDataRow(row.ItemArray, true);
+                    //}
+
+
+                    //// add current data
+                    //DataRow row2 = ds.Tables[0].NewRow();
+                    //row2.ItemArray = row.ItemArray;
+                    //ds.Tables[0].Rows.Add(row2);
+
+
+
+
                     int l = ds.Tables[0].Select(findcriteria1).Length;
 
                     if (l == 0)                 // test_id and student_id not there at all, add it to the dataset maybe
@@ -184,16 +201,16 @@ namespace Benchmark_Instant_Reports_2
                             if ((ds.Tables[0].Rows[i]["TEST_ID"].ToString() == row["TEST_ID"].ToString())
                                 && (ds.Tables[0].Rows[i]["STUDENT_ID"].ToString() == row["STUDENT_ID"].ToString()))
                             {
-                                datetimeExisting = (DateTime)ds.Tables[0].Rows[i]["SCAN_DATETIME"];
-                                datetimeNew = (DateTime)row["SCAN_DATETIME"];
-                                
-                                // always write it, even if it's there - it might not have the graded ans strings
-                                if (true)
-                                //if (datetimeNew > datetimeExisting)     // new record is newer, delete old one
-                                {
+                                //datetimeExisting = (DateTime)ds.Tables[0].Rows[i]["SCAN_DATETIME"];
+                                //datetimeNew = (DateTime)row["SCAN_DATETIME"];
+
+                                //// always write it, even if it's there - it might not have the graded ans strings
+                                //if (true)
+                                ////if (datetimeNew > datetimeExisting)     // new record is newer, delete old one
+                                //{
                                     ds.Tables[0].Rows[i].ItemArray = row.ItemArray;
-                                }
-                                // otherwise just keep the existing one and move on
+                                //}
+                                //// otherwise just keep the existing one and move on
                             }
                     }
                 }

@@ -2,6 +2,7 @@
 *.ncb
 *.aps
 *.suo
-Benchmark Instant Reports 2/bin/*
-Benchmark Instant Reports 2/obj/*
+*/bin/*
+*/*/bin/*
+*/obj/*
 *.log

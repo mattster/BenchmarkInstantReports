@@ -241,6 +241,16 @@ namespace Benchmark_Instant_Reports_2
         private static string cdPeriod83 = "06";
         private static int[] cdItems81 = { 21, 22, 23 };
 
+        private static string cdTest9 = "2011-11 SC Physics Unit 2 T3-T4 CUT 91-41";
+        private static string cdCampus91 = "LHHS";
+        private static string cdTeacher91 = "VALADEZ, MATTHEW";
+        private static string cdPeriod91 = "01";
+        private static string cdPeriod92 = "03";
+        private static string cdPeriod93 = "04";
+        private static string cdPeriod94 = "06";
+        private static string cdPeriod95 = "07";
+        private static int[] cdItems91 = { 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27 };
+
         #endregion
 
         #region griddable_nonexact_items
@@ -622,6 +632,14 @@ namespace Benchmark_Instant_Reports_2
                     if (teacher == cdTeacher81)
                         if (period == cdPeriod81 || period == cdPeriod82 || period == cdPeriod83)
                             return cdItems81;
+            }
+            else if (testID == cdTest9)
+            {
+                if (campus == cdCampus91)
+                    if (teacher == cdTeacher91)
+                        if (period == cdPeriod91 || period == cdPeriod92 || period == cdPeriod93 ||
+                            period == cdPeriod94 || period == cdPeriod95)
+                            return cdItems91;
             }
             return null;
         }

@@ -232,21 +232,21 @@ namespace Benchmark_Instant_Reports_2
             Parameter paramTeacher = new Parameter();
             Parameter paramTestID = new Parameter("parmTestId", DbType.String, ddBenchmark.SelectedItem.ToString());
             Parameter paramCampus = new Parameter("campus", DbType.String, ddCampus.SelectedValue.ToString());
-            if (ddTeacher.SelectedItem.ToString() != birIF.allTeachers)
-            {
+            //if (ddTeacher.SelectedItem.ToString() != birIF.allTeachers)
+            //{
                 paramTeacher = new Parameter("parmTeacher", DbType.String, ddTeacher.SelectedItem.ToString().Replace("'", "''"));
                 ods.FilterExpression = "TEST_ID = \'{0}\' AND CAMPUS = \'{1}\' AND TEACHER = \'{2}\'";
                 ods.FilterParameters.Add(paramTestID);
                 ods.FilterParameters.Add(paramCampus);
                 ods.FilterParameters.Add(paramTeacher);
-            }
-            else
-            {
-                paramTestID = new Parameter("parmTestId", DbType.String, ddBenchmark.SelectedItem.ToString());
-                ods.FilterExpression = "TEST_ID = \'{0}\' AND CAMPUS = \'{1}\'";
-                ods.FilterParameters.Add(paramTestID);
-                ods.FilterParameters.Add(paramCampus);
-            }
+            //}
+            //else
+            //{
+            //    paramTestID = new Parameter("parmTestId", DbType.String, ddBenchmark.SelectedItem.ToString());
+            //    ods.FilterExpression = "TEST_ID = \'{0}\' AND CAMPUS = \'{1}\'";
+            //    ods.FilterParameters.Add(paramTestID);
+            //    ods.FilterParameters.Add(paramCampus);
+            //}
 
             ods.SelectMethod = "GetDataByUseFilter";
             ods.TypeName = "Benchmark_Instant_Reports_2.DataSetStudentStatsTableAdapters.TEMP_RESULTS_STUDENTSTATSTableAdapter";
