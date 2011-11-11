@@ -22,7 +22,7 @@ namespace Benchmark_Instant_Reports_2
         public static string studentStatsResultsDatatableName = "ACI.TEMP_RESULTS_STUDENTSTATS";
         private static int maxFormattedAnsGroups = 7;
         private static int numColumnsInFormattedLine = 75;
-        
+
 
         //**********************************************************************//
         //** add two fields to an existing data table that has student results
@@ -32,6 +32,8 @@ namespace Benchmark_Instant_Reports_2
         public static void addStudentAnswerData(DataTable theTable, string theTest, string curCampus)
         {
             string curId = "";
+            string curTeacher = "";
+            string curPeriod = "";
             string lblGradedAnswers = "GRADED_ANSWERS";
             string lblGradedAnswersFmtd = "GRADED_ANSWERS_FORMATTED";
             int ansKeyVersionIncrement = new int();
@@ -42,18 +44,21 @@ namespace Benchmark_Instant_Reports_2
             theTable.Columns[lblGradedAnswersFmtd].MaxLength = 1500;
 
             // go through each student and create the answer strings we need
-            for (int j = 0; j < theTable.Rows.Count; j++) 
+            for (int j = 0; j < theTable.Rows.Count; j++)
             {
                 curId = theTable.Rows[j]["STUDENT_ID"].ToString();
+                curTeacher = theTable.Rows[j]["TEACHER"].ToString();
+                curPeriod = theTable.Rows[j]["PERIOD"].ToString();
 
                 DataRow curScanDataRow = birIF.getLatestScanDataRow(curId, theTest);
                 if (curScanDataRow != null)
                 {
-                    string[] thisTeacherPeriod = birIF.getTeacherPeriodForStudentInCourses(curId, courseList);
+                    //string[] thisTeacherPeriod = courseList.Length == 0 ? new string[] { "UNKNOWN", "01" } : birIF.getTeacherPeriodForStudentInCourses(curId, courseList);
+
                     ansKeyVersionIncrement = birExceptions.campusAnswerKeyVersionIncrement(theTest, curCampus,
-                        thisTeacherPeriod[0], thisTeacherPeriod[1]);
-                    DataTable gradedTable = birIF.gradeScannedTestDetail(theTest, curScanDataRow["ANSWERS"].ToString(), curCampus, 
-                        ansKeyVersionIncrement);
+                    curTeacher, curPeriod);
+                    DataTable gradedTable = birIF.gradeScannedTestDetail(theTest, curScanDataRow["ANSWERS"].ToString(), curCampus,
+                        ansKeyVersionIncrement, curTeacher, curPeriod);
 
                     // go through each answer and create the strings we need
                     string curGradedAnsString = "";
@@ -62,7 +67,7 @@ namespace Benchmark_Instant_Reports_2
                         if ((bool)gradedTable.Rows[k]["CORRECT"])
                             curGradedAnsString = curGradedAnsString + "*,";
                         else
-	                        // ****** put either the student's answer here, or the actual correct answer ******
+                            // ****** put either the student's answer here, or the actual correct answer ******
                             curGradedAnsString = curGradedAnsString + gradedTable.Rows[k]["STUDENT_ANS"].ToString() + ",";
                     }
                     curGradedAnsString = curGradedAnsString.Substring(0, curGradedAnsString.Length - 1);
@@ -93,7 +98,7 @@ namespace Benchmark_Instant_Reports_2
             string lblItemNum = "ITEM_NUM";
 
             string[] ansStringArray = rawAnsString.Split(',');
-           
+
             for (int i = 0; i < ansStringArray.Length; i++)
             {
                 // write this one

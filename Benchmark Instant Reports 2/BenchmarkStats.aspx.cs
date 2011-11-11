@@ -25,14 +25,18 @@ namespace Benchmark_Instant_Reports_2
         private static string repTypeResultsByAnsTeacher = "Results by Answer Choice (Teacher)";
         private static string repTypeResultsByAnsCampus = "Results by Answer Choice (Campus)";
         private static string groupByQ = "Question Num.";
-        private static string groupByObj = "Objective";
+        private static string groupByObj = "Rep. Category";
         private static string groupByTEKS = "TEKS";
         private static string repsNone = "NONE";
         private static string[] reportTypesList = 
             { repTypeResultsByTeacher, repTypeResultsByPeriod, repTypeResultsByAnsTeacher, repTypeResultsByAnsCampus };
+        private static string[] reportTypesListTeacherOnly = 
+            { repTypeResultsByPeriod, repTypeResultsByAnsTeacher, repTypeResultsByAnsCampus };
         private static string[] groupByList = { groupByQ, groupByObj, groupByTEKS };
 
         #endregion
+
+        public SiteMaster theMasterPage;
 
         
         protected void Page_Load(object sender, EventArgs e)
@@ -43,10 +47,21 @@ namespace Benchmark_Instant_Reports_2
             if (!IsPostBack)
             {
                 initPage();
+
+                if (CampusSecurity.isAuthorizedForTeacherComparison(Request))
+                {
+                    ddRepType.DataSource = reportTypesList;
+                    ddRepType.DataBind();
+                    ddRepType.SelectedIndex = 0;
+                }
+
+                ddCampus_SelectedIndexChanged1(new object(), new EventArgs());
             }
 
 
             // anything else we need to do
+
+            // setup stuff if authorized as an administrator
 
             return;
 
@@ -56,20 +71,27 @@ namespace Benchmark_Instant_Reports_2
 
         protected void ddCampus_SelectedIndexChanged1(object sender, EventArgs e)
         {
+            theMasterPage = Page.Master as SiteMaster;
+
             //*** User selected a campus ***//
             
             // return if it is the separator
             if (birUtilities.isDDSeparatorValue(ddCampus.SelectedValue.ToString()))
             {
                 birUtilities.toggleDDLInitView(ddCampus, true);
+                birUtilities.savedSelectedCampus(Response, "");
                 disableSchoolPasswordEntry();
                 return;
             }
             
             // setup stuff
             birUtilities.toggleDDLInitView(ddCampus, false);
+            birUtilities.savedSelectedCampus(Response, ddCampus.SelectedItem.ToString());
 
-            if (!birUtilities.sessionAuthList.isAuthorized(ddCampus.SelectedValue.ToString()))
+            ddBenchmark.DataSource = birIF.getTestListForSchool(ddCampus.SelectedValue.ToString());
+            ddBenchmark.DataBind();
+
+            if (!CampusSecurity.isAuthorized(ddCampus.SelectedValue.ToString(), Request))
             {                                               // not yet authorized - ask for password
                 ddBenchmark.Enabled = false;
                 ddRepType.Enabled = false;
@@ -78,11 +100,11 @@ namespace Benchmark_Instant_Reports_2
                 btnGenReport.Enabled = false;
                 makeRepsVisible(repsNone, repsNone);
                 enableSchoolPasswordEntry();
+                theMasterPage.updateCampusAuthLabel("none");
                 return;
             }
 
 
-            lblIncorrectPassword.Visible = false;
             disableSchoolPasswordEntry();
             ddBenchmark.Enabled = true;
             birUtilities.toggleDDLInitView(ddBenchmark, true);
@@ -93,28 +115,51 @@ namespace Benchmark_Instant_Reports_2
             makeRepsVisible(repsNone, repsNone);
             reportDataParmsHaveChanged = true;
 
+            // setup stuff if authorized
+            //if (CampusSecurity.isAuthorizedForCampusRepMenu(Request))
+            //if (CampusSecurity.isAuthorizedAsAdmin(Request))
+            if (true)
+            {
+                ddRepType.DataSource = reportTypesList;
+                ddRepType.DataBind();
+                ddRepType.SelectedIndex = 0;
+            }
+
+            theMasterPage.updateCampusAuthLabel(CampusSecurity.isAuthorizedFor(Request));
+
+            int bidx = birUtilities.getIndexOfDDItem(birUtilities.savedSelectedTestID(Request), ddBenchmark);
+            if (bidx != -1)
+            {
+                ddBenchmark.SelectedIndex = bidx;
+                ddBenchmark_SelectedIndexChanged1(new object(), new EventArgs());
+            }
+
             return;
         }
 
 
         protected void btnEnterPassword_Click(object sender, EventArgs e)
         {
+            theMasterPage = Page.Master as SiteMaster;
+
             // *** check password ***//
 
-            if (birUtilities.sessionAuthList.checkEnteredPassword(txtbxSchoolPassword.Text.ToString(), 
-                ddCampus.SelectedValue.ToString()))
+            if (CampusSecurity.checkEnteredPassword(txtbxSchoolPassword.Text.ToString(), 
+                ddCampus.SelectedValue.ToString(), Response))
             {                                                   // authentication succeeded
-                lblIncorrectPassword.Visible = false;
                 disableSchoolPasswordEntry();
+                theMasterPage.updateCampusAuthLabel(Response.Cookies[CampusSecurity.authcookiename].Value);
             }
             else                                                // authentication failed        
             {
-                lblIncorrectPassword.Visible = true;
+                this.mpupIncorrectPassword.Show();
                 enableSchoolPasswordEntry();
+                theMasterPage.updateCampusAuthLabel("none");
                 return;
             }
 
             disableSchoolPasswordEntry();
+
             ddBenchmark.Enabled = true;
             birUtilities.toggleDDLInitView(ddBenchmark, true);
             ddRepType.Enabled = false;
@@ -130,14 +175,11 @@ namespace Benchmark_Instant_Reports_2
         protected void ddBenchmark_SelectedIndexChanged1(object sender, EventArgs e)
         {
             //*** User selected a test ***//
+            lblNoScanData.Visible = false;
+            birUtilities.savedSelectedTestID(Response, ddBenchmark.SelectedItem.ToString());
 
-            // load the main query - list of students
-            studentListQueryData = birIF.executeStudentListQuery(ddBenchmark.SelectedItem.ToString(),
-                ddCampus.SelectedValue.ToString());
-
-            // get a list of teachers applicable for this query
-            string[] listOfTeachers = birUtilities.getUniqueTableColumnStringValues(studentListQueryData.Tables[0],
-                    birIF.teacherNameFieldName);
+            DataSet ds1 = birIF.getTeachersForTestCampus(ddBenchmark.SelectedItem.ToString(), ddCampus.SelectedValue.ToString());
+            string[] listOfTeachers = birUtilities.getUniqueTableColumnStringValues(ds1.Tables[0], birIF.teacherNameFieldName);
             ddTeacher.DataSource = listOfTeachers;
             ddTeacher.DataBind();
             birUtilities.toggleDDLInitView(ddTeacher, true);
@@ -148,15 +190,18 @@ namespace Benchmark_Instant_Reports_2
             {
                 btnGenReport.Enabled = false;
                 disableSchoolPasswordEntry();
-                ddBenchmark.Enabled = false;
+                //ddBenchmark.Enabled = false;
                 ddRepType.Enabled = false;
                 ddTeacher.Visible = false;
                 lblSelectTeacher.Visible = false;
                 makeRepsVisible(repsNone, repsNone);
                 reportDataParmsHaveChanged = true;
+                lblNoScanData.Visible = true;
+
                 return;
             }
 
+            lblNoScanData.Visible = false;
             ddRepType.Enabled = true;
             ddGroupBy.Enabled = true;
             btnGenReport.Enabled = true;
@@ -263,14 +308,28 @@ namespace Benchmark_Instant_Reports_2
             //** User clicked the Generate Report button ***//
             int r = new int();
 
+            DataSet ds1 = new DataSet();
+            DataTable bsResultsDataTable = new DataTable();
+
             // generate results for the given criteria on the page if we need to
             if (reportDataParmsHaveChanged)
             {
                 // do a new query by school
-                DataSet ds1 = birIF.getStudentScanListData(ddBenchmark.SelectedItem.ToString(),
-                    ddCampus.SelectedValue.ToString());
-
-                DataTable bsResultsDataTable = BenchmarkStatsIF.generateBenchmarkStatsRepTable(ds1.Tables[0],
+                if (ddTeacher.SelectedIndex != 0)
+                {
+                    //ds1 = birIF.getStudentScanListData(ddBenchmark.SelectedItem.ToString(),
+                    //    ddCampus.SelectedValue.ToString(), ddTeacher.SelectedValue.ToString());
+                    ds1 = birIF.getStudentDataToGrade(ddBenchmark.SelectedItem.ToString(),
+                        ddCampus.SelectedValue.ToString(), ddTeacher.SelectedValue.ToString());
+                }
+                else
+                {
+                    //ds1 = birIF.getStudentScanListData(ddBenchmark.SelectedItem.ToString(),
+                    //    ddCampus.SelectedValue.ToString());
+                    ds1 = birIF.getStudentDataToGrade(ddBenchmark.SelectedItem.ToString(),
+                        ddCampus.SelectedValue.ToString());
+                }
+                bsResultsDataTable = BenchmarkStatsIF.generateBenchmarkStatsRepTable(ds1.Tables[0],
                     ddBenchmark.SelectedItem.ToString(), ddCampus.SelectedValue.ToString());
 
                 r = BenchmarkStatsIF.writeBenchmarkStatsResultsToDb(bsResultsDataTable);
@@ -328,6 +387,11 @@ namespace Benchmark_Instant_Reports_2
         //**
         private void initPage()
         {
+            theMasterPage = Page.Master as SiteMaster;
+           
+            // display authorization info
+            theMasterPage.updateCampusAuthLabel(CampusSecurity.isAuthorizedFor(Request));
+
             // disable all dialog boxes & stuff except campus
             ddCampus.Enabled = true;
             ddCampus.AutoPostBack = true;
@@ -342,32 +406,45 @@ namespace Benchmark_Instant_Reports_2
             ddGroupBy.AutoPostBack = true;
             btnGenReport.Enabled = false;
             disableSchoolPasswordEntry();
-            lblIncorrectPassword.Visible = false;
             makeRepsVisible(repsNone, repsNone);
+            lblNoScanData.Visible = false;
 
             // load list of campuses in Campus dropdown
             ddCampus.DataSource = dbIFOracle.getDataSource(birIF.getCampusListQuery);
             ddCampus.DataTextField = "SCHOOLNAME";
             ddCampus.DataValueField = "SCHOOL_ABBR";
             ddCampus.DataBind();
-            birUtilities.toggleDDLInitView(ddCampus, true);
+
+            int cidx = birUtilities.getIndexOfDDItem(birUtilities.savedSelectedCampus(Request), ddCampus);
+            if (cidx != -1)
+                ddCampus.SelectedIndex = cidx;
+            else
+                birUtilities.toggleDDLInitView(ddCampus, true);
 
 
             // load list of benchmarks in Benchmark dropdown
-            ddBenchmark.DataSource = dbIFOracle.getDataSource(birIF.getBenchmarkListQuery);
-            ddBenchmark.DataTextField = "TEST_ID";
-            ddBenchmark.DataValueField = "TEST_ID";
+            if (cidx != -1)
+                ddBenchmark.DataSource = birIF.getTestListForSchool(ddCampus.SelectedValue.ToString());
+            else
+                ddBenchmark.DataSource = birIF.getTestListForSchool("ALL");
             ddBenchmark.DataBind();
 
             // load list of report types in Reports dropdown
-            ddRepType.DataSource = reportTypesList;
+            ddRepType.DataSource = reportTypesListTeacherOnly;
             ddRepType.DataBind();
-            ddRepType.SelectedIndex = 0;
+            ddRepType.SelectedIndex = 2;
 
             // load Group By choices for reports
             ddGroupBy.DataSource = groupByList;
             ddGroupBy.DataBind();
             ddGroupBy.SelectedIndex = 0;
+
+            int bidx = birUtilities.getIndexOfDDItem(birUtilities.savedSelectedTestID(Request), ddBenchmark);
+            if (bidx != -1)
+            {
+                ddBenchmark.SelectedIndex = bidx;
+                ddBenchmark_SelectedIndexChanged1(new object(), new EventArgs());
+            }
 
             return;
         }
@@ -477,7 +554,7 @@ namespace Benchmark_Instant_Reports_2
             // setup parameters for query
             Parameter paramCampus = new Parameter("parmCampus", DbType.String, ddCampus.SelectedValue.ToString());
             Parameter paramTestID = new Parameter("parmTestId", DbType.String, ddBenchmark.SelectedItem.ToString());
-            Parameter paramTeacher = new Parameter("parmTeacher", DbType.String, ddTeacher.SelectedItem.ToString());
+            Parameter paramTeacher = new Parameter("parmTeacher", DbType.String, ddTeacher.SelectedItem.ToString().Replace("'","''"));
 
             ods.SelectMethod = "GetDataByUseFilter";
             ods.FilterExpression = "CAMPUS = \'{0}\' AND  TEST_ID = \'{1}\' AND TEACHER = \'{2}\'";
@@ -529,7 +606,7 @@ namespace Benchmark_Instant_Reports_2
             // setup parameters for query
             Parameter paramCampus = new Parameter("parmCampus", DbType.String, ddCampus.SelectedValue.ToString());
             Parameter paramTestID = new Parameter("parmTestId", DbType.String, ddBenchmark.SelectedItem.ToString());
-            Parameter paramTeacher = new Parameter("parmTeacher", DbType.String, ddTeacher.SelectedItem.ToString());
+            Parameter paramTeacher = new Parameter("parmTeacher", DbType.String, ddTeacher.SelectedItem.ToString().Replace("'","''"));
 
             ods.SelectMethod = "GetDataByUseFilter";
             ods.FilterExpression = "CAMPUS = \'{0}\' AND  TEST_ID = \'{1}\' AND TEACHER = \'{2}\'";

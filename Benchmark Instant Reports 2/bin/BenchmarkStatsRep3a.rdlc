@@ -241,7 +241,7 @@
                       <Paragraph>
                         <TextRuns>
                           <TextRun>
-                            <Value>Obj</Value>
+                            <Value>RC#</Value>
                             <Style>
                               <FontFamily>Tahoma</FontFamily>
                               <FontWeight>Bold</FontWeight>
@@ -550,7 +550,6 @@
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
                     </Textbox>
-                    <rd:Selected>true</rd:Selected>
                   </CellContents>
                 </TablixCell>
               </TablixCells>
@@ -1054,7 +1053,7 @@
             <Paragraph>
               <TextRuns>
                 <TextRun>
-                  <Value>Benchmark Item Analysis Report</Value>
+                  <Value>Item Analysis Report</Value>
                   <Style>
                     <FontSize>14pt</FontSize>
                     <FontWeight>Bold</FontWeight>

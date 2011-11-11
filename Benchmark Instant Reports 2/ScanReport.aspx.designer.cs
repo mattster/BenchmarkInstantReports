@@ -49,15 +49,6 @@ namespace Benchmark_Instant_Reports_2.Classes {
         protected global::System.Web.UI.WebControls.Button btnEnterPassword;
         
         /// <summary>
-        /// lblIncorrectPassword control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblIncorrectPassword;
-        
-        /// <summary>
         /// lbBenchmark control.
         /// </summary>
         /// <remarks>
@@ -76,6 +67,42 @@ namespace Benchmark_Instant_Reports_2.Classes {
         protected global::System.Web.UI.WebControls.Button btnGenReport;
         
         /// <summary>
+        /// modalpopupcontrol control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HyperLink modalpopupcontrol;
+        
+        /// <summary>
+        /// popupPanel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel popupPanel;
+        
+        /// <summary>
+        /// ButtonOK control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button ButtonOK;
+        
+        /// <summary>
+        /// mpupIncorrectPassword control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.ModalPopupExtender mpupIncorrectPassword;
+        
+        /// <summary>
         /// repvwScanReport1 control.
         /// </summary>
         /// <remarks>
@@ -85,6 +112,15 @@ namespace Benchmark_Instant_Reports_2.Classes {
         protected global::Microsoft.Reporting.WebForms.ReportViewer repvwScanReport1;
         
         /// <summary>
+        /// repvwScanReport2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::Microsoft.Reporting.WebForms.ReportViewer repvwScanReport2;
+        
+        /// <summary>
         /// ObjectDataSource1 control.
         /// </summary>
         /// <remarks>
@@ -92,14 +128,5 @@ namespace Benchmark_Instant_Reports_2.Classes {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.ObjectDataSource ObjectDataSource1;
-        
-        /// <summary>
-        /// ScriptManager1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.ScriptManager ScriptManager1;
     }
 }

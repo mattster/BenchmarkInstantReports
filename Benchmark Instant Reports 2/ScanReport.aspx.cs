@@ -13,6 +13,7 @@ namespace Benchmark_Instant_Reports_2.Classes
 {
     public partial class WebForm1 : System.Web.UI.Page
     {
+        public SiteMaster theMasterPage;
 
         
         protected void Page_Load(object sender, EventArgs e)
@@ -23,6 +24,7 @@ namespace Benchmark_Instant_Reports_2.Classes
             if (!IsPostBack)
             {
                 initPage();
+                ddCampus_SelectedIndexChanged1(new object(), new EventArgs());
             }
 
 
@@ -33,53 +35,75 @@ namespace Benchmark_Instant_Reports_2.Classes
 
         protected void ddCampus_SelectedIndexChanged1(object sender, EventArgs e)
         {
+            theMasterPage = Page.Master as SiteMaster;
+
             //*** User selected a campus ***//
 
             // return if it is the separator
             if (birUtilities.isDDSeparatorValue(ddCampus.SelectedValue.ToString()))
             {
                 birUtilities.toggleDDLInitView(ddCampus, true);
+                birUtilities.savedSelectedCampus(Response, "");
                 disableSchoolPasswordEntry();
                 return;
             }
             
             // setup stuff
             birUtilities.toggleDDLInitView(ddCampus, false);
+            birUtilities.savedSelectedCampus(Response, ddCampus.SelectedItem.ToString());
 
-            if (!birUtilities.sessionAuthList.isAuthorized(ddCampus.SelectedValue.ToString()))
+            lbBenchmark.DataSource = birIF.getTestListForSchool(ddCampus.SelectedValue.ToString());
+            lbBenchmark.DataBind();
+
+            if (!CampusSecurity.isAuthorized(ddCampus.SelectedValue.ToString(), Request))
             {                                               // not yet authorized - ask for password
                 lbBenchmark.Enabled = false;
                 btnGenReport.Enabled = false;
                 repvwScanReport1.Visible = false;
+                repvwScanReport2.Visible = false;
                 enableSchoolPasswordEntry();
+                theMasterPage.updateCampusAuthLabel("none");
 
                 return;
             }
 
 
-            lblIncorrectPassword.Visible = false;
             disableSchoolPasswordEntry();
             lbBenchmark.Enabled = true;
             lbBenchmark.SelectedIndex = 0;
             btnGenReport.Enabled = true;
             repvwScanReport1.Visible = false;
+            repvwScanReport2.Visible = false;
+
+            theMasterPage.updateCampusAuthLabel(CampusSecurity.isAuthorizedFor(Request));
+
+            string[] savedTests = birUtilities.savedSelectedTestIDs(Request);
+            if (savedTests != null)
+            {
+                lbBenchmark.ClearSelection();
+                birUtilities.selectItemsInLB(lbBenchmark, savedTests);
+                lbBenchmark_SelectedIndexChanged1(new object(), new EventArgs());
+            }
 
             return;
         }
 
         protected void btnEnterPassword_Click(object sender, EventArgs e)
         {
+            theMasterPage = Page.Master as SiteMaster;
+
             // *** check password ***//
 
-            if (birUtilities.sessionAuthList.checkEnteredPassword(txtbxSchoolPassword.Text.ToString(), ddCampus.SelectedValue.ToString()))
+            if (CampusSecurity.checkEnteredPassword(txtbxSchoolPassword.Text.ToString(), ddCampus.SelectedValue.ToString(), Response))
             {                                                   // authentication succeeded
-                lblIncorrectPassword.Visible = false;
                 disableSchoolPasswordEntry();
+                theMasterPage.updateCampusAuthLabel(Response.Cookies[CampusSecurity.authcookiename].Value);
             }
             else                                                // authentication failed        
             {
-                lblIncorrectPassword.Visible = true;
+                this.mpupIncorrectPassword.Show();
                 enableSchoolPasswordEntry();
+                theMasterPage.updateCampusAuthLabel("none");
                 return;
             }
 
@@ -87,6 +111,7 @@ namespace Benchmark_Instant_Reports_2.Classes
             lbBenchmark.Enabled = true;
             btnGenReport.Enabled = false;
             repvwScanReport1.Visible = false;
+            repvwScanReport2.Visible = false;
 
             return;
         }
@@ -97,14 +122,18 @@ namespace Benchmark_Instant_Reports_2.Classes
 
             if (lbBenchmark.GetSelectedIndices().Length > 0)
             {
+                birUtilities.savedSelectedTestIDs(Response, birUtilities.getLBSelectionsAsArray(lbBenchmark));
+
                 btnGenReport.Enabled = true;
                 repvwScanReport1.Visible = false;
+                repvwScanReport2.Visible = false;
                 disableSchoolPasswordEntry();
             }
             else
             {
                 btnGenReport.Enabled = false;
                 repvwScanReport1.Visible = false;
+                repvwScanReport2.Visible = false;
                 disableSchoolPasswordEntry();
             }
             return;
@@ -120,31 +149,67 @@ namespace Benchmark_Instant_Reports_2.Classes
             // write results to database
             int r = ScanReportIF.writeScanReportResultsToDb(scanRepResultsTable);
 
-            //setup the report
-            repvwScanReport1.Visible = true;
-            ObjectDataSource ods = new ObjectDataSource();
-            ReportDataSource rds = new ReportDataSource();
+            if (ddCampus.SelectedValue == "ALL Elementary" || ddCampus.SelectedValue == "ALL Secondary")
+            {
+                // setup the report
+                repvwScanReport2.Visible = true;
+                repvwScanReport1.Visible = false;
+                ObjectDataSource ods = new ObjectDataSource();
+                ReportDataSource rds = new ReportDataSource();
 
-            // setup parameters for query
-            Parameter paramCampus = new Parameter("parmCampus", DbType.String, ddCampus.SelectedValue.ToString());
-            Parameter paramTestIDList = new Parameter("parmTestIdList", DbType.String,
-                birUtilities.convertStringArrayForQuery(birUtilities.getLBSelectionsAsArray(lbBenchmark)));
+                // setup parameters for query
+                Parameter paramCampus;
+                if (ddCampus.SelectedValue == "ALL Elementary")
+                    paramCampus = new Parameter("parmCampus", DbType.String,
+                        birUtilities.convertStringArrayForQuery(birIF.getElemAbbrList()));
+                else
+                    paramCampus = new Parameter("parmCampus", DbType.String,
+                        birUtilities.convertStringArrayForQuery(birIF.getSecAbbrList()));
 
-            ods.SelectMethod = "GetData";
-            ods.FilterExpression = "CAMPUS = \'{0}\' AND  TEST_ID IN ({1})";
-            ods.FilterParameters.Add(paramCampus);
-            ods.FilterParameters.Add(paramTestIDList);
+                Parameter paramTestIDList = new Parameter("parmTestIdList", DbType.String,
+                    birUtilities.convertStringArrayForQuery(birUtilities.getLBSelectionsAsArray(lbBenchmark)));
 
-            ods.TypeName = "Benchmark_Instant_Reports_2.DataSetScanReportTableAdapters.TEMP_RESULTS_SCANREPORTTableAdapter";
+                ods.SelectMethod = "GetData";
+                ods.FilterExpression = "CAMPUS IN ({0}) AND TEST_ID IN ({1})";
+                ods.FilterParameters.Add(paramCampus);
+                ods.FilterParameters.Add(paramTestIDList);
 
-            
+                ods.TypeName = "Benchmark_Instant_Reports_2.DataSetScanReportTableAdapters.TEMP_RESULTS_SCANREPORTTableAdapter";
 
+                rds = new ReportDataSource("DataSetScanReport", ods);
+                repvwScanReport2.LocalReport.DataSources.Clear();
+                repvwScanReport2.LocalReport.DataSources.Add(rds);
+                repvwScanReport2.ShowPrintButton = true;
+                repvwScanReport2.LocalReport.Refresh();            
+            }
 
-            rds = new ReportDataSource("DataSetScanReport", ods);
-            repvwScanReport1.LocalReport.DataSources.Clear();
-            repvwScanReport1.LocalReport.DataSources.Add(rds);
-            repvwScanReport1.ShowPrintButton = true;
-            repvwScanReport1.LocalReport.Refresh();
+            else
+            {
+
+                //setup the report
+                repvwScanReport1.Visible = true;
+                repvwScanReport2.Visible = false;
+                ObjectDataSource ods = new ObjectDataSource();
+                ReportDataSource rds = new ReportDataSource();
+
+                // setup parameters for query
+                Parameter paramCampus = new Parameter("parmCampus", DbType.String, ddCampus.SelectedValue.ToString());
+                Parameter paramTestIDList = new Parameter("parmTestIdList", DbType.String,
+                    birUtilities.convertStringArrayForQuery(birUtilities.getLBSelectionsAsArray(lbBenchmark)));
+
+                ods.SelectMethod = "GetData";
+                ods.FilterExpression = "CAMPUS = \'{0}\' AND  TEST_ID IN ({1})";
+                ods.FilterParameters.Add(paramCampus);
+                ods.FilterParameters.Add(paramTestIDList);
+
+                ods.TypeName = "Benchmark_Instant_Reports_2.DataSetScanReportTableAdapters.TEMP_RESULTS_SCANREPORTTableAdapter";
+
+                rds = new ReportDataSource("DataSetScanReport", ods);
+                repvwScanReport1.LocalReport.DataSources.Clear();
+                repvwScanReport1.LocalReport.DataSources.Add(rds);
+                repvwScanReport1.ShowPrintButton = true;
+                repvwScanReport1.LocalReport.Refresh();
+            }
 
             return;
         }
@@ -161,6 +226,11 @@ namespace Benchmark_Instant_Reports_2.Classes
         //**
         private void initPage()
         {
+            theMasterPage = Page.Master as SiteMaster;
+
+            // display authorization info
+            theMasterPage.updateCampusAuthLabel(CampusSecurity.isAuthorizedFor(Request));
+
             // disable all dialog boxes & stuff except campus
             ddCampus.Enabled = true;
             ddCampus.AutoPostBack = true;
@@ -168,22 +238,49 @@ namespace Benchmark_Instant_Reports_2.Classes
             lbBenchmark.AutoPostBack = true;
             btnGenReport.Enabled = false;
             disableSchoolPasswordEntry();
-            lblIncorrectPassword.Visible = false;
             repvwScanReport1.Visible = false;
+            repvwScanReport2.Visible = false;
 
             // load list of campuses in Campus dropdown
             ddCampus.DataSource = dbIFOracle.getDataSource(birIF.getCampusListQuery);
             ddCampus.DataTextField = "SCHOOLNAME";
             ddCampus.DataValueField = "SCHOOL_ABBR";
             ddCampus.DataBind();
-            birUtilities.toggleDDLInitView(ddCampus, true);
+
+            // add option for "ALL" if authorized as admin
+            if (CampusSecurity.isAuthorizedAsAdmin(Request))
+            {
+                ddCampus.Items.Insert(0, new ListItem("ALL Secondary", "ALL Secondary"));
+                ddCampus.Items.Insert(0, new ListItem("ALL Elementary", "ALL Elementary"));
+                ddCampus.SelectedIndex = 0;
+            }
+
+            int cidx = birUtilities.getIndexOfDDItem(birUtilities.savedSelectedCampus(Request), ddCampus);
+            if (cidx != -1)
+                ddCampus.SelectedIndex = cidx;
+            else
+                birUtilities.toggleDDLInitView(ddCampus, true);
+
 
 
             // load list of benchmarks in Benchmark listbox
-            lbBenchmark.DataSource = dbIFOracle.getDataSource(birIF.getBenchmarkListQuery);
-            lbBenchmark.DataTextField = "TEST_ID";
-            lbBenchmark.DataValueField = "TEST_ID";
+            if (cidx != -1)
+                lbBenchmark.DataSource = birIF.getTestListForSchool(ddCampus.SelectedValue.ToString());
+            else
+                lbBenchmark.DataSource = birIF.getTestListForSchool("ALL");
             lbBenchmark.DataBind();
+
+            string[] savedTests = birUtilities.savedSelectedTestIDs(Request);
+            if (savedTests != null)
+            {
+                lbBenchmark.ClearSelection();
+                birUtilities.selectItemsInLB(lbBenchmark, savedTests);
+                lbBenchmark_SelectedIndexChanged1(new object(), new EventArgs());
+            }
+            else
+            {
+
+            }
 
             return;
         }

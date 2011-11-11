@@ -26,6 +26,20 @@ namespace Benchmark_Instant_Reports_2
         public static string studentStatsResultsDatatableName = "ACI.TEMP_RESULTS_STUDENTSTATS";
 
 
+        //public static DataTable generateStudentStatsRepTable(DataTable studentData, string curTest)
+        //{
+        //    DataTable dtReturnTable = new DataTable();
+        //    DataTable dtCurTable = new DataTable();
+
+        //    // get a list of campuses 
+        //    string[] campuslist = birUtilities.getUniqueTableColumnStringValues(studentData, "SCHOOL_ABBR");
+
+        //    foreach (string campus in campuslist)
+        //    {
+        //        dtCurTable = generateStudentStatsRepTable(
+        //    }
+        //}
+
 
         //**********************************************************************//
         //** generate a DataTable to be used for the Student Statistics report
@@ -36,7 +50,8 @@ namespace Benchmark_Instant_Reports_2
         //** DataSet.Table[0].Columns :
         //** (student_id, student_name, test_id, scan_datetime, letter_grade,
         //**    num_correct, num_total, pct_correct)
-        public static DataTable generateStudentStatsRepTable(DataTable studentData, string curTest, string curCampus)
+
+        public static DataTable generateStudentStatsRepTable(DataTable studentData, string curTest)
         {
             DataView dv = new DataView(studentData);
             string curId;
@@ -78,12 +93,15 @@ namespace Benchmark_Instant_Reports_2
             for (int j = 0; j < dv.Table.Rows.Count; j++)
             {
                 curId = dv.Table.Rows[j]["local_student_id"].ToString();
+                string curCampus = dv.Table.Rows[j]["SCHOOL2"].ToString();
                 DataRow curScanDataRow = birIF.getLatestScanDataRow(curId, curTest);
                 if (curScanDataRow != null)
                 {
                     DataRow thisrow = table.NewRow();
                     thisrow[lblStudentID] = curId;
-                    string curName = birUtilities.lookupStudentName(curId);
+                    string curName = birIF.lookupStudentNamesFromRoster ?
+                        birUtilities.lookupStudentName(curId)
+                        : curScanDataRow["NAME"].ToString();
                     thisrow[lblStudentName] = curName;
                     thisrow[lblTestId] = curTest;
                     thisrow[lblScanDate] = DateTime.Parse(curScanDataRow["DATE_SCANNED"].ToString());
@@ -93,7 +111,8 @@ namespace Benchmark_Instant_Reports_2
 
                     ansKeyVersionIncrement = birExceptions.campusAnswerKeyVersionIncrement(curTest, curCampus, 
                         thisrow[lblTeacher].ToString(), thisrow[lblPeriod].ToString());
-                    DataTable resultTable = birIF.gradeScannedTest(curTest, curScanDataRow["ANSWERS"].ToString(), curCampus, ansKeyVersionIncrement);
+                    DataTable resultTable = birIF.gradeScannedTest(curTest, curScanDataRow["ANSWERS"].ToString(), curCampus, ansKeyVersionIncrement,
+                        thisrow[lblTeacher].ToString(), thisrow[lblPeriod].ToString());
                     thisrow[lblLetterGrade] = resultTable.Rows[0][lblLetterGrade];
                     thisrow[lblNumCorrect] = resultTable.Rows[0][lblNumCorrect];
                     thisrow[lblNumTotal] = resultTable.Rows[0][lblNumTotal];

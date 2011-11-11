@@ -15,7 +15,20 @@ namespace Benchmark_Instant_Reports_2
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            // enable the Admin menu if appropriate
+            //if (CampusSecurity.isAuthorizedForCampusRepMenu(Request))
+                if (true)
+            {
+                // display the menu with the Campus Report
+                MenuWithCampusRep.Visible = true;
+                MenuDefault.Visible = false;
+            }
+            else
+            {
+                // display the default menu
+                MenuWithCampusRep.Visible = false;
+                MenuDefault.Visible = true;
+            }
         }
 
         protected void NavigationMenu_MenuItemClick(object sender, MenuEventArgs e)
@@ -23,7 +36,22 @@ namespace Benchmark_Instant_Reports_2
 
         }
 
+        public void updateCampusAuthLabel(string campus)
+        {
+            CampusAuthLabel.Text = campus;
 
+            if (campus != "none")
+                LogoutButton.Visible = true;
+            else
+                LogoutButton.Visible = false;
+        }
+
+        protected void LogoutButton_Click(object sender, EventArgs e)
+        {
+            CampusSecurity.deAuthorize(Response);
+            updateCampusAuthLabel("none");
+            
+        }
  
 
 

@@ -1059,11 +1059,13 @@
                           <Paragraph>
                             <TextRuns>
                               <TextRun>
-                                <Value>Total</Value>
+                                <Value>Avg. % Correct</Value>
                                 <Style>
+                                  <FontStyle>Normal</FontStyle>
                                   <FontFamily>Tahoma</FontFamily>
                                   <FontWeight>Bold</FontWeight>
-                                  <Color>White</Color>
+                                  <TextDecoration>None</TextDecoration>
+                                  <Color>#ffffff</Color>
                                 </Style>
                               </TextRun>
                             </TextRuns>

@@ -197,9 +197,11 @@
                           <TextRuns>
                             <TextRun>
                               <Value>=Fields!STUDENT_NAME.Value &amp; "  (" &amp; Fields!STUDENT_ID.Value &amp; ")" &amp; vbCrLf &amp; 
-"              " &amp; "Raw Score: " &amp; Fields!NUM_CORRECT.Value &amp; vbCrLf &amp;
-"              " &amp; "% Correct: " &amp; Int(Fields!PCT_CORRECT.Value*100) &amp; "%" &amp; vbCrLf &amp;
-"              " &amp; "   Passed: " &amp; Iif(Fields!PCT_CORRECT.Value &gt;= 0.7,"Yes","No")</Value>
+"             " &amp; "Raw Score: " &amp; Fields!NUM_CORRECT.Value &amp; vbCrLf &amp;
+"             " &amp; "% Correct: " &amp; Int(Fields!PCT_CORRECT.Value*100) &amp; "%" &amp; vbCrLf &amp;
+"             " &amp; "   Passed: " &amp; Iif(Fields!NUM_CORRECT.Value &gt;= Fields!PASS_NUM.Value,"Yes","No") &amp; vbCrLf &amp;
+Iif(InStr(Fields!TEST_ID.Value, "CUT") &gt; 0, "",
+"             " &amp; "Commended: " &amp; Iif(Fields!NUM_CORRECT.Value &gt;= Fields!COMMENDED_NUM.Value,"Yes","No"))</Value>
                               <Style>
                                 <FontFamily>Courier New</FontFamily>
                                 <FontSize>8pt</FontSize>
@@ -431,7 +433,7 @@
   <Width>7.94238in</Width>
   <Page>
     <PageHeader>
-      <Height>1.16667in</Height>
+      <Height>1.38647in</Height>
       <PrintOnFirstPage>true</PrintOnFirstPage>
       <PrintOnLastPage>true</PrintOnLastPage>
       <ReportItems>
@@ -879,7 +881,59 @@
             <Paragraph>
               <TextRuns>
                 <TextRun>
-                  <Value>  * = student's answer is correct                       letter = student's incorrect answer</Value>
+                  <Value xml:space="preserve">  </Value>
+                  <Style>
+                    <FontWeight>Bold</FontWeight>
+                  </Style>
+                </TextRun>
+                <TextRun>
+                  <Value>*</Value>
+                  <Style>
+                    <FontWeight>Bold</FontWeight>
+                    <Color>Blue</Color>
+                  </Style>
+                </TextRun>
+                <TextRun>
+                  <Value EvaluationMode="Constant">  = student's answer is correct                                  </Value>
+                  <Style>
+                    <FontWeight>Bold</FontWeight>
+                  </Style>
+                </TextRun>
+                <TextRun>
+                  <Value>letter </Value>
+                  <Style>
+                    <FontWeight>Bold</FontWeight>
+                    <Color>Blue</Color>
+                  </Style>
+                </TextRun>
+                <TextRun>
+                  <Value EvaluationMode="Constant">= student's incorrect answer      </Value>
+                  <Style>
+                    <FontWeight>Bold</FontWeight>
+                  </Style>
+                </TextRun>
+              </TextRuns>
+              <Style>
+                <TextAlign>Left</TextAlign>
+              </Style>
+            </Paragraph>
+            <Paragraph>
+              <TextRuns>
+                <TextRun>
+                  <Value>"</Value>
+                  <Style>
+                    <FontWeight>Bold</FontWeight>
+                  </Style>
+                </TextRun>
+                <TextRun>
+                  <Value>-</Value>
+                  <Style>
+                    <FontWeight>Bold</FontWeight>
+                    <Color>Blue</Color>
+                  </Style>
+                </TextRun>
+                <TextRun>
+                  <Value>" = student's answer was blank</Value>
                   <Style>
                     <FontWeight>Bold</FontWeight>
                   </Style>
@@ -891,10 +945,10 @@
             </Paragraph>
           </Paragraphs>
           <rd:DefaultName>Textbox34</rd:DefaultName>
-          <Top>0.79271in</Top>
+          <Top>0.91771in</Top>
           <Left>1.03966in</Left>
-          <Height>0.26042in</Height>
-          <Width>5.37498in</Width>
+          <Height>0.38542in</Height>
+          <Width>6.31064in</Width>
           <ZIndex>14</ZIndex>
           <Style>
             <Border>

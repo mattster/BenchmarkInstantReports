@@ -1,5 +1,8 @@
-﻿<%@ Page Title="BIR: Scan Report" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="ScanReport.aspx.cs" Inherits="Benchmark_Instant_Reports_2.Classes.WebForm1" %>
-<%@ Register assembly="Microsoft.ReportViewer.WebForms, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" namespace="Microsoft.Reporting.WebForms" tagprefix="rsweb" %>
+﻿<%@ Page Title="BIR: Scan Summary" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true"
+    CodeBehind="ScanReport.aspx.cs" Inherits="Benchmark_Instant_Reports_2.Classes.WebForm1" %>
+
+<%@ Register Assembly="Microsoft.ReportViewer.WebForms, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a"
+    Namespace="Microsoft.Reporting.WebForms" TagPrefix="rsweb" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
     <style type="text/css">
         .style1
@@ -8,7 +11,7 @@
         }
         .style2
         {
-            width: 397px;
+            width: 341px;
         }
         .style3
         {
@@ -25,92 +28,105 @@
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
+    <h1>
+        Scan Summary</h1>
     <p>
-        The Benchmark Scan Summary Report shows the number of unique answer sheets 
-        scanned in for a specified list of tests for each teacher. Use this report to 
-        help quickly determine if the scanning is complete for a set of tests at a 
-        campus.</p>
-    <p>
-        <table style="width: 98%;">
+        The Benchmark Scan Summary Report shows the number of unique answer sheets scanned
+        in for a specified list of tests for each teacher. Use this report to help quickly
+        determine if the scanning is complete for a set of tests at a campus.</p>
+    <table style="width: 98%;">
         <tr>
             <td class="style3" valign="middle">
-                        <table style="width:97%;">
-        <tr>
-            <td class="style4" valign="middle" align="right">
-                Select Campus:</td>
-            <td align="left" class="style2" valign="middle">
-    <asp:DropDownList ID="ddCampus" runat="server" Height="28px" Width="240px" 
-    onselectedindexchanged="ddCampus_SelectedIndexChanged1">
-    </asp:DropDownList>
+                <table style="width: 97%;">
+                    <tr>
+                        <td class="style4" valign="middle" align="right">
+                            Select Campus:
+                        </td>
+                        <td align="left" class="style2" valign="middle">
+                            <asp:DropDownList ID="ddCampus" runat="server" Height="28px" Width="240px" OnSelectedIndexChanged="ddCampus_SelectedIndexChanged1">
+                            </asp:DropDownList>
+                        </td>
+                        <td class="style5">
+                            &nbsp;
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="style4" valign="middle" align="right">
+                            <asp:Label ID="lblEnterSchoolPassword" runat="server" Font-Bold="True" ForeColor="#3366FF"
+                                Text="Enter school password:"></asp:Label>
+                        </td>
+                        <td align="left" class="style2" valign="middle">
+                            <asp:TextBox ID="txtbxSchoolPassword" runat="server" Width="68px" TextMode="Password"></asp:TextBox>
+                            &nbsp;&nbsp;&nbsp;&nbsp;
+                            <asp:Button ID="btnEnterPassword" runat="server" OnClick="btnEnterPassword_Click"
+                                Text="Submit" />
+                        </td>
+                    </tr>
+                </table>
             </td>
-            <td class="style5">
-                &nbsp;</td>
-        </tr>
-        <tr>
-            <td class="style4" valign="middle" align="right">
-    <asp:Label ID="lblEnterSchoolPassword" runat="server" Font-Bold="True" 
-        ForeColor="#3366FF" Text="Enter school password:"></asp:Label>
-            </td>
-            <td align="left" class="style2" valign="middle">
-                <asp:TextBox ID="txtbxSchoolPassword" runat="server" Width="68px" 
-                    TextMode="Password"></asp:TextBox>
-    &nbsp;&nbsp;&nbsp;&nbsp;
-    <asp:Button ID="btnEnterPassword" runat="server" 
-        onclick="btnEnterPassword_Click" Text="Submit" />
-            </td>
-            <td class="style5">
-    <asp:Label ID="lblIncorrectPassword" runat="server" Font-Bold="False" 
-        ForeColor="#FF3300" Text="Incorrect school password."></asp:Label>
-            </td>
-        </tr>
-        </table>
-  </td>
             <td valign="middle" class="style18">
-                    <table style="width: 99%; margin-left: 6px;">
-        <tr>
-            <td class="style1">
-                Select Benchmarks(s):</td>
-            <td class="style15">
-                <asp:ListBox ID="lbBenchmark" runat="server" Rows="7" 
-                    onselectedindexchanged="lbBenchmark_SelectedIndexChanged1" Width="280px" 
-                    SelectionMode="Multiple"></asp:ListBox>
+                <table style="width: 99%; margin-left: 6px;">
+                    <tr>
+                        <td class="style1">
+                            Select Test(s):
+                        </td>
+                        <td class="style15">
+                            <asp:ListBox ID="lbBenchmark" runat="server" Rows="10" OnSelectedIndexChanged="lbBenchmark_SelectedIndexChanged1"
+                                Width="400px" SelectionMode="Multiple"></asp:ListBox>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="style1">
+                            &nbsp;
+                        </td>
+                        <td class="style15">
+                            Use SHIFT and CTRL keys for multiple values
+                        </td>
+                    </tr>
+                </table>
             </td>
         </tr>
-        <tr>
-            <td class="style1">
-                &nbsp;</td>
-            <td class="style15">
-                    Use SHIFT and CTRL keys for multiple values</td>
-        </tr>
-        </table></td>
-        </tr>
-    <strong __designer:mapid="189">
         <tr>
             <td class="style3" align="center" valign="middle">
-                        <asp:Button ID="btnGenReport" runat="server" Text="Generate Report" 
-    onclick="btnGenReport_Click" />
-  </td>
+                <asp:Button ID="btnGenReport" runat="server" Text="Generate Report" OnClick="btnGenReport_Click" />
+            </td>
             <td valign="middle" class="style18">
-                    &nbsp;</td>
+                &nbsp;
+            </td>
         </tr>
-        </table>
-&nbsp;&nbsp;</p>
-    <rsweb:ReportViewer ID="repvwScanReport1" runat="server" Font-Names="Verdana" 
-        Font-Size="8pt" Height="1000px" InteractiveDeviceInfos="(Collection)" 
-        WaitMessageFont-Names="Verdana" WaitMessageFont-Size="14pt" Width="800px">
+    </table>
+    <asp:HyperLink Target="_blank" Text="" ID="modalpopupcontrol" runat="server"></asp:HyperLink>
+    <asp:Panel ID="popupPanel" runat="server" CssClass="popup-dialog">
+        <div id="dialogContents">
+            Incorrect school password. Please try again.<br />
+            <asp:Button ID="ButtonOK" runat="server" Text="OK" /></div>
+    </asp:Panel>
+    <ajaxToolkit:ModalPopupExtender ID="mpupIncorrectPassword" runat="server" TargetControlID="modalpopupcontrol"
+        PopupControlID="popupPanel" OkControlID="ButtonOK" DropShadow="true" BackgroundCssClass="modalBackground">
+    </ajaxToolkit:ModalPopupExtender>
+    &nbsp;&nbsp;
+    <rsweb:ReportViewer ID="repvwScanReport1" runat="server" Font-Names="Verdana" Font-Size="8pt"
+        Height="800px" InteractiveDeviceInfos="(Collection)" WaitMessageFont-Names="Verdana"
+        WaitMessageFont-Size="14pt" Width="700px" SizeToReportContent="True">
         <LocalReport ReportPath="ScanReportRep1.rdlc">
             <DataSources>
-                <rsweb:ReportDataSource DataSourceId="ObjectDataSource1" 
-                    Name="DataSetScanReport" />
+                <rsweb:ReportDataSource DataSourceId="ObjectDataSource1" Name="DataSetScanReport" />
             </DataSources>
         </LocalReport>
     </rsweb:ReportViewer>
-    <asp:ObjectDataSource ID="ObjectDataSource1" runat="server" 
-        SelectMethod="GetData" 
-        
-        TypeName="Benchmark_Instant_Reports_2.DataSetScanReportTableAdapters.TEMP_RESULTS_SCANREPORTTableAdapter" 
-        DeleteMethod="Delete" InsertMethod="Insert" 
-        OldValuesParameterFormatString="original_{0}" UpdateMethod="Update">
+    <rsweb:ReportViewer ID="repvwScanReport2" runat="server" Font-Names="Verdana" Font-Size="8pt"
+        Height="700px" InteractiveDeviceInfos="(Collection)" WaitMessageFont-Names="Verdana"
+        WaitMessageFont-Size="14pt" Width="500px" SizeToReportContent="True">
+        <LocalReport ReportPath="ScanReportRep2.rdlc">
+            <DataSources>
+                <rsweb:ReportDataSource DataSourceId="ObjectDataSource1" Name="DataSetScanReport" />
+            </DataSources>
+        </LocalReport>
+    </rsweb:ReportViewer>
+    <asp:ObjectDataSource ID="ObjectDataSource1" runat="server" SelectMethod="GetData"
+        TypeName="Benchmark_Instant_Reports_2.DataSetScanReportTableAdapters.TEMP_RESULTS_SCANREPORTTableAdapter"
+        DeleteMethod="Delete" InsertMethod="Insert" OldValuesParameterFormatString="original_{0}"
+        UpdateMethod="Update">
         <DeleteParameters>
             <asp:Parameter Name="Original_CAMPUS" Type="String" />
             <asp:Parameter Name="Original_TEST_ID" Type="String" />
@@ -134,7 +150,4 @@
             <asp:Parameter Name="Original_PERIOD" Type="String" />
         </UpdateParameters>
     </asp:ObjectDataSource>
-    <asp:ScriptManager ID="ScriptManager1" runat="server">
-    </asp:ScriptManager>
-
 </asp:Content>

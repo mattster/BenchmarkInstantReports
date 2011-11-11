@@ -8,9 +8,40 @@ namespace Benchmark_Instant_Reports_2
 {
     public class birExceptions
     {
-        //**** the exception data ****//
-#region exceptiondata
-        // ** test versions for specific tests, teachers, periods **
+
+        public class AlternateAnswer
+        {
+            public string TestID { get; set; }
+            public int ItemNum { get; set; }
+            public string AltAnswer { get; set; }
+            public string[] Campuses { get; set; }
+
+            public AlternateAnswer(string testid, int itemnum, string altanswer, string[] campuses)
+            {
+                TestID = testid;
+                ItemNum = itemnum;
+                AltAnswer = altanswer;
+                Campuses = campuses;
+            }
+        }
+
+        public class GridNonExactMatch
+        {
+            public string TestID { get; set; }
+            public int ItemNum { get; set; }
+            public string[] Campuses { get; set; }
+
+            public GridNonExactMatch(string testid, int itemnum, string[] campuses)
+            {
+                TestID = testid;
+                ItemNum = itemnum;
+                Campuses = campuses;
+            }
+        }
+
+        #region exceptiondata
+
+        #region test_versions_for_specific_tests_teachers_periods
         private static string exTest1 = "2010-12 SC Biology SEM 22-24";
         private static string exCampus11 = "LHFC";
         private static string exTeacher111 = "LANG, LUCIANA";
@@ -32,7 +63,7 @@ namespace Benchmark_Instant_Reports_2
 
         private static string exCampus13 = "BHS";
         private static string exTeacher131 = "MIKESELL, WILLIAM";
-        private static string[] exPeriod131 = { "01", "05", "07" };       
+        private static string[] exPeriod131 = { "01", "05", "07" };
         private static string exTeacher132 = "GILL, STEVEN";
         private static string[] exPeriod132 = { "02", "03", "06" };
         private static string exTeacher133 = "DUTTON, TANJA";
@@ -72,31 +103,193 @@ namespace Benchmark_Instant_Reports_2
 
 
 
-        // ** District item drop lists for tests and campuses **
+        #endregion
+
+        #region district_item_drop_lists_for_tests_campuses
+
         private static string ddTest1 = "2010-12 SC IPC SEM 22-25";
         private static string ddCampus11 = "LHHS";
         private static int[] ddItems11 = { 5, 10, 12, 17, 36, 40 };
         private static string ddCampus12 = "LHFC";
         private static int[] ddItems12 = { 5, 10, 12, 17, 36, 40 };
-        
+
         private static string ddTest2 = "2010-12 SC IPC-M SEM 22-37";
         private static string ddCampus21 = "LHHS";
         private static int[] ddItems21 = { 5, 11, 15, 29 };
         private static string ddCampus22 = "LHFC";
         private static int[] ddItems22 = { 5, 11, 15, 29 };
 
-        // ** Campus item drop lists for tests and campuses **
+        private static string ddTest3 = "2011-04 SS AP Human Geo Practice TC 43-19";
+        private static string ddCampus31 = "ALL";
+        private static int[] ddItems31 = { 62 };
+
+        private static string ddTest4 = "2011-08 SC Biology Unit 1 CUT 91-11";
+        private static string ddCampus41 = "ALL";
+        //private static int[] ddItems41 = { 13, 16, 17, 18, 19, 20 };
+        private static int[] ddItems41 = { 13 };
+
+        private static string ddTest5 = "2011-08 SC Biology Unit 1 PreAP CUT 91-12";
+        private static string ddCampus51 = "ALL";
+        //private static int[] ddItems51 = { 13, 16, 17, 18, 19, 20 };
+        private static int[] ddItems51 = { 13 };
+
+        private static string ddTest6 = "2011-08 SC Biology Unit 1 CUT 91-11";
+        private static string ddCampus61 = "ALL";
+        //private static int[] ddItems61 = { 11, 14, 15, 16 };
+        private static int[] ddItems61 = { 11 };
+
+        private static string ddTest7 = "2011-09 SC Physics Unit 1 CUT 91-14";
+        private static string ddCampus71 = "ALL";
+        private static int[] ddItems71 = { 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40,
+                                             41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60 };
+
+        private static string ddTest8 = "2011-09 SC Physics Unit 1 PreAP CUT 91-15";
+        private static string ddCampus81 = "ALL";
+        private static int[] ddItems81 = { 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40,
+                                             41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60 };
+
+        private static string ddTest9 = "2011-09 SC Grade 8 Sci Unit 2 T1-T2-M CUT 98-12";
+        private static string ddCampus91 = "ALL";
+        private static int[] ddItems91 = { 11 };
+
+        private static string ddTest10 = "2011-10 SELA Grade 7 Reading SIM 2-02";
+        private static string ddCampus101 = "ALL";
+        private static int[] ddItems101 = { 31, 32, 33 };
+
+        private static string ddTest11 = "2011-10 SELA Grade 8 Reading SIM 2-03";
+        private static string ddCampus111 = "ALL";
+        private static int[] ddItems111 = { 46 };
+
+        private static string ddTest12 = "2011-10 SELA Grade 8 Revise_Edit SIM 2-05";
+        private static string ddCampus121 = "ALL";
+        private static int[] ddItems121 = { 8 };
+
+        private static string ddTest13 = "2011-11 SELA English II SIM 7-53";
+        private static string ddCampus131 = "ALL";
+        private static int[] ddItems131 = { 29, 30, 31 };
+
+        private static string ddTest14 = "2011-10 SM Algebra 2-M TC 4-44";
+        private static string ddCampus141 = "ALL";
+        private static int[] ddItems141 = { 8 };
+
+        private static string ddTest15 = "2011-10 SS US History Unit 4 CUT 81-41";
+        private static string ddCampus151 = "PHS";
+        private static string ddCampus152 = "LHHS";
+        private static int[] ddItems151 = { 18, 19, 20 };
+
+        private static string ddTest16 = "2011-11 SELA English I Reading EOC SIM 7-51";
+        private static string ddCampus161 = "ALL";
+        private static int[] ddItems161 = { 25 };
+
+        #endregion
+
+        #region campus_item_drop_lists_for_tests_campuses
+
         private static string cdTest1 = "2010-12 SC IPC-M SEM 22-37";
         private static string cdCampus11 = "LHHS";
         private static int[] cdItems11 = { 32, 33, 34, 35, 36, 37, 38, 39, 40 };
         private static string cdCampus12 = "LHFC";
         private static int[] cdItems12 = { 32, 33, 34, 35, 36, 37, 38, 39, 40 };
-        
+
         private static string cdTest2 = "2010-12 SC Chemistry-M SEM 22-38";
         private static string cdCampus21 = "LHHS";
         private static int[] cdItems21 = { 29, 30, 31, 32, 33, 34, 35 };
 
-#endregion
+        private static string cdTest3 = "2011-08 SC Biology Unit 1 CUT 91-11";
+        private static string cdCampus31 = "LHHS";
+        private static string cdTeacher31 = "NICHOLS, CANDICE";
+        private static string cdPeriod31 = "04";
+        private static int[] cdItems31 = { 21, 22, 23, 24, 25 };
+
+        private static string cdTest4 = "2011-08 SC Biology Unit 1 CUT 91-11";
+        private static string cdCampus41 = "BHS";
+        private static int[] cdItems41 = { 14, 15, 16, 17, 18, 19, 20 };
+        private static string cdCampus42 = "LHHS";
+        private static int[] cdItems42 = { 14, 15, 16, 17, 18, 19, 20 };
+        private static string cdCampus43 = "LHFC";
+        private static int[] cdItems43 = { 14, 15, 16, 17, 18, 19, 20 };
+        private static string cdCampus44 = "RHS";
+        private static int[] cdItems44 = { 14, 15, 16, 17, 18, 19, 20 };
+        private static string cdCampus45 = "PHS";
+        private static int[] cdItems45 = { 14, 15, 16, 17, 18, 19, 20 };
+
+        private static string cdTest5 = "2011-09 SS US History Unit 2 CUT 81-21";
+        private static string cdCampus51 = "RHS";
+        private static string cdTeacher51 = "ESPARZA, DAVID";
+        private static string cdPeriod51 = "05";
+        private static int[] cdItems51 = { 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50 };
+
+        private static string cdTest6 = "2011-09 SC Physics Unit 1 T2 CUT 91-21";
+        private static string cdCampus61 = "BHS";
+        private static string cdTeacher61 = "PARKER, WILLIAM";
+        private static string cdPeriod61 = "01";
+        private static string cdPeriod62 = "02";
+        private static string cdPeriod63 = "03";
+        private static int[] cdItems61 = { 20 };
+
+        private static string cdTest7 = "2011-10 SS US History Unit 4 CUT 81-41";
+        private static string cdCampus71 = "RHS";
+        private static string cdTeacher71 = "ESPARZA, DAVID";
+        private static string cdPeriod71 = "05";
+        private static int[] cdItems71 = { 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40 };
+
+        private static string cdTest8 = "2011-10 SC Grade 7 Sci Unit 2 T2-T3 PreAP CUT 97-33";
+        private static string cdCampus81 = "FMJH";
+        private static string cdTeacher81 = "CONOVER, AMY";
+        private static string cdPeriod81 = "02";
+        private static string cdPeriod82 = "03";
+        private static string cdPeriod83 = "06";
+        private static int[] cdItems81 = { 21, 22, 23 };
+
+        #endregion
+
+        #region griddable_nonexact_items
+
+        private static List<GridNonExactMatch> gridNonExactMatches = new List<GridNonExactMatch>
+        {
+            new GridNonExactMatch("2011-10 SM Algebra 1 TC 4-31", 19, new string[] { "ALL" }),
+            new GridNonExactMatch("2011-10 SM Algebra 1 TC 4-31", 20, new string[] { "ALL" }),
+            new GridNonExactMatch("PreAP Geometry TC Oct 2011", 19, new string[] { "ALL" }),
+            new GridNonExactMatch("PreAP Geometry TC Oct 2011", 20, new string[] { "ALL" }),
+            new GridNonExactMatch("2011-10 SM PreAP Algebra 1 TC 4-30", 20, new string[] { "ALL" }),
+            new GridNonExactMatch("2011-10 SM Grade 7 Math TC 4-27", 29, new string[] { "ALL" }),
+            new GridNonExactMatch("2011-10 SM Grade 7 Math TC 4-27", 30, new string[] { "ALL" }),
+            new GridNonExactMatch("2011-10 SM Grade 8 Math TC 4-29", 30, new string[] { "ALL" }),
+            new GridNonExactMatch("2011-10 SM Grade 7 Math PreAP TC 4-28", 30, new string[] { "ALL" })
+        };
+
+        #endregion
+
+        #region alternate_answers
+
+        private static List<AlternateAnswer> alternateAnswers = new List<AlternateAnswer> {
+            new AlternateAnswer("2011-09 SC Physics Unit 1 T2 CUT 91-21", 61, "-980", new string[] { "ALL" }),
+            new AlternateAnswer("2011-10 SS US History Unit 4 CUT 81-41", 13, "C", new string[] { "ALL", "PHS", "LHHS"}),
+        };
+
+        #endregion
+
+
+        #endregion
+
+        public static string noAltAnswerValue = "XXXXXXXXXXXXXXXXXXNOALTANSWERXXXXXXXXXXXXXXXXXX";
+
+
+        public static bool isGriddableNonExactMatch(string testID, string campus, int itemNum)
+        {
+            foreach (GridNonExactMatch curNonExactMatch in gridNonExactMatches)
+            {
+                if (curNonExactMatch.TestID == testID &&
+                    curNonExactMatch.ItemNum == itemNum &&
+                    (birUtilities.isStringInStringArray(campus, curNonExactMatch.Campuses) ||
+                    birUtilities.isStringInStringArray("ALL", curNonExactMatch.Campuses)))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
 
 
         //**********************************************************************//
@@ -264,7 +457,7 @@ namespace Benchmark_Instant_Reports_2
                     }
                 }
             }
-            
+
             return 0;
         }
 
@@ -297,6 +490,64 @@ namespace Benchmark_Instant_Reports_2
                     return ddItems22;
                 }
             }
+            else if (testID == ddTest3)
+            {
+                // for all campuses
+                return ddItems31;
+            }
+            else if (testID == ddTest4)
+            {
+                return ddItems41;
+            }
+            else if (testID == ddTest5)
+            {
+                return ddItems51;
+            }
+            else if (testID == ddTest6)
+            {
+                return ddItems61;
+            }
+            else if (testID == ddTest7)
+            {
+                return ddItems71;
+            }
+            else if (testID == ddTest8)
+            {
+                return ddItems81;
+            }
+            else if (testID == ddTest9)
+            {
+                return ddItems91;
+            }
+            else if (testID == ddTest10)
+            {
+                return ddItems101;
+            }
+            else if (testID == ddTest11)
+            {
+                return ddItems111;
+            }
+            else if (testID == ddTest12)
+            {
+                return ddItems121;
+            }
+            else if (testID == ddTest13)
+            {
+                return ddItems131;
+            }
+            else if (testID == ddTest14)
+            {
+                return ddItems141;
+            }
+            else if (testID == ddTest15)
+            {
+                if (campus == ddCampus151 || campus == ddCampus152)
+                    return ddItems151;
+            }
+            else if (testID == ddTest16)
+            {
+                return ddItems161;
+            }
 
             return null;
         }
@@ -307,29 +558,95 @@ namespace Benchmark_Instant_Reports_2
         //** a campus answer key to drop, i.e. not count, for the 
         //** specified test and campus
         //**
-        public static int[] getCampusItemDropList(string testID, string campus)
+        public static int[] getCampusItemDropList(string testID, string campus, string teacher, string period)
         {
             if (testID == cdTest1)
             {
                 if (campus == cdCampus11)
-                {
                     return cdItems11;
-                }
                 else if (campus == cdCampus12)
-                {
                     return cdItems12;
-                }
             }
             else if (testID == cdTest2)
             {
                 if (campus == cdCampus21)
-                {
                     return cdItems21;
+            }
+            else if (testID == cdTest3)
+            {
+                if (campus == cdCampus31)
+                {
+                    if (teacher == cdTeacher31)
+                    {
+                        if (period == cdPeriod31)
+                            return cdItems31;
+                    }
                 }
             }
-
+            else if (testID == cdTest4)
+            {
+                if (campus == cdCampus41)
+                    return cdItems41;
+                else if (campus == cdCampus42)
+                    return cdItems42;
+                else if (campus == cdCampus43)
+                    return cdItems43;
+                else if (campus == cdCampus44)
+                    return cdItems44;
+                else if (campus == cdCampus45)
+                    return cdItems45;
+            }
+            else if (testID == cdTest5)
+            {
+                if (campus == cdCampus51)
+                    if (teacher == cdTeacher51)
+                        if (period == cdPeriod51)
+                            return cdItems51;
+            }
+            else if (testID == cdTest6)
+            {
+                if (campus == cdCampus61)
+                    if (teacher == cdTeacher61)
+                        if (period == cdPeriod61 || period == cdPeriod62 || period == cdPeriod63)
+                            return cdItems61;
+            }
+            else if (testID == cdTest7)
+            {
+                if (teacher == cdTeacher71)
+                    if (period == cdPeriod71)
+                        return cdItems71;
+            }
+            else if (testID == cdTest8)
+            {
+                if (campus == cdCampus81)
+                    if (teacher == cdTeacher81)
+                        if (period == cdPeriod81 || period == cdPeriod82 || period == cdPeriod83)
+                            return cdItems81;
+            }
             return null;
         }
 
+
+
+        public static string getAlternateAnswer(string testID, int curItemNum, string campus = "")
+        {
+            foreach (AlternateAnswer curAltAnswer in alternateAnswers)
+            {
+                if (curAltAnswer.TestID == testID &&
+                    curAltAnswer.ItemNum == curItemNum &&
+                    (birUtilities.isStringInStringArray(campus, curAltAnswer.Campuses) ||
+                        birUtilities.isStringInStringArray("ALL", curAltAnswer.Campuses)))
+                {
+                    return curAltAnswer.AltAnswer;
+                }
+            }
+
+            return noAltAnswerValue;
+        }
+
+
+
+
     }
+
 }

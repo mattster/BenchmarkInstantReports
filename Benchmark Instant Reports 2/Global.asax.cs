@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Security;
 using System.Web.SessionState;
+using System.Web.Routing;
 
 
 
@@ -23,6 +24,7 @@ namespace Benchmark_Instant_Reports_2
         {
             // Code that runs on application startup
 
+            //RouteTable.Routes.Add("HelpRoute", new Route("help", new   WebFormRouteHandler("Info.aspx")));
         }
 
         void Application_End(object sender, EventArgs e)

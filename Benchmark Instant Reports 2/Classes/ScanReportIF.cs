@@ -50,6 +50,62 @@ namespace Benchmark_Instant_Reports_2
         }
 
 
+        public static DataTable generateQueryRepTable(string campus, string[] benchmarks)
+        {
+            DataTable table = new DataTable();
+
+            // create columns for the results table
+            table.Columns.Add(new DataColumn(lblCampus, System.Type.GetType("System.String")));
+            table.Columns.Add(new DataColumn(lblTestId, System.Type.GetType("System.String")));
+            table.Columns.Add(new DataColumn(lblTeacher, System.Type.GetType("System.String")));
+            table.Columns.Add(new DataColumn(lblPeriod, System.Type.GetType("System.String")));
+            table.Columns.Add(new DataColumn(lblNumScanned, System.Type.GetType("System.Int32")));
+            table.Columns.Add(new DataColumn(lblNumQueried, System.Type.GetType("System.Int32")));
+
+
+            // get data for number queried for the specified tests
+            DataSet dsQueried = birIF.executeStudentListQuery(benchmarks[0], campus);
+            // go through the list of queried records
+            for (int k = 0; k < dsQueried.Tables[0].Rows.Count; k++)
+            {
+                DataRow newrow = table.NewRow();
+                newrow[lblCampus] = dsQueried.Tables[0].Rows[k]["SCHOOL2"].ToString();
+                newrow[lblTestId] = benchmarks[0];
+                newrow[lblTeacher] = dsQueried.Tables[0].Rows[k][birIF.teacherNameFieldName].ToString();
+                newrow[lblPeriod] = dsQueried.Tables[0].Rows[k][lblPeriod].ToString();
+                newrow[lblNumScanned] = 0;                                  // we'll count this later
+                newrow[lblNumQueried] = 1;
+                addRowToScanResultsTable(newrow, table);
+            }
+
+
+            // if there is more than 1 benchmark, get the rest of the queried data
+            if (benchmarks.Length > 1)
+            {
+                for (int i = 1; i < benchmarks.Length; i++)                 // we already did benchmarks[0]
+                {
+                    DataSet tempds = birIF.executeStudentListQuery(benchmarks[i], campus);
+                    //dsQueried.Merge(tempds, true, MissingSchemaAction.Add);
+                    //joinDS(dsQueried, tempds);
+
+                    // go through the list of queried records
+                    for (int k = 0; k < tempds.Tables[0].Rows.Count; k++)
+                    {
+                        DataRow newrow = table.NewRow();
+                        newrow[lblCampus] = tempds.Tables[0].Rows[k]["SCHOOL2"].ToString();
+                        newrow[lblTestId] = benchmarks[i];
+                        newrow[lblTeacher] = tempds.Tables[0].Rows[k][birIF.teacherNameFieldName].ToString();
+                        newrow[lblPeriod] = tempds.Tables[0].Rows[k][lblPeriod].ToString();
+                        newrow[lblNumScanned] = 0;                                  // we'll count this later
+                        newrow[lblNumQueried] = 1;
+                        addRowToScanResultsTable(newrow, table);
+                    }
+
+                }
+            }
+
+            return table;
+        }
 
 
         //**********************************************************************//
@@ -71,15 +127,53 @@ namespace Benchmark_Instant_Reports_2
             table.Columns.Add(new DataColumn(lblNumScanned, System.Type.GetType("System.Int32")));
             table.Columns.Add(new DataColumn(lblNumQueried, System.Type.GetType("System.Int32")));
 
-            //// get datasets with the custom queries for each test selected
-            //TestQueryContainer[] testQueries = new TestQueryContainer[benchmarks.Length];
-            //for (int i = 0; i < benchmarks.Length; i++)
-            //{
-            //    testQueries[i] = new TestQueryContainer(benchmarks[i], birIF.executeStudentListQuery(benchmarks[i], campus));
-            //}
 
+            // get data for number queried for the specified tests
+            DataSet dsQueried = birIF.executeStudentListQuery(benchmarks[0], campus);
+            // go through the list of queried records
+            for (int k = 0; k < dsQueried.Tables[0].Rows.Count; k++)
+            {
+                DataRow newrow = table.NewRow();
+                newrow[lblCampus] = dsQueried.Tables[0].Rows[k]["SCHOOL2"].ToString();
+                newrow[lblTestId] = benchmarks[0];
+                newrow[lblTeacher] = dsQueried.Tables[0].Rows[k][birIF.teacherNameFieldName].ToString();
+                newrow[lblPeriod] = dsQueried.Tables[0].Rows[k][lblPeriod].ToString();
+                newrow[lblNumScanned] = 0;                                  // we'll count this later
+                newrow[lblNumQueried] = 1;
+                addRowToScanResultsTable(newrow, table);
+            }
+
+            
+            // if there is more than 1 benchmark, get the rest of the queried data
+            if (benchmarks.Length > 1)
+            {
+                for (int i = 1; i < benchmarks.Length; i++)                 // we already did benchmarks[0]
+                {
+                    DataSet tempds = birIF.executeStudentListQuery(benchmarks[i], campus);
+
+                    // go through the list of queried records
+                    for (int k = 0; k < tempds.Tables[0].Rows.Count; k++)
+                    {
+                        DataRow newrow = table.NewRow();
+                        newrow[lblCampus] = tempds.Tables[0].Rows[k]["SCHOOL2"].ToString();
+                        newrow[lblTestId] = benchmarks[i];
+                        newrow[lblTeacher] = tempds.Tables[0].Rows[k][birIF.teacherNameFieldName].ToString();
+                        newrow[lblPeriod] = tempds.Tables[0].Rows[k][lblPeriod].ToString();
+                        newrow[lblNumScanned] = 0;                                  // we'll count this later
+                        newrow[lblNumQueried] = 1;
+                        addRowToScanResultsTable(newrow, table);
+                    }
+
+                }
+            }
+            
             // get student scanned data for the specified tests
-            DataSet dsStudentScans = birIF.getStudentScanListData(benchmarks[0], campus);
+            DataSet dsStudentScans = birIF.getStudentScanListData(benchmarks[0], campus);                         /////////////////////////////////////////
+            //DataSet dsStudentScans = new DataSet();
+            //if (campus == "ALL Elementary" || campus == "ALL Secondary")
+            //    dsStudentScans = birIF.getStudentDataToGrade(benchmarks[0]);
+            //else
+            //    dsStudentScans = birIF.getStudentDataToGrade(benchmarks[0], campus);
 
             // if there are more than 1 benchmark, get the rest of the student scan data
             if (benchmarks.Length > 1)
@@ -87,7 +181,12 @@ namespace Benchmark_Instant_Reports_2
                 for (int ii = 1; ii < benchmarks.Length; ii++)              // we already did benchmarks[0]
                 {
                     DataSet tempds = birIF.getStudentScanListData(benchmarks[ii], campus);
-                    dsStudentScans.Merge(tempds, true, MissingSchemaAction.Add);
+                    //DataSet tempds = new DataSet();
+                    //if (campus == "ALL Elementary" || campus == "ALL Secondary")
+                    //    tempds = birIF.getStudentDataToGrade(benchmarks[0]);
+                    //else
+                    //    tempds = birIF.getStudentDataToGrade(benchmarks[0], campus);
+                    joinDS(dsStudentScans, tempds);
                 }
             }
 
@@ -95,12 +194,12 @@ namespace Benchmark_Instant_Reports_2
             for (int j = 0; j < dsStudentScans.Tables[0].Rows.Count; j++)
             {
                 DataRow newrow = table.NewRow();
-                newrow[lblCampus] = campus;
+                newrow[lblCampus] = dsStudentScans.Tables[0].Rows[j]["SCHOOL2"].ToString();
                 newrow[lblTestId] = dsStudentScans.Tables[0].Rows[j][lblTestId].ToString();
                 newrow[lblTeacher] = dsStudentScans.Tables[0].Rows[j][birIF.teacherNameFieldName].ToString();
                 newrow[lblPeriod] = dsStudentScans.Tables[0].Rows[j][lblPeriod].ToString();
                 newrow[lblNumScanned] = 1;
-                newrow[lblNumQueried] = 0;                              // we'll count this later
+                newrow[lblNumQueried] = 0;                              // we already counted this above
                 addRowToScanResultsTable(newrow, table);
             }
 
@@ -174,9 +273,10 @@ namespace Benchmark_Instant_Reports_2
                 foreach (DataRow row in resultsTable.Rows)
                 {
                     // check and see if current record already exists and is the latest one
+                    string qTeacher = row[lblTeacher].ToString().Replace("'", "''");
                     findcriteria1 = lblCampus + " = \'" + row[lblCampus].ToString() + "\' " +
                                     "AND " + lblTestId + " = \'" + row[lblTestId].ToString() + "\' " +
-                                    "AND " + lblTeacher + " = \'" + row[lblTeacher].ToString() + "\' " +
+                                    "AND " + lblTeacher + " = \'" + qTeacher + "\' " +
                                     "AND " + lblPeriod + " = \'" + row[lblPeriod].ToString() + "\'";
                     
                     int l = ds.Tables[0].Select(findcriteria1).Length;
@@ -231,6 +331,22 @@ namespace Benchmark_Instant_Reports_2
         }
 
 
+        private static void joinDS(DataSet dsQueried, DataSet tempds)
+        {
+            DataRow newrow;
+
+            foreach (DataRow row in tempds.Tables[0].Rows)
+            {
+                newrow = dsQueried.Tables[0].NewRow();
+                newrow.ItemArray = row.ItemArray;
+                dsQueried.Tables[0].Rows.Add(newrow);
+            }
+
+            return;
+        }
+        
+
+
         //**********************************************************************//
         //** write the specified datarow to the specified results table;
         //** check and see if the campus-test_id-teacher-period combination
@@ -251,18 +367,22 @@ namespace Benchmark_Instant_Reports_2
             curNumQueried = (int)newRow[lblNumQueried];
 
             // do we already have this row in the results table?
+            string qcurTeacher = curTeacher.Replace("'", "''");
             findCriteria =
                 lblCampus + " = \'" + curCampus + "\' " +
                 "AND " + lblTestId + " = \'" + curTestId + "\' " +
-                "AND " + lblTeacher + " = \'" + curTeacher + "\' " +
+                "AND " + lblTeacher + " = \'" + qcurTeacher + "\' " +
                 "AND " + lblPeriod + " = \'" + curPeriod + "\'";
             DataRow[] foundRows = resultsTable.Select(findCriteria);
             if (foundRows.Length > 0)
             {
-                // this row is here - get the values then delete it
-                curNumScanned += (int)foundRows[0][lblNumScanned];
-                curNumQueried += (int)foundRows[0][lblNumQueried];
-                resultsTable.Rows.Remove(foundRows[0]);
+                for (int i = 0; i < foundRows.Length; i++)
+                {
+                    // there are rows here - get the values then delete it
+                    curNumScanned += (int)foundRows[i][lblNumScanned];
+                    curNumQueried += (int)foundRows[i][lblNumQueried];
+                    resultsTable.Rows.Remove(foundRows[i]);
+                }
             }
             else
             {

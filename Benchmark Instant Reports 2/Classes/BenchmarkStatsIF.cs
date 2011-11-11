@@ -145,16 +145,19 @@ namespace Benchmark_Instant_Reports_2
                 DataRow curScanDataRow = birIF.getLatestScanDataRow(curId, curTest);
                 if (curScanDataRow != null)
                 {
-                    DataTable gradedTable = birIF.gradeScannedTestDetail(curTest, curScanDataRow["ANSWERS"].ToString(), curCampus, 0);
+                    DataTable gradedTable = birIF.gradeScannedTestDetail(curTest, curScanDataRow["ANSWERS"].ToString(), curCampus, 0,
+                        dvStudentData.Table.Rows[j][birIF.teacherNameFieldName].ToString(),
+                        dvStudentData.Table.Rows[j]["PERIOD"].ToString());
                     
                     // add data for each test item to the resultsTable
                     for (int k = 0; k < gradedTable.Rows.Count; k++)
                     {
                         // see if this item is already in the dataset
                         string selectString =
-                            "CAMPUS = \'" + dvStudentData.Table.Rows[j]["SCHOOL_ABBR"].ToString() + "\' and " +
+                            //"CAMPUS = \'" + dvStudentData.Table.Rows[j]["SCHOOL_ABBR"].ToString() + "\' and " +
+                            "CAMPUS = \'" + dvStudentData.Table.Rows[j]["SCHOOL2"].ToString() + "\' and " +
                             "TEST_ID = \'" + curTest + "\' and " +
-                            "TEACHER = \'" + dvStudentData.Table.Rows[j][birIF.teacherNameFieldName].ToString() + "\' and " +
+                            "TEACHER = \'" + dvStudentData.Table.Rows[j][birIF.teacherNameFieldName].ToString().Replace("'", "''") + "\' and " +
                             "PERIOD = \'" + dvStudentData.Table.Rows[j]["PERIOD"].ToString() + "\' and " +
                             "ITEM_NUM = " + gradedTable.Rows[k]["ITEM_NUM"];
                         DataRow[] selectedRows = resultsTable.Select(selectString);
@@ -177,7 +180,8 @@ namespace Benchmark_Instant_Reports_2
 
                         // add the row to the results table
                         DataRow thisrow = resultsTable.NewRow();
-                        thisrow[lblCampus] = dvStudentData.Table.Rows[j]["SCHOOL_ABBR"].ToString();
+                        //thisrow[lblCampus] = dvStudentData.Table.Rows[j]["SCHOOL_ABBR"].ToString();
+                        thisrow[lblCampus] = dvStudentData.Table.Rows[j]["SCHOOL2"].ToString();
                         thisrow[lblTestId] = curTest;
                         thisrow[lblTeacher] = dvStudentData.Table.Rows[j][birIF.teacherNameFieldName].ToString();
                         thisrow[lblPeriod] = dvStudentData.Table.Rows[j]["PERIOD"].ToString();
@@ -236,7 +240,7 @@ namespace Benchmark_Instant_Reports_2
                     // check and see if current record already exists and is the latest one
                     findcriteria1 = "CAMPUS = \'" + row["CAMPUS"].ToString() + "\' " +
                                     "AND TEST_ID = \'" + row["TEST_ID"].ToString() + "\' " +
-                                    "AND TEACHER = \'" + row["TEACHER"].ToString() + "\' " +
+                                    "AND TEACHER = \'" + row["TEACHER"].ToString().Replace("'", "''") + "\' " +
                                     "AND PERIOD = \'" + row["PERIOD"].ToString() + "\' " +
                                     "AND ITEM_NUM = " + row["ITEM_NUM"].ToString();
 

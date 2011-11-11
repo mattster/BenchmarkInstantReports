@@ -15,80 +15,101 @@ using System.Data;
 
 namespace Benchmark_Instant_Reports_2
 {
-    public class CampusSecurity
+    public static class CampusSecurity
     {
         private static int authActionAuthOneCampus = 1;                      // authorize a user for 1 campus
         private static int authActionDeauthOneCampus = -1;                   // deauthorize a user for 1 campus
         private static int authActionAuthAll = 99;                           // authorize a user for all campuses
         private static int authActionDeauthAll = 0;                          // de-authorize a user for all campuses
         private static string districtPwd = "28774";                         // district password
+        private static string principalPwd = "40996";                       // principal password
         private static string authErrorString = "xxxxxxxxxxxxxxxxxxxxERRORxxxxxxxxxxxxxxxxxxxx";
+        public static string authcookiename = "campusauthlist";            // name of the cookie
+        public static string authAllCampusesValue = "All";
+        public static int cookieDurationDays = 5;
+        private static string[] authForTeacherComparison = { "BHS" };       // campuses that can see teacher comparison on item analysis
+        private static string addtlDigitForPrincipalPwd = "9";                   // digit added to school password to auth principals
 
 
-        //*******************
-        //* class to manage the authentication list for
-        //* a user's session
-        //********
-        public class campusAuthList
+        public static bool isAuthorized(string campus, HttpRequest req)
         {
-            private DataSet dsAuthList;
-            
-            // default constructor
-            public campusAuthList()
-            {
-                dsAuthList = new DataSet();
-                setUserAuthForCampus(authActionDeauthAll, dsAuthList);
-            }
+            return isAuthorizedForCampus(campus, req);
+        }
 
-            public bool isAuthorized(string campus)
-            {
-                return isAuthorizedForCampus(campus, dsAuthList);
-            }
-
-            public void setAuthForCampus(string campus)
-            {
-                setUserAuthForCampus(authActionAuthOneCampus, dsAuthList, campus);
-                return;
-            }
-
-            public void revokeAuthForCampus(string campus)
-            {
-                setUserAuthForCampus(authActionDeauthOneCampus, dsAuthList, campus);
-                return;
-            }
-
-            public void revokeAuthAll()
-            {
-                setUserAuthForCampus(authActionDeauthAll, dsAuthList);
-                return;
-            }
-
-            public void setAuthAll()
-            {
-                setUserAuthForCampus(authActionAuthAll, dsAuthList);
-                return;
-            }
-
-            public bool checkEnteredPassword(string enteredPwd, string campus)
-            {
-                // is it the District Password?
-                if (isCorrectDistrictPassword(enteredPwd))
-                {
-                    setUserAuthForCampus(authActionAuthAll, dsAuthList);
+        public static bool isAuthorizedAsAdmin(HttpRequest req)
+        {
+            if (req.Cookies[authcookiename] != null)
+                if (req.Cookies[authcookiename].Value == authAllCampusesValue)
                     return true;
-                }
-                else if (isCorrectCampusPassword(campus, enteredPwd))
-                {
-                    setUserAuthForCampus(authActionAuthOneCampus, dsAuthList, campus);
+            return false;
+        }
+
+        public static bool isAuthorizedForTeacherComparison(HttpRequest req)
+        {
+            // yes if logged in as an admin
+            if (isAuthorizedAsAdmin(req))
+                return true;
+
+            // yes if logged in as a school in the allowed list
+            foreach (string campus in authForTeacherComparison)
+            {
+                if (isAuthorizedFor(req) == campus)
                     return true;
-                }
-                else
-                {
-                    setUserAuthForCampus(authActionDeauthOneCampus, dsAuthList, campus);
-                    return false;
-                }
+            }
+
+            return false;
+        }
+
+        public static bool isAuthorizedForCampusRepMenu(HttpRequest req)
+        {
+            // yes if logged in as an admin
+            if (isAuthorizedAsAdmin(req))
+                return true;
+
+            // yes if logged in as an elementary campus
+            foreach (string campus in birIF.getElemAbbrList())
+            {
+                if (isAuthorizedFor(req) == campus)
+                    return true;
+            }
+
+            return false;
+        }
+
+        public static string isAuthorizedFor(HttpRequest req)
+        {
+            if (req.Cookies[authcookiename] != null)
+                if (req.Cookies[authcookiename].Value != null)
+                    return req.Cookies[authcookiename].Value;
+
+            return "none";
+        }
+
+        public static void deAuthorize(HttpResponse resp)
+        {
+            setUserAuthForCampus(authActionDeauthAll, resp);
+        }
+
+        public static bool checkEnteredPassword(string enteredPwd, string campus, HttpResponse resp)
+        {
+            // is it the District Password?
+            if (isCorrectDistrictPassword(enteredPwd))
+            {
+                setUserAuthForCampus(authActionAuthAll, resp);
+                return true;
+            }
+            else if (isCorrectCampusPassword(campus, enteredPwd))
+            {
+                setUserAuthForCampus(authActionAuthOneCampus, resp, campus);
+                return true;
+            }
+            else
+            {
+                setUserAuthForCampus(authActionDeauthOneCampus, resp, campus);
+                return false;
             }
         }
+        //}
 
 
 
@@ -120,13 +141,46 @@ namespace Benchmark_Instant_Reports_2
             }
         }
 
+        private static string getCampusAdminPassword(string campusAbbr)
+        {
+            string schoolPassword = getCampusPassword(campusAbbr);
+            string schoolAdminPassword = schoolPassword + addtlDigitForPrincipalPwd;
+
+            return schoolAdminPassword;
+        }
+
+
+        private static string[] getTeacherNumber(string teacherName)
+        {
+            string[] retNumber = {"", "", ""};
+
+            string qs =
+                "select unique teacher_nbr " +
+                "from " + birIF.dbStudentRoster +
+                "where " + birIF.teacherNameFieldName +
+                " = \'" + teacherName + "\'";
+            DataSet ds = dbIFOracle.getDataRows(qs);
+
+            if (ds.Tables[0] != null)
+            {
+                for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
+                {
+                    retNumber[i] = ds.Tables[0].Rows[i][0].ToString();
+                }
+            }
+
+            return retNumber;
+
+        }
+
+
 
         //**********************************************************************//
         //** authenticates a user for the district
         //**
-        public static bool isCorrectDistrictPassword(string enteredPwd)
+        private static bool isCorrectDistrictPassword(string enteredPwd)
         {
-            if (enteredPwd == districtPwd)
+            if (enteredPwd == districtPwd || enteredPwd == principalPwd)
                 return true;
             else
                 return false;
@@ -137,7 +191,7 @@ namespace Benchmark_Instant_Reports_2
         //**********************************************************************//
         //** authenticates a user for a specified campus
         //**
-        public static bool isCorrectCampusPassword(string campus, string enteredPwd)
+        private static bool isCorrectCampusPassword(string campus, string enteredPwd)
         {
             string pwd = CampusSecurity.getCampusPassword(campus);
 
@@ -148,73 +202,42 @@ namespace Benchmark_Instant_Reports_2
         }
 
 
-        //**********************************************************************//
-        //** update user's authentication status for this session
-        //**
-        private static void setUserAuthForCampus(int operation, DataSet dsAuth, string campus = "")
+        private static void setUserAuthForCampus(int operation, HttpResponse resp, string campus = "")
         {
-            int i = new int();
-            string colname = "";
-
-            // initialize the authorization dataset if needed
-            if (dsAuth.Tables.Count < 1)
-            {
-                string qs = "select school_abbr from aci.school order by school_abbr";
-                DataSet dstemp = new DataSet();
-                dstemp = dbIFOracle.getDataRows(qs);
-                dsAuth.Tables.Add();
-
-                // add the columns
-                for (i = 0; i < dstemp.Tables[0].Rows.Count; i++)
-                {
-                    colname = dstemp.Tables[0].Rows[i][0].ToString();
-                    dsAuth.Tables[0].Columns.Add(colname, System.Type.GetType("System.Boolean"));
-                }
-
-                // add a row, set everything to false
-                DataRow newrow = dsAuth.Tables[0].NewRow();
-                foreach (DataColumn col1 in dsAuth.Tables[0].Columns)
-                {
-                    newrow[col1.ColumnName] = false;
-                }
-                dsAuth.Tables[0].Rows.Add(newrow);
-            }
-            
-            // do what they want us to do
             if (operation == authActionAuthOneCampus)
             {
-                dsAuth.Tables[0].Rows[0][campus] = true;
+                resp.Cookies[authcookiename].Value = campus;
+                resp.Cookies[authcookiename].Expires = DateTime.Now.AddDays(cookieDurationDays);
             }
-
-            else if (operation == authActionDeauthOneCampus)
-            {
-                dsAuth.Tables[0].Rows[0][campus] = false;
-            }
-
             else if (operation == authActionAuthAll)
             {
-                foreach (DataColumn col2 in dsAuth.Tables[0].Columns)
-                    dsAuth.Tables[0].Rows[0][col2.ColumnName.ToString()] = true;
+                resp.Cookies[authcookiename].Value = authAllCampusesValue;
+                resp.Cookies[authcookiename].Expires = DateTime.Now.AddDays(cookieDurationDays);
             }
-
-            else                                                // deauthorize all by default
+            else if (operation == authActionDeauthOneCampus)
             {
-                foreach (DataColumn col2 in dsAuth.Tables[0].Columns)
-                    dsAuth.Tables[0].Rows[0][col2.ColumnName.ToString()] = false;
-
+                resp.Cookies[authcookiename].Value = null;
+            }
+            else if (operation == authActionDeauthAll)
+            {
+                resp.Cookies[authcookiename].Value = null;
             }
 
             return;
-
         }
 
 
         //**********************************************************************//
         //** tell whether this user is authorized for this campus
         //**
-        private static bool isAuthorizedForCampus(string campus, DataSet dsAuth)
+        private static bool isAuthorizedForCampus(string campus, HttpRequest req)
         {
-            bool ans = (bool)dsAuth.Tables[0].Rows[0][campus];
+            bool ans = false; // (req.Cookies[authcookiename][campus] == "true") ? true : false;
+
+            if (req.Cookies[authcookiename] != null)
+                if (req.Cookies[authcookiename].Value == campus || req.Cookies[authcookiename].Value == authAllCampusesValue)
+                    ans = true;
+
             return ans;
         }
 

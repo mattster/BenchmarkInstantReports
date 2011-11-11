@@ -5,6 +5,7 @@ using System.Web;
 using System.Data;
 using System.Web.UI.WebControls;
 
+
 //* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 // a class with a collection of useful stuff for the Benchmark Instant Reports
 //
@@ -18,7 +19,10 @@ namespace Benchmark_Instant_Reports_2
     public class birUtilities
     {
 
-        public static CampusSecurity.campusAuthList sessionAuthList = new CampusSecurity.campusAuthList();
+        private static string savedSelectedTestIDCookieName = "selectedTestID";
+        private static string savedSelectedTestIDsCokieName = "selectedTestIDs";
+        private static string savedSelectedCampusCookieName = "selectedCampus";
+
 
         //**********************************************************************//
         //** returns an array of unique values in a column of the specified
@@ -46,8 +50,8 @@ namespace Benchmark_Instant_Reports_2
 
             return returnArray;
         }
-        
- 
+
+
         //**********************************************************************//
         //** determines whether this is a valid student id -- that is, does
         //** this student id exist in the student roster
@@ -56,7 +60,7 @@ namespace Benchmark_Instant_Reports_2
         {
             string qs =
                 "SELECT LOCAL_STUDENT_ID " +
-                "FROM SIS_ODS.RISD_STUDENT_ROSTER_VW " +
+                "FROM " + birIF.dbStudentRoster + " " +
                 "WHERE LOCAL_STUDENT_ID = \'" + studentId + "\'";
 
             DataSet ds = dbIFOracle.getDataRows(qs);
@@ -74,7 +78,7 @@ namespace Benchmark_Instant_Reports_2
         public static string lookupStudentName(string studentId)
         {
             string qs = "SELECT STUDENT_NAME, LOCAL_STUDENT_ID " +
-                "FROM SIS_ODS.RISD_STUDENT_ROSTER_VW " +
+                "FROM " + birIF.dbStudentRoster + " " +
                 "WHERE LOCAL_STUDENT_ID = \'" + studentId + "\' " +
                 "AND ROWNUM = 1";
 
@@ -93,7 +97,7 @@ namespace Benchmark_Instant_Reports_2
         {
             string qs =
                 "SELECT SCHOOL_ABBR, LOCAL_STUDENT_ID " +
-                "FROM SIS_ODS.RISD_STUDENT_ROSTER_VW " +
+                "FROM " + birIF.dbStudentRoster + " " +
                 "WHERE LOCAL_STUDENT_ID = \'" + studentId + "\' " +
                 "AND ROWNUM = 1";
 
@@ -110,7 +114,7 @@ namespace Benchmark_Instant_Reports_2
         public static char calcLetterGrade(string testID, int numCorrect, int numTotalGiven, bool lookupTestInfo)
         {
             int numTotalForCalc = 100;
-            
+
             if (lookupTestInfo)
             {
                 // get numTotal from test definition
@@ -123,8 +127,8 @@ namespace Benchmark_Instant_Reports_2
             {
                 // get numTotal from values passed to the method
                 numTotalForCalc = numTotalGiven;
-            }                
-                
+            }
+
             decimal calc = 100 * (decimal)numCorrect / (decimal)numTotalForCalc;
             int pct = (int)Math.Round(calc, 0);
 
@@ -140,7 +144,18 @@ namespace Benchmark_Instant_Reports_2
                 return 'X';
         }
 
- 
+
+        public static char calcLetterGrade(string testID, int numCorrect, int numTotal, int passNum, int commendedNum)
+        {
+            //if (numCorrect >= commendedNum)
+            //    return 'C';
+            //else 
+            if (numCorrect >= passNum)
+                return 'P';
+
+            return 'F';
+        }
+
         //**********************************************************************//
         //** returns a simple string with single quotes around and commas
         //** between the values in a string array
@@ -151,7 +166,8 @@ namespace Benchmark_Instant_Reports_2
 
             for (int i = 0; i < s.Length; i++)
             {
-                returnstring = returnstring + "\'" + s[i] + "\',";
+                string thisString = s[i].Replace("'", "''");
+                returnstring = returnstring + "\'" + thisString + "\',";
             }
             returnstring = returnstring.Substring(0, returnstring.Length - 1);
 
@@ -171,7 +187,7 @@ namespace Benchmark_Instant_Reports_2
             {
                 returnstring[i] = lb.Items[indices[i]].ToString();
             }
-           
+
             return returnstring;
         }
 
@@ -199,6 +215,22 @@ namespace Benchmark_Instant_Reports_2
                         ddl.Items.RemoveAt(0);
                 }
             }
+            return;
+        }
+
+
+        //**********************************************************************//
+        //** selects all items in the specified ListBox
+        //**
+        public static void selectAllInLB(ListBox lb)
+        {
+            if (lb.Items.Count > 0)
+            {
+                foreach (ListItem item in lb.Items)
+                {
+                    item.Selected = true;
+                }
+            }
 
             return;
         }
@@ -215,9 +247,175 @@ namespace Benchmark_Instant_Reports_2
             else
                 return false;
         }
-    
-    
-    
-    
+
+
+        //**********************************************************************//
+        //** returns a list of school types applicable for this school;
+        //** a list in the form of 'E','S'; or simply 'E' for just one
+        //**
+        public static string getSchoolTypeList(string schoolAbbr)
+        {
+            if (schoolAbbr == "ALL Elementary")
+            {
+                return "\'E\'";
+            }
+            else if (schoolAbbr == "ALL Secondary")
+            {
+                return "\'S\'";
+            }
+
+            else
+            {
+
+                string qs = "select schoolid from " + birIF.dbSchool + " " +
+                    "where school_abbr = \'" + schoolAbbr + "\'";
+
+                System.Data.DataSet ds = dbIFOracle.getDataRows(qs);
+
+                int schoolId = Convert.ToInt32(ds.Tables[0].Rows[0][0].ToString());
+
+                if (schoolId >= 1 && schoolId <= 99 && schoolId != 6)
+                    return "\'S\'";
+                else if (schoolId >= 100)
+                    return "\'E\'";
+                else if (schoolId == 6)
+                    return "\'E\',\'S\'";
+                else
+                    return "\'E\',\'S\'";
+            }
+        }
+
+
+        public static void updateAuthDisplayInfo(HttpRequest req)
+        {
+
+        }
+
+
+        public static DataTable getFilteredTable(DataTable bigTable, string filterCriteria)
+        {
+            DataRow[] rMatches = bigTable.Select(filterCriteria);
+            DataTable dtMatches = bigTable.Clone();
+            foreach (DataRow row in rMatches)
+            {
+                DataRow newrow = dtMatches.NewRow();
+                newrow.ItemArray = row.ItemArray;
+                dtMatches.Rows.Add(newrow);
+            }
+
+            return dtMatches;
+        }
+
+
+        public static int getIndexOfDDItem(string itemName, DropDownList ddl)
+        {
+            for (int i = 0; i < ddl.Items.Count; i++)
+                if (ddl.Items[i].Text.Trim() == itemName)
+                    return i;
+
+            return -1;
+        }
+
+        private static int[] getIndicesOfLBItems(string[] itemNames, ListBox lb)
+        {
+            List<int> indicesList = new List<int>();
+            for (int i = 0; i < lb.Items.Count; i++)
+                if (isStringInStringArray(lb.Items[i].Text, itemNames))
+                    indicesList.Add(i);
+
+            if (indicesList.Count > 0)
+                return indicesList.ToArray();
+            else
+                return null;
+        }
+
+        public static void selectItemsInLB(ListBox lb, string[] items)
+        {
+            int[] indices = getIndicesOfLBItems(items, lb);
+            if (indices != null)
+                selectItemsInLB(lb, indices);
+
+            return;
+        }
+
+        private static void selectItemsInLB(ListBox lb, int[] indices)
+        {
+            for (int i = 0; i < indices.Length; i++)
+                lb.Items[indices[i]].Selected = true;
+
+            return;
+        }
+
+
+
+        public static bool isStringInStringArray(string str, string[] strArray)
+        {
+            for (int i = 0; i < strArray.Length; i++)
+                if (strArray[i] == str)
+                    return true;
+
+            return false;
+        }
+
+
+        public static string savedSelectedTestID(HttpRequest req)
+        {
+            if (req.Cookies[savedSelectedTestIDCookieName] != null)
+                return req.Cookies[savedSelectedTestIDCookieName].Value;
+
+            return null;
+        }
+        public static void savedSelectedTestID(HttpResponse resp, string testID)
+        {
+            resp.Cookies[savedSelectedTestIDCookieName].Value = testID;
+            resp.Cookies[savedSelectedTestIDCookieName].Expires = DateTime.Now.AddDays(CampusSecurity.cookieDurationDays);
+            resp.Cookies[savedSelectedTestIDCookieName].Path = "/";
+
+            return;
+        }
+
+
+
+        public static string savedSelectedCampus(HttpRequest req)
+        {
+            if (req.Cookies[savedSelectedCampusCookieName] != null)
+                return req.Cookies[savedSelectedCampusCookieName].Value;
+
+            return null;
+        }
+        public static void savedSelectedCampus(HttpResponse resp, string campus)
+        {
+            resp.Cookies[savedSelectedCampusCookieName].Value = campus;
+            resp.Cookies[savedSelectedCampusCookieName].Expires = DateTime.Now.AddDays(CampusSecurity.cookieDurationDays);
+            resp.Cookies[savedSelectedCampusCookieName].Path = "/";
+
+            return;
+        }
+
+
+        public static string[] savedSelectedTestIDs(HttpRequest req)
+        {
+            if (req.Cookies[savedSelectedTestIDsCokieName] != null)
+                return req.Cookies[savedSelectedTestIDsCokieName].Value.Split(',');
+
+            return null;
+        }
+        public static void savedSelectedTestIDs(HttpResponse resp, string[] tests)
+        {
+            resp.Cookies[savedSelectedTestIDsCokieName].Value = string.Join(",", tests);
+            resp.Cookies[savedSelectedTestIDsCokieName].Expires = DateTime.Now.AddDays(CampusSecurity.cookieDurationDays);
+            resp.Cookies[savedSelectedTestIDsCokieName].Path = "/";
+
+            return;
+        }
+
+        public static bool isTeacherUnknown(string studentId)
+        {
+            // if this is an elementary student and is not in an "Attendance" course
+            if (birIF.isStudentElemNoAttCourse(studentId))
+                return true;
+
+            return false;
+        }
     }
 }

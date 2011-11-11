@@ -49,9 +49,12 @@ h1, h2, h3, h4, h5, h6
 
 h1
 {
-    font-size: 1.6em;
-    padding-bottom: 0px;
-    margin-bottom: 0px;
+    text-align: center;
+    color: #4b6c9e;
+    font-weight: bold;
+    font-size: 2em;
+    padding-bottom: 10px;
+    margin-bottom: 0px; 
 }
 
 h2
@@ -309,9 +312,102 @@ div.accountInfo
 div.versionlabel
 {
  float:  right;
- margin: 40px 10px 5px 5px;
+ margin: 10px 10px 10px 10px;
  font-family: Verdana;
  font-size: 0.7em;
- color: #d0d0d0;
-    width: 64px;
+ color: #f0f0f0;
+    width: 100px;
+}
+
+/* Special Sauce
+----------------------------------------------------------*/
+.attentionitem
+{
+    font-size: 1.5em;
+    color: #800;
+    margin: 5px 0 20px 0;
+    padding: 10px 30px 10px 30px;
+    text-align: center;
+    border: 3px solid #800;
+    border-radius: 10px;
+    background: #ff8;
+}
+
+.whatsnew
+{
+    font-size: 1.3em;
+    font-weight: bold;
+    color: #009;
+    margin: 30px 10px 30px 10px;
+}
+
+.info-item img
+{
+    margin: 15px 10px 0 5px;
+}
+
+
+.authinfo
+{
+    font-size: 0.9em;
+    color: #ddd;
+    text-align: right;
+    margin: 0px 35px 5px 5px;
+}
+
+.authinfo a:link
+{
+    text-decoration: underline;
+    font-weight: bold;
+    color: #ddd;
+}
+
+.authinfo a:hover
+{
+    text-decoration: none;
+    color: #fff;
+}
+
+#CampusAuthPanel
+{
+    float: left;
+}
+
+#ctl00_CampusAuthLabel
+{
+    color: #fff;
+    font-weight: bold;
+}
+
+
+/* Popup */
+#popupPanel
+{
+    border: 2px solid black;
+    width: 300px;
+    background-color: #fff;
+    border-radius: 10px;
+}
+#dialogContents
+{
+    padding: 10px;
+    color: #800;
+    background-color: #ff8;
+    font-size: 1.5em;
+    border-radius: 10px;
+}
+.modalBackground
+{
+    /*color: #800;*/
+    background-color: #888;
+    filter:alpha(opacity=60);
+    opacity: 0.6;
+}
+#modalpopupcontrol
+{
+    display: none;
+}
+#ButtonOK
+{
+    
 }

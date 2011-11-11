@@ -167,7 +167,7 @@
                       <Paragraph>
                         <TextRuns>
                           <TextRun>
-                            <Value>Obj</Value>
+                            <Value>RC#</Value>
                             <Style>
                               <FontFamily>Tahoma</FontFamily>
                               <FontWeight>Bold</FontWeight>
@@ -321,10 +321,10 @@
                           <Style>Solid</Style>
                         </Border>
                         <LeftBorder>
-                          <Color>DimGray</Color>
-                          <Width>1pt</Width>
+                          <Color>Black</Color>
+                          <Style>Double</Style>
+                          <Width>2pt</Width>
                         </LeftBorder>
-                        <BackgroundColor>Khaki</BackgroundColor>
                         <PaddingLeft>2pt</PaddingLeft>
                         <PaddingRight>2pt</PaddingRight>
                         <PaddingTop>2pt</PaddingTop>
@@ -392,6 +392,7 @@
                                 <FontFamily>Tahoma</FontFamily>
                                 <FontWeight>Bold</FontWeight>
                                 <Format>0%</Format>
+                                <Color>White</Color>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -408,7 +409,12 @@
                           <Color>DimGray</Color>
                           <Width>2pt</Width>
                         </TopBorder>
-                        <BackgroundColor>Khaki</BackgroundColor>
+                        <LeftBorder>
+                          <Color>Black</Color>
+                          <Style>Double</Style>
+                          <Width>2pt</Width>
+                        </LeftBorder>
+                        <BackgroundColor>DimGray</BackgroundColor>
                         <PaddingLeft>2pt</PaddingLeft>
                         <PaddingRight>2pt</PaddingRight>
                         <PaddingTop>2pt</PaddingTop>
@@ -514,10 +520,11 @@
                         <Width>2pt</Width>
                       </BottomBorder>
                       <LeftBorder>
-                        <Color>DimGray</Color>
-                        <Width>1pt</Width>
+                        <Color>Black</Color>
+                        <Style>Double</Style>
+                        <Width>2pt</Width>
                       </LeftBorder>
-                      <BackgroundColor>Khaki</BackgroundColor>
+                      <BackgroundColor>LightGrey</BackgroundColor>
                       <VerticalAlign>Middle</VerticalAlign>
                       <PaddingLeft>2pt</PaddingLeft>
                       <PaddingRight>2pt</PaddingRight>
@@ -665,7 +672,7 @@
                       <Paragraph>
                         <TextRuns>
                           <TextRun>
-                            <Value>Total</Value>
+                            <Value>Avg. % Correct</Value>
                             <Style>
                               <FontFamily>Tahoma</FontFamily>
                               <FontWeight>Bold</FontWeight>
@@ -729,7 +736,7 @@
         </Style>
       </Rectangle>
     </ReportItems>
-    <Height>0.92376in</Height>
+    <Height>0.79876in</Height>
     <Style />
   </Body>
   <Width>7.39403in</Width>
@@ -811,7 +818,7 @@
             <Paragraph>
               <TextRuns>
                 <TextRun>
-                  <Value>Benchmark Item Analysis Report</Value>
+                  <Value>Item Analysis Report</Value>
                   <Style>
                     <FontSize>14pt</FontSize>
                     <FontWeight>Bold</FontWeight>
