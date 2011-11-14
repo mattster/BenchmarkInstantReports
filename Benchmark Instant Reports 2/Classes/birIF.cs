@@ -1529,6 +1529,11 @@ namespace Benchmark_Instant_Reports_2
             return testList.ToArray();
         }
 
+        /// <summary>
+        /// returns a one character string indicating the school type
+        /// </summary>
+        /// <param name="school">school abbreviation code</param>
+        /// <returns>A = both Elem & Sec; E = Elementary; S = Secondary; J = Sec. Jr. High; H = Sec. High School</returns>
         public static string getSchoolType(string school)
         {
             if (school == "ALL Elementary")

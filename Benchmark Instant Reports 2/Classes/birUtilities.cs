@@ -4,6 +4,8 @@ using System.Linq;
 using System.Web;
 using System.Data;
 using System.Web.UI.WebControls;
+using System.Text.RegularExpressions;
+using Benchmark_Instant_Reports_2.Classes;
 
 
 //* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
@@ -419,24 +421,85 @@ namespace Benchmark_Instant_Reports_2
             return false;
         }
 
-        private static string[] getCurricList()
+        private static string[] getCurricList(string campus)
         {
-            return curricList;
+            List<string> curriclist = new List<string>();
+            string schtype = birIF.getSchoolType(campus);
+
+            if (schtype == "A")                 // both Elem & Sec
+            {
+                foreach (Curriculum curric in AllTestMetadata.AllCurriculum)
+                {
+                    curriclist.Add(curric.DispAbbr);
+                }
+            }
+            else if (schtype == "E")            // Elementary
+            {
+                foreach (Curriculum curric in AllTestMetadata.AllCurriculum)
+                {
+                    if (curric.ElemSec == "E" || curric.ElemSec == "B")
+                        curriclist.Add(curric.DispAbbr);
+                }
+            }
+            else                                // Secondary
+            {
+                foreach (Curriculum curric in AllTestMetadata.AllCurriculum)
+                {
+                    if (curric.ElemSec == "S" || curric.ElemSec == "B")
+                        curriclist.Add(curric.DispAbbr);
+                }
+            }
+
+            return curriclist.ToArray();
         }
 
-        private static void loadCurricListInDD(DropDownList ddl)
+        private static void loadCurricListInDD(DropDownList ddl, string campus)
         {
-            ddl.DataSource = getCurricList();
+            ddl.DataSource = getCurricList(campus);
             ddl.DataBind();
 
             return;
         }
 
-        public static void setupTestFilterPopup(DropDownList ddTFCur)
+        public static void setupTestFilterPopup(DropDownList ddTFCur, string campus)
         {
-            loadCurricListInDD(ddTFCur);
+            loadCurricListInDD(ddTFCur, campus);
+            toggleDDLInitView(ddTFCur, true);
 
             return;
+        }
+
+
+        internal static void filterTestsByCurric(string campus, DropDownList ddl, string curric)
+        {
+
+            string[] alltests = birIF.getTestListForSchool(campus);
+            List<string> resultList = new List<string>();
+            string pattern = getRegExPatternForCurric(curric);
+
+            foreach (string curTest in alltests)
+            {
+                if (Regex.IsMatch(curTest, pattern))
+                    resultList.Add(curTest);
+            }
+
+            
+            ddl.DataSource = resultList;
+            ddl.DataBind();
+            toggleDDLInitView(ddl, true);
+
+            return;
+        }
+
+        private static string getRegExPatternForCurric(string curric)
+        {
+            foreach (Curriculum thisCurric in AllTestMetadata.AllCurriculum)
+            {
+                if (thisCurric.DispAbbr == curric)
+                    return thisCurric.RegEx;
+            }
+
+            return ".*";
         }
     }
 }

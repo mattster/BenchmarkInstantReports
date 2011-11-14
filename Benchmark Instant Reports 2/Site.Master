@@ -16,7 +16,11 @@
 </head>
 <body>
     <form runat="server">
-    <asp:ToolkitScriptManager runat="server" />
+    <asp:ToolkitScriptManager runat="server">
+        <Services>
+            <asp:ServiceReference Path="db/CCDDControls.cs.asmx" />
+        </Services>
+    </asp:ToolkitScriptManager>
     <div class="page">
         <div class="header">
             <div class="title">
@@ -86,7 +90,7 @@
             </div>
         </div>
         <div class="main">
-       <%-- <ajaxToolkit:CollapsiblePanelExtender ID="whatsnew" runat="server"
+            <%-- <ajaxToolkit:CollapsiblePanelExtender ID="whatsnew" runat="server"
             TargetContolID="Panel1"
             CollapsedSize="10"
             ExpandedSize="100"
@@ -103,8 +107,6 @@
             ExpandedImage="~/content/images/collapse.jpg"
             CollapsedImage="~/content/images/expand.jpg"
             ExpandDirection="Vertical" />--%>
-
-
             <div class="attentionitem">
                 A New Version of the Benchmark Instant Reports Is Coming Soon!</div>
             <asp:ContentPlaceHolder ID="MainContent" runat="server" />

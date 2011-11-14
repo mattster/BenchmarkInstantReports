@@ -84,6 +84,7 @@
     <Content Include="content\images\pdficon_large.gif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="db\CCDDControls.asmx" />
     <Content Include="MaterialsReport.aspx" />
     <Content Include="Info.aspx" />
     <Content Include="ScanReport.aspx" />
@@ -156,11 +157,16 @@
     <Compile Include="Classes\birUtilities.cs" />
     <Compile Include="Classes\birIF.cs" />
     <Compile Include="Classes\birExceptions.cs" />
+    <Compile Include="Classes\Curriculum.cs" />
     <Compile Include="Classes\ScanReportIF.cs" />
     <Compile Include="Classes\StudentSummaryIF.cs" />
     <Compile Include="Classes\StudentStatsIF.cs" />
     <Compile Include="Classes\dbIFOracle.cs" />
     <Compile Include="Classes\CampusSecurity.cs" />
+    <Compile Include="db\CCDDControls.asmx.cs">
+      <DependentUpon>CCDDControls.asmx</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="MaterialsReport.aspx.cs">
       <DependentUpon>MaterialsReport.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

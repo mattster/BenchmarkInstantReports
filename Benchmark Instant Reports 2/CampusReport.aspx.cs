@@ -7,6 +7,7 @@ using System.Web.UI.WebControls;
 using System.Data;
 using Microsoft.Reporting.Common;
 using Microsoft.Reporting.WebForms;
+using AjaxControlToolkit;
 
 
 namespace Benchmark_Instant_Reports_2.Classes
@@ -39,21 +40,22 @@ namespace Benchmark_Instant_Reports_2.Classes
             //*** User selected a campus ***//
 
             // return if it is the separator
-            if (birUtilities.isDDSeparatorValue(ddCampus.SelectedValue.ToString()))
+            if (birUtilities.isDDSeparatorValue(ddCampus.SelectedValue.ToString()) || ddCampus.SelectedValue.ToString() == "")
             {
-                birUtilities.toggleDDLInitView(ddCampus, true);
+                //birUtilities.toggleDDLInitView(ddCampus, true);
                 birUtilities.savedSelectedCampus(Response, "");
                 disableSchoolPasswordEntry();
                 return;
             }
 
             // setup stuff
-            birUtilities.toggleDDLInitView(ddCampus, false);
+            //birUtilities.toggleDDLInitView(ddCampus, false);
             birUtilities.savedSelectedCampus(Response, ddCampus.SelectedItem.ToString());
 
             ddBenchmark.DataSource = birIF.getTestListForSchool(ddCampus.SelectedValue.ToString());
             ddBenchmark.DataBind();
 
+            birUtilities.setupTestFilterPopup(ddTFCur, ddCampus.SelectedValue.ToString());
 
             if (!CampusSecurity.isAuthorized(ddCampus.SelectedValue.ToString(), Request))
             {                                               // not yet authorized - ask for password
@@ -108,13 +110,17 @@ namespace Benchmark_Instant_Reports_2.Classes
             return;
         }
 
-        protected void popupDDLCur_SelectedIndexChanged(object sender, EventArgs e)
+        protected void popupDDLCur_SelectedIndexChanged2(object sender, EventArgs e)
         {
-            return;
-        }
+            // return if it is the separator
+            if (birUtilities.isDDSeparatorValue(ddTFCur.SelectedItem.ToString()))
+            {
+                birUtilities.toggleDDLInitView(ddTFCur, true);
+                return;
+            }
+            birUtilities.filterTestsByCurric(ddCampus.SelectedValue.ToString(), ddBenchmark, ddTFCur.SelectedItem.Value.ToString());
+            //ddBenchmark.DataBind();
 
-        protected void setupFilterTestPopup(object sender, EventArgs e)
-        {
             return;
         }
 
@@ -234,11 +240,11 @@ namespace Benchmark_Instant_Reports_2.Classes
             repvwCampusReport1.Visible = false;
             repvwCampusReport2.Visible = false;
 
-            // load list of campuses in Campus dropdown
-            ddCampus.DataSource = dbIFOracle.getDataSource(birIF.getCampusListQuery);
-            ddCampus.DataTextField = "SCHOOLNAME";
-            ddCampus.DataValueField = "SCHOOL_ABBR";
-            ddCampus.DataBind();
+            //// load list of campuses in Campus dropdown
+            //ddCampus.DataSource = dbIFOracle.getDataSource(birIF.getCampusListQuery);
+            //ddCampus.DataTextField = "SCHOOLNAME";
+            //ddCampus.DataValueField = "SCHOOL_ABBR";
+            //ddCampus.DataBind();
 
             // add option for "ALL" if authorized as admin
             //if (CampusSecurity.isAuthorizedAsAdmin(Request))
@@ -248,18 +254,19 @@ namespace Benchmark_Instant_Reports_2.Classes
             //    ddCampus.SelectedIndex = 0;
             //}
 
-            // setup test filters
-            birUtilities.setupTestFilterPopup(ddTFCur);
+            //// setup test filters
+            //birUtilities.setupTestFilterPopup(ddTFCur);
 
 
             int cidx = birUtilities.getIndexOfDDItem(birUtilities.savedSelectedCampus(Request), ddCampus);
             if (cidx != -1)
                 ddCampus.SelectedIndex = cidx;
             else
-                birUtilities.toggleDDLInitView(ddCampus, true);
+                ddCampus.SelectedIndex = 1;
+                //birUtilities.toggleDDLInitView(ddCampus, true);
 
 
-            if (cidx != -1)
+            if (cidx != -1 && ddCampus.SelectedValue.ToString() != "")
                 ddBenchmark.DataSource = birIF.getTestListForSchool(ddCampus.SelectedValue.ToString());
             else
                 ddBenchmark.DataSource = birIF.getTestListForSchool("ALL");

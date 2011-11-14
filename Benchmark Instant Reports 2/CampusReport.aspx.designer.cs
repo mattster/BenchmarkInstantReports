@@ -157,6 +157,15 @@ namespace Benchmark_Instant_Reports_2.Classes {
         protected global::AjaxControlToolkit.ModalPopupExtender mpupIncorrectPassword;
         
         /// <summary>
+        /// ccddCampus control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.CascadingDropDown ccddCampus;
+        
+        /// <summary>
         /// repvwCampusReport1 control.
         /// </summary>
         /// <remarks>
