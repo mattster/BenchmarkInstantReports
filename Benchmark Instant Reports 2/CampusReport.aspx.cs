@@ -113,6 +113,10 @@ namespace Benchmark_Instant_Reports_2.Classes
             return;
         }
 
+        protected void setupFilterTestPopup(object sender, EventArgs e)
+        {
+            return;
+        }
 
         protected void ddBenchmark_SelectedIndexChanged1(object sender, EventArgs e)
         {
@@ -244,6 +248,10 @@ namespace Benchmark_Instant_Reports_2.Classes
             //    ddCampus.SelectedIndex = 0;
             //}
 
+            // setup test filters
+            birUtilities.setupTestFilterPopup(ddTFCur);
+
+
             int cidx = birUtilities.getIndexOfDDItem(birUtilities.savedSelectedCampus(Request), ddCampus);
             if (cidx != -1)
                 ddCampus.SelectedIndex = cidx;
@@ -294,9 +302,6 @@ namespace Benchmark_Instant_Reports_2.Classes
 
             return;
         }
-
-
-
 
 
 

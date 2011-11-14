@@ -2,6 +2,6 @@
 *.ncb
 *.aps
 *.suo
-bin/
-obj/
+*/bin/*
+*/obj/*
 *.log

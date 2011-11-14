@@ -23,6 +23,7 @@ namespace Benchmark_Instant_Reports_2
         private static string savedSelectedTestIDsCokieName = "selectedTestIDs";
         private static string savedSelectedCampusCookieName = "selectedCampus";
 
+        private static string[] curricList = { "Science", "Math", "Social Studies", "Reading", "Writing", "Eng. Lang. Arts", "LOTE", "Technology", "Music", "Band / Orch." };
 
         //**********************************************************************//
         //** returns an array of unique values in a column of the specified
@@ -416,6 +417,26 @@ namespace Benchmark_Instant_Reports_2
                 return true;
 
             return false;
+        }
+
+        private static string[] getCurricList()
+        {
+            return curricList;
+        }
+
+        private static void loadCurricListInDD(DropDownList ddl)
+        {
+            ddl.DataSource = getCurricList();
+            ddl.DataBind();
+
+            return;
+        }
+
+        public static void setupTestFilterPopup(DropDownList ddTFCur)
+        {
+            loadCurricListInDD(ddTFCur);
+
+            return;
         }
     }
 }

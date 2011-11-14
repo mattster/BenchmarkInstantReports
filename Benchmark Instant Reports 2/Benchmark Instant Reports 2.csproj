@@ -80,6 +80,7 @@
     <Content Include="Account\Login.aspx" />
     <Content Include="Account\Register.aspx" />
     <Content Include="CampusReport.aspx" />
+    <Content Include="content\images\f-circ-20x20.png" />
     <Content Include="content\images\pdficon_large.gif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

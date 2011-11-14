@@ -31,13 +31,31 @@ namespace Benchmark_Instant_Reports_2.Classes {
         protected global::System.Web.UI.WebControls.Panel pnlTestFilter;
         
         /// <summary>
-        /// uppnlTestFilter control.
+        /// updpnlTestFilter control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.UpdatePanel uppnlTestFilter;
+        protected global::System.Web.UI.UpdatePanel updpnlTestFilter;
+        
+        /// <summary>
+        /// ddTFCur control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddTFCur;
+        
+        /// <summary>
+        /// imgFilterTests control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Image imgFilterTests;
         
         /// <summary>
         /// lblSelectTest control.

@@ -5,21 +5,21 @@
     Namespace="Microsoft.Reporting.WebForms" TagPrefix="rsweb" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
     <style type="text/css">
-        .style1
-        {
-            width: 92px;
-        }
-        .style2
-        {
-            width: 341px;
-        }
-        .style3
-        {
-            width: 492px;
-        }
-        .style4
+        .tcol1
         {
             width: 160px;
+        }
+        .tcol2
+        {
+            width: 330px;
+        }
+        .tcol3
+        {
+            width: 160px;
+        }
+        .tcolCustom1
+        {
+            width: 492px;
         }
         .style5
         {
@@ -34,43 +34,44 @@
         The Campus Report shows passing data for a specific campus for a specific Test.</p>
     <table style="width: 98%;">
         <tr>
-            <td class="style4" valign="middle" align="right">
+            <td class="tcol1" valign="middle" align="right">
                 Select Campus:
             </td>
-            <td align="left" class="style2" valign="middle">
+            <td align="left" class="tcol2" valign="middle">
                 <asp:DropDownList ID="ddCampus" runat="server" Height="28px" Width="240px" OnSelectedIndexChanged="ddCampus_SelectedIndexChanged1">
                 </asp:DropDownList>
             </td>
-            <td class="style1">
+            <td class="tcol3">
                 <asp:Panel ID="pnlTestFilter" CssClass="FilterPanel" runat="server">
-                    <asp:UpdatePanel ID="uppnlTestFilter" class="FilterPanel" runat="server">
+                    <asp:UpdatePanel ID="updpnlTestFilter" class="FilterPanel" runat="server">
                         <ContentTemplate>
                             <div class="popupH1">
                                 Filter Tests By</div>
                             <div class="popupLabel">
                                 Curriculum Area:</div>
-                            <asp:DropDownList CssClass="popupDDLCur" runat="server" Height="28px" Width="100px"
+                            <asp:DropDownList ID="ddTFCur" CssClass="popupDDL" runat="server" Height="28px" Width="150px"
                                 OnSelectedIndexChanged="popupDDLCur_SelectedIndexChanged">
                             </asp:DropDownList>
                         </ContentTemplate>
                     </asp:UpdatePanel>
                 </asp:Panel>
-                <asp:Label ID="lblSelectTest" runat="server" Text="Select Test:"></asp:Label>
-                <ajaxToolkit:PopupControlExtender ID="pceFilterTests" TargetControlID="lblSelectTest"
-                    PopupControlID="uppnlTestFilter" Position="Top" OffsetY="-40" OffsetX="-100"
+                <asp:Image CssClass="filterImg" ID="imgFilterTests" runat="server" AlternateText="Filter Tests" ImageUrl="~/content/images/f-circ-20x20.png" />
+                <asp:Label ID="lblSelectTest" runat="server">Select Test:</asp:Label>
+                <ajaxToolkit:PopupControlExtender ID="pceFilterTests" TargetControlID="imgFilterTests"
+                    PopupControlID="updpnlTestFilter" Position="Top" OffsetY="-20" OffsetX="-260"
                     runat="server" />
             </td>
-            <td class="style15">
+            <td>
                 <asp:DropDownList ID="ddBenchmark" runat="server" Height="28px" Width="300px" OnSelectedIndexChanged="ddBenchmark_SelectedIndexChanged1">
                 </asp:DropDownList>
             </td>
         </tr>
         <tr>
-            <td class="style4" valign="middle" align="right">
+            <td class="tcol1" valign="middle" align="right">
                 <asp:Label ID="lblEnterSchoolPassword" runat="server" Font-Bold="True" ForeColor="#3366FF"
                     Text="Enter school password:"></asp:Label>
             </td>
-            <td align="left" class="style2" valign="middle">
+            <td align="left" class="tcol2" valign="middle">
                 <asp:TextBox ID="txtbxSchoolPassword" runat="server" Width="68px" TextMode="Password"></asp:TextBox>
                 &nbsp;&nbsp;&nbsp;&nbsp;
                 <asp:Button ID="btnEnterPassword" runat="server" OnClick="btnEnterPassword_Click"
@@ -84,7 +85,7 @@
         <tr>
             <td>
             </td>
-            <td class="style3" align="center" valign="middle">
+            <td class="tcolCustom1" align="center" valign="middle">
                 <asp:Button ID="btnGenReport" runat="server" Text="Generate Report" OnClick="btnGenReport_Click" />
             </td>
         </tr>
