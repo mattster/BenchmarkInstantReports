@@ -42,7 +42,23 @@
                 </asp:DropDownList>
             </td>
             <td class="style1">
-                Select Test:
+                <asp:Panel ID="pnlTestFilter" CssClass="FilterPanel" runat="server">
+                    <asp:UpdatePanel ID="uppnlTestFilter" class="FilterPanel" runat="server">
+                        <ContentTemplate>
+                            <div class="popupH1">
+                                Filter Tests By</div>
+                            <div class="popupLabel">
+                                Curriculum Area:</div>
+                            <asp:DropDownList CssClass="popupDDLCur" runat="server" Height="28px" Width="100px"
+                                OnSelectedIndexChanged="popupDDLCur_SelectedIndexChanged">
+                            </asp:DropDownList>
+                        </ContentTemplate>
+                    </asp:UpdatePanel>
+                </asp:Panel>
+                <asp:Label ID="lblSelectTest" runat="server" Text="Select Test:"></asp:Label>
+                <ajaxToolkit:PopupControlExtender ID="pceFilterTests" TargetControlID="lblSelectTest"
+                    PopupControlID="uppnlTestFilter" Position="Top" OffsetY="-40" OffsetX="-100"
+                    runat="server" />
             </td>
             <td class="style15">
                 <asp:DropDownList ID="ddBenchmark" runat="server" Height="28px" Width="300px" OnSelectedIndexChanged="ddBenchmark_SelectedIndexChanged1">
@@ -72,15 +88,16 @@
                 <asp:Button ID="btnGenReport" runat="server" Text="Generate Report" OnClick="btnGenReport_Click" />
             </td>
         </tr>
-        </table>
+    </table>
     <asp:HyperLink Target="_blank" Text="" ID="modalpopupcontrol" runat="server"></asp:HyperLink>
     <asp:Panel ID="popupPanel" runat="server" CssClass="popup-dialog">
-    <div id="dialogContents">
-    Incorrect school password. Please try again.<br />
-    <asp:Button ID="ButtonOK" runat="server" Text="OK" /></div></asp:Panel>
-    <ajaxToolkit:ModalPopupExtender ID="mpupIncorrectPassword" runat="server" TargetControlID="modalpopupcontrol" PopupControlID="popupPanel" 
-        OkControlID="ButtonOK" DropShadow="true" BackgroundCssClass="modalBackground"></ajaxToolkit:ModalPopupExtender>
-
+        <div id="dialogContents">
+            Incorrect school password. Please try again.<br />
+            <asp:Button ID="ButtonOK" runat="server" Text="OK" /></div>
+    </asp:Panel>
+    <ajaxToolkit:ModalPopupExtender ID="mpupIncorrectPassword" runat="server" TargetControlID="modalpopupcontrol"
+        PopupControlID="popupPanel" OkControlID="ButtonOK" DropShadow="true" BackgroundCssClass="modalBackground">
+    </ajaxToolkit:ModalPopupExtender>
     &nbsp;&nbsp;
     <rsweb:ReportViewer ID="repvwCampusReport1" runat="server" Font-Names="Verdana" Font-Size="8pt"
         Height="100px" InteractiveDeviceInfos="(Collection)" WaitMessageFont-Names="Verdana"

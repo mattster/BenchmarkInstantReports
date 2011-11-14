@@ -22,6 +22,42 @@ namespace Benchmark_Instant_Reports_2.Classes {
         protected global::System.Web.UI.WebControls.DropDownList ddCampus;
         
         /// <summary>
+        /// pnlTestFilter control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlTestFilter;
+        
+        /// <summary>
+        /// uppnlTestFilter control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel uppnlTestFilter;
+        
+        /// <summary>
+        /// lblSelectTest control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblSelectTest;
+        
+        /// <summary>
+        /// pceFilterTests control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.PopupControlExtender pceFilterTests;
+        
+        /// <summary>
         /// ddBenchmark control.
         /// </summary>
         /// <remarks>

@@ -411,3 +411,26 @@ div.versionlabel
 {
     
 }
+
+.FilterPanel
+{
+    background-color: #b6b7bc;
+    border-radius: 10px;
+}
+.popupH1
+{
+    text-align: center;
+    color: #000;
+    font-weight: bold;
+}
+.popupLabel
+{
+    float: left;
+    clear: both;
+    margin: 2px 5px 2px 2px;
+}
+.popupDDLCur
+{
+    float: left;
+    margin: 2px;
+}

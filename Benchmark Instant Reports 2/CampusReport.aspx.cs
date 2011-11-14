@@ -108,6 +108,12 @@ namespace Benchmark_Instant_Reports_2.Classes
             return;
         }
 
+        protected void popupDDLCur_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            return;
+        }
+
+
         protected void ddBenchmark_SelectedIndexChanged1(object sender, EventArgs e)
         {
             //*** User selected a benchmark ***//
