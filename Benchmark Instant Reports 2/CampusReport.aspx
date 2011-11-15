@@ -1,5 +1,6 @@
-﻿<%@ Page Title="BIR: Campus Summary" Language="C#" MasterPageFile="~/Site.Master" EnableEventValidation="false"
-    AutoEventWireup="true" CodeBehind="CampusReport.aspx.cs" Inherits="Benchmark_Instant_Reports_2.Classes.WebForm8" %>
+﻿<%@ Page Title="BIR: Campus Summary" Language="C#" MasterPageFile="~/Site.Master"
+    EnableEventValidation="false" AutoEventWireup="true" CodeBehind="CampusReport.aspx.cs"
+    Inherits="Benchmark_Instant_Reports_2.Classes.WebForm8" %>
 
 <%@ Register Assembly="Microsoft.ReportViewer.WebForms, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a"
     Namespace="Microsoft.Reporting.WebForms" TagPrefix="rsweb" %>
@@ -63,8 +64,14 @@
                     runat="server" CommitScript="popupDDLCur_SelectedIndexChanged2" />
             </td>
             <td>
-                <asp:DropDownList ID="ddBenchmark" runat="server" Height="28px" Width="300px" OnSelectedIndexChanged="ddBenchmark_SelectedIndexChanged1">
-                </asp:DropDownList>
+                <asp:Panel ID="pnlBenchmark" runat="server">
+                    <asp:UpdatePanel ID="updpnlBenchmark" class="BenchmarkUpdatePanel" runat="server">
+                        <ContentTemplate>
+                            <asp:DropDownList ID="ddBenchmark" runat="server" Height="28px" Width="300px" OnSelectedIndexChanged="ddBenchmark_SelectedIndexChanged1">
+                            </asp:DropDownList>
+                        </ContentTemplate>
+                    </asp:UpdatePanel>
+                </asp:Panel>
             </td>
         </tr>
         <tr>
@@ -101,8 +108,10 @@
         PopupControlID="popupPanel" OkControlID="ButtonOK" DropShadow="true" BackgroundCssClass="modalBackground">
     </ajaxToolkit:ModalPopupExtender>
     <ajaxToolkit:CascadingDropDown ID="ccddCampus" runat="server" ServicePath="CascadingDropDown1.asmx"
-        ServiceMethod="GetCampusList" TargetControlID="ddCampus" Category="Campus" PromptText="Select Campus" />
-
+        ServiceMethod="GetCampusList" TargetControlID="ddCampus" Category="Campus" PromptText="--Select Campus--" />
+   <%-- <ajaxToolkit:CascadingDropDown ID="ccddTest" runat="server" ServicePath="CascadingDropDown1.asmx"
+        ServiceMethod="GetTestsForCampus" TargetControlID="ddBenchmark" Category="Test"
+        PromptText="--Select Test--" ParentControlID="ddCampus" LoadingText="Loading Tests..." />--%>
     &nbsp;&nbsp;
     <rsweb:ReportViewer ID="repvwCampusReport1" runat="server" Font-Names="Verdana" Font-Size="8pt"
         Height="100px" InteractiveDeviceInfos="(Collection)" WaitMessageFont-Names="Verdana"

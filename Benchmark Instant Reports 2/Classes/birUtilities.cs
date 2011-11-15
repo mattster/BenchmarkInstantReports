@@ -25,7 +25,8 @@ namespace Benchmark_Instant_Reports_2
         private static string savedSelectedTestIDsCokieName = "selectedTestIDs";
         private static string savedSelectedCampusCookieName = "selectedCampus";
 
-        private static string[] curricList = { "Science", "Math", "Social Studies", "Reading", "Writing", "Eng. Lang. Arts", "LOTE", "Technology", "Music", "Band / Orch." };
+        private static string allIndicator = "--ALL--";
+        //private static string[] curricList = { "Science", "Math", "Social Studies", "Reading", "Writing", "Eng. Lang. Arts", "LOTE", "Technology", "Music", "Band / Orch." };
 
         //**********************************************************************//
         //** returns an array of unique values in a column of the specified
@@ -426,6 +427,8 @@ namespace Benchmark_Instant_Reports_2
             List<string> curriclist = new List<string>();
             string schtype = birIF.getSchoolType(campus);
 
+            curriclist.Add(allIndicator);
+
             if (schtype == "A")                 // both Elem & Sec
             {
                 foreach (Curriculum curric in AllTestMetadata.AllCurriculum)
@@ -456,6 +459,7 @@ namespace Benchmark_Instant_Reports_2
         private static void loadCurricListInDD(DropDownList ddl, string campus)
         {
             ddl.DataSource = getCurricList(campus);
+            //ddl.SelectedIndex = 0;
             ddl.DataBind();
 
             return;
@@ -464,7 +468,7 @@ namespace Benchmark_Instant_Reports_2
         public static void setupTestFilterPopup(DropDownList ddTFCur, string campus)
         {
             loadCurricListInDD(ddTFCur, campus);
-            toggleDDLInitView(ddTFCur, true);
+            //toggleDDLInitView(ddTFCur, true);
 
             return;
         }
@@ -479,14 +483,14 @@ namespace Benchmark_Instant_Reports_2
 
             foreach (string curTest in alltests)
             {
-                if (Regex.IsMatch(curTest, pattern))
+                if (Regex.IsMatch(curTest, pattern) || curric == allIndicator)
                     resultList.Add(curTest);
             }
 
             
             ddl.DataSource = resultList;
             ddl.DataBind();
-            toggleDDLInitView(ddl, true);
+            //toggleDDLInitView(ddl, true);
 
             return;
         }

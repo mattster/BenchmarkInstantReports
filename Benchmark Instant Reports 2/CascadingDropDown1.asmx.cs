@@ -5,13 +5,14 @@ using System.Web;
 using System.Web.Services;
 using AjaxControlToolkit;
 using System.Data;
+using System.Collections.Specialized;
 
 namespace Benchmark_Instant_Reports_2
 {
     /// <summary>
     /// Summary description for CascadingDropDown1
     /// </summary>
-    [WebService(Namespace = "http://tempuri.org/")]
+    [WebService(Namespace = "http://aci.risd.org/")]
     [WebServiceBinding(ConformsTo = WsiProfiles.BasicProfile1_1)]
     [System.ComponentModel.ToolboxItem(false)]
     // To allow this Web Service to be called from script, using ASP.NET AJAX, uncomment the following line. 
@@ -34,6 +35,23 @@ namespace Benchmark_Instant_Reports_2
             foreach (DataRow row in ds.Tables[0].Rows)
             {
                 returnList.Add(new CascadingDropDownNameValue(row["SCHOOLNAME"].ToString(), row["SCHOOL_ABBR"].ToString()));
+            }
+
+            return returnList.ToArray();
+        }
+
+        [WebMethod]
+        public CascadingDropDownNameValue[] GetTestsForCampus(string knownCategoryValues, string category)
+        {
+            StringDictionary campusValues = CascadingDropDown.ParseKnownCategoryValuesString(knownCategoryValues);
+            string campus = campusValues["Campus"].ToString();
+
+            string[] testlist = birIF.getTestListForSchool(campus);
+
+            List<CascadingDropDownNameValue> returnList = new List<CascadingDropDownNameValue>();
+            foreach (string test in testlist)
+            {
+                returnList.Add(new CascadingDropDownNameValue(test, test));
             }
 
             return returnList.ToArray();

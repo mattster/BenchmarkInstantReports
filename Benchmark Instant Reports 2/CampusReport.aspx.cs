@@ -52,8 +52,8 @@ namespace Benchmark_Instant_Reports_2.Classes
             //birUtilities.toggleDDLInitView(ddCampus, false);
             birUtilities.savedSelectedCampus(Response, ddCampus.SelectedItem.ToString());
 
-            ddBenchmark.DataSource = birIF.getTestListForSchool(ddCampus.SelectedValue.ToString());
-            ddBenchmark.DataBind();
+            //ddBenchmark.DataSource = birIF.getTestListForSchool(ddCampus.SelectedValue.ToString());
+            //ddBenchmark.DataBind();
 
             birUtilities.setupTestFilterPopup(ddTFCur, ddCampus.SelectedValue.ToString());
 

@@ -76,6 +76,24 @@ namespace Benchmark_Instant_Reports_2.Classes {
         protected global::AjaxControlToolkit.PopupControlExtender pceFilterTests;
         
         /// <summary>
+        /// pnlBenchmark control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlBenchmark;
+        
+        /// <summary>
+        /// updpnlBenchmark control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel updpnlBenchmark;
+        
+        /// <summary>
         /// ddBenchmark control.
         /// </summary>
         /// <remarks>
