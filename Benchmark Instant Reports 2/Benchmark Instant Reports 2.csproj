@@ -80,6 +80,7 @@
     <Content Include="Account\Login.aspx" />
     <Content Include="Account\Register.aspx" />
     <Content Include="CampusReport.aspx" />
+    <Content Include="CascadingDropDown1.asmx" />
     <Content Include="content\images\f-circ-20x20.png" />
     <Content Include="content\images\pdficon_large.gif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -152,6 +153,10 @@
     </Compile>
     <Compile Include="CampusReport.aspx.designer.cs">
       <DependentUpon>CampusReport.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CascadingDropDown1.asmx.cs">
+      <DependentUpon>CascadingDropDown1.asmx</DependentUpon>
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Classes\BenchmarkStatsIF.cs" />
     <Compile Include="Classes\birUtilities.cs" />

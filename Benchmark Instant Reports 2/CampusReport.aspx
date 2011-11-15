@@ -100,7 +100,7 @@
     <ajaxToolkit:ModalPopupExtender ID="mpupIncorrectPassword" runat="server" TargetControlID="modalpopupcontrol"
         PopupControlID="popupPanel" OkControlID="ButtonOK" DropShadow="true" BackgroundCssClass="modalBackground">
     </ajaxToolkit:ModalPopupExtender>
-    <ajaxToolkit:CascadingDropDown ID="ccddCampus" runat="server" ServicePath="db/CCDDControls.asmx"
+    <ajaxToolkit:CascadingDropDown ID="ccddCampus" runat="server" ServicePath="CascadingDropDown1.asmx"
         ServiceMethod="GetCampusList" TargetControlID="ddCampus" Category="Campus" PromptText="Select Campus" />
 
     &nbsp;&nbsp;

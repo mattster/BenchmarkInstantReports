@@ -15,7 +15,7 @@ namespace Benchmark_Instant_Reports_2.db
     // To allow this Web Service to be called from script, using ASP.NET AJAX, uncomment the following line. 
     
     [ScriptService()]
-    public class CCDDControls : System.Web.Services.WebService 
+    public class CascadingDropDown : System.Web.Services.WebService 
     {
 
         [WebMethod]
