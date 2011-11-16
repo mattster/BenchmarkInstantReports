@@ -20,16 +20,15 @@ namespace Benchmark_Instant_Reports_2
         private static DataView studentListDataByTeacherPeriod = new DataView();    // custom query filtered by teacher, period
         private static DataSet dsStudentListData = new DataSet();           // the filtered list of students
         private static bool reportDataParmsHaveChanged = true;
-        private static string repTypeResultsByTeacher = "Results By Teacher";
-        private static string repTypeResultsByPeriod = "Results By Period";
-        private static string repTypeResultsByAnsTeacher = "Results by Answer Choice (Teacher)";
-        private static string repTypeResultsByAnsCampus = "Results by Answer Choice (Campus)";
+        private static string repTypeResultsByTeacher = "% Correct-All Teachers";
+        private static string repTypeResultsByPeriod = "% Correct-One Teacher";
+        private static string repTypeResultsByAnsTeacher = "Ans. Choice-One Teacher";
+        private static string repTypeResultsByAnsCampus = "Ans. Choice-All Teachers";
         private static string groupByQ = "Question Num.";
         private static string groupByObj = "Rep. Category";
         private static string groupByTEKS = "TEKS";
         private static string repsNone = "NONE";
-        private static string[] reportTypesList = 
-            { repTypeResultsByTeacher, repTypeResultsByPeriod, repTypeResultsByAnsTeacher, repTypeResultsByAnsCampus };
+        private static string[] reportTypesList = { repTypeResultsByTeacher, repTypeResultsByPeriod, repTypeResultsByAnsCampus, repTypeResultsByAnsTeacher };
         private static string[] reportTypesListTeacherOnly = 
             { repTypeResultsByPeriod, repTypeResultsByAnsTeacher, repTypeResultsByAnsCampus };
         private static string[] groupByList = { groupByQ, groupByObj, groupByTEKS };

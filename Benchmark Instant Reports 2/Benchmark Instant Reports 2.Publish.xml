@@ -12,13 +12,15 @@
     <file relUrl="StudentStatsRep2_orig.rdlc" publishTime="10/14/2011 08:43:40" />
     <file relUrl="bin/StudentStatsRep2c.rdlc" publishTime="11/08/2011 12:51:35" />
     <file relUrl="Styles/Site.css" publishTime="11/16/2011 09:49:58" />
-    <file relUrl="bin/Benchmark Instant Reports 2.pdb" publishTime="11/16/2011 10:17:26" />
+    <file relUrl="bin/BenchmarkStatsRep2b.rdlc" publishTime="11/07/2011 15:18:13" />
+    <file relUrl="bin/Benchmark Instant Reports 2.pdb" publishTime="11/16/2011 10:23:27" />
     <file relUrl="BenchmarkStatsRep2c.rdlc" publishTime="11/07/2011 15:18:16" />
     <file relUrl="Web.config" publishTime="10/24/2011 15:05:41" />
     <file relUrl="bin/ScanReportRep2.rdlc" publishTime="11/09/2011 10:56:09" />
-    <file relUrl="About.aspx" publishTime="10/06/2010 11:27:47" />
     <file relUrl="bin/it/AjaxControlToolkit.resources.dll" publishTime="10/18/2011 13:45:23" />
+    <file relUrl="Account/Login.aspx" publishTime="10/06/2010 11:27:47" />
     <file relUrl="bin/BenchmarkStatsRep4b.rdlc" publishTime="11/07/2011 15:19:07" />
+    <file relUrl="bin/MaterialsChecklistRep.rdlc" publishTime="11/09/2011 13:30:38" />
     <file relUrl="bin/BenchmarkStatsRep2c.rdlc" publishTime="11/07/2011 15:18:16" />
     <file relUrl="WebForm2.aspx" publishTime="10/07/2010 13:47:30" />
     <file relUrl="bin/AjaxControlToolkit.pdb" publishTime="10/18/2011 13:45:23" />
@@ -29,15 +31,13 @@
     <file relUrl="bin/ko/AjaxControlToolkit.resources.dll" publishTime="10/18/2011 13:45:23" />
     <file relUrl="bin/AjaxControlToolkit.dll" publishTime="10/18/2011 13:45:23" />
     <file relUrl="bin/StudentStatsRep2_orig.rdlc" publishTime="10/14/2011 08:43:40" />
-    <file relUrl="BenchmarkStats.aspx" publishTime="11/10/2011 14:41:36" />
     <file relUrl="bin/BenchmarkStatsRep3b.rdlc" publishTime="11/07/2011 15:18:39" />
-    <file relUrl="bin/StudentStatsRep1.rdlc" publishTime="10/13/2011 08:51:06" />
+    <file relUrl="bin/BenchmarkStatsRep3a.rdlc" publishTime="11/07/2011 15:18:31" />
     <file relUrl="bin/BenchmarkStatsRep4c.rdlc" publishTime="11/07/2011 15:19:20" />
     <file relUrl="CampusReport.aspx" publishTime="11/16/2011 09:49:58" />
     <file relUrl="Scripts/jquery-1.4.1.min.js" publishTime="10/06/2010 11:27:47" />
-    <file relUrl="bin/StudentStatsRep2.rdlc" publishTime="11/07/2011 16:04:24" />
+    <file relUrl="content/files/Benchmark Instant Reports reference.pdf" publishTime="11/09/2011 15:18:10" />
     <file relUrl="BenchmarkStatsRep2a.rdlc" publishTime="11/07/2011 15:11:42" />
-    <file relUrl="bin/cs/AjaxControlToolkit.resources.dll" publishTime="10/18/2011 13:45:23" />
     <file relUrl="BenchmarkStatsRep3b.rdlc" publishTime="11/07/2011 15:18:39" />
     <file relUrl="bin/content/files/Lexmark Training for Elementary - 201109.pdf" publishTime="09/08/2011 14:11:11" />
     <file relUrl="Scripts/jquery-1.4.1.js" publishTime="10/06/2010 11:27:47" />
@@ -45,6 +45,7 @@
     <file relUrl="bin/zh-CHT/AjaxControlToolkit.resources.dll" publishTime="10/18/2011 13:45:24" />
     <file relUrl="BenchmarkStatsRep1c.rdlc" publishTime="11/07/2011 15:14:01" />
     <file relUrl="BenchmarkStatsRep1b.rdlc" publishTime="11/07/2011 14:46:48" />
+    <file relUrl="StudentStats1.aspx" publishTime="11/10/2011 14:38:15" />
     <file relUrl="ScanReport.aspx" publishTime="11/10/2011 14:31:38" />
     <file relUrl="content/files/Lexmark Training for Elementary - 201109.pdf" publishTime="09/08/2011 14:11:11" />
     <file relUrl="content/images/pdficon_large.gif" publishTime="08/11/2011 15:17:27" />
@@ -62,41 +63,40 @@
     <file relUrl="BenchmarkStatsRep4a.rdlc" publishTime="11/07/2011 15:18:56" />
     <file relUrl="CampusReport1.rdlc" publishTime="11/07/2011 15:28:38" />
     <file relUrl="MaterialsReport.aspx" publishTime="11/10/2011 14:45:41" />
-    <file relUrl="bin/Benchmark Instant Reports 2.dll" publishTime="11/16/2011 10:17:26" />
-    <file relUrl="Site.Master" publishTime="11/16/2011 10:17:24" />
+    <file relUrl="Site.Master" publishTime="11/16/2011 10:25:13" />
     <file relUrl="bin/ScanReportRep1.rdlc" publishTime="11/07/2011 16:03:46" />
     <file relUrl="StudentSummaryRep.rdlc" publishTime="11/10/2011 11:29:21" />
     <file relUrl="bin/Styles/Site.css" publishTime="11/16/2011 09:49:58" />
     <file relUrl="bin/content/files/Ad Hoc tutorial.pdf" publishTime="10/18/2011 08:12:14" />
     <file relUrl="bin/nl/AjaxControlToolkit.resources.dll" publishTime="10/18/2011 13:45:23" />
-    <file relUrl="bin/BenchmarkStatsRep2b.rdlc" publishTime="11/07/2011 15:18:13" />
+    <file relUrl="About.aspx" publishTime="10/06/2010 11:27:47" />
     <file relUrl="bin/tr-TR/AjaxControlToolkit.resources.dll" publishTime="10/18/2011 13:45:24" />
     <file relUrl="BenchmarkStatsRep3a.rdlc" publishTime="11/07/2011 15:18:31" />
     <file relUrl="StudentSummary.aspx" publishTime="11/10/2011 14:44:03" />
-    <file relUrl="bin/he/AjaxControlToolkit.resources.dll" publishTime="10/18/2011 13:45:23" />
     <file relUrl="bin/CampusReport2.rdlc" publishTime="10/27/2011 14:04:21" />
     <file relUrl="bin/BenchmarkStatsRep4a.rdlc" publishTime="11/07/2011 15:18:56" />
+    <file relUrl="bin/zh-CHS/AjaxControlToolkit.resources.dll" publishTime="10/18/2011 13:45:24" />
     <file relUrl="Account/ChangePassword.aspx" publishTime="10/06/2010 11:27:47" />
-    <file relUrl="BenchmarkStatsRep1a.rdlc" publishTime="11/07/2011 14:45:11" />
+    <file relUrl="bin/Benchmark Instant Reports 2.dll" publishTime="11/16/2011 10:23:27" />
     <file relUrl="bin/CampusReport1.rdlc" publishTime="11/07/2011 15:28:38" />
     <file relUrl="bin/de/AjaxControlToolkit.resources.dll" publishTime="10/18/2011 13:45:23" />
-    <file relUrl="bin/BenchmarkStatsRep3a.rdlc" publishTime="11/07/2011 15:18:31" />
+    <file relUrl="BenchmarkStats.aspx" publishTime="11/10/2011 14:41:36" />
     <file relUrl="bin/AntiXSSLibrary.dll" publishTime="10/18/2011 13:45:23" />
     <file relUrl="bin/hi/AjaxControlToolkit.resources.dll" publishTime="10/18/2011 13:45:23" />
     <file relUrl="bin/SanitizerProviders.dll" publishTime="10/18/2011 13:45:23" />
     <file relUrl="bin/content/files/Lexmark Introduction 201108.pdf" publishTime="08/11/2011 15:24:04" />
     <file relUrl="bin/BenchmarkStatsRep2a.rdlc" publishTime="11/07/2011 15:11:42" />
-    <file relUrl="content/files/Benchmark Instant Reports reference.pdf" publishTime="11/09/2011 15:18:10" />
-    <file relUrl="bin/zh-CHS/AjaxControlToolkit.resources.dll" publishTime="10/18/2011 13:45:24" />
+    <file relUrl="BenchmarkStatsRep1a.rdlc" publishTime="11/07/2011 14:45:11" />
+    <file relUrl="bin/StudentStatsRep2.rdlc" publishTime="11/07/2011 16:04:24" />
     <file relUrl="bin/content/files/Benchmark Instant Reports reference.pdf" publishTime="11/09/2011 15:18:10" />
     <file relUrl="PreslugReportRep.rdlc" publishTime="10/11/2011 10:39:20" />
     <file relUrl="BenchmarkStatsRep3c.rdlc" publishTime="11/07/2011 15:18:48" />
     <file relUrl="bin/PreslugReportRep.rdlc" publishTime="10/11/2011 10:39:20" />
     <file relUrl="bin/BenchmarkStatsRep3c.rdlc" publishTime="11/07/2011 15:18:48" />
     <file relUrl="bin/StudentSummaryRep.rdlc" publishTime="11/10/2011 11:29:21" />
-    <file relUrl="bin/MaterialsChecklistRep.rdlc" publishTime="11/09/2011 13:30:38" />
-    <file relUrl="Account/Login.aspx" publishTime="10/06/2010 11:27:47" />
-    <file relUrl="StudentStats1.aspx" publishTime="11/10/2011 14:38:15" />
+    <file relUrl="bin/cs/AjaxControlToolkit.resources.dll" publishTime="10/18/2011 13:45:23" />
+    <file relUrl="bin/StudentStatsRep1.rdlc" publishTime="10/13/2011 08:51:06" />
+    <file relUrl="bin/he/AjaxControlToolkit.resources.dll" publishTime="10/18/2011 13:45:23" />
     <file relUrl="bin/HtmlSanitizationLibrary.dll" publishTime="10/18/2011 13:45:23" />
     <file relUrl="Account/ChangePasswordSuccess.aspx" publishTime="10/06/2010 11:27:47" />
     <file relUrl="StudentStatsRep2a.rdlc" publishTime="11/08/2011 14:46:10" />
@@ -114,10 +114,10 @@
   <publishProfile publishUrl="S:\BenchmarkInstantReportsLegacy" deleteExistingFiles="False" ftpAnonymousLogin="False" ftpPassiveMode="True" msdeploySite="" msdeploySiteID="" msdeployRemoteSitePhysicalPath="" msdeployAllowUntrustedCertificate="False" msdeploySkipExtraFilesOnServer="True" msdeployMarkAsApp="False" profileName="aci_webs_BIRLegacy" publishMethod="FileSystem" replaceMatchingFiles="True" userName="" savePWD="False" userPWD="" SelectedForPublish="False">
     <file relUrl="Info.aspx" publishTime="09/13/2011 15:53:01" />
     <file relUrl="Default.aspx" publishTime="08/11/2011 16:01:43" />
+    <file relUrl="Account/Login.aspx" publishTime="10/06/2010 11:27:47" />
     <file relUrl="bin/ru/AjaxControlToolkit.resources.dll" publishTime="09/21/2011 09:12:43" />
     <file relUrl="Account/Web.config" publishTime="10/06/2010 11:27:47" />
     <file relUrl="bin/ar/AjaxControlToolkit.resources.dll" publishTime="09/21/2011 09:12:43" />
-    <file relUrl="bin/StudentStatsRep2.rdlc" publishTime="04/29/2011 11:38:19" />
     <file relUrl="Styles/Site.css" publishTime="09/23/2011 11:05:12" />
     <file relUrl="bin/Benchmark Instant Reports 2.pdb" publishTime="09/23/2011 10:55:09" />
     <file relUrl="BenchmarkStatsRep2c.rdlc" publishTime="09/06/2011 13:59:48" />
@@ -127,6 +127,7 @@
     <file relUrl="BenchmarkStatsRep2.rdlc" publishTime="10/19/2010 15:22:01" />
     <file relUrl="bin/BenchmarkStatsRep4b.rdlc" publishTime="09/06/2011 14:06:15" />
     <file relUrl="BenchmarkStatsRep1.rdlc" publishTime="11/17/2010 17:01:52" />
+    <file relUrl="bin/hi/AjaxControlToolkit.resources.dll" publishTime="09/21/2011 09:12:43" />
     <file relUrl="bin/BenchmarkStatsRep2c.rdlc" publishTime="09/06/2011 13:59:48" />
     <file relUrl="WebForm2.aspx" publishTime="10/07/2010 13:47:30" />
     <file relUrl="bin/AjaxControlToolkit.pdb" publishTime="09/21/2011 09:12:43" />
@@ -136,13 +137,13 @@
     <file relUrl="Account/Register.aspx" publishTime="10/06/2010 11:27:47" />
     <file relUrl="bin/ko/AjaxControlToolkit.resources.dll" publishTime="09/21/2011 09:12:43" />
     <file relUrl="bin/AjaxControlToolkit.dll" publishTime="09/21/2011 09:12:43" />
-    <file relUrl="BenchmarkStats.aspx" publishTime="09/21/2011 10:33:56" />
     <file relUrl="bin/BenchmarkStatsRep3b.rdlc" publishTime="09/06/2011 14:06:15" />
     <file relUrl="BenchmarkStatsRep4a.rdlc" publishTime="09/06/2011 13:59:48" />
-    <file relUrl="bin/StudentStatsRep1.rdlc" publishTime="10/08/2010 11:02:48" />
+    <file relUrl="bin/BenchmarkStatsRep3a.rdlc" publishTime="09/06/2011 13:59:48" />
     <file relUrl="bin/BenchmarkStatsRep4c.rdlc" publishTime="09/06/2011 13:59:48" />
     <file relUrl="Scripts/jquery-1.4.1.min.js" publishTime="10/06/2010 11:27:47" />
     <file relUrl="BenchmarkStatsRep2a.rdlc" publishTime="09/06/2011 13:59:48" />
+    <file relUrl="bin/cs/AjaxControlToolkit.resources.dll" publishTime="09/21/2011 09:12:43" />
     <file relUrl="BenchmarkStatsRep3b.rdlc" publishTime="09/06/2011 14:06:15" />
     <file relUrl="bin/tr-TR/AjaxControlToolkit.resources.dll" publishTime="09/21/2011 09:12:43" />
     <file relUrl="Scripts/jquery-1.4.1.js" publishTime="10/06/2010 11:27:47" />
@@ -164,7 +165,6 @@
     <file relUrl="StudentStatsRep1.rdlc" publishTime="10/08/2010 11:02:48" />
     <file relUrl="bin/es/AjaxControlToolkit.resources.dll" publishTime="09/21/2011 09:12:43" />
     <file relUrl="content/files/Printing Blank Scan sheets.pdf" publishTime="09/08/2011 14:14:19" />
-    <file relUrl="bin/content/files/Lexmark Training for Elementary - 201109.pdf" publishTime="09/08/2011 14:11:11" />
     <file relUrl="ScanReportRep1.rdlc" publishTime="10/26/2010 14:24:53" />
     <file relUrl="bin/BenchmarkStatsRep1b.rdlc" publishTime="09/06/2011 14:06:15" />
     <file relUrl="BenchmarkStatsRep3a.rdlc" publishTime="09/06/2011 13:59:48" />
@@ -175,33 +175,33 @@
     <file relUrl="bin/Styles/Site.css" publishTime="09/23/2011 11:05:12" />
     <file relUrl="bin/nl/AjaxControlToolkit.resources.dll" publishTime="09/21/2011 09:12:43" />
     <file relUrl="bin/BenchmarkStatsRep2b.rdlc" publishTime="09/06/2011 14:06:15" />
-    <file relUrl="BenchmarkStatsRep1a.rdlc" publishTime="09/06/2011 13:59:48" />
     <file relUrl="StudentSummary.aspx" publishTime="09/21/2011 16:48:42" />
     <file relUrl="bin/BenchmarkStatsRep4a.rdlc" publishTime="09/06/2011 13:59:48" />
+    <file relUrl="Global.asax" publishTime="10/06/2010 11:27:47" />
+    <file relUrl="bin/zh-CHS/AjaxControlToolkit.resources.dll" publishTime="09/21/2011 09:12:44" />
     <file relUrl="Account/ChangePassword.aspx" publishTime="10/06/2010 11:27:47" />
     <file relUrl="bin/Benchmark Instant Reports 2.dll" publishTime="09/23/2011 10:55:09" />
     <file relUrl="bin/BenchmarkStatsRep2a.rdlc" publishTime="09/06/2011 13:59:48" />
     <file relUrl="bin/de/AjaxControlToolkit.resources.dll" publishTime="09/21/2011 09:12:43" />
-    <file relUrl="bin/BenchmarkStatsRep3a.rdlc" publishTime="09/06/2011 13:59:48" />
+    <file relUrl="BenchmarkStats.aspx" publishTime="09/21/2011 10:33:56" />
     <file relUrl="BenchmarkStatsRep4.rdlc" publishTime="10/19/2010 15:19:37" />
     <file relUrl="bin/SanitizerProviders.dll" publishTime="09/21/2011 09:12:43" />
     <file relUrl="bin/content/files/Lexmark Introduction 201108.pdf" publishTime="08/11/2011 15:24:04" />
     <file relUrl="StudentStats1.aspx" publishTime="09/21/2011 16:48:42" />
-    <file relUrl="bin/zh-CHS/AjaxControlToolkit.resources.dll" publishTime="09/21/2011 09:12:44" />
+    <file relUrl="bin/StudentStatsRep2.rdlc" publishTime="04/29/2011 11:38:19" />
     <file relUrl="bin/BenchmarkStatsRep2.rdlc" publishTime="10/19/2010 15:22:01" />
     <file relUrl="bin/BenchmarkStatsRep3c.rdlc" publishTime="09/06/2011 13:59:48" />
     <file relUrl="bin/StudentSummaryRep.rdlc" publishTime="03/08/2011 16:19:17" />
-    <file relUrl="bin/cs/AjaxControlToolkit.resources.dll" publishTime="09/21/2011 09:12:43" />
-    <file relUrl="Account/Login.aspx" publishTime="10/06/2010 11:27:47" />
+    <file relUrl="BenchmarkStatsRep1a.rdlc" publishTime="09/06/2011 13:59:48" />
+    <file relUrl="bin/StudentStatsRep1.rdlc" publishTime="10/08/2010 11:02:48" />
     <file relUrl="bin/he/AjaxControlToolkit.resources.dll" publishTime="09/21/2011 09:12:43" />
     <file relUrl="bin/BenchmarkStatsRep4.rdlc" publishTime="10/19/2010 15:19:37" />
     <file relUrl="Account/ChangePasswordSuccess.aspx" publishTime="10/06/2010 11:27:47" />
     <file relUrl="BenchmarkStatsRep2b.rdlc" publishTime="09/06/2011 14:06:15" />
-    <file relUrl="bin/BenchmarkStatsRep1c.rdlc" publishTime="09/06/2011 13:59:48" />
     <file relUrl="BenchmarkStatsRep4c.rdlc" publishTime="09/06/2011 13:59:48" />
-    <file relUrl="Global.asax" publishTime="10/06/2010 11:27:47" />
+    <file relUrl="bin/content/files/Lexmark Training for Elementary - 201109.pdf" publishTime="09/08/2011 14:11:11" />
     <file relUrl="bin/BenchmarkStatsRep1.rdlc" publishTime="11/17/2010 17:01:52" />
-    <file relUrl="bin/hi/AjaxControlToolkit.resources.dll" publishTime="09/21/2011 09:12:43" />
+    <file relUrl="bin/BenchmarkStatsRep1c.rdlc" publishTime="09/06/2011 13:59:48" />
     <file relUrl="StudentStatsRep2.rdlc" publishTime="04/29/2011 11:38:19" />
   </publishProfile>
 </publishData>
