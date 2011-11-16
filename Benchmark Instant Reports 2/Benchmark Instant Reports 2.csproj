@@ -83,6 +83,7 @@
     <Content Include="content\images\pdficon_large.gif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Login.aspx" />
     <Content Include="MaterialsReport.aspx" />
     <Content Include="Info.aspx" />
     <Content Include="ScanReport.aspx" />
@@ -160,6 +161,13 @@
     <Compile Include="Classes\StudentStatsIF.cs" />
     <Compile Include="Classes\dbIFOracle.cs" />
     <Compile Include="Classes\CampusSecurity.cs" />
+    <Compile Include="Login.aspx.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Login.aspx.designer.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+    </Compile>
     <Compile Include="MaterialsReport.aspx.cs">
       <DependentUpon>MaterialsReport.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

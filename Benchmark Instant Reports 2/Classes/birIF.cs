@@ -38,6 +38,7 @@ namespace Benchmark_Instant_Reports_2
         public static int testTemplType24_1GridG45 = 7;
         public static string unkTeacherName = "zUNKNOWN TEACHER";
         public static string allTeachers = "__All Teachers__";
+        public static string usernameAllCampuses = "ALL";
 
         #endregion
 
@@ -115,6 +116,10 @@ namespace Benchmark_Instant_Reports_2
                 "select * from (" + getseparatorQuery + ") " +
                 "union all " +
                 "select * from (" + getELCampusQuery + ") ";
+
+        public static string getCampusInfoForCampus =
+                "select school_abbr, schoolname from aci.school " +
+                "where school_abbr = \'@schoolAbbr\' ";
 
         // TEMPCHANGE for the demo
         //public static string getCampusListQuery =

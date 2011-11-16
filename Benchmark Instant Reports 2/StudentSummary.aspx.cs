@@ -39,7 +39,6 @@ namespace Benchmark_Instant_Reports_2
             if (!IsPostBack)
             {
                 initPage();
-                ddCampus_SelectedIndexChanged1(new object(), new EventArgs());
             }
 
 
@@ -58,42 +57,22 @@ namespace Benchmark_Instant_Reports_2
             // return if it is the separator
             if (birUtilities.isDDSeparatorValue(ddCampus.SelectedValue.ToString()))
             {
-                birUtilities.toggleDDLInitView(ddCampus, true);
                 birUtilities.savedSelectedCampus(Response, "");
-                disableSchoolPasswordEntry();
                 return;
             }
 
             // setup stuff
-            birUtilities.toggleDDLInitView(ddCampus, false);
             birUtilities.savedSelectedCampus(Response, ddCampus.SelectedItem.ToString());
 
             ddBenchmark.DataSource = birIF.getTestListForSchool(ddCampus.SelectedValue.ToString());
             ddBenchmark.DataBind();
 
-            if (!CampusSecurity.isAuthorized(ddCampus.SelectedValue.ToString(), Request))
-            {                                               // not yet authorized - ask for password
-                ddBenchmark.Enabled = false;
-                ddTeacher.Enabled = false;
-                btnGenReport.Enabled = false;
-                repvwStudentSummary.Visible = false;
-                lblAlignmentNote.Visible = false;
-                enableSchoolPasswordEntry();
-                theMasterPage.updateCampusAuthLabel("none");
-
-                return;
-            }
-
-
-            disableSchoolPasswordEntry();
             ddBenchmark.Enabled = true;
             birUtilities.toggleDDLInitView(ddBenchmark, true);
             ddTeacher.Enabled = false;
             btnGenReport.Enabled = false;
             repvwStudentSummary.Visible = false;
             lblAlignmentNote.Visible = false;
-
-            theMasterPage.updateCampusAuthLabel(CampusSecurity.isAuthorizedFor(Request));
 
             int bidx = birUtilities.getIndexOfDDItem(birUtilities.savedSelectedTestID(Request), ddBenchmark);
             if (bidx != -1)
@@ -105,36 +84,6 @@ namespace Benchmark_Instant_Reports_2
             return;
         }
 
-        protected void btnEnterPassword_Click(object sender, EventArgs e)
-        {
-            theMasterPage = Page.Master as SiteMaster;
-
-            //*** check password ***//
-
-            if (CampusSecurity.checkEnteredPassword(txtbxSchoolPassword.Text.ToString(), ddCampus.SelectedValue.ToString(), Response))
-            {                                                   // authentication succeeded
-                disableSchoolPasswordEntry();
-                theMasterPage.updateCampusAuthLabel(Response.Cookies[CampusSecurity.authcookiename].Value);
-            }
-            else                                                // authentication failed        
-            {
-                this.mpupIncorrectPassword.Show();
-                enableSchoolPasswordEntry();
-                theMasterPage.updateCampusAuthLabel("none");
-                return;
-            }
-
-
-            disableSchoolPasswordEntry();
-            ddBenchmark.Enabled = true;
-            birUtilities.toggleDDLInitView(ddBenchmark, true);
-            ddTeacher.Enabled = false;
-            btnGenReport.Enabled = false;
-            repvwStudentSummary.Visible = false;
-            lblAlignmentNote.Visible = false;
-
-            return;
-        }
 
         protected void ddBenchmark_SelectedIndexChanged1(object sender, EventArgs e)
         {
@@ -156,7 +105,6 @@ namespace Benchmark_Instant_Reports_2
             {
                 ddTeacher.Enabled = false;
                 btnGenReport.Enabled = false;
-                disableSchoolPasswordEntry();
                 //ddBenchmark.Enabled = false;
                 repvwStudentSummary.Visible = false;
                 lblAlignmentNote.Visible = false;
@@ -177,7 +125,6 @@ namespace Benchmark_Instant_Reports_2
             btnGenReport.Enabled = false;
             repvwStudentSummary.Visible = false;
             lblAlignmentNote.Visible = false;
-            disableSchoolPasswordEntry();
 
             return;
         }
@@ -187,7 +134,6 @@ namespace Benchmark_Instant_Reports_2
             btnGenReport.Enabled = true;
             repvwStudentSummary.Visible = false;
             lblAlignmentNote.Visible = false;
-            disableSchoolPasswordEntry();
 
             return;
         }
@@ -255,24 +201,20 @@ namespace Benchmark_Instant_Reports_2
         {
             theMasterPage = Page.Master as SiteMaster;
 
-            // display authorization info
-            theMasterPage.updateCampusAuthLabel(CampusSecurity.isAuthorizedFor(Request));
-
             // disable all dialog boxes & stuff except campus
             ddCampus.Enabled = true;
             ddCampus.AutoPostBack = true;
-            ddBenchmark.Enabled = false;
+            ddBenchmark.Enabled = true;
             ddBenchmark.AutoPostBack = true;
             ddTeacher.Enabled = false;
             ddTeacher.AutoPostBack = true;
             btnGenReport.Enabled = false;
-            disableSchoolPasswordEntry();
             repvwStudentSummary.Visible = false;
             lblAlignmentNote.Visible = false;
             lblNoScanData.Visible = false;
 
             // load list of campuses in Campus dropdown
-            ddCampus.DataSource = dbIFOracle.getDataSource(birIF.getCampusListQuery);
+            ddCampus.DataSource = birUtilities.getAuthorizedCampusList(Context.User.Identity.Name);
             ddCampus.DataTextField = "SCHOOLNAME";
             ddCampus.DataValueField = "SCHOOL_ABBR";
             ddCampus.DataBind();
@@ -281,7 +223,7 @@ namespace Benchmark_Instant_Reports_2
             if (cidx != -1)
                 ddCampus.SelectedIndex = cidx;
             else
-                birUtilities.toggleDDLInitView(ddCampus, true);
+                ddCampus.SelectedIndex = 0;
 
 
             // load list of benchmarks in Benchmark dropdown
@@ -307,42 +249,11 @@ namespace Benchmark_Instant_Reports_2
         //**
         private void initSelectionBoxes()
         {
-            birUtilities.toggleDDLInitView(ddCampus, true);
             birUtilities.toggleDDLInitView(ddBenchmark, true);
             birUtilities.toggleDDLInitView(ddTeacher, true);
             ddTeacher.Enabled = false;
             return;
         }
-
-
-        //**********************************************************************//
-        //** keep school password stuff turned off
-        //**
-        private void disableSchoolPasswordEntry()
-        {
-            lblEnterSchoolPassword.Visible = false;
-            txtbxSchoolPassword.Visible = false;
-            txtbxSchoolPassword.Text = "";
-            btnEnterPassword.Visible = false;
-
-            return;
-        }
-
-
-        //**********************************************************************//
-        //** turn on school password entry
-        //**
-        private void enableSchoolPasswordEntry()
-        {
-            lblEnterSchoolPassword.Visible = true;
-            txtbxSchoolPassword.Visible = true;
-            txtbxSchoolPassword.Text = "";
-            btnEnterPassword.Visible = true;
-
-            return;
-        }
-
-
 
     }
 }

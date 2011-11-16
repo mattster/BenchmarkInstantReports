@@ -3,6 +3,8 @@
 *.aps
 *.suo
 */bin/
-*/*/bin/
 */obj/
 *.log
+Bench*/obj/
+*.dll
+*.pdb

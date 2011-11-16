@@ -411,3 +411,39 @@ div.versionlabel
 {
     
 }
+
+/* Form layout
+  ------------------------------------------ */
+.row
+{
+    clear: both;
+    margin: 10px 5px 10px 5px;
+}
+
+.formlabel
+{
+    float: left;
+    margin: 0 10px 0 0;
+}
+
+.formDDL
+{
+    float: left;
+    margin: 0 10px 0 5px;
+}
+
+.formtextbox
+{
+    float: left;
+    margin: 0 10px 0 5px;
+}
+
+#loginformarea
+{
+    margin: 20px 20px 20px 50px;
+}
+
+/* Login 
+  ------------------------------------------ */
+
+   

@@ -24,16 +24,15 @@
                     Benchmark Instant Reports
                 </h1>
             </div>
-            <div class="authinfo">
+            <asp:Panel CssClass="authinfo" ID="pnlAuthInfo" runat="server">
                 Authorized for campus:&nbsp<asp:UpdatePanel ID="CampusAuthPanel" runat="server">
                     <ContentTemplate>
                         <asp:Label ID="CampusAuthLabel" runat="server" Text="none" CssClass="CampusAuthLabel"></asp:Label>
                         &nbsp&nbsp
-                        <asp:LinkButton ID="LogoutButton" runat="server" Visible="False" OnClick="LogoutButton_Click"
-                            CausesValidation="False">[Logout]</asp:LinkButton>
+                        <asp:LinkButton ID="LogoutButton" runat="server" OnClick="LogoutButton_Click" CausesValidation="False">[Logout]</asp:LinkButton>
                     </ContentTemplate>
                 </asp:UpdatePanel>
-            </div>
+            </asp:Panel>
             <div class="clear hideSkiplink">
                 <asp:Menu ID="MenuWithCampusRep" runat="server" CssClass="menu" EnableViewState="False"
                     Orientation="Horizontal" Font-Bold="True" BackColor="#3A4F63" DynamicHorizontalOffset="2"
@@ -86,7 +85,6 @@
             </div>
         </div>
         <div class="main">
-
             <div class="attentionitem">
                 A New Version of the Benchmark Instant Reports Is Coming Soon!</div>
             <asp:ContentPlaceHolder ID="MainContent" runat="server" />
@@ -96,7 +94,7 @@
     </div>
     <div class="footer">
         <div class="versionlabel">
-            <asp:Label ID="lblVersion" runat="server" Text="bir 1.9.9.f.37"></asp:Label>
+            <asp:Label ID="lblVersion" runat="server" Text="bir 1.9.9.g.1"></asp:Label>
         </div>
     </div>
     </form>

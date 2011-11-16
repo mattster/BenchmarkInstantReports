@@ -11,10 +11,7 @@ namespace Benchmark_Instant_Reports_2
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            SiteMaster theMasterPage = Page.Master as SiteMaster;
-
-            // display authorization info
-            theMasterPage.updateCampusAuthLabel(CampusSecurity.isAuthorizedFor(Request));
+            //SiteMaster theMasterPage = Page.Master as SiteMaster;
 
         }
     }

@@ -417,5 +417,25 @@ namespace Benchmark_Instant_Reports_2
 
             return false;
         }
+
+
+        public static DataView getAuthorizedCampusList(string username)
+        {
+            DataSet ds = new DataSet();
+
+            if (username == birIF.usernameAllCampuses)
+            {
+                ds = dbIFOracle.getDataRows(birIF.getCampusListQuery);
+             }
+            else
+            {
+                string qs = birIF.getCampusInfoForCampus.Replace("@schoolAbbr", username);
+                ds = dbIFOracle.getDataRows(qs);
+            }
+
+            DataView dv = new DataView(ds.Tables[0]);
+            return dv;
+        }
+
     }
 }

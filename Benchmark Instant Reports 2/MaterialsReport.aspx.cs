@@ -27,7 +27,6 @@ namespace Benchmark_Instant_Reports_2.Classes
             if (!IsPostBack)
             {
                 initPage();
-                ddCampus_SelectedIndexChanged1(new object(), new EventArgs());
             }
 
 
@@ -46,15 +45,12 @@ namespace Benchmark_Instant_Reports_2.Classes
             // return if it is the separator
             if (birUtilities.isDDSeparatorValue(ddCampus.SelectedValue.ToString()))
             {
-                birUtilities.toggleDDLInitView(ddCampus, true);
                 birUtilities.savedSelectedCampus(Response, "");
-                disableSchoolPasswordEntry();
 
                 return;
             }
             
             // setup stuff
-            birUtilities.toggleDDLInitView(ddCampus, false);
             birUtilities.savedSelectedCampus(Response, ddCampus.SelectedItem.ToString());
 
             string schoolTypeList;
@@ -72,25 +68,10 @@ namespace Benchmark_Instant_Reports_2.Classes
             lbBenchmark.DataValueField = "TEST_ID";
             lbBenchmark.DataBind();
 
-            if (!CampusSecurity.isAuthorized(ddCampus.SelectedValue.ToString(), Request))
-            {                                               // not yet authorized - ask for password
-                lbBenchmark.Enabled = false;
-                btnGenReport.Enabled = false;
-                repvwMaterialsRep1.Visible = false;
-                enableSchoolPasswordEntry();
-                theMasterPage.updateCampusAuthLabel("none");
-
-                return;
-            }
-
-
-            disableSchoolPasswordEntry();
             lbBenchmark.Enabled = true;
             lbBenchmark.SelectedIndex = 0;
             btnGenReport.Enabled = true;
             repvwMaterialsRep1.Visible = false;
-
-            theMasterPage.updateCampusAuthLabel(CampusSecurity.isAuthorizedFor(Request));
 
             string[] savedTests = birUtilities.savedSelectedTestIDs(Request);
             if (savedTests != null)
@@ -103,32 +84,6 @@ namespace Benchmark_Instant_Reports_2.Classes
             return;
         }
 
-        protected void btnEnterPassword_Click(object sender, EventArgs e)
-        {
-            theMasterPage = Page.Master as SiteMaster;
-
-            // *** check password ***//
-
-            if (CampusSecurity.checkEnteredPassword(txtbxSchoolPassword.Text.ToString(), ddCampus.SelectedValue.ToString(), Response))
-            {                                                   // authentication succeeded
-                disableSchoolPasswordEntry();
-                theMasterPage.updateCampusAuthLabel(Response.Cookies[CampusSecurity.authcookiename].Value);
-            }
-            else                                                // authentication failed        
-            {
-                this.mpupIncorrectPassword.Show();
-                enableSchoolPasswordEntry();
-                theMasterPage.updateCampusAuthLabel("none");
-                return;
-            }
-
-            disableSchoolPasswordEntry();
-            lbBenchmark.Enabled = true;
-            btnGenReport.Enabled = false;
-            repvwMaterialsRep1.Visible = false;
-
-            return;
-        }
 
         protected void lbBenchmark_SelectedIndexChanged1(object sender, EventArgs e)
         {
@@ -139,13 +94,11 @@ namespace Benchmark_Instant_Reports_2.Classes
             {
                 btnGenReport.Enabled = true;
                 repvwMaterialsRep1.Visible = false;
-                disableSchoolPasswordEntry();
             }
             else
             {
                 btnGenReport.Enabled = false;
                 repvwMaterialsRep1.Visible = false;
-                disableSchoolPasswordEntry();
             }
             return;
         }
@@ -203,20 +156,16 @@ namespace Benchmark_Instant_Reports_2.Classes
         {
             theMasterPage = Page.Master as SiteMaster;
 
-            // display authorization info
-            theMasterPage.updateCampusAuthLabel(CampusSecurity.isAuthorizedFor(Request));
-
             // disable all dialog boxes & stuff except campus
             ddCampus.Enabled = true;
             ddCampus.AutoPostBack = true;
-            lbBenchmark.Enabled = false;
+            lbBenchmark.Enabled = true;
             lbBenchmark.AutoPostBack = true;
             btnGenReport.Enabled = false;
-            disableSchoolPasswordEntry();
             repvwMaterialsRep1.Visible = false;
 
             // load list of campuses in Campus dropdown
-            ddCampus.DataSource = dbIFOracle.getDataSource(birIF.getCampusListQuery);
+            ddCampus.DataSource = birUtilities.getAuthorizedCampusList(Context.User.Identity.Name);
             ddCampus.DataTextField = "SCHOOLNAME";
             ddCampus.DataValueField = "SCHOOL_ABBR";
             ddCampus.DataBind();
@@ -233,7 +182,7 @@ namespace Benchmark_Instant_Reports_2.Classes
             if (cidx != -1)
                 ddCampus.SelectedIndex = cidx;
             else
-                birUtilities.toggleDDLInitView(ddCampus, true);
+                ddCampus.SelectedIndex = 0;
 
 
             // load list of benchmarks in Benchmark listbox
@@ -266,40 +215,6 @@ namespace Benchmark_Instant_Reports_2.Classes
 
             return;
         }
-
-
-        //**********************************************************************//
-        //** keep school password stuff turned off
-        //**
-        private void disableSchoolPasswordEntry()
-        {
-            lblEnterSchoolPassword.Visible = false;
-            txtbxSchoolPassword.Visible = false;
-            txtbxSchoolPassword.Text = "";
-            btnEnterPassword.Visible = false;
-
-            return;
-        }
-
-
-        //**********************************************************************//
-        //** turn on school password entry
-        //**
-        private void enableSchoolPasswordEntry()
-        {
-            lblEnterSchoolPassword.Visible = true;
-            txtbxSchoolPassword.Visible = true;
-            txtbxSchoolPassword.Text = "";
-            btnEnterPassword.Visible = true;
-
-            return;
-        }
-
-
-
-
-
-
 
 
     }
