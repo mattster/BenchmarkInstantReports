@@ -2,7 +2,7 @@
 *.ncb
 *.aps
 *.suo
-*/bin/*
-*/*/bin/*
-*/obj/*
+*/bin/
+*/*/bin/
+*/obj/
 *.log

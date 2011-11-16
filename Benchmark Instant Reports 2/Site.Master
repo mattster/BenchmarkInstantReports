@@ -86,24 +86,6 @@
             </div>
         </div>
         <div class="main">
-       <%-- <ajaxToolkit:CollapsiblePanelExtender ID="whatsnew" runat="server"
-            TargetContolID="Panel1"
-            CollapsedSize="10"
-            ExpandedSize="100"
-            Collapsed="false"
-            ExpandControlID="LinkButton1"
-            CollapseControlID="LinkButton1"
-            AutoCollapse="false"
-            AutoExpand="false"
-            ScrollContents="false"
-            TextLabelID="Label1"
-            CollapsedText="show details..."
-            ExpandedText="hide details..."
-            ImageControlID="Image1"
-            ExpandedImage="~/content/images/collapse.jpg"
-            CollapsedImage="~/content/images/expand.jpg"
-            ExpandDirection="Vertical" />--%>
-
 
             <div class="attentionitem">
                 A New Version of the Benchmark Instant Reports Is Coming Soon!</div>
@@ -114,7 +96,7 @@
     </div>
     <div class="footer">
         <div class="versionlabel">
-            <asp:Label ID="lblVersion" runat="server" Text="bir 1.9.9.f.35"></asp:Label>
+            <asp:Label ID="lblVersion" runat="server" Text="bir 1.9.9.f.37"></asp:Label>
         </div>
     </div>
     </form>
