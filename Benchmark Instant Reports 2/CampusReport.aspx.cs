@@ -25,7 +25,7 @@ namespace Benchmark_Instant_Reports_2.Classes
             if (!IsPostBack)
             {
                 initPage();
-                ddCampus_SelectedIndexChanged1(new object(), new EventArgs());
+                //ddCampus_SelectedIndexChanged1(new object(), new EventArgs());
             }
 
             // anything else we need to do
@@ -52,8 +52,8 @@ namespace Benchmark_Instant_Reports_2.Classes
             //birUtilities.toggleDDLInitView(ddCampus, false);
             birUtilities.savedSelectedCampus(Response, ddCampus.SelectedItem.ToString());
 
-            //ddBenchmark.DataSource = birIF.getTestListForSchool(ddCampus.SelectedValue.ToString());
-            //ddBenchmark.DataBind();
+            ddBenchmark.DataSource = birIF.getTestListForSchool(ddCampus.SelectedValue.ToString());
+            ddBenchmark.DataBind();
 
             birUtilities.setupTestFilterPopup(ddTFCur, ddCampus.SelectedValue.ToString());
 
@@ -240,11 +240,11 @@ namespace Benchmark_Instant_Reports_2.Classes
             repvwCampusReport1.Visible = false;
             repvwCampusReport2.Visible = false;
 
-            //// load list of campuses in Campus dropdown
-            //ddCampus.DataSource = dbIFOracle.getDataSource(birIF.getCampusListQuery);
-            //ddCampus.DataTextField = "SCHOOLNAME";
-            //ddCampus.DataValueField = "SCHOOL_ABBR";
-            //ddCampus.DataBind();
+            // load list of campuses in Campus dropdown
+            ddCampus.DataSource = dbIFOracle.getDataSource(birIF.getCampusListQuery);
+            ddCampus.DataTextField = "SCHOOLNAME";
+            ddCampus.DataValueField = "SCHOOL_ABBR";
+            ddCampus.DataBind();
 
             // add option for "ALL" if authorized as admin
             //if (CampusSecurity.isAuthorizedAsAdmin(Request))

@@ -13,6 +13,24 @@ namespace Benchmark_Instant_Reports_2.Classes {
     public partial class WebForm8 {
         
         /// <summary>
+        /// pnlCampus control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlCampus;
+        
+        /// <summary>
+        /// updpnlCampus control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel updpnlCampus;
+        
+        /// <summary>
         /// ddCampus control.
         /// </summary>
         /// <remarks>
@@ -173,15 +191,6 @@ namespace Benchmark_Instant_Reports_2.Classes {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::AjaxControlToolkit.ModalPopupExtender mpupIncorrectPassword;
-        
-        /// <summary>
-        /// ccddCampus control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::AjaxControlToolkit.CascadingDropDown ccddCampus;
         
         /// <summary>
         /// repvwCampusReport1 control.
