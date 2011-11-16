@@ -48,12 +48,12 @@ namespace Benchmark_Instant_Reports_2
             {
                 initPage();
 
-                if (CampusSecurity.isAuthorizedForTeacherComparison(Request))
-                {
-                    ddRepType.DataSource = reportTypesList;
-                    ddRepType.DataBind();
-                    ddRepType.SelectedIndex = 0;
-                }
+                //if (CampusSecurity.isAuthorizedForTeacherComparison(Request))
+                //{
+                //    ddRepType.DataSource = reportTypesList;
+                //    ddRepType.DataBind();
+                //    ddRepType.SelectedIndex = 0;
+                //}
 
                 ddCampus_SelectedIndexChanged1(new object(), new EventArgs());
             }
@@ -430,9 +430,10 @@ namespace Benchmark_Instant_Reports_2
             ddBenchmark.DataBind();
 
             // load list of report types in Reports dropdown
-            ddRepType.DataSource = reportTypesListTeacherOnly;
+            //ddRepType.DataSource = reportTypesListTeacherOnly;
+            ddRepType.DataSource = reportTypesList;
             ddRepType.DataBind();
-            ddRepType.SelectedIndex = 2;
+            ddRepType.SelectedIndex = 0;
 
             // load Group By choices for reports
             ddGroupBy.DataSource = groupByList;

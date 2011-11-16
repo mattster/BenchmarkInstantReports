@@ -17,18 +17,18 @@ namespace Benchmark_Instant_Reports_2
         {
             // enable the Admin menu if appropriate
             //if (CampusSecurity.isAuthorizedForCampusRepMenu(Request))
-                if (true)
-            {
+            //    if (true)
+            //{
                 // display the menu with the Campus Report
                 MenuWithCampusRep.Visible = true;
                 MenuDefault.Visible = false;
-            }
-            else
-            {
-                // display the default menu
-                MenuWithCampusRep.Visible = false;
-                MenuDefault.Visible = true;
-            }
+            //}
+            //else
+            //{
+            //    // display the default menu
+            //    MenuWithCampusRep.Visible = false;
+            //    MenuDefault.Visible = true;
+            //}
         }
 
         protected void NavigationMenu_MenuItemClick(object sender, MenuEventArgs e)
