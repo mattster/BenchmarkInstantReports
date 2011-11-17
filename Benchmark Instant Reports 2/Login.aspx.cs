@@ -34,6 +34,21 @@ namespace Benchmark_Instant_Reports_2
             return;
         }
 
+        protected void tbPasswordCampus_TextChanged(object sender, EventArgs e)
+        {
+            tbPasswordAdmin.Text = "";
+
+            return;
+        }
+
+        protected void tbPasswordAdmin_TextChanged(object sender, EventArgs e)
+        {
+            tbPasswordCampus.Text = "";
+
+            return;
+        }
+
+
 
         protected void Login_Click(object sender, EventArgs e)
         {
