@@ -6,5 +6,4 @@
 */obj/
 *.log
 Bench*/obj/
-*.dll
 *.pdb

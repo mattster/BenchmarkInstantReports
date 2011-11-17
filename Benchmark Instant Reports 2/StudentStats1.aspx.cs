@@ -127,7 +127,7 @@ namespace Benchmark_Instant_Reports_2
 
             // add option for All Teachers
             //ddTeacher.Items.Insert(0, new ListItem(birIF.allTeachers, birIF.allTeachers));
-            
+
             birUtilities.toggleDDLInitView(ddTeacher, true);
             btnGenReport.Enabled = false;
             repvwStudentStats2a.Visible = false;
@@ -178,11 +178,11 @@ namespace Benchmark_Instant_Reports_2
             Parameter paramCampus = new Parameter("campus", DbType.String, ddCampus.SelectedValue.ToString());
             //if (ddTeacher.SelectedItem.ToString() != birIF.allTeachers)
             //{
-                paramTeacher = new Parameter("parmTeacher", DbType.String, ddTeacher.SelectedItem.ToString().Replace("'", "''"));
-                ods.FilterExpression = "TEST_ID = \'{0}\' AND CAMPUS = \'{1}\' AND TEACHER = \'{2}\'";
-                ods.FilterParameters.Add(paramTestID);
-                ods.FilterParameters.Add(paramCampus);
-                ods.FilterParameters.Add(paramTeacher);
+            paramTeacher = new Parameter("parmTeacher", DbType.String, ddTeacher.SelectedItem.ToString().Replace("'", "''"));
+            ods.FilterExpression = "TEST_ID = \'{0}\' AND CAMPUS = \'{1}\' AND TEACHER = \'{2}\'";
+            ods.FilterParameters.Add(paramTestID);
+            ods.FilterParameters.Add(paramCampus);
+            ods.FilterParameters.Add(paramTeacher);
             //}
             //else
             //{
@@ -246,10 +246,7 @@ namespace Benchmark_Instant_Reports_2
 
 
             // load list of benchmarks in Benchmark dropdown
-            if (cidx != -1)
-                ddBenchmark.DataSource = birIF.getTestListForSchool(ddCampus.SelectedValue.ToString());
-            else
-                ddBenchmark.DataSource = birIF.getTestListForSchool("ALL");
+            ddBenchmark.DataSource = birIF.getTestListForSchool(ddCampus.SelectedValue.ToString());
             ddBenchmark.DataBind();
 
             int bidx = birUtilities.getIndexOfDDItem(birUtilities.savedSelectedTestID(Request), ddBenchmark);

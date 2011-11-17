@@ -29,15 +29,14 @@ namespace Benchmark_Instant_Reports_2
         private static string groupByTEKS = "TEKS";
         private static string repsNone = "NONE";
         private static string[] reportTypesList = { repTypeResultsByTeacher, repTypeResultsByPeriod, repTypeResultsByAnsCampus, repTypeResultsByAnsTeacher };
-        private static string[] reportTypesListTeacherOnly = 
-            { repTypeResultsByPeriod, repTypeResultsByAnsTeacher, repTypeResultsByAnsCampus };
+        private static string[] reportTypesListTeacherOnly = { repTypeResultsByPeriod, repTypeResultsByAnsTeacher, repTypeResultsByAnsCampus };
         private static string[] groupByList = { groupByQ, groupByObj, groupByTEKS };
 
         #endregion
 
         public SiteMaster theMasterPage;
 
-        
+
         protected void Page_Load(object sender, EventArgs e)
         {
             // activate only the Campus dropdown, deactivate the
@@ -64,14 +63,14 @@ namespace Benchmark_Instant_Reports_2
             theMasterPage = Page.Master as SiteMaster;
 
             //*** User selected a campus ***//
-            
+
             // return if it is the separator
             if (birUtilities.isDDSeparatorValue(ddCampus.SelectedValue.ToString()))
             {
                 birUtilities.savedSelectedCampus(Response, "");
                 return;
             }
-            
+
             // setup stuff
             birUtilities.savedSelectedCampus(Response, ddCampus.SelectedItem.ToString());
 
@@ -226,7 +225,7 @@ namespace Benchmark_Instant_Reports_2
                     setupReportByAnsTeacher(ddGroupBy.SelectedItem.ToString());
                 else if (ddRepType.SelectedItem.ToString() == repTypeResultsByAnsCampus)
                     setupReportByAnsCampus(ddGroupBy.SelectedItem.ToString());
-          
+
             return;
         }
 
@@ -316,7 +315,7 @@ namespace Benchmark_Instant_Reports_2
         private void initPage()
         {
             theMasterPage = Page.Master as SiteMaster;
-           
+
             // disable all dialog boxes & stuff except campus
             ddCampus.Enabled = true;
             ddCampus.AutoPostBack = true;
@@ -347,10 +346,7 @@ namespace Benchmark_Instant_Reports_2
 
 
             // load list of benchmarks in Benchmark dropdown
-            if (cidx != -1)
-                ddBenchmark.DataSource = birIF.getTestListForSchool(ddCampus.SelectedValue.ToString());
-            else
-                ddBenchmark.DataSource = birIF.getTestListForSchool("ALL");
+            ddBenchmark.DataSource = birIF.getTestListForSchool(ddCampus.SelectedValue.ToString());
             ddBenchmark.DataBind();
 
             // load list of report types in Reports dropdown
@@ -374,7 +370,7 @@ namespace Benchmark_Instant_Reports_2
             return;
         }
 
-        
+
         //**********************************************************************//
         //** initializes the dropdown menus
         //**
@@ -383,7 +379,7 @@ namespace Benchmark_Instant_Reports_2
             birUtilities.toggleDDLInitView(ddBenchmark, true);
             return;
         }
-        
+
 
         //**********************************************************************//
         //** setup the Report by Teacher report
@@ -450,7 +446,7 @@ namespace Benchmark_Instant_Reports_2
             // setup parameters for query
             Parameter paramCampus = new Parameter("parmCampus", DbType.String, ddCampus.SelectedValue.ToString());
             Parameter paramTestID = new Parameter("parmTestId", DbType.String, ddBenchmark.SelectedItem.ToString());
-            Parameter paramTeacher = new Parameter("parmTeacher", DbType.String, ddTeacher.SelectedItem.ToString().Replace("'","''"));
+            Parameter paramTeacher = new Parameter("parmTeacher", DbType.String, ddTeacher.SelectedItem.ToString().Replace("'", "''"));
 
             ods.SelectMethod = "GetDataByUseFilter";
             ods.FilterExpression = "CAMPUS = \'{0}\' AND  TEST_ID = \'{1}\' AND TEACHER = \'{2}\'";
@@ -502,7 +498,7 @@ namespace Benchmark_Instant_Reports_2
             // setup parameters for query
             Parameter paramCampus = new Parameter("parmCampus", DbType.String, ddCampus.SelectedValue.ToString());
             Parameter paramTestID = new Parameter("parmTestId", DbType.String, ddBenchmark.SelectedItem.ToString());
-            Parameter paramTeacher = new Parameter("parmTeacher", DbType.String, ddTeacher.SelectedItem.ToString().Replace("'","''"));
+            Parameter paramTeacher = new Parameter("parmTeacher", DbType.String, ddTeacher.SelectedItem.ToString().Replace("'", "''"));
 
             ods.SelectMethod = "GetDataByUseFilter";
             ods.FilterExpression = "CAMPUS = \'{0}\' AND  TEST_ID = \'{1}\' AND TEACHER = \'{2}\'";
@@ -585,7 +581,7 @@ namespace Benchmark_Instant_Reports_2
                 repvwBenchmarkStats4c.ShowPrintButton = true;
                 repvwBenchmarkStats4c.LocalReport.Refresh();
             }
-            
+
             return;
         }
 
@@ -603,7 +599,7 @@ namespace Benchmark_Instant_Reports_2
             repvwBenchmarkStats2c.Visible = false;
             repvwBenchmarkStats3a.Visible = false;
             repvwBenchmarkStats3b.Visible = false;
-            repvwBenchmarkStats3c.Visible = false; 
+            repvwBenchmarkStats3c.Visible = false;
             repvwBenchmarkStats4a.Visible = false;
             repvwBenchmarkStats4b.Visible = false;
             repvwBenchmarkStats4c.Visible = false;

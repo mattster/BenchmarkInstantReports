@@ -15,7 +15,7 @@ namespace Benchmark_Instant_Reports_2.Classes
     {
         public SiteMaster theMasterPage;
 
-        
+
         protected void Page_Load(object sender, EventArgs e)
         {
             // activate only the Campus dropdown, deactivate the
@@ -44,7 +44,7 @@ namespace Benchmark_Instant_Reports_2.Classes
                 birUtilities.savedSelectedCampus(Response, "");
                 return;
             }
-            
+
             // setup stuff
             birUtilities.savedSelectedCampus(Response, ddCampus.SelectedItem.ToString());
 
@@ -131,7 +131,7 @@ namespace Benchmark_Instant_Reports_2.Classes
                 repvwScanReport2.LocalReport.DataSources.Clear();
                 repvwScanReport2.LocalReport.DataSources.Add(rds);
                 repvwScanReport2.ShowPrintButton = true;
-                repvwScanReport2.LocalReport.Refresh();            
+                repvwScanReport2.LocalReport.Refresh();
             }
 
             else
@@ -211,10 +211,7 @@ namespace Benchmark_Instant_Reports_2.Classes
 
 
             // load list of benchmarks in Benchmark listbox
-            if (cidx != -1)
-                lbBenchmark.DataSource = birIF.getTestListForSchool(ddCampus.SelectedValue.ToString());
-            else
-                lbBenchmark.DataSource = birIF.getTestListForSchool("ALL");
+            lbBenchmark.DataSource = birIF.getTestListForSchool(ddCampus.SelectedValue.ToString());
             lbBenchmark.DataBind();
 
             string[] savedTests = birUtilities.savedSelectedTestIDs(Request);
