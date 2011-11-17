@@ -94,7 +94,7 @@
     </div>
     <div class="footer">
         <div class="versionlabel">
-            <asp:Label ID="lblVersion" runat="server" Text="bir 1.9.9.g.2"></asp:Label>
+            <asp:Label ID="lblVersion" runat="server" Text="bir 1.9.9.g.3"></asp:Label>
         </div>
     </div>
     </form>

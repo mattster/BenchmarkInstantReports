@@ -227,10 +227,7 @@ namespace Benchmark_Instant_Reports_2
 
 
             // load list of benchmarks in Benchmark dropdown
-            if (cidx != -1)
-                ddBenchmark.DataSource = birIF.getTestListForSchool(ddCampus.SelectedValue.ToString());
-            else
-                ddBenchmark.DataSource = birIF.getTestListForSchool("ALL");
+            ddBenchmark.DataSource = birIF.getTestListForSchool(ddCampus.SelectedValue.ToString());
             ddBenchmark.DataBind();
 
             int bidx = birUtilities.getIndexOfDDItem(birUtilities.savedSelectedTestID(Request), ddBenchmark);
