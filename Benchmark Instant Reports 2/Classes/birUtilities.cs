@@ -468,13 +468,12 @@ namespace Benchmark_Instant_Reports_2
         public static void setupTestFilterPopup(DropDownList ddTFCur, string campus)
         {
             loadCurricListInDD(ddTFCur, campus);
-            //toggleDDLInitView(ddTFCur, true);
 
             return;
         }
 
 
-        internal static void filterTestsByCurric(string campus, DropDownList ddl, string curric)
+        internal static bool filterTestsByCurric(string campus, DropDownList ddl, string curric)
         {
 
             string[] alltests = birIF.getTestListForSchool(campus);
@@ -490,9 +489,8 @@ namespace Benchmark_Instant_Reports_2
             
             ddl.DataSource = resultList;
             ddl.DataBind();
-            //toggleDDLInitView(ddl, true);
 
-            return;
+            return (curric == allIndicator) ?  false :  true;
         }
 
         private static string getRegExPatternForCurric(string curric)
@@ -525,5 +523,19 @@ namespace Benchmark_Instant_Reports_2
             return dv;
         }
 
+
+        public static void setFilterButtonImage(Image imgFilterTests, bool filtersapplied)
+        {
+            if (filtersapplied)
+            {
+                imgFilterTests.ImageUrl = "~/content/images/f-circ-red-20x20.png";
+            }
+            else
+            {
+                imgFilterTests.ImageUrl = "~/content/images/f-circ-20x20.png";
+            }
+
+            return;
+        }
     }
 }

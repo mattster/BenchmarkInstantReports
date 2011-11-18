@@ -12,11 +12,11 @@
         }
         .tcol2
         {
-            width: 330px;
+            width: 300px;
         }
         .tcol3
         {
-            width: 160px;
+            width: 190px;
         }
         .tcolCustom1
         {
@@ -36,9 +36,11 @@
     <table style="width: 98%;">
         <tr>
             <td class="tcol1" valign="middle" align="right">
+                <br />
                 Select Campus:
             </td>
             <td align="left" class="tcol2" valign="middle">
+                <br />
                 <asp:Panel ID="pnlCampus" runat="server">
                     <asp:UpdatePanel ID="updpnlCampus" class="CampusUpdatePanel" runat="server">
                         <ContentTemplate>
@@ -62,17 +64,28 @@
                         </ContentTemplate>
                     </asp:UpdatePanel>
                 </asp:Panel>
-                <asp:Image CssClass="filterImg" ID="imgFilterTests" runat="server" AlternateText="Filter Tests"
-                    ImageUrl="~/content/images/f-circ-20x20.png" />
-                <asp:Label ID="lblSelectTest" runat="server">Select Test:</asp:Label>
-                <ajaxToolkit:PopupControlExtender ID="pceFilterTests" TargetControlID="imgFilterTests"
-                    PopupControlID="updpnlTestFilter" Position="Top" OffsetY="-20" OffsetX="-260"
-                    runat="server" CommitScript="popupDDLCur_SelectedIndexChanged2" />
+                <br />
+                <asp:UpdatePanel ID="updpnlImgFilterTests" runat="server">
+                    <ContentTemplate>
+                        <asp:Image CssClass="filterImg" ID="imgFilterTests" runat="server" AlternateText="Filter Tests"
+                            ImageUrl="~/content/images/f-circ-20x20.png" />
+                        <ajaxToolkit:PopupControlExtender ID="pceFilterTests" TargetControlID="imgFilterTests"
+                            PopupControlID="updpnlTestFilter" Position="Top" OffsetY="-20" OffsetX="-280"
+                            runat="server" CommitScript="popupDDLCur_SelectedIndexChanged2" />
+                    </ContentTemplate>
+                </asp:UpdatePanel>
+                <asp:Label ID="lblSelectTest" CssClass="floatleft, margintopA" runat="server">Select Test:</asp:Label>
             </td>
             <td>
                 <asp:Panel ID="pnlBenchmark" runat="server">
                     <asp:UpdatePanel ID="updpnlBenchmark" class="BenchmarkUpdatePanel" runat="server">
                         <ContentTemplate>
+                            <asp:UpdatePanel ID="updpnlFilteredTestsLabel" class="DDLabelAbove" runat="server">
+                                <ContentTemplate>
+                                    &nbsp;
+                                    <asp:Label ID="lblTestsFiltered" CssClass="DDLabelAboveText" Visible="false" runat="server">Test List is Filtered. Click Filter Button to change.</asp:Label>
+                                </ContentTemplate>
+                            </asp:UpdatePanel>
                             <asp:DropDownList ID="ddBenchmark" runat="server" Height="28px" Width="300px" OnSelectedIndexChanged="ddBenchmark_SelectedIndexChanged1">
                             </asp:DropDownList>
                         </ContentTemplate>
@@ -104,7 +117,7 @@
     <%-- <ajaxToolkit:CascadingDropDown ID="ccddTest" runat="server" ServicePath="CascadingDropDown1.asmx"
         ServiceMethod="GetTestsForCampus" TargetControlID="ddBenchmark" Category="Test"
         PromptText="--Select Test--" ParentControlID="ddCampus" LoadingText="Loading Tests..." />--%>
-      &nbsp;&nbsp;
+    &nbsp;&nbsp;
     <rsweb:ReportViewer ID="repvwCampusReport1" runat="server" Font-Names="Verdana" Font-Size="8pt"
         Height="100px" InteractiveDeviceInfos="(Collection)" WaitMessageFont-Names="Verdana"
         WaitMessageFont-Size="14pt" Width="550px" SizeToReportContent="True">

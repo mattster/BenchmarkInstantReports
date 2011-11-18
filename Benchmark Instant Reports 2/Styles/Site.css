@@ -440,8 +440,21 @@ div.versionlabel
 
 .filterImg
 {
-    padding: 1px;
+    padding: 5px;
+    float: left;
 }
+
+.DDLabelAbove
+{
+    
+}
+.DDLabelAboveText
+{
+    color: #800;
+    font-style: italic;
+    text-align: center;
+}
+
 /* Form layout
   ------------------------------------------ */
 .row
@@ -475,17 +488,27 @@ div.versionlabel
     margin: 0 10px 0 5px;
 }
 
-#loginformarea
-{
-    margin: 20px 20px 20px 50px;
-}
-
 .formbutton
 {
     margin: 15px;
 }
 
+
 /* Login 
   ------------------------------------------ */
+#loginformarea
+{
+    margin: 20px 20px 20px 50px;
+}
 
-   
+
+/* Other Stuff
+  ------------------------------------------ */
+ .floatleft
+ {
+     float: left;
+ }
+ .margintopA
+ {
+     margin-top: 5px;
+ }

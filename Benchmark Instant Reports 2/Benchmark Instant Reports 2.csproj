@@ -81,6 +81,7 @@
     <Content Include="CampusReport.aspx" />
     <Content Include="CascadingDropDown1.asmx" />
     <Content Include="content\images\f-circ-20x20.png" />
+    <Content Include="content\images\f-circ-red-20x20.png" />
     <Content Include="content\images\pdficon_large.gif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -168,9 +169,11 @@
     <Compile Include="Classes\StudentStatsIF.cs" />
     <Compile Include="Classes\dbIFOracle.cs" />
     <Compile Include="Classes\CampusSecurity.cs" />
+    <Compile Include="Classes\TestFilter.cs" />
     <Compile Include="db\CCDDControls.asmx.cs">
       <DependentUpon>CCDDControls.asmx</DependentUpon>
       <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Login.aspx.cs">
       <DependentUpon>Login.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

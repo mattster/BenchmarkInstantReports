@@ -15,17 +15,14 @@ namespace Benchmark_Instant_Reports_2.Classes
     public partial class WebForm8 : System.Web.UI.Page
     {
         public SiteMaster theMasterPage;
+        public TestFilterState thisTestFilterState = new TestFilterState(false, false, false);
 
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            // activate only the Campus dropdown, deactivate the
-            // others until they are ready to be filled
-
             if (!IsPostBack)
             {
                 initPage();
-                //ddCampus_SelectedIndexChanged1(new object(), new EventArgs());
             }
 
             // anything else we need to do
@@ -71,11 +68,13 @@ namespace Benchmark_Instant_Reports_2.Classes
                 birUtilities.toggleDDLInitView(ddTFCur, true);
                 return;
             }
-            birUtilities.filterTestsByCurric(ddCampus.SelectedValue.ToString(), ddBenchmark, ddTFCur.SelectedItem.Value.ToString());
-            //ddBenchmark.DataBind();
+            bool filtered = birUtilities.filterTestsByCurric(ddCampus.SelectedValue.ToString(), ddBenchmark, ddTFCur.SelectedItem.Value.ToString());
+            thisTestFilterState.Curric = filtered;
+            updateTestFilterDisplay(thisTestFilterState.AreAnyFiltersApplied);
 
             return;
         }
+
 
         protected void ddBenchmark_SelectedIndexChanged1(object sender, EventArgs e)
         {
@@ -189,7 +188,6 @@ namespace Benchmark_Instant_Reports_2.Classes
             repvwCampusReport2.Visible = false;
 
             // load list of campuses in Campus dropdown
-            //ddCampus.DataSource = dbIFOracle.getDataSource(birIF.getCampusListQuery);
             ddCampus.DataSource = birUtilities.getAuthorizedCampusList(Context.User.Identity.Name);
             ddCampus.DataTextField = "SCHOOLNAME";
             ddCampus.DataValueField = "SCHOOL_ABBR";
@@ -205,6 +203,7 @@ namespace Benchmark_Instant_Reports_2.Classes
 
             //// setup test filters
             //birUtilities.setupTestFilterPopup(ddTFCur);
+            birUtilities.setupTestFilterPopup(ddTFCur, ddCampus.SelectedValue.ToString());
 
 
             int cidx = birUtilities.getIndexOfDDItem(birUtilities.savedSelectedCampus(Request), ddCampus);
@@ -212,7 +211,6 @@ namespace Benchmark_Instant_Reports_2.Classes
                 ddCampus.SelectedIndex = cidx;
             else
                 ddCampus.SelectedIndex = 0;
-                //birUtilities.toggleDDLInitView(ddCampus, true);
 
 
             ddBenchmark.DataSource = birIF.getTestListForSchool(ddCampus.SelectedValue.ToString());
@@ -230,6 +228,16 @@ namespace Benchmark_Instant_Reports_2.Classes
 
 
 
+        private void updateTestFilterDisplay(bool filtersapplied)
+        {
+            // set filter button image
+            birUtilities.setFilterButtonImage(imgFilterTests, filtersapplied);
+
+            // display tests filtered label
+            lblTestsFiltered.Visible = filtersapplied;
+
+            return;
+        }
 
 
 

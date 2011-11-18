@@ -67,6 +67,15 @@ namespace Benchmark_Instant_Reports_2.Classes {
         protected global::System.Web.UI.WebControls.DropDownList ddTFCur;
         
         /// <summary>
+        /// updpnlImgFilterTests control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel updpnlImgFilterTests;
+        
+        /// <summary>
         /// imgFilterTests control.
         /// </summary>
         /// <remarks>
@@ -76,15 +85,6 @@ namespace Benchmark_Instant_Reports_2.Classes {
         protected global::System.Web.UI.WebControls.Image imgFilterTests;
         
         /// <summary>
-        /// lblSelectTest control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblSelectTest;
-        
-        /// <summary>
         /// pceFilterTests control.
         /// </summary>
         /// <remarks>
@@ -92,6 +92,15 @@ namespace Benchmark_Instant_Reports_2.Classes {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::AjaxControlToolkit.PopupControlExtender pceFilterTests;
+        
+        /// <summary>
+        /// lblSelectTest control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblSelectTest;
         
         /// <summary>
         /// pnlBenchmark control.
@@ -110,6 +119,24 @@ namespace Benchmark_Instant_Reports_2.Classes {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.UpdatePanel updpnlBenchmark;
+        
+        /// <summary>
+        /// updpnlFilteredTestsLabel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel updpnlFilteredTestsLabel;
+        
+        /// <summary>
+        /// lblTestsFiltered control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblTestsFiltered;
         
         /// <summary>
         /// ddBenchmark control.
