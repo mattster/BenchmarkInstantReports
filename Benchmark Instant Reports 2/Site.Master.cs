@@ -7,6 +7,7 @@ using System.Web.UI.WebControls;
 using System.Data.OracleClient;
 using System.Data;
 using System.Configuration;
+using System.Web.Security;
 
 
 namespace Benchmark_Instant_Reports_2
@@ -15,26 +16,21 @@ namespace Benchmark_Instant_Reports_2
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            // enable the Admin menu if appropriate
-            //if (CampusSecurity.isAuthorizedForCampusRepMenu(Request))
-                if (true)
-            {
-                // display the menu with the Campus Report
-                MenuWithCampusRep.Visible = true;
-                MenuDefault.Visible = false;
-            }
-            else
-            {
-                // display the default menu
-                MenuWithCampusRep.Visible = false;
-                MenuDefault.Visible = true;
-            }
+            MenuWithCampusRep.Visible = true;
+            MenuDefault.Visible = false;
+
+            CampusAuthLabel.Text = Context.User.Identity.Name;
+            if (!Context.User.Identity.IsAuthenticated)
+                pnlAuthInfo.Visible = false;
+
+
         }
 
         protected void NavigationMenu_MenuItemClick(object sender, MenuEventArgs e)
         {
 
         }
+
 
         public void updateCampusAuthLabel(string campus)
         {
@@ -48,11 +44,14 @@ namespace Benchmark_Instant_Reports_2
 
         protected void LogoutButton_Click(object sender, EventArgs e)
         {
-            CampusSecurity.deAuthorize(Response);
-            updateCampusAuthLabel("none");
-            
+            //CampusSecurity.deAuthorize(Response);
+            //updateCampusAuthLabel("none");
+
+            FormsAuthentication.SignOut();
+            Response.Redirect("Login.aspx");
+
         }
- 
+
 
 
 

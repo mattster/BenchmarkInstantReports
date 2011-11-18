@@ -35,8 +35,10 @@ namespace Benchmark_Instant_Reports_2
         public static int testTemplType29_1GridG68 = 4;
         public static int testTemplType19_1GridEOC = 5;
         public static int testTemplType18_2GridEOC = 6;
+        public static int testTemplType24_1GridG45 = 7;
         public static string unkTeacherName = "zUNKNOWN TEACHER";
         public static string allTeachers = "__All Teachers__";
+        public static string usernameAllCampuses = "ALL";
 
         #endregion
 
@@ -75,6 +77,7 @@ namespace Benchmark_Instant_Reports_2
         public static string testTemplate29Q1GridG68 = "29-AE-FK-1GRID-G68";
         public static string testTemplate18Q2GridEOC = "18-AE-FK-2GRID-EOC";
         public static string testTemplate19Q1GridEOC = "19-AE-FK-1GRID-EOC";
+        public static string testTemplate24Q1GridG45 = "24-AE-FK-1GRID-G45";
 
         public static string schoolCriteriaInCustomQ = "AND R.SCHOOL2 = @school"; // "AND R.SCHOOL_ABBR = @school";
         public static string schoolCriteriaInCustomQ2 = "AND SCHOOL2 = @school"; //"AND SCHOOL_ABBR = @school";
@@ -113,6 +116,10 @@ namespace Benchmark_Instant_Reports_2
                 "select * from (" + getseparatorQuery + ") " +
                 "union all " +
                 "select * from (" + getELCampusQuery + ") ";
+
+        public static string getCampusInfoForCampus =
+                "select school_abbr, schoolname from aci.school " +
+                "where school_abbr = \'@schoolAbbr\' ";
 
         // TEMPCHANGE for the demo
         //public static string getCampusListQuery =
@@ -1042,6 +1049,12 @@ namespace Benchmark_Instant_Reports_2
                         studentAnswerStringArray[29] += "." + studentAnswerStringArray[30];
                     }
             }
+            else if (thisTestTemplType == testTemplType24_1GridG45)
+            {
+                // 24 mult choice + 1 Grade 4-5 grid: #25 = q25
+                gridIdxFirst = 24;
+                gridIdxLast = 24;
+            }
 
 
             // remove leading zeroes
@@ -1103,6 +1116,8 @@ namespace Benchmark_Instant_Reports_2
                 return testTemplType28_2GridG68;
             else if (thisTemplateName == testTemplate29Q1GridG68)
                 return testTemplType29_1GridG68;
+            else if (thisTemplateName == testTemplate24Q1GridG45)
+                return testTemplType24_1GridG45;
 
 
             return testTemplTypeNoGrids;

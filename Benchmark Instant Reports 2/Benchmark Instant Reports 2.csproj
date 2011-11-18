@@ -34,23 +34,22 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AjaxControlToolkit, Version=3.5.50927.0, Culture=neutral, PublicKeyToken=28f01b0e84b6d53e, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\AjaxControlToolkit.4.1.50927\lib\35\AjaxControlToolkit.dll</HintPath>
+    <Reference Include="AjaxControlToolkit">
+      <HintPath>..\packages\AjaxControlToolkit.4.1.51116\lib\40\AjaxControlToolkit.dll</HintPath>
     </Reference>
     <Reference Include="AntiXSSLibrary">
-      <HintPath>..\packages\AjaxControlToolkit.4.1.50927\lib\35\SanitizerProviders\AntiXSSLibrary.dll</HintPath>
+      <HintPath>..\packages\AjaxControlToolkit.4.1.51116\lib\40\SanitizerProviders\AntiXSSLibrary.dll</HintPath>
     </Reference>
     <Reference Include="HtmlSanitizationLibrary">
-      <HintPath>..\packages\AjaxControlToolkit.4.1.50927\lib\35\SanitizerProviders\HtmlSanitizationLibrary.dll</HintPath>
+      <HintPath>..\packages\AjaxControlToolkit.4.1.51116\lib\40\SanitizerProviders\HtmlSanitizationLibrary.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Build.Conversion.v3.5" />
     <Reference Include="Microsoft.ReportViewer.Common, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.ReportViewer.WebForms, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.ReportViewer.WinForms, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.VisualBasic" />
-    <Reference Include="SanitizerProviders, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\AjaxControlToolkit.4.1.50927\lib\35\SanitizerProviders\SanitizerProviders.dll</HintPath>
+    <Reference Include="SanitizerProviders">
+      <HintPath>..\packages\AjaxControlToolkit.4.1.51116\lib\40\SanitizerProviders\SanitizerProviders.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -86,6 +85,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="db\CCDDControls.asmx" />
+    <Content Include="Login.aspx" />
     <Content Include="MaterialsReport.aspx" />
     <Content Include="Info.aspx" />
     <Content Include="ScanReport.aspx" />
@@ -171,6 +171,12 @@
     <Compile Include="db\CCDDControls.asmx.cs">
       <DependentUpon>CCDDControls.asmx</DependentUpon>
       <SubType>Component</SubType>
+    <Compile Include="Login.aspx.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Login.aspx.designer.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
     </Compile>
     <Compile Include="MaterialsReport.aspx.cs">
       <DependentUpon>MaterialsReport.aspx</DependentUpon>

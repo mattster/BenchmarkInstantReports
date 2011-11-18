@@ -22,33 +22,6 @@ namespace Benchmark_Instant_Reports_2 {
         protected global::System.Web.UI.WebControls.DropDownList ddCampus;
         
         /// <summary>
-        /// lblEnterSchoolPassword control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblEnterSchoolPassword;
-        
-        /// <summary>
-        /// txtbxSchoolPassword control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtbxSchoolPassword;
-        
-        /// <summary>
-        /// btnEnterPassword control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnEnterPassword;
-        
-        /// <summary>
         /// ddBenchmark control.
         /// </summary>
         /// <remarks>
@@ -92,42 +65,6 @@ namespace Benchmark_Instant_Reports_2 {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblAlignmentNote;
-        
-        /// <summary>
-        /// modalpopupcontrol control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink modalpopupcontrol;
-        
-        /// <summary>
-        /// popupPanel control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel popupPanel;
-        
-        /// <summary>
-        /// ButtonOK control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button ButtonOK;
-        
-        /// <summary>
-        /// mpupIncorrectPassword control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::AjaxControlToolkit.ModalPopupExtender mpupIncorrectPassword;
         
         /// <summary>
         /// repvwStudentSummary control.

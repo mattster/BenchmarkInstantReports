@@ -25,6 +25,24 @@ namespace Benchmark_Instant_Reports_2
             }
         }
 
+        //public class AlternateAnsKey
+        //{
+        //    public string TestID { get; set; }
+        //    public string Campus { get; set; }
+        //    public string Teacher { get; set; }
+        //    public string[] Periods { get; set; }
+        //    public string[] AnsKey { get; set; }
+
+        //    public AlternateAnsKey(string testid, string campus, string teacher, string[] periods, string[] anskey)
+        //    {
+        //        TestID = testid;
+        //        Campus = campus;
+        //        Teacher = teacher;
+        //        Periods = periods;
+        //        AnsKey = anskey;
+        //    }
+        //}
+
         public class GridNonExactMatch
         {
             public string TestID { get; set; }
@@ -40,6 +58,10 @@ namespace Benchmark_Instant_Reports_2
         }
 
         #region exceptiondata
+
+        #region Alternate_Answer_Keys
+
+        #endregion
 
         #region test_versions_for_specific_tests_teachers_periods
         private static string exTest1 = "2010-12 SC Biology SEM 22-24";
@@ -99,6 +121,11 @@ namespace Benchmark_Instant_Reports_2
         private static string[] exPeriod316 = { "02", "04", "05", "07" };
         private static string exTeacher317 = "JACKSON, LETREANNA";
         private static string[] exPeriod317 = { "05" };
+
+        private static string exTest4 = "2011-11 SC Grade 8 Sci Unit 3 T2 CUT 98-41";
+        private static string exCampus41 = "PHJH";
+        private static string exTeacher411 = "ANDERSON, ANGINELL";
+        private static string[] exPeriod411 = { "01", "05" };
 
 
 
@@ -317,20 +344,17 @@ namespace Benchmark_Instant_Reports_2
                 {
                     if (teacher == exTeacher111)
                     {
-                        for (int i = 0; i < exPeriod111.Length; i++)
-                            if (period == exPeriod111[i])
+                        if (birUtilities.isStringInStringArray(period, exPeriod111))
                                 return incAmt;
                     }
                     else if (teacher == exTeacher112)
                     {
-                        for (int i = 0; i < exPeriod112.Length; i++)
-                            if (period == exPeriod112[i])
+                        if (birUtilities.isStringInStringArray(period, exPeriod112))        
                                 return incAmt;
                     }
                     else if (teacher == exTeacher113)
                     {
-                        for (int i = 0; i < exPeriod113.Length; i++)
-                            if (period == exPeriod113[i])
+                        if (birUtilities.isStringInStringArray(period, exPeriod113))
                                 return incAmt;
                     }
                 }
@@ -338,26 +362,22 @@ namespace Benchmark_Instant_Reports_2
                 {
                     if (teacher == exTeacher121)
                     {
-                        for (int i = 0; i < exPeriod121.Length; i++)
-                            if (period == exPeriod121[i])
+                        if (birUtilities.isStringInStringArray(period, exPeriod121))
                                 return incAmt;
                     }
                     else if (teacher == exTeacher122)
                     {
-                        for (int i = 0; i < exPeriod122.Length; i++)
-                            if (period == exPeriod122[i])
+                        if (birUtilities.isStringInStringArray(period, exPeriod122))
                                 return incAmt;
                     }
                     else if (teacher == exTeacher123)
                     {
-                        for (int i = 0; i < exPeriod123.Length; i++)
-                            if (period == exPeriod123[i])
+                        if (birUtilities.isStringInStringArray(period, exPeriod123))
                                 return incAmt;
                     }
                     else if (teacher == exTeacher124)
                     {
-                        for (int i = 0; i < exPeriod124.Length; i++)
-                            if (period == exPeriod124[i])
+                        if (birUtilities.isStringInStringArray(period, exPeriod124))
                                 return incAmt;
                     }
                 }
@@ -365,44 +385,37 @@ namespace Benchmark_Instant_Reports_2
                 {
                     if (teacher == exTeacher131)
                     {
-                        for (int i = 0; i < exPeriod131.Length; i++)
-                            if (period == exPeriod131[i])
+                        if (birUtilities.isStringInStringArray(period, exPeriod131))
                                 return incAmt;
                     }
                     else if (teacher == exTeacher132)
                     {
-                        for (int i = 0; i < exPeriod132.Length; i++)
-                            if (period == exPeriod132[i])
+                        if (birUtilities.isStringInStringArray(period, exPeriod132))
                                 return incAmt;
                     }
                     else if (teacher == exTeacher133)
                     {
-                        for (int i = 0; i < exPeriod133.Length; i++)
-                            if (period == exPeriod133[i])
+                        if (birUtilities.isStringInStringArray(period, exPeriod133))
                                 return incAmt;
                     }
                     else if (teacher == exTeacher134)
                     {
-                        for (int i = 0; i < exPeriod134.Length; i++)
-                            if (period == exPeriod134[i])
+                        if (birUtilities.isStringInStringArray(period, exPeriod134))
                                 return incAmt;
                     }
                     else if (teacher == exTeacher135)
                     {
-                        for (int i = 0; i < exPeriod135.Length; i++)
-                            if (period == exPeriod135[i])
+                        if (birUtilities.isStringInStringArray(period, exPeriod135))
                                 return incAmt;
                     }
                     else if (teacher == exTeacher136)
                     {
-                        for (int i = 0; i < exPeriod136.Length; i++)
-                            if (period == exPeriod136[i])
+                        if (birUtilities.isStringInStringArray(period, exPeriod136))
                                 return incAmt;
                     }
                     else if (teacher == exTeacher137)
                     {
-                        for (int i = 0; i < exPeriod137.Length; i++)
-                            if (period == exPeriod137[i])
+                        if (birUtilities.isStringInStringArray(period, exPeriod137))
                                 return incAmt;
                     }
                 }
@@ -413,8 +426,7 @@ namespace Benchmark_Instant_Reports_2
                 {
                     if (teacher == exTeacher211)
                     {
-                        for (int i = 0; i < exPeriod211.Length; i++)
-                            if (period == exPeriod211[i])
+                        if (birUtilities.isStringInStringArray(period, exPeriod211))
                                 return incAmt;
                     }
                 }
@@ -425,49 +437,48 @@ namespace Benchmark_Instant_Reports_2
                 {
                     if (teacher == exTeacher311)
                     {
-                        for (int i = 0; i < exPeriod311.Length; i++)
-                            if (period == exPeriod311[i])
+                        if (birUtilities.isStringInStringArray(period, exPeriod311))
                                 return incAmt;
                     }
                     else if (teacher == exTeacher312)
                     {
-                        for (int i = 0; i < exPeriod312.Length; i++)
-                            if (period == exPeriod312[i])
+                        if (birUtilities.isStringInStringArray(period, exPeriod312))
                                 return incAmt;
                     }
                     else if (teacher == exTeacher313)
                     {
-                        for (int i = 0; i < exPeriod313.Length; i++)
-                            if (period == exPeriod313[i])
+                        if (birUtilities.isStringInStringArray(period, exPeriod313))
                                 return incAmt;
                     }
                     else if (teacher == exTeacher314)
                     {
-                        for (int i = 0; i < exPeriod314.Length; i++)
-                            if (period == exPeriod314[i])
+                        if (birUtilities.isStringInStringArray(period, exPeriod314))
                                 return incAmt;
                     }
                     else if (teacher == exTeacher315)
                     {
-                        for (int i = 0; i < exPeriod315.Length; i++)
-                            if (period == exPeriod315[i])
+                        if (birUtilities.isStringInStringArray(period, exPeriod315))
                                 return incAmt;
                     }
                     else if (teacher == exTeacher316)
                     {
-                        for (int i = 0; i < exPeriod316.Length; i++)
-                            if (period == exPeriod316[i])
+                        if (birUtilities.isStringInStringArray(period, exPeriod316))
                                 return incAmt;
                     }
                     else if (teacher == exTeacher317)
                     {
-                        for (int i = 0; i < exPeriod317.Length; i++)
-                            if (period == exPeriod317[i])
+                        if (birUtilities.isStringInStringArray(period, exPeriod317))
                                 return incAmt;
                     }
                 }
             }
-
+            else if (testID == exTest4)
+            {
+                if (campus == exCampus41)
+                    if (teacher == exTeacher411)
+                        if (birUtilities.isStringInStringArray(period, exPeriod411))
+                            return incAmt * 2;
+            }
             return 0;
         }
 

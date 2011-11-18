@@ -42,73 +42,26 @@ namespace Benchmark_Instant_Reports_2.Classes
             // return if it is the separator
             if (birUtilities.isDDSeparatorValue(ddCampus.SelectedValue.ToString()) || ddCampus.SelectedValue.ToString() == "")
             {
-                //birUtilities.toggleDDLInitView(ddCampus, true);
                 birUtilities.savedSelectedCampus(Response, "");
-                disableSchoolPasswordEntry();
                 return;
             }
 
             // setup stuff
-            //birUtilities.toggleDDLInitView(ddCampus, false);
             birUtilities.savedSelectedCampus(Response, ddCampus.SelectedItem.ToString());
 
             ddBenchmark.DataSource = birIF.getTestListForSchool(ddCampus.SelectedValue.ToString());
             ddBenchmark.DataBind();
 
             birUtilities.setupTestFilterPopup(ddTFCur, ddCampus.SelectedValue.ToString());
-
-            if (!CampusSecurity.isAuthorized(ddCampus.SelectedValue.ToString(), Request))
-            {                                               // not yet authorized - ask for password
-                ddBenchmark.Enabled = false;
-                btnGenReport.Enabled = false;
-                repvwCampusReport1.Visible = false;
-                repvwCampusReport2.Visible = false;
-                enableSchoolPasswordEntry();
-                theMasterPage.updateCampusAuthLabel("none");
-
-                return;
-            }
-
-
-            disableSchoolPasswordEntry();
             ddBenchmark.Enabled = true;
             ddBenchmark.SelectedIndex = 0;
             btnGenReport.Enabled = true;
             repvwCampusReport1.Visible = false;
             repvwCampusReport2.Visible = false;
 
-            theMasterPage.updateCampusAuthLabel(CampusSecurity.isAuthorizedFor(Request));
-
             return;
         }
 
-        protected void btnEnterPassword_Click(object sender, EventArgs e)
-        {
-            theMasterPage = Page.Master as SiteMaster;
-
-            // *** check password ***//
-
-            if (CampusSecurity.checkEnteredPassword(txtbxSchoolPassword.Text.ToString(), ddCampus.SelectedValue.ToString(), Response))
-            {                                                   // authentication succeeded
-                disableSchoolPasswordEntry();
-                theMasterPage.updateCampusAuthLabel(Response.Cookies[CampusSecurity.authcookiename].Value);
-            }
-            else                                                // authentication failed        
-            {
-                this.mpupIncorrectPassword.Show();
-                enableSchoolPasswordEntry();
-                theMasterPage.updateCampusAuthLabel("none");
-                return;
-            }
-
-            disableSchoolPasswordEntry();
-            ddBenchmark.Enabled = true;
-            btnGenReport.Enabled = false;
-            repvwCampusReport1.Visible = false;
-            repvwCampusReport2.Visible = false;
-
-            return;
-        }
 
         protected void popupDDLCur_SelectedIndexChanged2(object sender, EventArgs e)
         {
@@ -132,7 +85,6 @@ namespace Benchmark_Instant_Reports_2.Classes
             btnGenReport.Enabled = true;
             repvwCampusReport1.Visible = false;
             repvwCampusReport2.Visible = false;
-            disableSchoolPasswordEntry();
 
             return;
         }
@@ -227,21 +179,18 @@ namespace Benchmark_Instant_Reports_2.Classes
         {
             theMasterPage = Page.Master as SiteMaster;
 
-            // display authorization info
-            theMasterPage.updateCampusAuthLabel(CampusSecurity.isAuthorizedFor(Request));
-
             // disable all dialog boxes & stuff except campus
             ddCampus.Enabled = true;
             ddCampus.AutoPostBack = true;
-            ddBenchmark.Enabled = false;
+            ddBenchmark.Enabled = true;
             ddBenchmark.AutoPostBack = true;
             btnGenReport.Enabled = false;
-            disableSchoolPasswordEntry();
             repvwCampusReport1.Visible = false;
             repvwCampusReport2.Visible = false;
 
             // load list of campuses in Campus dropdown
-            ddCampus.DataSource = dbIFOracle.getDataSource(birIF.getCampusListQuery);
+            //ddCampus.DataSource = dbIFOracle.getDataSource(birIF.getCampusListQuery);
+            ddCampus.DataSource = birUtilities.getAuthorizedCampusList(Context.User.Identity.Name);
             ddCampus.DataTextField = "SCHOOLNAME";
             ddCampus.DataValueField = "SCHOOL_ABBR";
             ddCampus.DataBind();
@@ -262,14 +211,11 @@ namespace Benchmark_Instant_Reports_2.Classes
             if (cidx != -1)
                 ddCampus.SelectedIndex = cidx;
             else
-                ddCampus.SelectedIndex = 1;
+                ddCampus.SelectedIndex = 0;
                 //birUtilities.toggleDDLInitView(ddCampus, true);
 
 
-            if (cidx != -1 && ddCampus.SelectedValue.ToString() != "")
-                ddBenchmark.DataSource = birIF.getTestListForSchool(ddCampus.SelectedValue.ToString());
-            else
-                ddBenchmark.DataSource = birIF.getTestListForSchool("ALL");
+            ddBenchmark.DataSource = birIF.getTestListForSchool(ddCampus.SelectedValue.ToString());
             ddBenchmark.DataBind();
 
             int bidx = birUtilities.getIndexOfDDItem(birUtilities.savedSelectedTestID(Request), ddBenchmark);
@@ -283,32 +229,6 @@ namespace Benchmark_Instant_Reports_2.Classes
         }
 
 
-        //**********************************************************************//
-        //** keep school password stuff turned off
-        //**
-        private void disableSchoolPasswordEntry()
-        {
-            lblEnterSchoolPassword.Visible = false;
-            txtbxSchoolPassword.Visible = false;
-            txtbxSchoolPassword.Text = "";
-            btnEnterPassword.Visible = false;
-
-            return;
-        }
-
-
-        //**********************************************************************//
-        //** turn on school password entry
-        //**
-        private void enableSchoolPasswordEntry()
-        {
-            lblEnterSchoolPassword.Visible = true;
-            txtbxSchoolPassword.Visible = true;
-            txtbxSchoolPassword.Text = "";
-            btnEnterPassword.Visible = true;
-
-            return;
-        }
 
 
 

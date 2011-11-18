@@ -51,14 +51,8 @@
         </tr>
         <tr>
             <td class="style4" valign="middle" align="right">
-                <asp:Label ID="lblEnterSchoolPassword" runat="server" Font-Bold="True" ForeColor="#3366FF"
-                    Text="Enter school password:"></asp:Label>
             </td>
             <td align="left" class="style2" valign="middle">
-                <asp:TextBox ID="txtbxSchoolPassword" runat="server" Width="68px" TextMode="Password"></asp:TextBox>
-                &nbsp;&nbsp;&nbsp;&nbsp;
-                <asp:Button ID="btnEnterPassword" runat="server" OnClick="btnEnterPassword_Click"
-                    Text="Submit" />
             </td>
             <td>
             </td>
@@ -72,15 +66,7 @@
                 <asp:Button ID="btnGenReport" runat="server" Text="Generate Report" OnClick="btnGenReport_Click" />
             </td>
         </tr>
-        </table>
-    <asp:HyperLink Target="_blank" Text="" ID="modalpopupcontrol" runat="server"></asp:HyperLink>
-    <asp:Panel ID="popupPanel" runat="server" CssClass="popup-dialog">
-    <div id="dialogContents">
-    Incorrect school password. Please try again.<br />
-    <asp:Button ID="ButtonOK" runat="server" Text="OK" /></div></asp:Panel>
-    <ajaxToolkit:ModalPopupExtender ID="mpupIncorrectPassword" runat="server" TargetControlID="modalpopupcontrol" PopupControlID="popupPanel" 
-        OkControlID="ButtonOK" DropShadow="true" BackgroundCssClass="modalBackground"></ajaxToolkit:ModalPopupExtender>
-
+    </table>
     &nbsp;&nbsp;
     <rsweb:ReportViewer ID="repvwCampusReport1" runat="server" Font-Names="Verdana" Font-Size="8pt"
         Height="100px" InteractiveDeviceInfos="(Collection)" WaitMessageFont-Names="Verdana"

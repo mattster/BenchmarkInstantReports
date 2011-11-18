@@ -442,3 +442,50 @@ div.versionlabel
 {
     padding: 1px;
 }
+/* Form layout
+  ------------------------------------------ */
+.row
+{
+    clear: both;
+    margin: 15px 5px 15px 5px;
+}
+
+.formlabel
+{
+    float: left;
+    margin: 3px 10px 0 0;
+    width: 100px;
+}
+
+.formlabellong
+{
+    float: left;
+    margin: 0 10px 0 0;
+}
+
+.formDDL
+{
+    float: left;
+    margin: 0 10px 0 5px;
+}
+
+.formtextbox
+{
+    float: left;
+    margin: 0 10px 0 5px;
+}
+
+#loginformarea
+{
+    margin: 20px 20px 20px 50px;
+}
+
+.formbutton
+{
+    margin: 15px;
+}
+
+/* Login 
+  ------------------------------------------ */
+
+   

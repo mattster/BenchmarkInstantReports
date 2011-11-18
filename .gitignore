@@ -2,8 +2,9 @@
 *.ncb
 *.aps
 *.suo
-*/bin/*
-*/obj/*
 *.log
-*.dll
 *.pdb
+*.cache
+bin/
+obj/
+*.orig

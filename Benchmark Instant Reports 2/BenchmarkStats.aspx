@@ -49,16 +49,8 @@
         </tr>
         <tr>
             <td align="right" class="style1">
-                <asp:Label ID="lblEnterSchoolPassword" runat="server" Font-Bold="True" ForeColor="#3366FF"
-                    Text="Enter school password:"></asp:Label>
             </td>
             <td class="style2">
-                <strong __designer:mapid="189">
-                    <asp:TextBox ID="txtbxSchoolPassword" runat="server" Width="68px" TextMode="Password"></asp:TextBox>
-                    &nbsp;&nbsp;&nbsp;&nbsp;
-                    <asp:Button ID="btnEnterPassword" runat="server" OnClick="btnEnterPassword_Click"
-                        Text="Submit" />
-                </strong>
             </td>
             <td class="style4">
             </td>
@@ -114,15 +106,6 @@
             </td>
         </tr>
     </table>
-    <asp:HyperLink Target="_blank" Text="" ID="modalpopupcontrol" runat="server"></asp:HyperLink>
-    <asp:Panel ID="popupPanel" runat="server" CssClass="popup-dialog">
-        <div id="dialogContents">
-            Incorrect school password. Please try again.<br />
-            <asp:Button ID="ButtonOK" runat="server" Text="OK" /></div>
-    </asp:Panel>
-    <ajaxToolkit:ModalPopupExtender ID="mpupIncorrectPassword" runat="server" TargetControlID="modalpopupcontrol"
-        PopupControlID="popupPanel" OkControlID="ButtonOK" DropShadow="true" BackgroundCssClass="modalBackground">
-    </ajaxToolkit:ModalPopupExtender>
     <br />
     <rsweb:ReportViewer ID="repvwBenchmarkStats1a" runat="server" Font-Names="Verdana"
         Font-Size="8pt" InteractiveDeviceInfos="(Collection)" WaitMessageFont-Names="Verdana"
