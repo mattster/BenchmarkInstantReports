@@ -61,6 +61,11 @@
                             <asp:DropDownList ID="ddTFCur" CssClass="popupDDL" runat="server" Height="28px" Width="150px"
                                 AutoPostBack="true" OnSelectedIndexChanged="popupDDLCur_SelectedIndexChanged2">
                             </asp:DropDownList>
+                            <div class="popupLabel">
+                                Test Type:</div>
+                            <asp:DropDownList ID="ddTFTestType" CssClass="popupDDL" runat="server" Height="28px"
+                                Width="150px" AutoPostBack="true" OnSelectedIndexChanged="popupDDLTestType_SelectedIndexChanged">
+                            </asp:DropDownList>
                         </ContentTemplate>
                     </asp:UpdatePanel>
                 </asp:Panel>
@@ -74,7 +79,7 @@
                             runat="server" CommitScript="popupDDLCur_SelectedIndexChanged2" />
                     </ContentTemplate>
                 </asp:UpdatePanel>
-                <asp:Label ID="lblSelectTest" CssClass="floatleft, margintopA" runat="server">Select Test:</asp:Label>
+                <asp:Label ID="lblSelectTest" CssClass="" runat="server">Select Test:</asp:Label>
             </td>
             <td>
                 <asp:Panel ID="pnlBenchmark" runat="server">

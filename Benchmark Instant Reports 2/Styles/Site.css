@@ -433,7 +433,7 @@ div.versionlabel
 }
 .popupDDL
 {
-    float: left;
+    float: right;
     margin: 2px 10px 10px 2px;
 }
 
@@ -508,7 +508,19 @@ div.versionlabel
  {
      float: left;
  }
+ .floatright
+ {
+     float: right;
+ }
  .margintopA
  {
-     margin-top: 5px;
+     padding-top: 100px;
+ }
+ .marginbottomA
+ {
+     margin-bottom: 10px;
+ }
+ .paddingtopA
+ {
+     padding-top: 10px;
  }

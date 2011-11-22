@@ -6,6 +6,7 @@ using System.Data;
 using System.Web.UI.WebControls;
 using System.Text.RegularExpressions;
 using Benchmark_Instant_Reports_2.Classes;
+using Benchmark_Instant_Reports_2.Metadata;
 
 
 //* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
@@ -25,7 +26,6 @@ namespace Benchmark_Instant_Reports_2
         private static string savedSelectedTestIDsCokieName = "selectedTestIDs";
         private static string savedSelectedCampusCookieName = "selectedCampus";
 
-        private static string allIndicator = "--ALL--";
         //private static string[] curricList = { "Science", "Math", "Social Studies", "Reading", "Writing", "Eng. Lang. Arts", "LOTE", "Technology", "Music", "Band / Orch." };
 
         //**********************************************************************//
@@ -422,87 +422,6 @@ namespace Benchmark_Instant_Reports_2
             return false;
         }
 
-        private static string[] getCurricList(string campus)
-        {
-            List<string> curriclist = new List<string>();
-            string schtype = birIF.getSchoolType(campus);
-
-            curriclist.Add(allIndicator);
-
-            if (schtype == "A")                 // both Elem & Sec
-            {
-                foreach (Curriculum curric in AllTestMetadata.AllCurriculum)
-                {
-                    curriclist.Add(curric.DispAbbr);
-                }
-            }
-            else if (schtype == "E")            // Elementary
-            {
-                foreach (Curriculum curric in AllTestMetadata.AllCurriculum)
-                {
-                    if (curric.ElemSec == "E" || curric.ElemSec == "B")
-                        curriclist.Add(curric.DispAbbr);
-                }
-            }
-            else                                // Secondary
-            {
-                foreach (Curriculum curric in AllTestMetadata.AllCurriculum)
-                {
-                    if (curric.ElemSec == "S" || curric.ElemSec == "B")
-                        curriclist.Add(curric.DispAbbr);
-                }
-            }
-
-            return curriclist.ToArray();
-        }
-
-        private static void loadCurricListInDD(DropDownList ddl, string campus)
-        {
-            ddl.DataSource = getCurricList(campus);
-            //ddl.SelectedIndex = 0;
-            ddl.DataBind();
-
-            return;
-        }
-
-        public static void setupTestFilterPopup(DropDownList ddTFCur, string campus)
-        {
-            loadCurricListInDD(ddTFCur, campus);
-
-            return;
-        }
-
-
-        internal static bool filterTestsByCurric(string campus, DropDownList ddl, string curric)
-        {
-
-            string[] alltests = birIF.getTestListForSchool(campus);
-            List<string> resultList = new List<string>();
-            string pattern = getRegExPatternForCurric(curric);
-
-            foreach (string curTest in alltests)
-            {
-                if (Regex.IsMatch(curTest, pattern) || curric == allIndicator)
-                    resultList.Add(curTest);
-            }
-
-            
-            ddl.DataSource = resultList;
-            ddl.DataBind();
-
-            return (curric == allIndicator) ?  false :  true;
-        }
-
-        private static string getRegExPatternForCurric(string curric)
-        {
-            foreach (Curriculum thisCurric in AllTestMetadata.AllCurriculum)
-            {
-                if (thisCurric.DispAbbr == curric)
-                    return thisCurric.RegEx;
-            }
-
-            return ".*";
-        }
 
 
         public static DataView getAuthorizedCampusList(string username)
@@ -512,7 +431,7 @@ namespace Benchmark_Instant_Reports_2
             if (username == birIF.usernameAllCampuses)
             {
                 ds = dbIFOracle.getDataRows(birIF.getCampusListQuery);
-             }
+            }
             else
             {
                 string qs = birIF.getCampusInfoForCampus.Replace("@schoolAbbr", username);
@@ -524,18 +443,5 @@ namespace Benchmark_Instant_Reports_2
         }
 
 
-        public static void setFilterButtonImage(Image imgFilterTests, bool filtersapplied)
-        {
-            if (filtersapplied)
-            {
-                imgFilterTests.ImageUrl = "~/content/images/f-circ-red-20x20.png";
-            }
-            else
-            {
-                imgFilterTests.ImageUrl = "~/content/images/f-circ-20x20.png";
-            }
-
-            return;
-        }
     }
 }

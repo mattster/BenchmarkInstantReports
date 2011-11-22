@@ -5,35 +5,53 @@ using System.Web;
 
 namespace Benchmark_Instant_Reports_2.Classes
 {
-    public class TestFilterState
-    {
-        public bool Curric { get; set; }
-        public bool Subject { get; set; }
-        public bool TestType { get; set; }
-        public bool AreAnyFiltersApplied { 
-            get { return Curric || Subject || TestType; }  
-        }
+    //public class TestFilterState
+    //{
+        //public string Curric { get; set; }
+        //public bool CurricFiltered
+        //{
+        //    get { return (Curric == birUtilities.allIndicator) ? false : true; }
+        //}
+        
+        //public string Subject { get; set; }
+        //public bool SubjectFiltered
+        //{
+        //    get { return (Subject == birUtilities.allIndicator) ? false : true; }
+        //}
 
-        public TestFilterState()
-        {
-            Curric = false;
-            Subject = false;
-            TestType = false;
-        }
+        //public string TestType { get; set; }
+        //public bool TestTypeFiltered
+        //{
+        //    get { return (TestType == birUtilities.allIndicator) ? false : true; }
+        //}
 
-        public TestFilterState(bool curric, bool subject, bool testtype)
-        {
-            Curric = curric;
-            Subject = subject;
-            TestType = testtype;
-        }
+        //public bool AreAnyFiltersApplied
+        //{
+        //    get { return CurricFiltered || SubjectFiltered || TestTypeFiltered; }
+        //}
 
-    }
-    
-    public class TestFilter
-    {
+        //// default constructor
+        //public TestFilterState()
+        //{
+        //    Curric = birUtilities.allIndicator;
+        //    Subject = birUtilities.allIndicator;
+        //    TestType = birUtilities.allIndicator;
+        //}
 
-    
-    
-    }
+        //// constructor with specific values
+        //public TestFilterState(string curric, string subject, string testtype)
+        //{
+        //    Curric = curric;
+        //    Subject = subject;
+        //    TestType = testtype;
+        //}
+
+    //}
+
+    //public class TestFilter
+    //{
+
+
+
+    //}
 }

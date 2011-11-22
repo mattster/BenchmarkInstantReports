@@ -8,6 +8,7 @@ using System.Data;
 using Microsoft.Reporting.Common;
 using Microsoft.Reporting.WebForms;
 using AjaxControlToolkit;
+using Benchmark_Instant_Reports_2.Helpers;
 
 
 namespace Benchmark_Instant_Reports_2.Classes
@@ -15,7 +16,7 @@ namespace Benchmark_Instant_Reports_2.Classes
     public partial class WebForm8 : System.Web.UI.Page
     {
         public SiteMaster theMasterPage;
-        public TestFilterState thisTestFilterState = new TestFilterState(false, false, false);
+        private static TestFilterState thisTestFilterState = new TestFilterState();
 
 
         protected void Page_Load(object sender, EventArgs e)
@@ -49,7 +50,7 @@ namespace Benchmark_Instant_Reports_2.Classes
             ddBenchmark.DataSource = birIF.getTestListForSchool(ddCampus.SelectedValue.ToString());
             ddBenchmark.DataBind();
 
-            birUtilities.setupTestFilterPopup(ddTFCur, ddCampus.SelectedValue.ToString());
+            TestFilter.setupTestFilterPopup(ddTFCur, ddTFTestType, ddCampus.SelectedValue.ToString());
             ddBenchmark.Enabled = true;
             ddBenchmark.SelectedIndex = 0;
             btnGenReport.Enabled = true;
@@ -62,19 +63,21 @@ namespace Benchmark_Instant_Reports_2.Classes
 
         protected void popupDDLCur_SelectedIndexChanged2(object sender, EventArgs e)
         {
-            // return if it is the separator
-            if (birUtilities.isDDSeparatorValue(ddTFCur.SelectedItem.ToString()))
-            {
-                birUtilities.toggleDDLInitView(ddTFCur, true);
-                return;
-            }
-            bool filtered = birUtilities.filterTestsByCurric(ddCampus.SelectedValue.ToString(), ddBenchmark, ddTFCur.SelectedItem.Value.ToString());
-            thisTestFilterState.Curric = filtered;
+            thisTestFilterState.Curric = ddTFCur.SelectedItem.Value.ToString();
+            TestFilter.filterTests(thisTestFilterState, ddCampus.SelectedValue.ToString(), ddBenchmark);
             updateTestFilterDisplay(thisTestFilterState.AreAnyFiltersApplied);
 
             return;
         }
 
+        protected void popupDDLTestType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            thisTestFilterState.TestType = ddTFTestType.SelectedItem.Value.ToString();
+            TestFilter.filterTests(thisTestFilterState, ddCampus.SelectedValue.ToString(), ddBenchmark);
+            updateTestFilterDisplay(thisTestFilterState.AreAnyFiltersApplied);
+            
+            return;
+        }
 
         protected void ddBenchmark_SelectedIndexChanged1(object sender, EventArgs e)
         {
@@ -203,7 +206,7 @@ namespace Benchmark_Instant_Reports_2.Classes
 
             //// setup test filters
             //birUtilities.setupTestFilterPopup(ddTFCur);
-            birUtilities.setupTestFilterPopup(ddTFCur, ddCampus.SelectedValue.ToString());
+            TestFilter.setupTestFilterPopup(ddTFCur, ddTFTestType, ddCampus.SelectedValue.ToString());
 
 
             int cidx = birUtilities.getIndexOfDDItem(birUtilities.savedSelectedCampus(Request), ddCampus);
@@ -231,7 +234,7 @@ namespace Benchmark_Instant_Reports_2.Classes
         private void updateTestFilterDisplay(bool filtersapplied)
         {
             // set filter button image
-            birUtilities.setFilterButtonImage(imgFilterTests, filtersapplied);
+            TestFilter.setFilterButtonImage(imgFilterTests, filtersapplied);
 
             // display tests filtered label
             lblTestsFiltered.Visible = filtersapplied;

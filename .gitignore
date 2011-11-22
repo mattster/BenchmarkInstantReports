@@ -7,4 +7,5 @@
 *.cache
 bin/
 obj/
+obj/Debug/
 *.orig
