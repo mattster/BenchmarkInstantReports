@@ -71,10 +71,11 @@ namespace Benchmark_Instant_Reports_2.Helpers
         //    return testtypelist.ToArray();
         //}
 
-        public static void SetupTestFilterPopup(DropDownList ddTFCur, DropDownList ddTFTT, string campus)
+        public static void SetupTestFilterPopup(DropDownList ddTFCur, DropDownList ddTFTT, DropDownList ddTFTV, string campus)
         {
             loadFilterListInDD<Curriculum>(ddTFCur, campus);
             loadFilterListInDD<TestType>(ddTFTT, campus);
+            loadFilterListInDD<TestVersion>(ddTFTV, campus);
 
             return;
         }

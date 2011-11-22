@@ -26,9 +26,15 @@ namespace Benchmark_Instant_Reports_2.Helpers
             get { return (TestType == Constants.allIndicator) ? false : true; }
         }
 
+        public string TestVersion { get; set; }
+        public bool TestVersionFiltered
+        {
+            get { return (TestVersion == Constants.allIndicator) ? false : true; }
+        }
+
         public bool AreAnyFiltersApplied
         {
-            get { return CurricFiltered || SubjectFiltered || TestTypeFiltered; }
+            get { return CurricFiltered || SubjectFiltered || TestTypeFiltered || TestVersionFiltered; }
         }
 
         // default constructor
@@ -37,14 +43,16 @@ namespace Benchmark_Instant_Reports_2.Helpers
             Curric = Constants.allIndicator;
             Subject = Constants.allIndicator;
             TestType = Constants.allIndicator;
+            TestVersion = Constants.allIndicator;
         }
 
         // constructor with specific values
-        public TestFilterState(string curric, string subject, string testtype)
+        public TestFilterState(string curric, string subject, string testtype, string testversion)
         {
             Curric = curric;
             Subject = subject;
             TestType = testtype;
+            TestVersion = testversion;
         }
 
         // reset all filters
@@ -53,6 +61,7 @@ namespace Benchmark_Instant_Reports_2.Helpers
             Curric = Constants.allIndicator;
             Subject = Constants.allIndicator;
             TestType = Constants.allIndicator;
+            TestVersion = Constants.allIndicator;
         }
 
     }

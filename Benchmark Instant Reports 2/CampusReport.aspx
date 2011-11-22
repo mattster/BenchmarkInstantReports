@@ -1,6 +1,6 @@
 ﻿<%@ Page Title="BIR: Campus Summary" Language="C#" MasterPageFile="~/Site.Master"
     EnableEventValidation="false" AutoEventWireup="true" CodeBehind="CampusReport.aspx.cs"
-    Inherits="Benchmark_Instant_Reports_2.Classes.WebForm8" %>
+    Inherits="Benchmark_Instant_Reports_2.Infrastructure.PgCampusRep" %>
 
 <%@ Register Assembly="Microsoft.ReportViewer.WebForms, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a"
     Namespace="Microsoft.Reporting.WebForms" TagPrefix="rsweb" %>
@@ -59,14 +59,20 @@
                             <div class="popupLabel">
                                 Curriculum Area:</div>
                             <asp:DropDownList ID="ddTFCur" CssClass="popupDDL" runat="server" Height="28px" Width="150px"
-                                AutoPostBack="true" OnSelectedIndexChanged="popupDDLCur_SelectedIndexChanged2">
+                                AutoPostBack="true" OnSelectedIndexChanged="ddTFCur_SelectedIndexChanged">
                             </asp:DropDownList>
                             <div class="popupLabel">
                                 Test Type:</div>
                             <asp:DropDownList ID="ddTFTestType" CssClass="popupDDL" runat="server" Height="28px"
-                                Width="150px" AutoPostBack="true" OnSelectedIndexChanged="popupDDLTestType_SelectedIndexChanged">
+                                Width="150px" AutoPostBack="true" OnSelectedIndexChanged="ddTFTestType_SelectedIndexChanged">
                             </asp:DropDownList>
-                            <asp:Button ID="btnTFReset" CssClass="popupButton" runat="server" Text="Reset" OnClick="btnTFReset_Click" UseSubmitBehavior="false" />
+                            <div class="popupLabel">
+                                Test Version:</div>
+                            <asp:DropDownList ID="ddTFTestVersion" CssClass="popupDDL" runat="server" Height="28px"
+                                Width="150px" AutoPostBack="true" OnSelectedIndexChanged="ddTFTestVersion_SelectedIndexChanged">
+                            </asp:DropDownList>
+                            <asp:Button ID="btnTFReset" CssClass="popupButton" runat="server" Text="Reset" OnClick="btnTFReset_Click"
+                                UseSubmitBehavior="false" />
                         </ContentTemplate>
                     </asp:UpdatePanel>
                 </asp:Panel>

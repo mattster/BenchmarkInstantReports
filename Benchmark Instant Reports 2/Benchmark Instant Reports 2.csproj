@@ -165,6 +165,9 @@
     <Compile Include="Classes\birExceptions.cs" />
     <Compile Include="Helpers\TestFilter.cs" />
     <Compile Include="Helpers\TestFilterState.cs" />
+    <Compile Include="Infrastructure\ReportPage.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="Metadata\AllTestMetadata.cs" />
     <Compile Include="Metadata\Curriculum.cs" />
     <Compile Include="Classes\ScanReportIF.cs" />
@@ -209,6 +212,7 @@
     <Compile Include="Info.aspx.designer.cs">
       <DependentUpon>Info.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Metadata\TestVersion.cs" />
     <Compile Include="References\Constants.cs" />
     <Compile Include="References\DatabaseDefn.cs" />
     <Compile Include="References\Queries.cs" />

@@ -20,6 +20,11 @@ namespace Benchmark_Instant_Reports_2.Metadata
                 foreach (TestType tt in AllTestTypes)
                     yield return tt as T;
             }
+            else if (typeof(T) == typeof(TestVersion))
+            {
+                foreach (TestVersion tv in AllTestVersions)
+                    yield return tv as T;
+            }
             else
                 yield return null;
         }
