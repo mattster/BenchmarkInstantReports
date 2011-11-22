@@ -412,6 +412,13 @@ div.versionlabel
     
 }
 
+.popupButton
+{
+    clear: both;
+    float: left;
+    margin: 10px 20px 20px 20px;
+}
+
 .FilterPanel
 {
     background-color: #add8e6;

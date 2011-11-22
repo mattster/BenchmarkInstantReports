@@ -76,6 +76,15 @@ namespace Benchmark_Instant_Reports_2.Classes {
         protected global::System.Web.UI.WebControls.DropDownList ddTFTestType;
         
         /// <summary>
+        /// btnTFReset control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnTFReset;
+        
+        /// <summary>
         /// updpnlImgFilterTests control.
         /// </summary>
         /// <remarks>

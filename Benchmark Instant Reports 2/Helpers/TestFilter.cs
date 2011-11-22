@@ -71,7 +71,7 @@ namespace Benchmark_Instant_Reports_2.Helpers
         //    return testtypelist.ToArray();
         //}
 
-        public static void setupTestFilterPopup(DropDownList ddTFCur, DropDownList ddTFTT, string campus)
+        public static void SetupTestFilterPopup(DropDownList ddTFCur, DropDownList ddTFTT, string campus)
         {
             loadFilterListInDD<Curriculum>(ddTFCur, campus);
             loadFilterListInDD<TestType>(ddTFTT, campus);
@@ -80,7 +80,7 @@ namespace Benchmark_Instant_Reports_2.Helpers
         }
 
 
-        public static void setFilterButtonImage(Image imgFilterTests, bool filtersapplied)
+        public static void SetFilterButtonImage(Image imgFilterTests, bool filtersapplied)
         {
             if (filtersapplied)
                 imgFilterTests.ImageUrl = "~/content/images/f-circ-red-20x20.png";
@@ -91,7 +91,7 @@ namespace Benchmark_Instant_Reports_2.Helpers
         }
 
 
-        public static void filterTests(TestFilterState theTestFilterState, string campus, DropDownList ddl)
+        public static void FilterTests(TestFilterState theTestFilterState, string campus, DropDownList ddl)
         {
             List<string> resultList = new List<string>();
             List<List<string>> filteredTestsLists = new List<List<string>>();
@@ -113,8 +113,6 @@ namespace Benchmark_Instant_Reports_2.Helpers
 
             return;
         }
-
-
 
 
 
@@ -159,14 +157,6 @@ namespace Benchmark_Instant_Reports_2.Helpers
             return;
         }
 
-        //private static void loadCurricListInDD(DropDownList ddl, string campus)
-        //{
-        //    ddl.DataSource = getTestMetadataList<Curriculum>(campus);
-        //    ddl.DataBind();
-
-        //    return;
-        //}
-
 
         private static List<string> filterTestsByCurric(string campus, string curric)
         {
@@ -203,28 +193,6 @@ namespace Benchmark_Instant_Reports_2.Helpers
 
         //}
 
-
-        //private static string getRegExPatternForCurric(string curric)
-        //{
-        //    foreach (Curriculum thisCurric in AllTestMetadata.AllCurriculum)
-        //    {
-        //        if (thisCurric.DispAbbr == curric)
-        //            return thisCurric.RegEx;
-        //    }
-
-        //    return ".*";
-        //}
-
-        //private static string getRegExPatternForTestType(string testtype)
-        //{
-        //    foreach (TestType thisTestType in AllTestMetadata.AllTestTypes)
-        //    {
-        //        if (thisTestType.DispAbbr == testtype)
-        //            return thisTestType.RegEx;
-        //    }
-
-        //    return ".*";
-        //}
 
         private static string getRegExPatternFor<T>(string identifier) where T : TestMetadataItem
         {

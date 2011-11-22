@@ -66,6 +66,7 @@
                             <asp:DropDownList ID="ddTFTestType" CssClass="popupDDL" runat="server" Height="28px"
                                 Width="150px" AutoPostBack="true" OnSelectedIndexChanged="popupDDLTestType_SelectedIndexChanged">
                             </asp:DropDownList>
+                            <asp:Button ID="btnTFReset" CssClass="popupButton" runat="server" Text="Reset" OnClick="btnTFReset_Click" UseSubmitBehavior="false" />
                         </ContentTemplate>
                     </asp:UpdatePanel>
                 </asp:Panel>
@@ -116,12 +117,6 @@
             </td>
         </tr>
     </table>
-    </ajaxToolkit:ModalPopupExtender>
-    <%--ajaxToolkit:CascadingDropDown ID="ccddCampus" runat="server" ServicePath="CascadingDropDown1.asmx"
-        ServiceMethod="GetCampusList" TargetControlID="ddCampus" Category="Campus" PromptText="--Select Campus--" />--%>
-    <%-- <ajaxToolkit:CascadingDropDown ID="ccddTest" runat="server" ServicePath="CascadingDropDown1.asmx"
-        ServiceMethod="GetTestsForCampus" TargetControlID="ddBenchmark" Category="Test"
-        PromptText="--Select Test--" ParentControlID="ddCampus" LoadingText="Loading Tests..." />--%>
     &nbsp;&nbsp;
     <rsweb:ReportViewer ID="repvwCampusReport1" runat="server" Font-Names="Verdana" Font-Size="8pt"
         Height="100px" InteractiveDeviceInfos="(Collection)" WaitMessageFont-Names="Verdana"

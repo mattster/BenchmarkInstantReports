@@ -47,5 +47,13 @@ namespace Benchmark_Instant_Reports_2.Helpers
             TestType = testtype;
         }
 
+        // reset all filters
+        public void Reset()
+        {
+            Curric = Constants.allIndicator;
+            Subject = Constants.allIndicator;
+            TestType = Constants.allIndicator;
+        }
+
     }
 }
