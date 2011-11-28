@@ -8,7 +8,7 @@ namespace Benchmark_Instant_Reports_2.Metadata
     public class Curriculum : TestMetadataItem
     {
         private static string baseRegExPattern1 = @"[0-9]{4}-[0-9]{2} [ES]";
-        private static string baseRegExPattern2 = @" .*";
+        private static string baseRegExPattern2 = @" .* \d{1,2}-\d{2}$";
         public override string RegEx
         {
             get { return baseRegExPattern1 + CodeAbbr + baseRegExPattern2; }

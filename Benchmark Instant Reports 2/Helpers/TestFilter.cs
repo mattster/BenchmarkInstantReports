@@ -30,15 +30,15 @@ namespace Benchmark_Instant_Reports_2.Helpers
         }
 
 
-        public static void FilterTests(TestFilterState theTestFilterState, string campus, DropDownList ddl)
+        public static void FilterTests<T>(TestFilterState theTestFilterState, string campus, T testbox) where T : System.Web.UI.WebControls.ListControl
         {
             List<string> resultList = new List<string>();
             List<List<string>> filteredTestsLists = new List<List<string>>();
 
             // find the tests for each filter criteria
-            filteredTestsLists.Add(filterTestsByCurric(campus, theTestFilterState.Curric));
-            filteredTestsLists.Add(filterTestsByTestType(campus, theTestFilterState.TestType));
-            filteredTestsLists.Add(filterTestsByTestVersion(campus, theTestFilterState.TestVersion));
+            filteredTestsLists.Add(filterTestsBy<Curriculum>(campus, theTestFilterState.Curric));
+            filteredTestsLists.Add(filterTestsBy<TestType>(campus, theTestFilterState.TestType));
+            filteredTestsLists.Add(filterTestsBy<TestVersion>(campus, theTestFilterState.TestVersion));
 
             // final test list is a union of all the filtered lists
             resultList = filteredTestsLists[0];
@@ -48,8 +48,8 @@ namespace Benchmark_Instant_Reports_2.Helpers
             }
 
             // put the tests in the dropdown list
-            ddl.DataSource = resultList;
-            ddl.DataBind();
+            testbox.DataSource = resultList;
+            testbox.DataBind();
 
             return;
         }
@@ -98,55 +98,20 @@ namespace Benchmark_Instant_Reports_2.Helpers
         }
 
 
-        private static List<string> filterTestsByCurric(string campus, string curric)
+        private static List<string> filterTestsBy<T>(string campus, string filteredSelection) where T : TestMetadataItem
         {
             string[] alltests = birIF.getTestListForSchool(campus);
             List<string> resultList = new List<string>();
-            string pattern = getRegExPatternFor<Curriculum>(curric);
+            string pattern = getRegExPatternFor<T>(filteredSelection);
 
             foreach (string curTest in alltests)
             {
-                if (Regex.IsMatch(curTest, pattern) || curric == Constants.allIndicator)
+                if (Regex.IsMatch(curTest, pattern) || filteredSelection == Constants.allIndicator)
                     resultList.Add(curTest);
             }
 
             return resultList;
         }
-
-        private static List<string> filterTestsByTestType(string campus, string testtype)
-        {
-            string[] alltests = birIF.getTestListForSchool(campus);
-            List<string> resultList = new List<string>();
-            string pattern = getRegExPatternFor<TestType>(testtype);
-
-            foreach (string curTest in alltests)
-            {
-                if (Regex.IsMatch(curTest, pattern) || testtype == Constants.allIndicator)
-                    resultList.Add(curTest);
-            }
-
-            return resultList;
-        }
-
-        private static List<string> filterTestsByTestVersion(string campus, string testver)
-        {
-            string[] alltests = birIF.getTestListForSchool(campus);
-            List<string> resultList = new List<string>();
-            string pattern = getRegExPatternFor<TestVersion>(testver);
-
-            foreach (string curTest in alltests)
-            {
-                if (Regex.IsMatch(curTest, pattern) || testver == Constants.allIndicator)
-                    resultList.Add(curTest);
-            }
-
-            return resultList;
-        }
-
-        //private static List<string> filterTestsBy(string campus, string filteredSelection)
-        //{
-
-        //}
 
 
         private static string getRegExPatternFor<T>(string identifier) where T : TestMetadataItem

@@ -10,25 +10,124 @@
 namespace Benchmark_Instant_Reports_2 {
     
     
-    public partial class WebForm4 {
+    public partial class StudentSummary {
         
         /// <summary>
-        /// ddCampus control.
+        /// pnlCampus control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddCampus;
+        protected global::System.Web.UI.WebControls.Panel pnlCampus;
         
         /// <summary>
-        /// ddBenchmark control.
+        /// updpnlCampus control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddBenchmark;
+        protected global::System.Web.UI.UpdatePanel updpnlCampus;
+        
+        /// <summary>
+        /// pnlTestFilter control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlTestFilter;
+        
+        /// <summary>
+        /// updpnlTestFilter control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel updpnlTestFilter;
+        
+        /// <summary>
+        /// btnTFReset control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnTFReset;
+        
+        /// <summary>
+        /// updpnlImgFilterTests control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel updpnlImgFilterTests;
+        
+        /// <summary>
+        /// pceFilterTests control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.PopupControlExtender pceFilterTests;
+        
+        /// <summary>
+        /// lblSelectTest control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblSelectTest;
+        
+        /// <summary>
+        /// pnlBenchmark control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlBenchmark;
+        
+        /// <summary>
+        /// updpnlBenchmark control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel updpnlBenchmark;
+        
+        /// <summary>
+        /// updpnlFilteredTestsLabel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel updpnlFilteredTestsLabel;
+        
+        /// <summary>
+        /// pnlTeacher control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlTeacher;
+        
+        /// <summary>
+        /// updpnlTeacher control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel updpnlTeacher;
         
         /// <summary>
         /// ddTeacher control.
@@ -38,6 +137,24 @@ namespace Benchmark_Instant_Reports_2 {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddTeacher;
+        
+        /// <summary>
+        /// pnlNoScanData control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlNoScanData;
+        
+        /// <summary>
+        /// updpnlNoScanData control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel updpnlNoScanData;
         
         /// <summary>
         /// lblNoScanData control.
@@ -56,6 +173,24 @@ namespace Benchmark_Instant_Reports_2 {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnGenReport;
+        
+        /// <summary>
+        /// pnlLblAlignmentNote control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlLblAlignmentNote;
+        
+        /// <summary>
+        /// updpnlLblAlignmentNote control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel updpnlLblAlignmentNote;
         
         /// <summary>
         /// lblAlignmentNote control.

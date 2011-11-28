@@ -1,39 +1,36 @@
 ﻿using System;
 using System.Data;
-using System.Data.SqlClient;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Web.Configuration;
 using System.Linq;
-using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using System.Data.OracleClient;
-using System.Windows.Forms;
-using Microsoft.Reporting.Common;
+using Benchmark_Instant_Reports_2.Helpers;
+using Benchmark_Instant_Reports_2.Infrastructure;
 using Microsoft.Reporting.WebForms;
 
 
 
 namespace Benchmark_Instant_Reports_2
 {
-    public partial class WebForm1 : System.Web.UI.Page
+    public partial class StudentStats : ReportPage<DropDownList>
     {
         #region globals
 
-        // constants & globals
-        //
-        private static DataSet studentListQueryData = new DataSet();        // holds results of the custom query
-        private static DataSet studentListQueryData2 = new DataSet();       // try this
-        private static DataView studentListDataByTeacher = new DataView();  // custom query filtered by teacher
-        private static DataView studentListDataByTeacherPeriod = new DataView();    // custom query filtered by teacher, period
-        private static DataSet dsStudentListData = new DataSet();           // the filtered list of students
-        private static DataSet dsStudentDataToGrade = new DataSet();               // student data to grade
-
         public SiteMaster theMasterPage;
+        private static TestFilterState _thisTestFilterState = new TestFilterState();
+        public override TestFilterState thisTestFilterState
+        {
+            get { return _thisTestFilterState; }
+            set { _thisTestFilterState = value; }
+        }
+
+        private static DataSet studentListQueryData = new DataSet();                // holds results of the custom query
+        private static DataSet studentListQueryData2 = new DataSet();               // try this
+        private static DataView studentListDataByTeacher = new DataView();          // custom query filtered by teacher
+        private static DataView studentListDataByTeacherPeriod = new DataView();    // custom query filtered by teacher, period
+        private static DataSet dsStudentListData = new DataSet();                   // the filtered list of students
+        private static DataSet dsStudentDataToGrade = new DataSet();                // student data to grade
 
         #endregion
-
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -54,7 +51,8 @@ namespace Benchmark_Instant_Reports_2
 
         }
 
-        protected void ddCampus_SelectedIndexChanged1(object sender, EventArgs e)
+
+        protected void ddCampus_SelectedIndexChanged(object sender, EventArgs e)
         {
             theMasterPage = Page.Master as SiteMaster;
 
@@ -70,32 +68,33 @@ namespace Benchmark_Instant_Reports_2
             // setup stuff
             birUtilities.savedSelectedCampus(Response, ddCampus.SelectedItem.ToString());
 
-            ddBenchmark.DataSource = birIF.getTestListForSchool(ddCampus.SelectedValue.ToString());
-            ddBenchmark.DataBind();
+            listTests.DataSource = birIF.getTestListForSchool(ddCampus.SelectedValue.ToString());
+            listTests.DataBind();
 
-            ddBenchmark.Enabled = true;
+            TestFilter.SetupTestFilterPopup(ddTFCur, ddTFTestType, ddTFTestVersion, ddCampus.SelectedValue.ToString());
+            listTests.Enabled = true;
             ddTeacher.Enabled = false;
             btnGenReport.Enabled = false;
             repvwStudentStats2a.Visible = false;
 
-            int bidx = birUtilities.getIndexOfDDItem(birUtilities.savedSelectedTestID(Request), ddBenchmark);
+            int bidx = birUtilities.getIndexOfDDItem(birUtilities.savedSelectedTestID(Request), listTests);
             if (bidx != -1)
             {
-                ddBenchmark.SelectedIndex = bidx;
-                ddBenchmark_SelectedIndexChanged1(new object(), new EventArgs());
+                listTests.SelectedIndex = bidx;
+                listTests_SelectedIndexChanged(new object(), new EventArgs());
             }
 
             return;
         }
 
 
-        protected void ddBenchmark_SelectedIndexChanged1(object sender, EventArgs e)
+        protected void listTests_SelectedIndexChanged(object sender, EventArgs e)
         {
             //*** User selected a test ***//
             lblNoScanData.Visible = false;
-            birUtilities.savedSelectedTestID(Response, ddBenchmark.SelectedItem.ToString());
+            birUtilities.savedSelectedTestID(Response, listTests.SelectedItem.ToString());
 
-            dsStudentDataToGrade = birIF.getStudentDataToGrade(ddBenchmark.SelectedItem.ToString(),
+            dsStudentDataToGrade = birIF.getStudentDataToGrade(listTests.SelectedItem.ToString(),
                 ddCampus.SelectedValue.ToString());
 
             // get a list of teachers applicable for this query
@@ -108,8 +107,8 @@ namespace Benchmark_Instant_Reports_2
             if (listOfTeachers.Count() == 0)
             {
                 ddTeacher.Enabled = false;
-                //btnGenReport.Enabled = false;
-                ddBenchmark.Enabled = true;
+                btnGenReport.Enabled = false;
+                listTests.Enabled = true;
                 repvwStudentStats2a.Visible = false;
                 lblNoScanData.Visible = true;
 
@@ -120,7 +119,7 @@ namespace Benchmark_Instant_Reports_2
 
 
             // activate the Teacher dropdown and populate with the list of teachers
-            birUtilities.toggleDDLInitView(ddBenchmark, false);
+            birUtilities.toggleDDLInitView(listTests, false);
             ddTeacher.Enabled = true;
             ddTeacher.DataSource = listOfTeachers;
             ddTeacher.DataBind();
@@ -136,7 +135,7 @@ namespace Benchmark_Instant_Reports_2
         }
 
 
-        protected void ddTeacher_SelectedIndexChanged1(object sender, EventArgs e)
+        protected void ddTeacher_SelectedIndexChanged(object sender, EventArgs e)
         {
             //*** User selected a teacher ***//
             btnGenReport.Enabled = true;
@@ -144,6 +143,7 @@ namespace Benchmark_Instant_Reports_2
 
             return;
         }
+
 
         protected void btnGenReport_Click(object sender, EventArgs e)
         {
@@ -163,7 +163,7 @@ namespace Benchmark_Instant_Reports_2
                 dtMatchingStudents = birUtilities.getFilteredTable(dsStudentDataToGrade.Tables[0], selectFilter);
             }
             ssRresultsDataTable = StudentStatsIF.generateStudentStatsRepTable(dtMatchingStudents,
-                ddBenchmark.SelectedItem.ToString());
+                listTests.SelectedItem.ToString());
             int r = StudentStatsIF.writeStudentStatsResultsToDb(ssRresultsDataTable);
 
             repvwStudentStats2a.Visible = true;
@@ -174,24 +174,13 @@ namespace Benchmark_Instant_Reports_2
 
             // setup parameters for query
             Parameter paramTeacher = new Parameter();
-            Parameter paramTestID = new Parameter("parmTestId", DbType.String, ddBenchmark.SelectedItem.ToString());
+            Parameter paramTestID = new Parameter("parmTestId", DbType.String, listTests.SelectedItem.ToString());
             Parameter paramCampus = new Parameter("campus", DbType.String, ddCampus.SelectedValue.ToString());
-            //if (ddTeacher.SelectedItem.ToString() != birIF.allTeachers)
-            //{
             paramTeacher = new Parameter("parmTeacher", DbType.String, ddTeacher.SelectedItem.ToString().Replace("'", "''"));
             ods.FilterExpression = "TEST_ID = \'{0}\' AND CAMPUS = \'{1}\' AND TEACHER = \'{2}\'";
             ods.FilterParameters.Add(paramTestID);
             ods.FilterParameters.Add(paramCampus);
             ods.FilterParameters.Add(paramTeacher);
-            //}
-            //else
-            //{
-            //    paramTestID = new Parameter("parmTestId", DbType.String, ddBenchmark.SelectedItem.ToString());
-            //    ods.FilterExpression = "TEST_ID = \'{0}\' AND CAMPUS = \'{1}\'";
-            //    ods.FilterParameters.Add(paramTestID);
-            //    ods.FilterParameters.Add(paramCampus);
-            //}
-
             ods.SelectMethod = "GetDataByUseFilter";
             ods.TypeName = "Benchmark_Instant_Reports_2.DataSetStudentStatsTableAdapters.TEMP_RESULTS_STUDENTSTATSTableAdapter";
 
@@ -224,8 +213,8 @@ namespace Benchmark_Instant_Reports_2
             // disable all dialog boxes & stuff except campus
             ddCampus.Enabled = true;
             ddCampus.AutoPostBack = true;
-            ddBenchmark.Enabled = true;
-            ddBenchmark.AutoPostBack = true;
+            listTests.Enabled = true;
+            listTests.AutoPostBack = true;
             ddTeacher.Enabled = false;
             ddTeacher.AutoPostBack = true;
             btnGenReport.Enabled = false;
@@ -244,16 +233,17 @@ namespace Benchmark_Instant_Reports_2
             else
                 ddCampus.SelectedIndex = 0;
 
+            TestFilter.SetupTestFilterPopup(ddTFCur, ddTFTestType, ddTFTestVersion, ddCampus.SelectedValue.ToString());
 
             // load list of benchmarks in Benchmark dropdown
-            ddBenchmark.DataSource = birIF.getTestListForSchool(ddCampus.SelectedValue.ToString());
-            ddBenchmark.DataBind();
+            listTests.DataSource = birIF.getTestListForSchool(ddCampus.SelectedValue.ToString());
+            listTests.DataBind();
 
-            int bidx = birUtilities.getIndexOfDDItem(birUtilities.savedSelectedTestID(Request), ddBenchmark);
+            int bidx = birUtilities.getIndexOfDDItem(birUtilities.savedSelectedTestID(Request), listTests);
             if (bidx != -1)
             {
-                ddBenchmark.SelectedIndex = bidx;
-                ddBenchmark_SelectedIndexChanged1(new object(), new EventArgs());
+                listTests.SelectedIndex = bidx;
+                listTests_SelectedIndexChanged(new object(), new EventArgs());
             }
 
             return;
@@ -262,13 +252,13 @@ namespace Benchmark_Instant_Reports_2
         //**********************************************************************//
         //** initializes the dropdown menus
         //**
-        private void initSelectionBoxes()
-        {
-            birUtilities.toggleDDLInitView(ddBenchmark, true);
-            birUtilities.toggleDDLInitView(ddTeacher, true);
-            ddTeacher.Enabled = false;
-            return;
-        }
+        //private void initSelectionBoxes()
+        //{
+        //    birUtilities.toggleDDLInitView(listTests, true);
+        //    birUtilities.toggleDDLInitView(ddTeacher, true);
+        //    ddTeacher.Enabled = false;
+        //    return;
+        //}
 
     }
 }

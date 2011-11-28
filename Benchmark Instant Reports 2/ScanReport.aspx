@@ -1,29 +1,25 @@
-﻿<%@ Page Title="BIR: Scan Summary" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true"
-    CodeBehind="ScanReport.aspx.cs" Inherits="Benchmark_Instant_Reports_2.Classes.WebForm1" %>
+﻿<%@ Page Title="BIR: Scan Summary" Language="C#" MasterPageFile="~/Site.Master" EnableEventValidation="false"
+    AutoEventWireup="true" CodeBehind="ScanReport.aspx.cs" Inherits="Benchmark_Instant_Reports_2.ScanReport" %>
 
 <%@ Register Assembly="Microsoft.ReportViewer.WebForms, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a"
     Namespace="Microsoft.Reporting.WebForms" TagPrefix="rsweb" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
     <style type="text/css">
-        .style1
+        .tcol1
         {
             width: 92px;
         }
-        .style2
+        .tcol2
         {
             width: 341px;
         }
-        .style3
+        .tcol3
         {
-            width: 492px;
+            width: 150px;
         }
-        .style4
+        .tcol4
         {
-            width: 160px;
-        }
-        .style5
-        {
-            width: 185px;
+            width: 420px;
         }
     </style>
 </asp:Content>
@@ -36,56 +32,96 @@
         determine if the scanning is complete for a set of tests at a campus.</p>
     <table style="width: 98%;">
         <tr>
-            <td class="style3" valign="middle">
-                <table style="width: 97%;">
-                    <tr>
-                        <td class="style4" valign="middle" align="right">
-                            Select Campus:
-                        </td>
-                        <td align="left" class="style2" valign="middle">
-                            <asp:DropDownList ID="ddCampus" runat="server" Height="28px" Width="240px" OnSelectedIndexChanged="ddCampus_SelectedIndexChanged1">
-                            </asp:DropDownList>
-                        </td>
-                        <td class="style5">
-                            &nbsp;
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="style4" valign="middle" align="right">
-                        </td>
-                        <td align="left" class="style2" valign="middle">
-                        </td>
-                    </tr>
-                </table>
+            <td class="tcol1">
+                <br />
+                Select Campus:
             </td>
-            <td valign="middle" class="style18">
-                <table style="width: 99%; margin-left: 6px;">
-                    <tr>
-                        <td class="style1">
-                            Select Test(s):
-                        </td>
-                        <td class="style15">
-                            <asp:ListBox ID="lbBenchmark" runat="server" Rows="10" OnSelectedIndexChanged="lbBenchmark_SelectedIndexChanged1"
-                                Width="400px" SelectionMode="Multiple"></asp:ListBox>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="style1">
-                            &nbsp;
-                        </td>
-                        <td class="style15">
-                            Use SHIFT and CTRL keys for multiple values
-                        </td>
-                    </tr>
-                </table>
+            <td class="tcol2">
+                <br />
+                <asp:Panel ID="pnlCampus" runat="server">
+                    <asp:UpdatePanel ID="updpnlCampus" class="CampusUpdatePanel" runat="server">
+                        <ContentTemplate>
+                            <asp:DropDownList ID="ddCampus" runat="server" Height="28px" Width="240px" OnSelectedIndexChanged="ddCampus_SelectedIndexChanged">
+                            </asp:DropDownList>
+                        </ContentTemplate>
+                    </asp:UpdatePanel>
+                </asp:Panel>
+            </td>
+            <td class="tcol3">
+                <asp:Panel ID="pnlTestFilter" CssClass="FilterPanel" runat="server">
+                    <asp:UpdatePanel ID="updpnlTestFilter" class="FilterPanel" runat="server">
+                        <ContentTemplate>
+                            <div class="popupH1">
+                                Filter Tests By</div>
+                            <div class="popupLabel">
+                                Curriculum Area:</div>
+                            <asp:DropDownList ID="ddTFCur" CssClass="popupDDL" runat="server" Height="28px" Width="150px"
+                                AutoPostBack="true" OnSelectedIndexChanged="ddTFCur_SelectedIndexChanged">
+                            </asp:DropDownList>
+                            <div class="popupLabel">
+                                Test Type:</div>
+                            <asp:DropDownList ID="ddTFTestType" CssClass="popupDDL" runat="server" Height="28px"
+                                Width="150px" AutoPostBack="true" OnSelectedIndexChanged="ddTFTestType_SelectedIndexChanged">
+                            </asp:DropDownList>
+                            <div class="popupLabel">
+                                Test Version:</div>
+                            <asp:DropDownList ID="ddTFTestVersion" CssClass="popupDDL" runat="server" Height="28px"
+                                Width="150px" AutoPostBack="true" OnSelectedIndexChanged="ddTFTestVersion_SelectedIndexChanged">
+                            </asp:DropDownList>
+                            <asp:Button ID="btnTFReset" CssClass="popupButton" runat="server" Text="Reset" OnClick="btnTFReset_Click"
+                                OnClientClick="hidePCE()" UseSubmitBehavior="false" />
+                        </ContentTemplate>
+                    </asp:UpdatePanel>
+                </asp:Panel>
+                <br />
+                <asp:UpdatePanel ID="updpnlImgFilterTests" runat="server">
+                    <ContentTemplate>
+                        <asp:Image CssClass="filterImg, floatleft" ID="imgFilterTests" runat="server" AlternateText="Filter Tests"
+                            ImageUrl="~/content/images/f-circ-20x20.png" />
+                        <ajaxToolkit:PopupControlExtender ID="pceFilterTests" TargetControlID="imgFilterTests"
+                            BehaviorID="popup" PopupControlID="updpnlTestFilter" Position="Top" OffsetY="-50"
+                            OffsetX="-280" runat="server" />
+                    </ContentTemplate>
+                </asp:UpdatePanel>
+                <asp:Label ID="lblSelectTest" CssClass="" runat="server">Select Test(s):</asp:Label>
+            </td>
+            <td class="tcol4">
+                <asp:Panel ID="pnlBenchmark" runat="server">
+                    <asp:UpdatePanel ID="updpnlBenchmark" class="BenchmarkUpdatePanel" runat="server">
+                        <ContentTemplate>
+                            <asp:UpdatePanel ID="updpnlFilteredTestsLabel" class="DDLabelAbove" runat="server">
+                                <ContentTemplate>
+                                    &nbsp;
+                                    <asp:Label ID="lblTestsFiltered" CssClass="DDLabelAboveText" Visible="false" runat="server">Test List is Filtered. Click Filter Button to change.</asp:Label>
+                                </ContentTemplate>
+                            </asp:UpdatePanel>
+                            <asp:ListBox ID="lbListTests" runat="server" Rows="10" Width="400px" SelectionMode="Multiple"
+                                OnSelectedIndexChanged="lbListTests_SelectedIndexChanged"></asp:ListBox>
+                        </ContentTemplate>
+                    </asp:UpdatePanel>
+                </asp:Panel>
             </td>
         </tr>
         <tr>
-            <td class="style3" align="center" valign="middle">
-                <asp:Button ID="btnGenReport" runat="server" Text="Generate Report" OnClick="btnGenReport_Click" />
-            </td>
-            <td valign="middle" class="style18">
+            <td class="tcol1">
                 &nbsp;
+            </td>
+            <td class="tcol2">
+                &nbsp;
+            </td>
+            <td class="tcol3">
+                &nbsp;
+            </td>
+            <td class="tcol4">
+                Use SHIFT and CTRL keys for multiple values
+            </td>
+        </tr>
+        <tr>
+            <td class="tcol1">
+                &nbsp;
+            </td>
+            <td class="tcol2">
+                <asp:Button ID="btnGenReport" runat="server" Text="Generate Report" OnClick="btnGenReport_Click" />
             </td>
         </tr>
     </table>

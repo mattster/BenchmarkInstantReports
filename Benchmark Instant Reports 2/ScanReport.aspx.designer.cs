@@ -7,28 +7,109 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Benchmark_Instant_Reports_2.Classes {
+namespace Benchmark_Instant_Reports_2 {
     
     
-    public partial class WebForm1 {
+    public partial class ScanReport {
         
         /// <summary>
-        /// ddCampus control.
+        /// pnlCampus control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddCampus;
+        protected global::System.Web.UI.WebControls.Panel pnlCampus;
         
         /// <summary>
-        /// lbBenchmark control.
+        /// updpnlCampus control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ListBox lbBenchmark;
+        protected global::System.Web.UI.UpdatePanel updpnlCampus;
+        
+        /// <summary>
+        /// pnlTestFilter control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlTestFilter;
+        
+        /// <summary>
+        /// updpnlTestFilter control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel updpnlTestFilter;
+        
+        /// <summary>
+        /// btnTFReset control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnTFReset;
+        
+        /// <summary>
+        /// updpnlImgFilterTests control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel updpnlImgFilterTests;
+        
+        /// <summary>
+        /// pceFilterTests control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.PopupControlExtender pceFilterTests;
+        
+        /// <summary>
+        /// lblSelectTest control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblSelectTest;
+        
+        /// <summary>
+        /// pnlBenchmark control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlBenchmark;
+        
+        /// <summary>
+        /// updpnlBenchmark control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel updpnlBenchmark;
+        
+        /// <summary>
+        /// updpnlFilteredTestsLabel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel updpnlFilteredTestsLabel;
         
         /// <summary>
         /// btnGenReport control.

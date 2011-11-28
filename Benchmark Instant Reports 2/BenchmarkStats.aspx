@@ -1,25 +1,32 @@
-﻿<%@ Page Title="BIR: Item Analysis" Language="C#" MasterPageFile="~/Site.Master"
-    AutoEventWireup="true" CodeBehind="BenchmarkStats.aspx.cs" Inherits="Benchmark_Instant_Reports_2.WebForm3" %>
+﻿<%@ Page Title="Item Analysis" Language="C#" MasterPageFile="~/Site.Master" EnableEventValidation="false"
+    AutoEventWireup="true" CodeBehind="BenchmarkStats.aspx.cs" Inherits="Benchmark_Instant_Reports_2.BenchmarkStats" %>
 
 <%@ Register Assembly="Microsoft.ReportViewer.WebForms, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a"
     Namespace="Microsoft.Reporting.WebForms" TagPrefix="rsweb" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
     <style type="text/css">
-        .style1
+        .tcol1
         {
-            width: 155px;
+            width: 110px;
+            text-align: right;
+            margin-right: 5px;
         }
-        .style2
+        .tcol2
         {
-            width: 216px;
+            width: 410px;
         }
-        .style3
+        .tcol3
         {
-            width: 188px;
+            width: 100px; /*text-align: right;*/
+            margin-right: 5px;
         }
-        .style4
+        .tcol4
         {
-            width: 160px;
+            width: 230px;
+        }
+        .tcolCustom1
+        {
+            width: 500px;
         }
     </style>
 </asp:Content>
@@ -29,80 +36,147 @@
     <p>
         The Item Analysis Reports show question-by-question performance for a specific test
         and group of teachers on a campus.</p>
-    <table style="width: 86%;">
+    <table>
         <tr>
-            <td align="right" class="style1">
+            <td class="tcol1">
                 Select Campus:
             </td>
-            <td class="style2">
-                <asp:DropDownList ID="ddCampus" runat="server" Height="28px" Width="240px" OnSelectedIndexChanged="ddCampus_SelectedIndexChanged1">
-                </asp:DropDownList>
+            <td class="tcol2">
+                <asp:Panel ID="pnlCampus" runat="server">
+                    <asp:UpdatePanel ID="updpnlCampus" class="CampusUpdatePanel" runat="server">
+                        <ContentTemplate>
+                            <asp:DropDownList ID="ddCampus" runat="server" Height="28px" Width="240px" OnSelectedIndexChanged="ddCampus_SelectedIndexChanged">
+                            </asp:DropDownList>
+                        </ContentTemplate>
+                    </asp:UpdatePanel>
+                </asp:Panel>
             </td>
-            <td class="style4" align="right">
+            <td class="tcol3">
                 Select Report Type:
             </td>
-            <td class="style3">
-                <asp:DropDownList ID="ddRepType" runat="server" Height="28px" OnSelectedIndexChanged="ddRepType_SelectedIndexChanged1"
-                    Width="220px">
-                </asp:DropDownList>
+            <td class="tcol4">
+                <asp:Panel ID="pnlReportType" runat="server">
+                    <asp:UpdatePanel ID="updpnlReportType" runat="server">
+                        <ContentTemplate>
+                            <asp:DropDownList ID="ddRepType" runat="server" Height="28px" Width="220px" OnSelectedIndexChanged="ddRepType_SelectedIndexChanged">
+                            </asp:DropDownList>
+                        </ContentTemplate>
+                    </asp:UpdatePanel>
+                </asp:Panel>
             </td>
         </tr>
         <tr>
-            <td align="right" class="style1">
-            </td>
-            <td class="style2">
-            </td>
-            <td class="style4">
-            </td>
-            <td class="style3">
+            <td class="tcol1">
+                <asp:Panel ID="pnlTestFilter" CssClass="FilterPanel" runat="server">
+                    <asp:UpdatePanel ID="updpnlTestFilter" class="FilterPanel" runat="server">
+                        <ContentTemplate>
+                            <div class="popupH1">
+                                Filter Tests By</div>
+                            <div class="popupLabel">
+                                Curriculum Area:</div>
+                            <asp:DropDownList ID="ddTFCur" CssClass="popupDDL" runat="server" Height="28px" Width="150px"
+                                AutoPostBack="true" OnSelectedIndexChanged="ddTFCur_SelectedIndexChanged">
+                            </asp:DropDownList>
+                            <div class="popupLabel">
+                                Test Type:</div>
+                            <asp:DropDownList ID="ddTFTestType" CssClass="popupDDL" runat="server" Height="28px"
+                                Width="150px" AutoPostBack="true" OnSelectedIndexChanged="ddTFTestType_SelectedIndexChanged">
+                            </asp:DropDownList>
+                            <div class="popupLabel">
+                                Test Version:</div>
+                            <asp:DropDownList ID="ddTFTestVersion" CssClass="popupDDL" runat="server" Height="28px"
+                                Width="150px" AutoPostBack="true" OnSelectedIndexChanged="ddTFTestVersion_SelectedIndexChanged">
+                            </asp:DropDownList>
+                            <asp:Button ID="btnTFReset" CssClass="popupButton" runat="server" Text="Reset" OnClick="btnTFReset_Click"
+                                OnClientClick="hidePCE()" UseSubmitBehavior="false" />
+                        </ContentTemplate>
+                    </asp:UpdatePanel>
+                </asp:Panel>
+                <br />
+                <asp:UpdatePanel ID="updpnlImgFilterTests" runat="server">
+                    <ContentTemplate>
+                        <asp:Image CssClass="filterImg, floatleft" ID="imgFilterTests" runat="server" AlternateText="Filter Tests"
+                            ImageUrl="~/content/images/f-circ-20x20.png" />
+                        <ajaxToolkit:PopupControlExtender ID="pceFilterTests" TargetControlID="imgFilterTests"
+                            BehaviorID="popupCE" PopupControlID="updpnlTestFilter" Position="Top" OffsetY="-50"
+                            OffsetX="550" runat="server" />
+                    </ContentTemplate>
+                </asp:UpdatePanel>
+                <asp:Label ID="lblSelectTest" CssClass="" runat="server">Select Test:</asp:Label>
+                <br />
+                &nbsp;<br />
                 &nbsp;
             </td>
+            <td class="tcol2">
+                <asp:Panel ID="pnlBenchmark" runat="server">
+                    <asp:UpdatePanel ID="updpnlBenchmark" class="BenchmarkUpdatePanel" runat="server">
+                        <ContentTemplate>
+                            <asp:UpdatePanel ID="updpnlFilteredTestsLabel" class="DDLabelAbove" runat="server">
+                                <ContentTemplate>
+                                    <asp:DropDownList ID="listTests" runat="server" Height="28px" Width="400px" OnSelectedIndexChanged="listTests_SelectedIndexChanged">
+                                    </asp:DropDownList>
+                                    <br />
+                                    &nbsp;
+                                    <asp:Label ID="lblTestsFiltered" CssClass="DDLabelAboveText" Visible="false" runat="server">Test List is Filtered. Click Filter Button to change.</asp:Label>
+                                </ContentTemplate>
+                            </asp:UpdatePanel>
+                        </ContentTemplate>
+                    </asp:UpdatePanel>
+                </asp:Panel>
+            </td>
+            <td class="tcol3">
+                <asp:Panel ID="pnlLblTeacher" runat="server">
+                    <asp:UpdatePanel ID="updpnlLblTeacher" runat="server">
+                        <ContentTemplate>
+                            <asp:Label ID="lblSelectTeacher" runat="server">Select Teacher:</asp:Label>
+                        </ContentTemplate>
+                    </asp:UpdatePanel>
+                </asp:Panel>
+            </td>
+            <td class="tcol4">
+                <asp:Panel ID="pnlTeacher" runat="server">
+                    <asp:UpdatePanel ID="updpnlTeacher" runat="server">
+                        <ContentTemplate>
+                            <asp:DropDownList ID="ddTeacher" runat="server" Height="28px" Width="220px" OnSelectedIndexChanged="ddTeacher_SelectedIndexChanged">
+                            </asp:DropDownList>
+                        </ContentTemplate>
+                    </asp:UpdatePanel>
+                </asp:Panel>
+            </td>
         </tr>
         <tr>
-            <td align="right" class="style1">
-                Select Test:
-            </td>
-            <td class="style2">
-                <asp:DropDownList ID="ddBenchmark" runat="server" Height="28px" Width="375px" OnSelectedIndexChanged="ddBenchmark_SelectedIndexChanged1">
-                </asp:DropDownList>
-            </td>
-            <td class="style4" align="right">
-                <asp:Label ID="lblSelectTeacher" runat="server" Text="Select Teacher:"></asp:Label>
-            </td>
-            <td class="style3">
-                <asp:DropDownList ID="ddTeacher" runat="server" Height="28px" Width="220px" OnSelectedIndexChanged="ddTeacher_SelectedIndexChanged1">
-                </asp:DropDownList>
-            </td>
-        </tr>
-        <tr>
-            <td class="style1">
+            <td class="tcol1">
                 &nbsp;
             </td>
-            <td class="style2">
-                <asp:Label ID="lblNoScanData" runat="server" Text="There is no scanned data currently available for this test at this campus"
-                    ForeColor="#0000FF"></asp:Label>
+            <td class="tcol2">
+                <asp:Panel ID="pnlNoScanData" runat="server">
+                    <asp:UpdatePanel ID="updpnlNoScanData" runat="server">
+                        <ContentTemplate>
+                            <asp:Label ID="lblNoScanData" runat="server" Text="There is no scanned data currently available for this test at this campus"
+                                ForeColor="#0000FF"></asp:Label>
+                        </ContentTemplate>
+                    </asp:UpdatePanel>
+                </asp:Panel>
             </td>
-            <td class="style4" align="right">
-                <asp:Label ID="lblGroupBy" runat="server" Text="Group By:"></asp:Label>
+            <td class="tcol3">
+                Group By:
             </td>
-            <td class="style3">
-                <asp:DropDownList ID="ddGroupBy" runat="server" Height="28px" OnSelectedIndexChanged="ddGroupBy_SelectedIndexChanged"
-                    Width="220px">
-                </asp:DropDownList>
+            <td class="tcol4">
+                <asp:Panel ID="pnlGroupBy" runat="server">
+                    <asp:UpdatePanel ID="updpnlGroupBy" runat="server">
+                        <ContentTemplate>
+                            <asp:DropDownList ID="ddGroupBy" runat="server" Height="28px" Width="220px" OnSelectedIndexChanged="ddGroupBy_SelectedIndexChanged">
+                            </asp:DropDownList>
+                        </ContentTemplate>
+                    </asp:UpdatePanel>
+                </asp:Panel>
             </td>
         </tr>
         <tr>
-            <td class="style1">
-                &nbsp;
+            <td class="tcol1">
             </td>
-            <td align="center" class="style2">
+            <td class="tcolCustom1">
                 <asp:Button ID="btnGenReport" runat="server" Text="Generate Report" OnClick="btnGenReport_Click" />
-            </td>
-            <td class="style4">
-                &nbsp;
-            </td>
-            <td class="style3">
-                &nbsp;
             </td>
         </tr>
     </table>

@@ -4,15 +4,16 @@ using Benchmark_Instant_Reports_2.Helpers;
 
 namespace Benchmark_Instant_Reports_2.Infrastructure
 {
-    public abstract class ReportPage : System.Web.UI.Page
+    public abstract class ReportPage<T> : System.Web.UI.Page where T : ListControl
     {
         public virtual TestFilterState thisTestFilterState { get; set; }
 
         public DropDownList ddTFCur = new DropDownList();
         public DropDownList ddTFTestType = new DropDownList();
         public DropDownList ddTFTestVersion = new DropDownList();
-        public DropDownList ddCampus = new DropDownList();
-        public DropDownList ddBenchmark = new DropDownList();
+        public DropDownList ddCampus;
+        public DropDownList listTests;
+        public ListBox lbListTests;
         public Image imgFilterTests = new Image();
         public Label lblTestsFiltered = new Label();
 
@@ -21,7 +22,7 @@ namespace Benchmark_Instant_Reports_2.Infrastructure
         {
             DropDownList dd = sender as DropDownList;
             thisTestFilterState.Curric = dd.SelectedItem.Value.ToString();
-            TestFilter.FilterTests(thisTestFilterState, ddCampus.SelectedValue.ToString(), ddBenchmark);
+            runTestFilter(); 
             updateTestFilterDisplay(thisTestFilterState.AreAnyFiltersApplied);
 
             return;
@@ -31,7 +32,7 @@ namespace Benchmark_Instant_Reports_2.Infrastructure
         {
             DropDownList dd = sender as DropDownList;
             thisTestFilterState.TestType = dd.SelectedItem.Value.ToString();
-            TestFilter.FilterTests(thisTestFilterState, ddCampus.SelectedValue.ToString(), ddBenchmark);
+            runTestFilter();
             updateTestFilterDisplay(thisTestFilterState.AreAnyFiltersApplied);
 
             return;
@@ -41,7 +42,7 @@ namespace Benchmark_Instant_Reports_2.Infrastructure
         {
             DropDownList dd = sender as DropDownList;
             thisTestFilterState.TestVersion = dd.SelectedItem.Value.ToString();
-            TestFilter.FilterTests(thisTestFilterState, ddCampus.SelectedValue.ToString(), ddBenchmark);
+            runTestFilter();
             updateTestFilterDisplay(thisTestFilterState.AreAnyFiltersApplied);
 
             return;
@@ -54,7 +55,7 @@ namespace Benchmark_Instant_Reports_2.Infrastructure
             ddTFTestType.SelectedIndex = 0;
             ddTFTestVersion.SelectedIndex = 0;
 
-            TestFilter.FilterTests(thisTestFilterState, ddCampus.SelectedValue.ToString(), ddBenchmark);
+            runTestFilter();
             updateTestFilterDisplay(thisTestFilterState.AreAnyFiltersApplied);
 
             return;
@@ -71,5 +72,14 @@ namespace Benchmark_Instant_Reports_2.Infrastructure
             return;
         }
 
+        private void runTestFilter()
+        {
+            if (typeof(T) == typeof(DropDownList))
+                TestFilter.FilterTests<T>(thisTestFilterState, ddCampus.SelectedValue.ToString(), listTests as T);
+            else
+                TestFilter.FilterTests<T>(thisTestFilterState, ddCampus.SelectedValue.ToString(), lbListTests as T);
+
+            return;
+        }
     }
 }

@@ -1,6 +1,6 @@
 ﻿<%@ Page Title="BIR: Campus Summary" Language="C#" MasterPageFile="~/Site.Master"
     EnableEventValidation="false" AutoEventWireup="true" CodeBehind="CampusReport.aspx.cs"
-    Inherits="Benchmark_Instant_Reports_2.Infrastructure.PgCampusRep" %>
+    Inherits="Benchmark_Instant_Reports_2.CampusReport" %>
 
 <%@ Register Assembly="Microsoft.ReportViewer.WebForms, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a"
     Namespace="Microsoft.Reporting.WebForms" TagPrefix="rsweb" %>
@@ -33,7 +33,7 @@
         Campus Summary</h1>
     <p>
         The Campus Report shows passing data for a specific campus for a specific Test.</p>
-    <table style="width: 98%;">
+    <table>
         <tr>
             <td class="tcol1" valign="middle" align="right">
                 <br />
@@ -44,7 +44,7 @@
                 <asp:Panel ID="pnlCampus" runat="server">
                     <asp:UpdatePanel ID="updpnlCampus" class="CampusUpdatePanel" runat="server">
                         <ContentTemplate>
-                            <asp:DropDownList ID="ddCampus" runat="server" Height="28px" Width="240px" OnSelectedIndexChanged="ddCampus_SelectedIndexChanged1">
+                            <asp:DropDownList ID="ddCampus" runat="server" Height="28px" Width="240px" OnSelectedIndexChanged="ddCampus_SelectedIndexChanged">
                             </asp:DropDownList>
                         </ContentTemplate>
                     </asp:UpdatePanel>
@@ -72,18 +72,18 @@
                                 Width="150px" AutoPostBack="true" OnSelectedIndexChanged="ddTFTestVersion_SelectedIndexChanged">
                             </asp:DropDownList>
                             <asp:Button ID="btnTFReset" CssClass="popupButton" runat="server" Text="Reset" OnClick="btnTFReset_Click"
-                                UseSubmitBehavior="false" />
+                                OnClientClick="hidePCE()" UseSubmitBehavior="false" />
                         </ContentTemplate>
                     </asp:UpdatePanel>
                 </asp:Panel>
                 <br />
                 <asp:UpdatePanel ID="updpnlImgFilterTests" runat="server">
                     <ContentTemplate>
-                        <asp:Image CssClass="filterImg" ID="imgFilterTests" runat="server" AlternateText="Filter Tests"
+                        <asp:Image CssClass="filterImg, floatleft" ID="imgFilterTests" runat="server" AlternateText="Filter Tests"
                             ImageUrl="~/content/images/f-circ-20x20.png" />
                         <ajaxToolkit:PopupControlExtender ID="pceFilterTests" TargetControlID="imgFilterTests"
-                            PopupControlID="updpnlTestFilter" Position="Top" OffsetY="-20" OffsetX="-280"
-                            runat="server" CommitScript="popupDDLCur_SelectedIndexChanged2" />
+                            BehaviorID="popupCE" PopupControlID="updpnlTestFilter" Position="Top" OffsetY="-20"
+                            OffsetX="-280" runat="server" />
                     </ContentTemplate>
                 </asp:UpdatePanel>
                 <asp:Label ID="lblSelectTest" CssClass="" runat="server">Select Test:</asp:Label>
@@ -98,7 +98,7 @@
                                     <asp:Label ID="lblTestsFiltered" CssClass="DDLabelAboveText" Visible="false" runat="server">Test List is Filtered. Click Filter Button to change.</asp:Label>
                                 </ContentTemplate>
                             </asp:UpdatePanel>
-                            <asp:DropDownList ID="ddBenchmark" runat="server" Height="28px" Width="300px" OnSelectedIndexChanged="ddBenchmark_SelectedIndexChanged1">
+                            <asp:DropDownList ID="listTests" runat="server" Height="28px" Width="300px" OnSelectedIndexChanged="listTests_SelectedIndexChanged">
                             </asp:DropDownList>
                         </ContentTemplate>
                     </asp:UpdatePanel>
@@ -106,9 +106,9 @@
             </td>
         </tr>
         <tr>
-            <td class="tcol1" valign="middle" align="right">
+            <td class="tcol1">
             </td>
-            <td align="left" class="tcol2" valign="middle">
+            <td class="tcol2">
             </td>
             <td>
             </td>

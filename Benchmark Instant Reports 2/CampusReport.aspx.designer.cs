@@ -7,10 +7,10 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Benchmark_Instant_Reports_2.Infrastructure {
+namespace Benchmark_Instant_Reports_2 {
     
     
-    public partial class PgCampusRep {
+    public partial class CampusReport {
         
         /// <summary>
         /// pnlCampus control.
@@ -47,15 +47,6 @@ namespace Benchmark_Instant_Reports_2.Infrastructure {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.UpdatePanel updpnlTestFilter;
-        
-        /// <summary>
-        /// ddTFTestVersion control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddTFTestVersion;
         
         /// <summary>
         /// btnTFReset control.

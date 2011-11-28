@@ -18,7 +18,6 @@
     <form runat="server">
     <asp:ToolkitScriptManager runat="server">
         <Services>
-            
         </Services>
     </asp:ToolkitScriptManager>
     <div class="page">
@@ -102,5 +101,11 @@
         </div>
     </div>
     </form>
+    <script type="text/javascript">
+        function hidePCE() {
+            var pup = $find('popupCE');
+            pup.hidePopup();
+        }
+    </script>
 </body>
 </html>
