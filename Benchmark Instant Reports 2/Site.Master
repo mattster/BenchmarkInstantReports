@@ -89,7 +89,8 @@
         </div>
         <div class="main">
             <div class="attentionitem">
-                A New Version of the Benchmark Instant Reports Is Coming Soon!</div>
+                New!!  Filter the List Of Tests - Press the Filter Button
+                <img class="" id="imgFilterTests" alt="Filter Tests" src="content/images/f-circ-20x20.png" /></div>
             <asp:ContentPlaceHolder ID="MainContent" runat="server" />
         </div>
         <div class="clear">

@@ -91,6 +91,8 @@
                                 OnClientClick="hidePCE()" UseSubmitBehavior="false" />
                         </ContentTemplate>
                     </asp:UpdatePanel>
+                    <ajaxToolkit:DropShadowExtender ID="dseFilterTests" runat="server" TargetControlID="updpnlTestFilter"
+                        Opacity="0.5" Rounded="true" TrackPosition="true" />
                 </asp:Panel>
                 <br />
                 <asp:UpdatePanel ID="updpnlImgFilterTests" runat="server">
@@ -152,8 +154,7 @@
                 <asp:Panel ID="pnlNoScanData" runat="server">
                     <asp:UpdatePanel ID="updpnlNoScanData" runat="server">
                         <ContentTemplate>
-                            <asp:Label ID="lblNoScanData" runat="server" Text="There is no scanned data currently available for this test at this campus"
-                                ForeColor="#0000FF"></asp:Label>
+                            <asp:Label ID="lblNoScanData" runat="server" ForeColor="#0000FF">There is no scanned data currently available for this test at this campus</asp:Label>
                         </ContentTemplate>
                     </asp:UpdatePanel>
                 </asp:Panel>

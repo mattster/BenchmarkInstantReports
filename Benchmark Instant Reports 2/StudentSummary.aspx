@@ -76,6 +76,8 @@
                                 OnClientClick="hidePCE()" UseSubmitBehavior="false" />
                         </ContentTemplate>
                     </asp:UpdatePanel>
+                    <ajaxToolkit:DropShadowExtender ID="dseFilterTests" runat="server" TargetControlID="updpnlTestFilter"
+                        Opacity="0.5" Rounded="true" TrackPosition="true" />
                 </asp:Panel>
                 <br />
                 <asp:UpdatePanel ID="updpnlImgFilterTests" runat="server">

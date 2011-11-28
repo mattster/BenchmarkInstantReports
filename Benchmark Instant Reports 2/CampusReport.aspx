@@ -16,15 +16,16 @@
         }
         .tcol3
         {
-            width: 190px;
+            width: 160px;
+            text-align: right;
+        }
+        .tcol4
+        {
+            width: 230px;
         }
         .tcolCustom1
         {
             width: 492px;
-        }
-        .style5
-        {
-            width: 185px;
         }
     </style>
 </asp:Content>
@@ -35,11 +36,11 @@
         The Campus Report shows passing data for a specific campus for a specific Test.</p>
     <table>
         <tr>
-            <td class="tcol1" valign="middle" align="right">
+            <td class="tcol1">
                 <br />
                 Select Campus:
             </td>
-            <td align="left" class="tcol2" valign="middle">
+            <td class="tcol2">
                 <br />
                 <asp:Panel ID="pnlCampus" runat="server">
                     <asp:UpdatePanel ID="updpnlCampus" class="CampusUpdatePanel" runat="server">
@@ -75,6 +76,8 @@
                                 OnClientClick="hidePCE()" UseSubmitBehavior="false" />
                         </ContentTemplate>
                     </asp:UpdatePanel>
+                    <ajaxToolkit:DropShadowExtender ID="dseFilterTests" runat="server" TargetControlID="updpnlTestFilter"
+                        Opacity="0.5" Rounded="true" TrackPosition="true" />
                 </asp:Panel>
                 <br />
                 <asp:UpdatePanel ID="updpnlImgFilterTests" runat="server">
@@ -88,7 +91,7 @@
                 </asp:UpdatePanel>
                 <asp:Label ID="lblSelectTest" CssClass="" runat="server">Select Test:</asp:Label>
             </td>
-            <td>
+            <td class="tcol4">
                 <asp:Panel ID="pnlBenchmark" runat="server">
                     <asp:UpdatePanel ID="updpnlBenchmark" class="BenchmarkUpdatePanel" runat="server">
                         <ContentTemplate>
@@ -107,18 +110,26 @@
         </tr>
         <tr>
             <td class="tcol1">
+                <br />
+                &nbsp;
             </td>
             <td class="tcol2">
+                <br />
+                &nbsp;
             </td>
-            <td>
+            <td class="tcol3">
+                <br />
+                &nbsp;
             </td>
-            <td>
+            <td class="tcol4">
+                <br />
+                &nbsp;
             </td>
         </tr>
         <tr>
             <td>
             </td>
-            <td class="tcolCustom1" align="center" valign="middle">
+            <td class="tcolCustom1">
                 <asp:Button ID="btnGenReport" runat="server" Text="Generate Report" OnClick="btnGenReport_Click" />
             </td>
         </tr>

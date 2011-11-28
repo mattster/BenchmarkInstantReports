@@ -58,6 +58,15 @@ namespace Benchmark_Instant_Reports_2 {
         protected global::System.Web.UI.WebControls.Button btnTFReset;
         
         /// <summary>
+        /// dseFilterTests control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.DropShadowExtender dseFilterTests;
+        
+        /// <summary>
         /// updpnlImgFilterTests control.
         /// </summary>
         /// <remarks>

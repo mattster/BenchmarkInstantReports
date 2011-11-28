@@ -1,6 +1,5 @@
-﻿<%@ Page Title="Student Grades" Language="C#" MasterPageFile="~/Site.Master"
-    EnableEventValidation="false" AutoEventWireup="true" CodeBehind="StudentStats1.aspx.cs"
-    Inherits="Benchmark_Instant_Reports_2.StudentStats" %>
+﻿<%@ Page Title="Student Grades" Language="C#" MasterPageFile="~/Site.Master" EnableEventValidation="false"
+    AutoEventWireup="true" CodeBehind="StudentStats1.aspx.cs" Inherits="Benchmark_Instant_Reports_2.StudentStats" %>
 
 <%@ Register Assembly="Microsoft.ReportViewer.WebForms, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a"
     Namespace="Microsoft.Reporting.WebForms" TagPrefix="rsweb" %>
@@ -73,6 +72,8 @@
                                 OnClientClick="hidePCE()" UseSubmitBehavior="false" />
                         </ContentTemplate>
                     </asp:UpdatePanel>
+                    <ajaxToolkit:DropShadowExtender ID="dseFilterTests" runat="server" TargetControlID="updpnlTestFilter"
+                        Opacity="0.5" Rounded="true" TrackPosition="true" />
                 </asp:Panel>
                 <br />
                 <asp:UpdatePanel ID="updpnlImgFilterTests" runat="server">
@@ -85,7 +86,9 @@
                     </ContentTemplate>
                 </asp:UpdatePanel>
                 <asp:Label ID="lblSelectTest" CssClass="" runat="server">Select Test:</asp:Label>
-                <br />&nbsp;<br />&nbsp;
+                <br />
+                &nbsp;<br />
+                &nbsp;
             </td>
             <td class="tcol2">
                 <asp:Panel ID="pnlBenchmark" runat="server">
@@ -95,7 +98,8 @@
                                 <ContentTemplate>
                                     <asp:DropDownList ID="listTests" runat="server" Height="28px" Width="400px" OnSelectedIndexChanged="listTests_SelectedIndexChanged">
                                     </asp:DropDownList>
-                                    <br />&nbsp;
+                                    <br />
+                                    &nbsp;
                                     <asp:Label ID="lblTestsFiltered" CssClass="DDLabelAboveText" Visible="false" runat="server">Test List is Filtered. Click Filter Button to change.</asp:Label>
                                 </ContentTemplate>
                             </asp:UpdatePanel>

@@ -1,4 +1,4 @@
-﻿<%@ Page Title="BIR: Scan Summary" Language="C#" MasterPageFile="~/Site.Master" EnableEventValidation="false"
+﻿<%@ Page Title="Scan Summary" Language="C#" MasterPageFile="~/Site.Master" EnableEventValidation="false"
     AutoEventWireup="true" CodeBehind="ScanReport.aspx.cs" Inherits="Benchmark_Instant_Reports_2.ScanReport" %>
 
 <%@ Register Assembly="Microsoft.ReportViewer.WebForms, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a"
@@ -72,6 +72,8 @@
                                 OnClientClick="hidePCE()" UseSubmitBehavior="false" />
                         </ContentTemplate>
                     </asp:UpdatePanel>
+                    <ajaxToolkit:DropShadowExtender ID="dseFilterTests" runat="server" TargetControlID="updpnlTestFilter"
+                        Opacity="0.5" Rounded="true" TrackPosition="true" />
                 </asp:Panel>
                 <br />
                 <asp:UpdatePanel ID="updpnlImgFilterTests" runat="server">
