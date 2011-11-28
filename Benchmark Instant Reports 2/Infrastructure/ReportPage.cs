@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using Benchmark_Instant_Reports_2.Helpers;
 using System.Web.UI.WebControls;
+using Benchmark_Instant_Reports_2.Helpers;
 
 namespace Benchmark_Instant_Reports_2.Infrastructure
 {
@@ -13,6 +10,7 @@ namespace Benchmark_Instant_Reports_2.Infrastructure
 
         public DropDownList ddTFCur = new DropDownList();
         public DropDownList ddTFTestType = new DropDownList();
+        public DropDownList ddTFTestVersion = new DropDownList();
         public DropDownList ddCampus = new DropDownList();
         public DropDownList ddBenchmark = new DropDownList();
         public Image imgFilterTests = new Image();
@@ -21,7 +19,8 @@ namespace Benchmark_Instant_Reports_2.Infrastructure
 
         protected void ddTFCur_SelectedIndexChanged(object sender, EventArgs e)
         {
-            thisTestFilterState.Curric = ddTFCur.SelectedItem.Value.ToString();
+            DropDownList dd = sender as DropDownList;
+            thisTestFilterState.Curric = dd.SelectedItem.Value.ToString();
             TestFilter.FilterTests(thisTestFilterState, ddCampus.SelectedValue.ToString(), ddBenchmark);
             updateTestFilterDisplay(thisTestFilterState.AreAnyFiltersApplied);
 
@@ -30,7 +29,8 @@ namespace Benchmark_Instant_Reports_2.Infrastructure
 
         protected void ddTFTestType_SelectedIndexChanged(object sender, EventArgs e)
         {
-            thisTestFilterState.TestType = ddTFTestType.SelectedItem.Value.ToString();
+            DropDownList dd = sender as DropDownList;
+            thisTestFilterState.TestType = dd.SelectedItem.Value.ToString();
             TestFilter.FilterTests(thisTestFilterState, ddCampus.SelectedValue.ToString(), ddBenchmark);
             updateTestFilterDisplay(thisTestFilterState.AreAnyFiltersApplied);
 
@@ -39,7 +39,12 @@ namespace Benchmark_Instant_Reports_2.Infrastructure
 
         protected void ddTFTestVersion_SelectedIndexChanged(object sender, EventArgs e)
         {
-            
+            DropDownList dd = sender as DropDownList;
+            thisTestFilterState.TestVersion = dd.SelectedItem.Value.ToString();
+            TestFilter.FilterTests(thisTestFilterState, ddCampus.SelectedValue.ToString(), ddBenchmark);
+            updateTestFilterDisplay(thisTestFilterState.AreAnyFiltersApplied);
+
+            return;
         }
 
         protected void btnTFReset_Click(object sender, EventArgs e)
@@ -47,6 +52,7 @@ namespace Benchmark_Instant_Reports_2.Infrastructure
             thisTestFilterState.Reset();
             ddTFCur.SelectedIndex = 0;
             ddTFTestType.SelectedIndex = 0;
+            ddTFTestVersion.SelectedIndex = 0;
 
             TestFilter.FilterTests(thisTestFilterState, ddCampus.SelectedValue.ToString(), ddBenchmark);
             updateTestFilterDisplay(thisTestFilterState.AreAnyFiltersApplied);

@@ -9,68 +9,6 @@ namespace Benchmark_Instant_Reports_2.Helpers
 {
     public static class TestFilter
     {
-        //private static string[] getCurricList(string campus)
-        //{
-        //    List<string> curriclist = new List<string>();
-        //    string schtype = birIF.getSchoolType(campus);
-
-        //    curriclist.Add(allIndicator);
-
-        //    if (schtype == "A")                 // both Elem & Sec
-        //    {
-        //        foreach (Curriculum curric in AllTestMetadata.AllCurriculum)
-        //        {
-        //            curriclist.Add(curric.DispAbbr);
-        //        }
-        //    }
-        //    else if (schtype == "E")            // Elementary
-        //    {
-        //        foreach (Curriculum curric in AllTestMetadata.AllCurriculum)
-        //        {
-        //            if (curric.ElemSec == "E" || curric.ElemSec == "B")
-        //                curriclist.Add(curric.DispAbbr);
-        //        }
-        //    }
-        //    else                                // Secondary
-        //    {
-        //        foreach (Curriculum curric in AllTestMetadata.AllCurriculum)
-        //        {
-        //            if (curric.ElemSec == "S" || curric.ElemSec == "B")
-        //                curriclist.Add(curric.DispAbbr);
-        //        }
-        //    }
-
-        //    return curriclist.ToArray();
-        //}
-
-        //private static string[] getTestTypeList(string campus)
-        //{
-        //    List<string> testtypelist = new List<string>();
-        //    string schtype = birIF.getSchoolType(campus);
-
-        //    testtypelist.Add(allIndicator);
-
-        //    if (schtype == "A")
-        //    {
-        //        foreach (TestType testtype in AllTestMetadata.AllTestTypes)
-        //            testtypelist.Add(testtype.DispAbbr);
-        //    }
-        //    else if (schtype == "E")
-        //    {
-        //        foreach (TestType testtype in AllTestMetadata.AllTestTypes)
-        //            if (testtype.ElemSec == "E" || testtype.ElemSec == "B")
-        //                testtypelist.Add(testtype.DispAbbr);
-        //    }
-        //    else
-        //    {
-        //        foreach (TestType testtype in AllTestMetadata.AllTestTypes)
-        //            if (testtype.ElemSec == "S" || testtype.ElemSec == "B")
-        //                testtypelist.Add(testtype.DispAbbr);
-        //    }
-
-        //    return testtypelist.ToArray();
-        //}
-
         public static void SetupTestFilterPopup(DropDownList ddTFCur, DropDownList ddTFTT, DropDownList ddTFTV, string campus)
         {
             loadFilterListInDD<Curriculum>(ddTFCur, campus);
@@ -100,6 +38,7 @@ namespace Benchmark_Instant_Reports_2.Helpers
             // find the tests for each filter criteria
             filteredTestsLists.Add(filterTestsByCurric(campus, theTestFilterState.Curric));
             filteredTestsLists.Add(filterTestsByTestType(campus, theTestFilterState.TestType));
+            filteredTestsLists.Add(filterTestsByTestVersion(campus, theTestFilterState.TestVersion));
 
             // final test list is a union of all the filtered lists
             resultList = filteredTestsLists[0];
@@ -183,6 +122,21 @@ namespace Benchmark_Instant_Reports_2.Helpers
             foreach (string curTest in alltests)
             {
                 if (Regex.IsMatch(curTest, pattern) || testtype == Constants.allIndicator)
+                    resultList.Add(curTest);
+            }
+
+            return resultList;
+        }
+
+        private static List<string> filterTestsByTestVersion(string campus, string testver)
+        {
+            string[] alltests = birIF.getTestListForSchool(campus);
+            List<string> resultList = new List<string>();
+            string pattern = getRegExPatternFor<TestVersion>(testver);
+
+            foreach (string curTest in alltests)
+            {
+                if (Regex.IsMatch(curTest, pattern) || testver == Constants.allIndicator)
                     resultList.Add(curTest);
             }
 
