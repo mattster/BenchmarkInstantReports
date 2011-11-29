@@ -16,7 +16,10 @@
 </head>
 <body>
     <form runat="server">
-    <asp:ToolkitScriptManager runat="server" />
+    <asp:ToolkitScriptManager runat="server">
+        <Services>
+        </Services>
+    </asp:ToolkitScriptManager>
     <div class="page">
         <div class="header">
             <div class="title">
@@ -86,7 +89,8 @@
         </div>
         <div class="main">
             <div class="attentionitem">
-                A New Version of the Benchmark Instant Reports Is Coming Soon!</div>
+                What's New: Filter the Test Lists -- Press the Filter Button
+                <img class="" id="imgFilterTests" alt="Filter Tests" src="content/images/f-circ-20x20.png" /></div>
             <asp:ContentPlaceHolder ID="MainContent" runat="server" />
         </div>
         <div class="clear">
@@ -94,9 +98,30 @@
     </div>
     <div class="footer">
         <div class="versionlabel">
-            <asp:Label ID="lblVersion" runat="server" Text="bir 1.9.9.g.4"></asp:Label>
+            <asp:Label ID="lblVersion" runat="server" Text="bir 1.9.9.h.1"></asp:Label>
         </div>
     </div>
     </form>
+    <script src="Scripts/jquery-1.4.1.min.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        function hidePCE() {
+            var pup = $find('popupCE');
+            pup.hidePopup();
+        }
+        function hideLoading() {
+            var ldg = $find('popupLoading');
+            ldg.hidePopup();
+        }
+    </script>
+<%--    <script type="text/javascript">
+        function showLoading() {
+            $("#progressinfo").show();
+        }
+    </script>
+    <script type="text/javascript">
+        function hideLoading() {
+            $("#progressinfo").hide();
+        }
+    </script>--%>
 </body>
 </html>

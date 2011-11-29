@@ -79,9 +79,24 @@
     <Content Include="Account\Login.aspx" />
     <Content Include="Account\Register.aspx" />
     <Content Include="CampusReport.aspx" />
+    <Content Include="CascadingDropDown1.asmx" />
+    <Content Include="content\images\ajax-loader1.gif" />
+    <Content Include="content\images\ajax-loader2.gif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="content\images\f-circ-20x20.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="content\images\f-circ-red-20x20.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="content\images\icon_close_window.gif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="content\images\pdficon_large.gif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="db\CCDDControls.asmx" />
     <Content Include="Login.aspx" />
     <Content Include="MaterialsReport.aspx" />
     <Content Include="Info.aspx" />
@@ -151,15 +166,33 @@
     <Compile Include="CampusReport.aspx.designer.cs">
       <DependentUpon>CampusReport.aspx</DependentUpon>
     </Compile>
+    <Compile Include="CascadingDropDown1.asmx.cs">
+      <DependentUpon>CascadingDropDown1.asmx</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Classes\BenchmarkStatsIF.cs" />
     <Compile Include="Classes\birUtilities.cs" />
     <Compile Include="Classes\birIF.cs" />
     <Compile Include="Classes\birExceptions.cs" />
+    <Compile Include="Helpers\TestFilter.cs" />
+    <Compile Include="Helpers\TestFilterState.cs" />
+    <Compile Include="Infrastructure\ReportPage.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Metadata\AllTestMetadata.cs" />
+    <Compile Include="Metadata\Curriculum.cs" />
     <Compile Include="Classes\ScanReportIF.cs" />
     <Compile Include="Classes\StudentSummaryIF.cs" />
     <Compile Include="Classes\StudentStatsIF.cs" />
     <Compile Include="Classes\dbIFOracle.cs" />
     <Compile Include="Classes\CampusSecurity.cs" />
+    <Compile Include="Classes\TestFilter.cs" />
+    <Compile Include="Metadata\TestMetadataItem.cs" />
+    <Compile Include="Metadata\TestType.cs" />
+    <Compile Include="db\CCDDControls.asmx.cs">
+      <DependentUpon>CCDDControls.asmx</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Login.aspx.cs">
       <DependentUpon>Login.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -190,6 +223,10 @@
     <Compile Include="Info.aspx.designer.cs">
       <DependentUpon>Info.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Metadata\TestVersion.cs" />
+    <Compile Include="References\Constants.cs" />
+    <Compile Include="References\DatabaseDefn.cs" />
+    <Compile Include="References\Queries.cs" />
     <Compile Include="ScanReport.aspx.cs">
       <DependentUpon>ScanReport.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

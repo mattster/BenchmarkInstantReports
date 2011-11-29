@@ -4,6 +4,9 @@ using System.Linq;
 using System.Web;
 using System.Data;
 using System.Web.UI.WebControls;
+using System.Text.RegularExpressions;
+using Benchmark_Instant_Reports_2.Classes;
+using Benchmark_Instant_Reports_2.Metadata;
 
 
 //* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
@@ -23,6 +26,7 @@ namespace Benchmark_Instant_Reports_2
         private static string savedSelectedTestIDsCokieName = "selectedTestIDs";
         private static string savedSelectedCampusCookieName = "selectedCampus";
 
+        //private static string[] curricList = { "Science", "Math", "Social Studies", "Reading", "Writing", "Eng. Lang. Arts", "LOTE", "Technology", "Music", "Band / Orch." };
 
         //**********************************************************************//
         //** returns an array of unique values in a column of the specified
@@ -419,6 +423,7 @@ namespace Benchmark_Instant_Reports_2
         }
 
 
+
         public static DataView getAuthorizedCampusList(string username)
         {
             DataSet ds = new DataSet();
@@ -426,7 +431,7 @@ namespace Benchmark_Instant_Reports_2
             if (username == birIF.usernameAllCampuses)
             {
                 ds = dbIFOracle.getDataRows(birIF.getCampusListQuery);
-             }
+            }
             else
             {
                 string qs = birIF.getCampusInfoForCampus.Replace("@schoolAbbr", username);
@@ -436,6 +441,7 @@ namespace Benchmark_Instant_Reports_2
             DataView dv = new DataView(ds.Tables[0]);
             return dv;
         }
+
 
     }
 }
