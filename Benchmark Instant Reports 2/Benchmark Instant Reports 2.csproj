@@ -80,6 +80,10 @@
     <Content Include="Account\Register.aspx" />
     <Content Include="CampusReport.aspx" />
     <Content Include="CascadingDropDown1.asmx" />
+    <Content Include="content\images\ajax-loader1.gif" />
+    <Content Include="content\images\ajax-loader2.gif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="content\images\f-circ-20x20.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

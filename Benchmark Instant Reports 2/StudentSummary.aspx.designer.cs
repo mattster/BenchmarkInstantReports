@@ -148,6 +148,15 @@ namespace Benchmark_Instant_Reports_2 {
         protected global::System.Web.UI.WebControls.DropDownList ddTeacher;
         
         /// <summary>
+        /// progressTeachers control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdateProgress progressTeachers;
+        
+        /// <summary>
         /// pnlNoScanData control.
         /// </summary>
         /// <remarks>
@@ -175,6 +184,24 @@ namespace Benchmark_Instant_Reports_2 {
         protected global::System.Web.UI.WebControls.Label lblNoScanData;
         
         /// <summary>
+        /// pnlGenReport control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlGenReport;
+        
+        /// <summary>
+        /// updpnlGenReport control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel updpnlGenReport;
+        
+        /// <summary>
         /// btnGenReport control.
         /// </summary>
         /// <remarks>
@@ -182,6 +209,15 @@ namespace Benchmark_Instant_Reports_2 {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnGenReport;
+        
+        /// <summary>
+        /// progressGenReport control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdateProgress progressGenReport;
         
         /// <summary>
         /// pnlLblAlignmentNote control.

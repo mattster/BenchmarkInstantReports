@@ -16,6 +16,11 @@
             width: 410px;
             height: 50px;
         }
+        .tcol3
+        {
+            width: 250px;
+        }
+        
         .tcolCustom1
         {
             width: 500px;
@@ -164,6 +169,16 @@
                     </asp:UpdatePanel>
                 </asp:Panel>
             </td>
+            <td class="tcol3">
+                <asp:UpdateProgress ID="progressTeachers" runat="server" AssociatedUpdatePanelID="updpnlBenchmark">
+                    <ProgressTemplate>
+                        <asp:Image ID="imgTeacherProgress" runat="server" CssClass="imgLoader, floatleft"
+                            AlternateText="loading..." ImageUrl="~/content/images/ajax-loader2.gif" />
+                        <div class="popupH1">
+                            Loading List of Teachers...</div>
+                    </ProgressTemplate>
+                </asp:UpdateProgress>
+            </td>
         </tr>
         <tr>
             <td class="tcol1">
@@ -183,7 +198,7 @@
         <tr>
             <td>
             </td>
-            <td class="tcolCustom1">
+            <td class="tcol1">
                 <asp:Panel ID="pnlGenReport" runat="server">
                     <asp:UpdatePanel ID="updpnlGenReport" runat="server">
                         <ContentTemplate>
@@ -191,6 +206,17 @@
                         </ContentTemplate>
                     </asp:UpdatePanel>
                 </asp:Panel>
+            </td>
+            <td class="tcol2">
+                <asp:UpdateProgress ID="progressGenReport" runat="server" AssociatedUpdatePanelID="updpnlGenReport">
+                    <ProgressTemplate>
+                        <asp:Image ID="imgReportProgress" runat="server" CssClass="imgLoader, floatleft"
+                            AlternateText="loading..." ImageUrl="~/content/images/ajax-loader1.gif" />
+                        <div class="popupH1">
+                            Generating Report ...</div>
+                        <asp:Label ID="lblReportProgress" runat="server"></asp:Label></div>
+                    </ProgressTemplate>
+                </asp:UpdateProgress>
             </td>
         </tr>
     </table>

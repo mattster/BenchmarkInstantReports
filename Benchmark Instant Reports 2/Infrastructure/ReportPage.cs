@@ -61,6 +61,17 @@ namespace Benchmark_Instant_Reports_2.Infrastructure
             return;
         }
 
+        protected void showLoadingIndicator()
+        {
+
+            return;
+        }
+
+        protected void hideLoadingIndicator()
+        {
+
+        }
+
         private void updateTestFilterDisplay(bool filtersapplied)
         {
             // set filter button image

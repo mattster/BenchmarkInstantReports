@@ -165,7 +165,24 @@
                 &nbsp;
             </td>
             <td class="tcol2">
-                <asp:Button ID="btnGenReport" runat="server" Text="Generate Report" OnClick="btnGenReport_Click" />
+                <asp:Panel ID="pnlGenReport" runat="server">
+                    <asp:UpdatePanel ID="updpnlGenReport" runat="server">
+                        <ContentTemplate>
+                            <asp:Button ID="btnGenReport" runat="server" Text="Generate Report" OnClick="btnGenReport_Click" />
+                        </ContentTemplate>
+                    </asp:UpdatePanel>
+                </asp:Panel>
+            </td>
+            <td class="tcol2">
+                <asp:UpdateProgress ID="progressGenReport" runat="server" AssociatedUpdatePanelID="updpnlGenReport">
+                    <ProgressTemplate>
+                        <asp:Image ID="imgReportProgress" runat="server" CssClass="imgLoader, floatleft"
+                            AlternateText="loading..." ImageUrl="~/content/images/ajax-loader1.gif" />
+                        <div class="popupH1">
+                            Generating Report ...</div>
+                        <asp:Label ID="lblReportProgress" runat="server"></asp:Label></div>
+                    </ProgressTemplate>
+                </asp:UpdateProgress>
             </td>
         </tr>
     </table>

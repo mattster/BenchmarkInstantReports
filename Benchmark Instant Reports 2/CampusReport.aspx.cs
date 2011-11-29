@@ -56,6 +56,7 @@ namespace Benchmark_Instant_Reports_2
             btnGenReport.Enabled = true;
             repvwCampusReport1.Visible = false;
             repvwCampusReport2.Visible = false;
+            
 
             int bidx = birUtilities.getIndexOfDDItem(birUtilities.savedSelectedTestID(Request), listTests);
             if (bidx != -1)
@@ -75,6 +76,7 @@ namespace Benchmark_Instant_Reports_2
             btnGenReport.Enabled = true;
             repvwCampusReport1.Visible = false;
             repvwCampusReport2.Visible = false;
+            
 
             return;
         }
@@ -83,7 +85,7 @@ namespace Benchmark_Instant_Reports_2
         {
             //** User clicked the Generate Report button ***//
             //
-
+          
             DataSet ds1 = new DataSet();
             DataTable dtResultsDataTable = new DataTable();
 
@@ -117,6 +119,7 @@ namespace Benchmark_Instant_Reports_2
                 this.repvwCampusReport2.LocalReport.DataSources.Add(rds);
                 this.repvwCampusReport2.ShowPrintButton = true;
                 this.repvwCampusReport2.LocalReport.Refresh();
+                
             }
             else
             {   // Show One Campus
@@ -167,6 +170,12 @@ namespace Benchmark_Instant_Reports_2
         //**
         private void initPage()
         {
+            //if (!Page.ClientScript.IsStartupScriptRegistered("hideLoading"))
+            //{
+            //    Page.ClientScript.RegisterStartupScript(this.GetType(), "onload", "hideLoading();", true);
+            //}
+
+
             theMasterPage = Page.Master as SiteMaster;
 
             // disable all dialog boxes & stuff except campus
@@ -177,6 +186,7 @@ namespace Benchmark_Instant_Reports_2
             btnGenReport.Enabled = false;
             repvwCampusReport1.Visible = false;
             repvwCampusReport2.Visible = false;
+            
 
             // load list of campuses in Campus dropdown
             ddCampus.DataSource = birUtilities.getAuthorizedCampusList(Context.User.Identity.Name);

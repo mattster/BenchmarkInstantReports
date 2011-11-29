@@ -16,14 +16,17 @@
             width: 410px;
             height: 50px;
         }
+        .tcol3
+        {
+            width: 250px;
+        }
         .tcolCustom1
         {
-            width: 500px;
+            width: 200px;
         }
-        
-        .style2
+        .tcolCustom2
         {
-            width: 240px;
+            width: 310px;
         }
     </style>
 </asp:Content>
@@ -168,6 +171,16 @@
                     </asp:UpdatePanel>
                 </asp:Panel>
             </td>
+            <td class="tcol3">
+                <asp:UpdateProgress ID="progressTeachers" runat="server" AssociatedUpdatePanelID="updpnlBenchmark">
+                    <ProgressTemplate>
+                        <asp:Image ID="imgTeacherProgress" runat="server" CssClass="imgLoader, floatleft"
+                            AlternateText="loading..." ImageUrl="~/content/images/ajax-loader2.gif" />
+                        <div class="popupH1">
+                            Loading List of Teachers...</div>
+                    </ProgressTemplate>
+                </asp:UpdateProgress>
+            </td>
         </tr>
         <tr>
             <td class="tcol1">
@@ -188,7 +201,24 @@
             <td>
             </td>
             <td class="tcolCustom1">
-                <asp:Button ID="btnGenReport" runat="server" Text="Generate Report" OnClick="btnGenReport_Click" />
+                <asp:Panel ID="pnlGenReport" runat="server">
+                    <asp:UpdatePanel ID="updpnlGenReport" runat="server">
+                        <ContentTemplate>
+                            <asp:Button ID="btnGenReport" runat="server" Text="Generate Report" OnClick="btnGenReport_Click" />
+                        </ContentTemplate>
+                    </asp:UpdatePanel>
+                </asp:Panel>
+            </td>
+            <td class="tcolCustom2">
+                <asp:UpdateProgress ID="progressGenReport" runat="server" AssociatedUpdatePanelID="updpnlGenReport">
+                    <ProgressTemplate>
+                        <asp:Image ID="imgReportProgress" runat="server" CssClass="imgLoader, floatleft"
+                            AlternateText="loading..." ImageUrl="~/content/images/ajax-loader1.gif" />
+                        <div class="popupH1">
+                            Generating Report ...</div>
+                        <asp:Label ID="lblReportProgress" runat="server"></asp:Label></div>
+                    </ProgressTemplate>
+                </asp:UpdateProgress>
             </td>
         </tr>
     </table>

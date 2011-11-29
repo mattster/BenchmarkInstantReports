@@ -209,3 +209,4 @@ D:\mholling\My Documents\Dropbox\dev\Benchmark Instant Reports 2\Benchmark Insta
 D:\mholling\My Documents\Dropbox\dev\Benchmark Instant Reports 2\Benchmark Instant Reports 2\obj\Debug\RdlCompile.compiled
 D:\mholling\My Documents\Dropbox\dev\Benchmark Instant Reports 2\Benchmark Instant Reports 2\obj\Debug\Benchmark Instant Reports 2.dll
 D:\mholling\My Documents\Dropbox\dev\Benchmark Instant Reports 2\Benchmark Instant Reports 2\obj\Debug\Benchmark Instant Reports 2.pdb
+D:\mholling\My Documents\Dropbox\dev\Benchmark Instant Reports 2\Benchmark Instant Reports 2\bin\content\images\ajax-loader2.gif
