@@ -147,6 +147,9 @@ C:\Documents and Settings\mholling\My Documents\My Dropbox\dev\Benchmark Instant
 C:\Documents and Settings\mholling\My Documents\My Dropbox\dev\Benchmark Instant Reports 2\Benchmark Instant Reports 2\obj\Debug\RdlCompile.compiled
 C:\Documents and Settings\mholling\My Documents\My Dropbox\dev\Benchmark Instant Reports 2\Benchmark Instant Reports 2\obj\Debug\Benchmark Instant Reports 2.dll
 C:\Documents and Settings\mholling\My Documents\My Dropbox\dev\Benchmark Instant Reports 2\Benchmark Instant Reports 2\obj\Debug\Benchmark Instant Reports 2.pdb
+D:\mholling\My Documents\Dropbox\dev\Benchmark Instant Reports 2\Benchmark Instant Reports 2\bin\content\images\f-circ-20x20.png
+D:\mholling\My Documents\Dropbox\dev\Benchmark Instant Reports 2\Benchmark Instant Reports 2\bin\content\images\f-circ-red-20x20.png
+D:\mholling\My Documents\Dropbox\dev\Benchmark Instant Reports 2\Benchmark Instant Reports 2\bin\content\images\icon_close_window.gif
 D:\mholling\My Documents\Dropbox\dev\Benchmark Instant Reports 2\Benchmark Instant Reports 2\bin\content\images\pdficon_large.gif
 D:\mholling\My Documents\Dropbox\dev\Benchmark Instant Reports 2\Benchmark Instant Reports 2\bin\StudentStatsRep1.rdlc
 D:\mholling\My Documents\Dropbox\dev\Benchmark Instant Reports 2\Benchmark Instant Reports 2\bin\content\files\Lexmark Introduction 201108.pdf

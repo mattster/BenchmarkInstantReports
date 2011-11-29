@@ -80,8 +80,15 @@
     <Content Include="Account\Register.aspx" />
     <Content Include="CampusReport.aspx" />
     <Content Include="CascadingDropDown1.asmx" />
-    <Content Include="content\images\f-circ-20x20.png" />
-    <Content Include="content\images\f-circ-red-20x20.png" />
+    <Content Include="content\images\f-circ-20x20.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="content\images\f-circ-red-20x20.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="content\images\icon_close_window.gif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="content\images\pdficon_large.gif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

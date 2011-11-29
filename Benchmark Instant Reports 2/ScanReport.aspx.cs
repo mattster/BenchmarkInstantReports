@@ -77,7 +77,8 @@ namespace Benchmark_Instant_Reports_2
         {
             //*** User selected a set of benchmarks ***//
 
-            if (lbListTests.GetSelectedIndices().Length > 0)
+            //if (lbListTests.GetSelectedIndices().Length > 0)
+            if (lbListTests.SelectedIndex > -1)
             {
                 birUtilities.savedSelectedTestIDs(Response, birUtilities.getLBSelectionsAsArray(lbListTests));
 
@@ -224,10 +225,6 @@ namespace Benchmark_Instant_Reports_2
                 lbListTests.ClearSelection();
                 birUtilities.selectItemsInLB(lbListTests, savedTests);
                 lbListTests_SelectedIndexChanged(new object(), new EventArgs());
-            }
-            else
-            {
-
             }
 
             return;

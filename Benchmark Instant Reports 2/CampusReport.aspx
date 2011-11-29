@@ -55,29 +55,71 @@
                 <asp:Panel ID="pnlTestFilter" CssClass="FilterPanel" runat="server">
                     <asp:UpdatePanel ID="updpnlTestFilter" class="FilterPanel" runat="server">
                         <ContentTemplate>
-                            <div class="popupH1">
-                                Filter Tests By</div>
-                            <div class="popupLabel">
-                                Curriculum Area:</div>
-                            <asp:DropDownList ID="ddTFCur" CssClass="popupDDL" runat="server" Height="28px" Width="150px"
-                                AutoPostBack="true" OnSelectedIndexChanged="ddTFCur_SelectedIndexChanged">
-                            </asp:DropDownList>
-                            <div class="popupLabel">
-                                Test Type:</div>
-                            <asp:DropDownList ID="ddTFTestType" CssClass="popupDDL" runat="server" Height="28px"
-                                Width="150px" AutoPostBack="true" OnSelectedIndexChanged="ddTFTestType_SelectedIndexChanged">
-                            </asp:DropDownList>
-                            <div class="popupLabel">
-                                Test Version:</div>
-                            <asp:DropDownList ID="ddTFTestVersion" CssClass="popupDDL" runat="server" Height="28px"
-                                Width="150px" AutoPostBack="true" OnSelectedIndexChanged="ddTFTestVersion_SelectedIndexChanged">
-                            </asp:DropDownList>
-                            <asp:Button ID="btnTFReset" CssClass="popupButton" runat="server" Text="Reset" OnClick="btnTFReset_Click"
-                                OnClientClick="hidePCE()" UseSubmitBehavior="false" />
+                            <table>
+                                <tr>
+                                    <td class="FilterHdrCol1">
+                                        <div class="popupH1">
+                                            Filter Tests By</div>
+                                    </td>
+                                    <td class="FilterHdrCol2">
+                                        <asp:ImageButton ID="CloseTestFilterImg" runat="server" CssClass="PopupCloseImg, floatright"
+                                            OnClientClick="hidePCE()" AlternateText="Close Popup" ImageUrl="~/content/images/icon_close_window.gif" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="FilterHdrCol1">
+                                        <span style="font-weight: bold;">Test List is instantly updated. Click outside popup
+                                            to continue.</span>
+                                    </td>
+                                </tr>
+                            </table>
+                            <table>
+                                <tr>
+                                    <td class="FilterCol1">
+                                        <div class="popupLabel">
+                                            Curriculum Area:</div>
+                                    </td>
+                                    <td class="FilterCol2">
+                                        <asp:DropDownList ID="ddTFCur" CssClass="popupDDL" runat="server" Height="28px" Width="150px"
+                                            AutoPostBack="true" OnSelectedIndexChanged="ddTFCur_SelectedIndexChanged">
+                                        </asp:DropDownList>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="FilterCol1">
+                                        <div class="popupLabel">
+                                            Test Type:</div>
+                                    </td>
+                                    <td class="FilterCol2">
+                                        <asp:DropDownList ID="ddTFTestType" CssClass="popupDDL" runat="server" Height="28px"
+                                            Width="150px" AutoPostBack="true" OnSelectedIndexChanged="ddTFTestType_SelectedIndexChanged">
+                                        </asp:DropDownList>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="FilterCol1">
+                                        <div class="popupLabel">
+                                            Test Version:</div>
+                                    </td>
+                                    <td class="FilterCol2">
+                                        <asp:DropDownList ID="ddTFTestVersion" CssClass="popupDDL" runat="server" Height="28px"
+                                            Width="150px" AutoPostBack="true" OnSelectedIndexChanged="ddTFTestVersion_SelectedIndexChanged">
+                                        </asp:DropDownList>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="FilterCol1">
+                                        &nbsp;<br />
+                                        &nbsp;
+                                    </td>
+                                    <td class="FilterCol2">
+                                        <asp:Button ID="btnTFReset" CssClass="popupButton" runat="server" Text="Reset" OnClick="btnTFReset_Click"
+                                            OnClientClick="hidePCE()" UseSubmitBehavior="false" />
+                                    </td>
+                                </tr>
+                            </table>
                         </ContentTemplate>
                     </asp:UpdatePanel>
-                    <ajaxToolkit:DropShadowExtender ID="dseFilterTests" runat="server" TargetControlID="updpnlTestFilter"
-                        Opacity="0.5" Rounded="true" TrackPosition="true" />
                 </asp:Panel>
                 <br />
                 <asp:UpdatePanel ID="updpnlImgFilterTests" runat="server">
@@ -135,57 +177,63 @@
         </tr>
     </table>
     &nbsp;&nbsp;
-    <rsweb:ReportViewer ID="repvwCampusReport1" runat="server" Font-Names="Verdana" Font-Size="8pt"
-        Height="100px" InteractiveDeviceInfos="(Collection)" WaitMessageFont-Names="Verdana"
-        WaitMessageFont-Size="14pt" Width="550px" SizeToReportContent="True">
-        <LocalReport ReportPath="CampusReport1.rdlc">
-            <DataSources>
-                <rsweb:ReportDataSource DataSourceId="ObjectDataSource1" Name="DataSetStudentStatsC" />
-            </DataSources>
-        </LocalReport>
-    </rsweb:ReportViewer>
-    <rsweb:ReportViewer ID="repvwCampusReport2" runat="server" Font-Names="Verdana" Font-Size="8pt"
-        Height="100px" InteractiveDeviceInfos="(Collection)" WaitMessageFont-Names="Verdana"
-        WaitMessageFont-Size="14pt" Width="550px" SizeToReportContent="True">
-        <LocalReport ReportPath="CampusReport2.rdlc">
-            <DataSources>
-                <rsweb:ReportDataSource DataSourceId="ObjectDataSource1" Name="DataSetStudentStatsC" />
-            </DataSources>
-        </LocalReport>
-    </rsweb:ReportViewer>
-    <asp:ObjectDataSource ID="ObjectDataSource1" runat="server" SelectMethod="GetData"
-        TypeName="Benchmark_Instant_Reports_2.DataSetStudentStatsTableAdapters.TEMP_RESULTS_STUDENTSTATSTableAdapter"
-        DeleteMethod="Delete" InsertMethod="Insert" OldValuesParameterFormatString="original_{0}"
-        UpdateMethod="Update">
-        <DeleteParameters>
-            <asp:Parameter Name="Original_STUDENT_ID" Type="String" />
-            <asp:Parameter Name="Original_TEST_ID" Type="String" />
-        </DeleteParameters>
-        <InsertParameters>
-            <asp:Parameter Name="STUDENT_ID" Type="String" />
-            <asp:Parameter Name="STUDENT_NAME" Type="String" />
-            <asp:Parameter Name="TEST_ID" Type="String" />
-            <asp:Parameter Name="SCAN_DATETIME" Type="DateTime" />
-            <asp:Parameter Name="LETTER_GRADE" Type="String" />
-            <asp:Parameter Name="NUM_CORRECT" Type="Decimal" />
-            <asp:Parameter Name="NUM_TOTAL" Type="Decimal" />
-            <asp:Parameter Name="PCT_CORRECT" Type="Decimal" />
-            <asp:Parameter Name="CAMPUS" Type="String" />
-            <asp:Parameter Name="TEACHER" Type="String" />
-            <asp:Parameter Name="PERIOD" Type="String" />
-        </InsertParameters>
-        <UpdateParameters>
-            <asp:Parameter Name="STUDENT_NAME" Type="String" />
-            <asp:Parameter Name="SCAN_DATETIME" Type="DateTime" />
-            <asp:Parameter Name="LETTER_GRADE" Type="String" />
-            <asp:Parameter Name="NUM_CORRECT" Type="Decimal" />
-            <asp:Parameter Name="NUM_TOTAL" Type="Decimal" />
-            <asp:Parameter Name="PCT_CORRECT" Type="Decimal" />
-            <asp:Parameter Name="CAMPUS" Type="String" />
-            <asp:Parameter Name="TEACHER" Type="String" />
-            <asp:Parameter Name="PERIOD" Type="String" />
-            <asp:Parameter Name="Original_STUDENT_ID" Type="String" />
-            <asp:Parameter Name="Original_TEST_ID" Type="String" />
-        </UpdateParameters>
-    </asp:ObjectDataSource>
+    <asp:Panel ID="pnlReportViewer" runat="server">
+        <asp:UpdatePanel ID="updpnlReportViewer" runat="server">
+            <ContentTemplate>
+                <rsweb:ReportViewer ID="repvwCampusReport1" runat="server" Font-Names="Verdana" Font-Size="8pt"
+                    Height="100px" InteractiveDeviceInfos="(Collection)" WaitMessageFont-Names="Verdana"
+                    WaitMessageFont-Size="14pt" Width="550px" SizeToReportContent="True">
+                    <LocalReport ReportPath="CampusReport1.rdlc">
+                        <DataSources>
+                            <rsweb:ReportDataSource DataSourceId="ObjectDataSource1" Name="DataSetStudentStatsC" />
+                        </DataSources>
+                    </LocalReport>
+                </rsweb:ReportViewer>
+                <rsweb:ReportViewer ID="repvwCampusReport2" runat="server" Font-Names="Verdana" Font-Size="8pt"
+                    Height="100px" InteractiveDeviceInfos="(Collection)" WaitMessageFont-Names="Verdana"
+                    WaitMessageFont-Size="14pt" Width="550px" SizeToReportContent="True">
+                    <LocalReport ReportPath="CampusReport2.rdlc">
+                        <DataSources>
+                            <rsweb:ReportDataSource DataSourceId="ObjectDataSource1" Name="DataSetStudentStatsC" />
+                        </DataSources>
+                    </LocalReport>
+                </rsweb:ReportViewer>
+                <asp:ObjectDataSource ID="ObjectDataSource1" runat="server" SelectMethod="GetData"
+                    TypeName="Benchmark_Instant_Reports_2.DataSetStudentStatsTableAdapters.TEMP_RESULTS_STUDENTSTATSTableAdapter"
+                    DeleteMethod="Delete" InsertMethod="Insert" OldValuesParameterFormatString="original_{0}"
+                    UpdateMethod="Update">
+                    <DeleteParameters>
+                        <asp:Parameter Name="Original_STUDENT_ID" Type="String" />
+                        <asp:Parameter Name="Original_TEST_ID" Type="String" />
+                    </DeleteParameters>
+                    <InsertParameters>
+                        <asp:Parameter Name="STUDENT_ID" Type="String" />
+                        <asp:Parameter Name="STUDENT_NAME" Type="String" />
+                        <asp:Parameter Name="TEST_ID" Type="String" />
+                        <asp:Parameter Name="SCAN_DATETIME" Type="DateTime" />
+                        <asp:Parameter Name="LETTER_GRADE" Type="String" />
+                        <asp:Parameter Name="NUM_CORRECT" Type="Decimal" />
+                        <asp:Parameter Name="NUM_TOTAL" Type="Decimal" />
+                        <asp:Parameter Name="PCT_CORRECT" Type="Decimal" />
+                        <asp:Parameter Name="CAMPUS" Type="String" />
+                        <asp:Parameter Name="TEACHER" Type="String" />
+                        <asp:Parameter Name="PERIOD" Type="String" />
+                    </InsertParameters>
+                    <UpdateParameters>
+                        <asp:Parameter Name="STUDENT_NAME" Type="String" />
+                        <asp:Parameter Name="SCAN_DATETIME" Type="DateTime" />
+                        <asp:Parameter Name="LETTER_GRADE" Type="String" />
+                        <asp:Parameter Name="NUM_CORRECT" Type="Decimal" />
+                        <asp:Parameter Name="NUM_TOTAL" Type="Decimal" />
+                        <asp:Parameter Name="PCT_CORRECT" Type="Decimal" />
+                        <asp:Parameter Name="CAMPUS" Type="String" />
+                        <asp:Parameter Name="TEACHER" Type="String" />
+                        <asp:Parameter Name="PERIOD" Type="String" />
+                        <asp:Parameter Name="Original_STUDENT_ID" Type="String" />
+                        <asp:Parameter Name="Original_TEST_ID" Type="String" />
+                    </UpdateParameters>
+                </asp:ObjectDataSource>
+            </ContentTemplate>
+        </asp:UpdatePanel>
+    </asp:Panel>
 </asp:Content>

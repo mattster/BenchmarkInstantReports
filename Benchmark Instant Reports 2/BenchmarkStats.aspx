@@ -70,29 +70,71 @@
                 <asp:Panel ID="pnlTestFilter" CssClass="FilterPanel" runat="server">
                     <asp:UpdatePanel ID="updpnlTestFilter" class="FilterPanel" runat="server">
                         <ContentTemplate>
-                            <div class="popupH1">
-                                Filter Tests By</div>
-                            <div class="popupLabel">
-                                Curriculum Area:</div>
-                            <asp:DropDownList ID="ddTFCur" CssClass="popupDDL" runat="server" Height="28px" Width="150px"
-                                AutoPostBack="true" OnSelectedIndexChanged="ddTFCur_SelectedIndexChanged">
-                            </asp:DropDownList>
-                            <div class="popupLabel">
-                                Test Type:</div>
-                            <asp:DropDownList ID="ddTFTestType" CssClass="popupDDL" runat="server" Height="28px"
-                                Width="150px" AutoPostBack="true" OnSelectedIndexChanged="ddTFTestType_SelectedIndexChanged">
-                            </asp:DropDownList>
-                            <div class="popupLabel">
-                                Test Version:</div>
-                            <asp:DropDownList ID="ddTFTestVersion" CssClass="popupDDL" runat="server" Height="28px"
-                                Width="150px" AutoPostBack="true" OnSelectedIndexChanged="ddTFTestVersion_SelectedIndexChanged">
-                            </asp:DropDownList>
-                            <asp:Button ID="btnTFReset" CssClass="popupButton" runat="server" Text="Reset" OnClick="btnTFReset_Click"
-                                OnClientClick="hidePCE()" UseSubmitBehavior="false" />
+                            <table>
+                                <tr>
+                                    <td class="FilterHdrCol1">
+                                        <div class="popupH1">
+                                            Filter Tests By</div>
+                                    </td>
+                                    <td class="FilterHdrCol2">
+                                        <asp:ImageButton ID="CloseTestFilterImg" runat="server" CssClass="PopupCloseImg, floatright"
+                                            OnClientClick="hidePCE()" AlternateText="Close Popup" ImageUrl="~/content/images/icon_close_window.gif" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="FilterHdrCol1">
+                                        <span style="font-weight: bold;">Test List is instantly updated. Click outside popup
+                                            to continue.</span>
+                                    </td>
+                                </tr>
+                            </table>
+                            <table>
+                                <tr>
+                                    <td class="FilterCol1">
+                                        <div class="popupLabel">
+                                            Curriculum Area:</div>
+                                    </td>
+                                    <td class="FilterCol2">
+                                        <asp:DropDownList ID="ddTFCur" CssClass="popupDDL" runat="server" Height="28px" Width="150px"
+                                            AutoPostBack="true" OnSelectedIndexChanged="ddTFCur_SelectedIndexChanged">
+                                        </asp:DropDownList>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="FilterCol1">
+                                        <div class="popupLabel">
+                                            Test Type:</div>
+                                    </td>
+                                    <td class="FilterCol2">
+                                        <asp:DropDownList ID="ddTFTestType" CssClass="popupDDL" runat="server" Height="28px"
+                                            Width="150px" AutoPostBack="true" OnSelectedIndexChanged="ddTFTestType_SelectedIndexChanged">
+                                        </asp:DropDownList>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="FilterCol1">
+                                        <div class="popupLabel">
+                                            Test Version:</div>
+                                    </td>
+                                    <td class="FilterCol2">
+                                        <asp:DropDownList ID="ddTFTestVersion" CssClass="popupDDL" runat="server" Height="28px"
+                                            Width="150px" AutoPostBack="true" OnSelectedIndexChanged="ddTFTestVersion_SelectedIndexChanged">
+                                        </asp:DropDownList>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="FilterCol1">
+                                        &nbsp;<br />
+                                        &nbsp;
+                                    </td>
+                                    <td class="FilterCol2">
+                                        <asp:Button ID="btnTFReset" CssClass="popupButton" runat="server" Text="Reset" OnClick="btnTFReset_Click"
+                                            OnClientClick="hidePCE()" UseSubmitBehavior="false" />
+                                    </td>
+                                </tr>
+                            </table>
                         </ContentTemplate>
                     </asp:UpdatePanel>
-                    <ajaxToolkit:DropShadowExtender ID="dseFilterTests" runat="server" TargetControlID="updpnlTestFilter"
-                        Opacity="0.5" Rounded="true" TrackPosition="true" />
                 </asp:Panel>
                 <br />
                 <asp:UpdatePanel ID="updpnlImgFilterTests" runat="server">
@@ -182,115 +224,121 @@
         </tr>
     </table>
     <br />
-    <rsweb:ReportViewer ID="repvwBenchmarkStats1a" runat="server" Font-Names="Verdana"
-        Font-Size="8pt" InteractiveDeviceInfos="(Collection)" WaitMessageFont-Names="Verdana"
-        WaitMessageFont-Size="14pt" Width="700px" Height="800px" SizeToReportContent="True">
-        <LocalReport ReportPath="BenchmarkStatsRep1a.rdlc">
-            <DataSources>
-                <rsweb:ReportDataSource DataSourceId="ObjectDataSource1" Name="DataSetBenchmarkStats" />
-            </DataSources>
-        </LocalReport>
-    </rsweb:ReportViewer>
-    <rsweb:ReportViewer ID="repvwBenchmarkStats1b" runat="server" Font-Names="Verdana"
-        Font-Size="8pt" Height="800px" InteractiveDeviceInfos="(Collection)" WaitMessageFont-Names="Verdana"
-        WaitMessageFont-Size="14pt" Width="700px" SizeToReportContent="True">
-        <LocalReport ReportPath="BenchmarkStatsRep1b.rdlc">
-            <DataSources>
-                <rsweb:ReportDataSource DataSourceId="ObjectDataSource1" Name="DataSetBenchmarkStats" />
-            </DataSources>
-        </LocalReport>
-    </rsweb:ReportViewer>
-    <rsweb:ReportViewer ID="repvwBenchmarkStats1c" runat="server" Font-Names="Verdana"
-        Font-Size="8pt" Height="800px" InteractiveDeviceInfos="(Collection)" SizeToReportContent="True"
-        WaitMessageFont-Names="Verdana" WaitMessageFont-Size="14pt" Width="700px">
-        <LocalReport ReportPath="BenchmarkStatsRep1c.rdlc">
-            <DataSources>
-                <rsweb:ReportDataSource DataSourceId="ObjectDataSource1" Name="DataSetBenchmarkStats" />
-            </DataSources>
-        </LocalReport>
-    </rsweb:ReportViewer>
-    <rsweb:ReportViewer ID="repvwBenchmarkStats2a" runat="server" Font-Names="Verdana"
-        Font-Size="8pt" Height="800px" InteractiveDeviceInfos="(Collection)" WaitMessageFont-Names="Verdana"
-        WaitMessageFont-Size="14pt" Width="700px" SizeToReportContent="True">
-        <LocalReport ReportPath="BenchmarkStatsRep2a.rdlc">
-            <DataSources>
-                <rsweb:ReportDataSource DataSourceId="ObjectDataSource1" Name="DataSetBenchmarkStats" />
-            </DataSources>
-        </LocalReport>
-    </rsweb:ReportViewer>
-    <rsweb:ReportViewer ID="repvwBenchmarkStats2b" runat="server" Font-Names="Verdana"
-        Font-Size="8pt" Height="800px" InteractiveDeviceInfos="(Collection)" WaitMessageFont-Names="Verdana"
-        WaitMessageFont-Size="14pt" Width="700px" SizeToReportContent="True">
-        <LocalReport ReportPath="BenchmarkStatsRep2b.rdlc">
-            <DataSources>
-                <rsweb:ReportDataSource DataSourceId="ObjectDataSource1" Name="DataSetBenchmarkStats" />
-            </DataSources>
-        </LocalReport>
-    </rsweb:ReportViewer>
-    <rsweb:ReportViewer ID="repvwBenchmarkStats2c" runat="server" Font-Names="Verdana"
-        Font-Size="8pt" Height="800px" InteractiveDeviceInfos="(Collection)" WaitMessageFont-Names="Verdana"
-        WaitMessageFont-Size="14pt" Width="700px" SizeToReportContent="True">
-        <LocalReport ReportPath="BenchmarkStatsRep2c.rdlc">
-            <DataSources>
-                <rsweb:ReportDataSource DataSourceId="ObjectDataSource1" Name="DataSetBenchmarkStats" />
-            </DataSources>
-        </LocalReport>
-    </rsweb:ReportViewer>
-    <rsweb:ReportViewer ID="repvwBenchmarkStats3a" runat="server" Font-Names="Verdana"
-        Font-Size="8pt" Height="800px" InteractiveDeviceInfos="(Collection)" WaitMessageFont-Names="Verdana"
-        WaitMessageFont-Size="14pt" Width="700px" SizeToReportContent="True">
-        <LocalReport ReportPath="BenchmarkStatsRep3a.rdlc">
-            <DataSources>
-                <rsweb:ReportDataSource DataSourceId="ObjectDataSource1" Name="DataSetBenchmarkStats" />
-            </DataSources>
-        </LocalReport>
-    </rsweb:ReportViewer>
-    <rsweb:ReportViewer ID="repvwBenchmarkStats3b" runat="server" Font-Names="Verdana"
-        Font-Size="8pt" Height="800px" InteractiveDeviceInfos="(Collection)" WaitMessageFont-Names="Verdana"
-        WaitMessageFont-Size="14pt" Width="700px" SizeToReportContent="True">
-        <LocalReport ReportPath="BenchmarkStatsRep3b.rdlc">
-            <DataSources>
-                <rsweb:ReportDataSource DataSourceId="ObjectDataSource1" Name="DataSetBenchmarkStats" />
-            </DataSources>
-        </LocalReport>
-    </rsweb:ReportViewer>
-    <rsweb:ReportViewer ID="repvwBenchmarkStats3c" runat="server" Font-Names="Verdana"
-        Font-Size="8pt" Height="800px" InteractiveDeviceInfos="(Collection)" WaitMessageFont-Names="Verdana"
-        WaitMessageFont-Size="14pt" Width="700px" SizeToReportContent="True">
-        <LocalReport ReportPath="BenchmarkStatsRep3c.rdlc">
-            <DataSources>
-                <rsweb:ReportDataSource DataSourceId="ObjectDataSource1" Name="DataSetBenchmarkStats" />
-            </DataSources>
-        </LocalReport>
-    </rsweb:ReportViewer>
-    <rsweb:ReportViewer ID="repvwBenchmarkStats4a" runat="server" Font-Names="Verdana"
-        Font-Size="8pt" Height="800px" InteractiveDeviceInfos="(Collection)" WaitMessageFont-Names="Verdana"
-        WaitMessageFont-Size="14pt" Width="700px" SizeToReportContent="True">
-        <LocalReport ReportPath="BenchmarkStatsRep4a.rdlc">
-            <DataSources>
-                <rsweb:ReportDataSource DataSourceId="ObjectDataSource1" Name="DataSetBenchmarkStats" />
-            </DataSources>
-        </LocalReport>
-    </rsweb:ReportViewer>
-    <rsweb:ReportViewer ID="repvwBenchmarkStats4b" runat="server" Font-Names="Verdana"
-        Font-Size="8pt" Height="800px" InteractiveDeviceInfos="(Collection)" WaitMessageFont-Names="Verdana"
-        WaitMessageFont-Size="14pt" Width="700px" SizeToReportContent="True">
-        <LocalReport ReportPath="BenchmarkStatsRep4b.rdlc">
-            <DataSources>
-                <rsweb:ReportDataSource DataSourceId="ObjectDataSource1" Name="DataSetBenchmarkStats" />
-            </DataSources>
-        </LocalReport>
-    </rsweb:ReportViewer>
-    <rsweb:ReportViewer ID="repvwBenchmarkStats4c" runat="server" Font-Names="Verdana"
-        Font-Size="8pt" Height="800px" InteractiveDeviceInfos="(Collection)" WaitMessageFont-Names="Verdana"
-        WaitMessageFont-Size="14pt" Width="700px" SizeToReportContent="True">
-        <LocalReport ReportPath="BenchmarkStatsRep4c.rdlc">
-            <DataSources>
-                <rsweb:ReportDataSource DataSourceId="ObjectDataSource1" Name="DataSetBenchmarkStats" />
-            </DataSources>
-        </LocalReport>
-    </rsweb:ReportViewer>
-    <asp:ObjectDataSource ID="ObjectDataSource1" runat="server" SelectMethod="GetData"
-        TypeName="Benchmark Instant Reports 2.DataSetTableAdapters.TEMP_RESULTS_BENCHMARKSTATSTableAdapter">
-    </asp:ObjectDataSource>
+    <asp:Panel ID="pnlReportViewer" runat="server">
+        <asp:UpdatePanel ID="updpnlReportViewer" runat="server">
+            <ContentTemplate>
+                <rsweb:ReportViewer ID="repvwBenchmarkStats1a" runat="server" Font-Names="Verdana"
+                    Font-Size="8pt" InteractiveDeviceInfos="(Collection)" WaitMessageFont-Names="Verdana"
+                    WaitMessageFont-Size="14pt" Width="700px" Height="800px" SizeToReportContent="True">
+                    <LocalReport ReportPath="BenchmarkStatsRep1a.rdlc">
+                        <DataSources>
+                            <rsweb:ReportDataSource DataSourceId="ObjectDataSource1" Name="DataSetBenchmarkStats" />
+                        </DataSources>
+                    </LocalReport>
+                </rsweb:ReportViewer>
+                <rsweb:ReportViewer ID="repvwBenchmarkStats1b" runat="server" Font-Names="Verdana"
+                    Font-Size="8pt" Height="800px" InteractiveDeviceInfos="(Collection)" WaitMessageFont-Names="Verdana"
+                    WaitMessageFont-Size="14pt" Width="700px" SizeToReportContent="True">
+                    <LocalReport ReportPath="BenchmarkStatsRep1b.rdlc">
+                        <DataSources>
+                            <rsweb:ReportDataSource DataSourceId="ObjectDataSource1" Name="DataSetBenchmarkStats" />
+                        </DataSources>
+                    </LocalReport>
+                </rsweb:ReportViewer>
+                <rsweb:ReportViewer ID="repvwBenchmarkStats1c" runat="server" Font-Names="Verdana"
+                    Font-Size="8pt" Height="800px" InteractiveDeviceInfos="(Collection)" SizeToReportContent="True"
+                    WaitMessageFont-Names="Verdana" WaitMessageFont-Size="14pt" Width="700px">
+                    <LocalReport ReportPath="BenchmarkStatsRep1c.rdlc">
+                        <DataSources>
+                            <rsweb:ReportDataSource DataSourceId="ObjectDataSource1" Name="DataSetBenchmarkStats" />
+                        </DataSources>
+                    </LocalReport>
+                </rsweb:ReportViewer>
+                <rsweb:ReportViewer ID="repvwBenchmarkStats2a" runat="server" Font-Names="Verdana"
+                    Font-Size="8pt" Height="800px" InteractiveDeviceInfos="(Collection)" WaitMessageFont-Names="Verdana"
+                    WaitMessageFont-Size="14pt" Width="700px" SizeToReportContent="True">
+                    <LocalReport ReportPath="BenchmarkStatsRep2a.rdlc">
+                        <DataSources>
+                            <rsweb:ReportDataSource DataSourceId="ObjectDataSource1" Name="DataSetBenchmarkStats" />
+                        </DataSources>
+                    </LocalReport>
+                </rsweb:ReportViewer>
+                <rsweb:ReportViewer ID="repvwBenchmarkStats2b" runat="server" Font-Names="Verdana"
+                    Font-Size="8pt" Height="800px" InteractiveDeviceInfos="(Collection)" WaitMessageFont-Names="Verdana"
+                    WaitMessageFont-Size="14pt" Width="700px" SizeToReportContent="True">
+                    <LocalReport ReportPath="BenchmarkStatsRep2b.rdlc">
+                        <DataSources>
+                            <rsweb:ReportDataSource DataSourceId="ObjectDataSource1" Name="DataSetBenchmarkStats" />
+                        </DataSources>
+                    </LocalReport>
+                </rsweb:ReportViewer>
+                <rsweb:ReportViewer ID="repvwBenchmarkStats2c" runat="server" Font-Names="Verdana"
+                    Font-Size="8pt" Height="800px" InteractiveDeviceInfos="(Collection)" WaitMessageFont-Names="Verdana"
+                    WaitMessageFont-Size="14pt" Width="700px" SizeToReportContent="True">
+                    <LocalReport ReportPath="BenchmarkStatsRep2c.rdlc">
+                        <DataSources>
+                            <rsweb:ReportDataSource DataSourceId="ObjectDataSource1" Name="DataSetBenchmarkStats" />
+                        </DataSources>
+                    </LocalReport>
+                </rsweb:ReportViewer>
+                <rsweb:ReportViewer ID="repvwBenchmarkStats3a" runat="server" Font-Names="Verdana"
+                    Font-Size="8pt" Height="800px" InteractiveDeviceInfos="(Collection)" WaitMessageFont-Names="Verdana"
+                    WaitMessageFont-Size="14pt" Width="700px" SizeToReportContent="True">
+                    <LocalReport ReportPath="BenchmarkStatsRep3a.rdlc">
+                        <DataSources>
+                            <rsweb:ReportDataSource DataSourceId="ObjectDataSource1" Name="DataSetBenchmarkStats" />
+                        </DataSources>
+                    </LocalReport>
+                </rsweb:ReportViewer>
+                <rsweb:ReportViewer ID="repvwBenchmarkStats3b" runat="server" Font-Names="Verdana"
+                    Font-Size="8pt" Height="800px" InteractiveDeviceInfos="(Collection)" WaitMessageFont-Names="Verdana"
+                    WaitMessageFont-Size="14pt" Width="700px" SizeToReportContent="True">
+                    <LocalReport ReportPath="BenchmarkStatsRep3b.rdlc">
+                        <DataSources>
+                            <rsweb:ReportDataSource DataSourceId="ObjectDataSource1" Name="DataSetBenchmarkStats" />
+                        </DataSources>
+                    </LocalReport>
+                </rsweb:ReportViewer>
+                <rsweb:ReportViewer ID="repvwBenchmarkStats3c" runat="server" Font-Names="Verdana"
+                    Font-Size="8pt" Height="800px" InteractiveDeviceInfos="(Collection)" WaitMessageFont-Names="Verdana"
+                    WaitMessageFont-Size="14pt" Width="700px" SizeToReportContent="True">
+                    <LocalReport ReportPath="BenchmarkStatsRep3c.rdlc">
+                        <DataSources>
+                            <rsweb:ReportDataSource DataSourceId="ObjectDataSource1" Name="DataSetBenchmarkStats" />
+                        </DataSources>
+                    </LocalReport>
+                </rsweb:ReportViewer>
+                <rsweb:ReportViewer ID="repvwBenchmarkStats4a" runat="server" Font-Names="Verdana"
+                    Font-Size="8pt" Height="800px" InteractiveDeviceInfos="(Collection)" WaitMessageFont-Names="Verdana"
+                    WaitMessageFont-Size="14pt" Width="700px" SizeToReportContent="True">
+                    <LocalReport ReportPath="BenchmarkStatsRep4a.rdlc">
+                        <DataSources>
+                            <rsweb:ReportDataSource DataSourceId="ObjectDataSource1" Name="DataSetBenchmarkStats" />
+                        </DataSources>
+                    </LocalReport>
+                </rsweb:ReportViewer>
+                <rsweb:ReportViewer ID="repvwBenchmarkStats4b" runat="server" Font-Names="Verdana"
+                    Font-Size="8pt" Height="800px" InteractiveDeviceInfos="(Collection)" WaitMessageFont-Names="Verdana"
+                    WaitMessageFont-Size="14pt" Width="700px" SizeToReportContent="True">
+                    <LocalReport ReportPath="BenchmarkStatsRep4b.rdlc">
+                        <DataSources>
+                            <rsweb:ReportDataSource DataSourceId="ObjectDataSource1" Name="DataSetBenchmarkStats" />
+                        </DataSources>
+                    </LocalReport>
+                </rsweb:ReportViewer>
+                <rsweb:ReportViewer ID="repvwBenchmarkStats4c" runat="server" Font-Names="Verdana"
+                    Font-Size="8pt" Height="800px" InteractiveDeviceInfos="(Collection)" WaitMessageFont-Names="Verdana"
+                    WaitMessageFont-Size="14pt" Width="700px" SizeToReportContent="True">
+                    <LocalReport ReportPath="BenchmarkStatsRep4c.rdlc">
+                        <DataSources>
+                            <rsweb:ReportDataSource DataSourceId="ObjectDataSource1" Name="DataSetBenchmarkStats" />
+                        </DataSources>
+                    </LocalReport>
+                </rsweb:ReportViewer>
+                <asp:ObjectDataSource ID="ObjectDataSource1" runat="server" SelectMethod="GetData"
+                    TypeName="Benchmark Instant Reports 2.DataSetTableAdapters.TEMP_RESULTS_BENCHMARKSTATSTableAdapter">
+                </asp:ObjectDataSource>
+            </ContentTemplate>
+        </asp:UpdatePanel>
+    </asp:Panel>
 </asp:Content>

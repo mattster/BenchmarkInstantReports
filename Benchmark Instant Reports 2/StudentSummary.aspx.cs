@@ -1,14 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Data;
 using System.Linq;
-using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using System.Data;
-using Microsoft.Reporting.Common;
-using Microsoft.Reporting.WebForms;
-using Benchmark_Instant_Reports_2.Infrastructure;
 using Benchmark_Instant_Reports_2.Helpers;
+using Benchmark_Instant_Reports_2.Infrastructure;
+using Microsoft.Reporting.WebForms;
 
 namespace Benchmark_Instant_Reports_2
 {
@@ -89,7 +86,6 @@ namespace Benchmark_Instant_Reports_2
 
             return;
         }
-
 
         protected void listTests_SelectedIndexChanged(object sender, EventArgs e)
         {

@@ -76,6 +76,15 @@ namespace Benchmark_Instant_Reports_2 {
         protected global::System.Web.UI.UpdatePanel updpnlTestFilter;
         
         /// <summary>
+        /// CloseTestFilterImg control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton CloseTestFilterImg;
+        
+        /// <summary>
         /// btnTFReset control.
         /// </summary>
         /// <remarks>
@@ -83,15 +92,6 @@ namespace Benchmark_Instant_Reports_2 {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnTFReset;
-        
-        /// <summary>
-        /// dseFilterTests control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::AjaxControlToolkit.DropShadowExtender dseFilterTests;
         
         /// <summary>
         /// updpnlImgFilterTests control.
@@ -263,6 +263,24 @@ namespace Benchmark_Instant_Reports_2 {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnGenReport;
+        
+        /// <summary>
+        /// pnlReportViewer control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlReportViewer;
+        
+        /// <summary>
+        /// updpnlReportViewer control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel updpnlReportViewer;
         
         /// <summary>
         /// repvwBenchmarkStats1a control.

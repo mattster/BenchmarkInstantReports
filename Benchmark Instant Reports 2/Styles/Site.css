@@ -396,21 +396,6 @@ div.versionlabel
     font-size: 1.5em;
     border-radius: 10px;
 }
-.modalBackground
-{
-    /*color: #800;*/
-    background-color: #888;
-    filter:alpha(opacity=60);
-    opacity: 0.6;
-}
-#modalpopupcontrol
-{
-    display: none;
-}
-#ButtonOK
-{
-    
-}
 
 .popupButton
 {
@@ -418,21 +403,42 @@ div.versionlabel
     float: left;
     margin: 10px 20px 20px 20px;
 }
-
+.PopupCloseImg
+{
+    margin: 5px;
+    padding: 10px;
+}
 .FilterPanel
 {
     background-color: #add8e6;
     border-radius: 10px;
-    /*width: 325px;
-    height: 200px;*/
+    max-width: 350px;
+}
+.FilterCol1
+{
+    width: 75px;
+}
+.FilterCol2
+{
+    width: 175px;
+}
+.FilterHdrCol1
+{
+    width: 295px;
+    text-align: center;
+}
+.FilterHdrCol2
+{
+    width: 15px;
 }
 .popupH1
 {
-    text-align: center;
+    /*text-align: center;*/
     color: #000;
     font-weight: bold;
     margin-bottom: 5px;
     margin-top: 3px;
+    width: 100%;
 }
 .popupLabel
 {
