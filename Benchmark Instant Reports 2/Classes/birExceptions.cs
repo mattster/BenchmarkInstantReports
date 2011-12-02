@@ -3,65 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Data;
+using Benchmark_Instant_Reports_2.Exceptions;
 
 namespace Benchmark_Instant_Reports_2
 {
     public class birExceptions
     {
 
-        public class AlternateAnswer
-        {
-            public string TestID { get; set; }
-            public int ItemNum { get; set; }
-            public string AltAnswer { get; set; }
-            public string[] Campuses { get; set; }
-
-            public AlternateAnswer(string testid, int itemnum, string altanswer, string[] campuses)
-            {
-                TestID = testid;
-                ItemNum = itemnum;
-                AltAnswer = altanswer;
-                Campuses = campuses;
-            }
-        }
-
-        //public class AlternateAnsKey
-        //{
-        //    public string TestID { get; set; }
-        //    public string Campus { get; set; }
-        //    public string Teacher { get; set; }
-        //    public string[] Periods { get; set; }
-        //    public string[] AnsKey { get; set; }
-
-        //    public AlternateAnsKey(string testid, string campus, string teacher, string[] periods, string[] anskey)
-        //    {
-        //        TestID = testid;
-        //        Campus = campus;
-        //        Teacher = teacher;
-        //        Periods = periods;
-        //        AnsKey = anskey;
-        //    }
-        //}
-
-        public class GridNonExactMatch
-        {
-            public string TestID { get; set; }
-            public int ItemNum { get; set; }
-            public string[] Campuses { get; set; }
-
-            public GridNonExactMatch(string testid, int itemnum, string[] campuses)
-            {
-                TestID = testid;
-                ItemNum = itemnum;
-                Campuses = campuses;
-            }
-        }
 
         #region exceptiondata
 
-        #region Alternate_Answer_Keys
-
-        #endregion
 
         #region test_versions_for_specific_tests_teachers_periods
         private static string exTest1 = "2010-12 SC Biology SEM 22-24";
@@ -282,27 +233,6 @@ namespace Benchmark_Instant_Reports_2
 
         #region griddable_nonexact_items
 
-        private static List<GridNonExactMatch> gridNonExactMatches = new List<GridNonExactMatch>
-        {
-            new GridNonExactMatch("2011-10 SM Algebra 1 TC 4-31", 19, new string[] { "ALL" }),
-            new GridNonExactMatch("2011-10 SM Algebra 1 TC 4-31", 20, new string[] { "ALL" }),
-            new GridNonExactMatch("PreAP Geometry TC Oct 2011", 19, new string[] { "ALL" }),
-            new GridNonExactMatch("PreAP Geometry TC Oct 2011", 20, new string[] { "ALL" }),
-            new GridNonExactMatch("2011-10 SM PreAP Algebra 1 TC 4-30", 20, new string[] { "ALL" }),
-            new GridNonExactMatch("2011-10 SM Grade 7 Math TC 4-27", 29, new string[] { "ALL" }),
-            new GridNonExactMatch("2011-10 SM Grade 7 Math TC 4-27", 30, new string[] { "ALL" }),
-            new GridNonExactMatch("2011-10 SM Grade 8 Math TC 4-29", 30, new string[] { "ALL" }),
-            new GridNonExactMatch("2011-10 SM Grade 7 Math PreAP TC 4-28", 30, new string[] { "ALL" })
-        };
-
-        #endregion
-
-        #region alternate_answers
-
-        private static List<AlternateAnswer> alternateAnswers = new List<AlternateAnswer> {
-            new AlternateAnswer("2011-09 SC Physics Unit 1 T2 CUT 91-21", 61, "-980", new string[] { "ALL" }),
-            new AlternateAnswer("2011-10 SS US History Unit 4 CUT 81-41", 13, "C", new string[] { "ALL", "PHS", "LHHS"}),
-        };
 
         #endregion
 
@@ -314,15 +244,10 @@ namespace Benchmark_Instant_Reports_2
 
         public static bool isGriddableNonExactMatch(string testID, string campus, int itemNum)
         {
-            foreach (GridNonExactMatch curNonExactMatch in gridNonExactMatches)
+            foreach (GridNonExactMatch curNonExactMatch in ExceptionData.gridNonExactMatches)
             {
-                if (curNonExactMatch.TestID == testID &&
-                    curNonExactMatch.ItemNum == itemNum &&
-                    (birUtilities.isStringInStringArray(campus, curNonExactMatch.Campuses) ||
-                    birUtilities.isStringInStringArray("ALL", curNonExactMatch.Campuses)))
-                {
+                if (curNonExactMatch.Equals(testID, campus, itemNum))
                     return true;
-                }
             }
 
             return false;
@@ -581,6 +506,11 @@ namespace Benchmark_Instant_Reports_2
         //**
         public static int[] getCampusItemDropList(string testID, string campus, string teacher, string period)
         {
+
+
+
+
+
             if (testID == cdTest1)
             {
                 if (campus == cdCampus11)
@@ -659,15 +589,10 @@ namespace Benchmark_Instant_Reports_2
 
         public static string getAlternateAnswer(string testID, int curItemNum, string campus = "")
         {
-            foreach (AlternateAnswer curAltAnswer in alternateAnswers)
+            foreach (AlternateAnswer curAltAnswer in ExceptionData.alternateAnswers)
             {
-                if (curAltAnswer.TestID == testID &&
-                    curAltAnswer.ItemNum == curItemNum &&
-                    (birUtilities.isStringInStringArray(campus, curAltAnswer.Campuses) ||
-                        birUtilities.isStringInStringArray("ALL", curAltAnswer.Campuses)))
-                {
+                if (curAltAnswer.Equals(testID, campus, curItemNum))
                     return curAltAnswer.AltAnswer;
-                }
             }
 
             return noAltAnswerValue;
