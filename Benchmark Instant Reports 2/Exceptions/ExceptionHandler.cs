@@ -2,7 +2,7 @@
 
 namespace Benchmark_Instant_Reports_2.Exceptions
 {
-    public class ExceptionHandler
+    public static class ExceptionHandler
     {
         private static string noAltAnswerValue = "XXXXXXXXXXXXXXXXXXNOALTANSWERXXXXXXXXXXXXXXXXXX";
 

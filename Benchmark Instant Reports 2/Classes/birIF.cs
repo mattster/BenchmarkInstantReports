@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Data;
 using Benchmark_Instant_Reports_2.Exceptions;
+using Benchmark_Instant_Reports_2.Grading;
 //using DevExpress.Web.ASPxEditors;
 
 
@@ -338,10 +339,10 @@ namespace Benchmark_Instant_Reports_2
                 "from " + dbTestDefn + " " +
                 "where test_id = \'@testId\'";
 
-        public static string queryGetTestTemplate =
-                "select test_template " +
-                "from " + dbTestDefn + " " +
-                "where test_id = \'@testId\'";
+        //public static string queryGetTestTemplate =
+        //        "select test_template " +
+        //        "from " + dbTestDefn + " " +
+        //        "where test_id = \'@testId\'";
 
         public static string queryGetSchoolID =
                 "select schoolid " +
@@ -770,16 +771,18 @@ namespace Benchmark_Instant_Reports_2
             string[] columnLabels = { "ITEM_NUM", "CORRECT", "CORRECT_ANS", "STUDENT_ANS", "OBJECTIVE", "TEKS" };
             int itemObjective = new int();
             int curItemNum = new int();
-            int thisTestTemplType;
+            //int thisTestTemplType;
 
             //get the test template type for use in calculating griddables
-            thisTestTemplType = getTestTemplateType(testID);
+            //thisTestTemplType = getTestTemplateType(testID);
 
             //convert answer string to an array
             string[] studentAnswerStringArray = studentAnswerString.Split(',');
-            if (thisTestTemplType != testTemplTypeNoGrids)
+            //if (thisTestTemplType != testTemplTypeNoGrids)
+            if (GridHandler.isGriddable(testID))
             {
-                convertAnsStringForGrids(studentAnswerStringArray, thisTestTemplType, testID, curCampus);
+                //convertAnsStringForGrids(studentAnswerStringArray, thisTestTemplType, testID, curCampus);
+                GridHandler.ProcessAnswerStringWithGrids(studentAnswerStringArray, testID, curCampus);
             }
 
             //get the answer key as a DataSet
@@ -859,20 +862,22 @@ namespace Benchmark_Instant_Reports_2
             char letterGrade = new char();
             string[] columnLabels = { "LETTER_GRADE", "NUM_CORRECT", "NUM_TOTAL", "PCT_CORRECT", 
                                       "PASS_NUM", "COMMENDED_NUM" };
-            int thisTestTemplType;
+            //int thisTestTemplType;
 
             //get pass and commended numbers for this test
             int passNum = getTestPassingNum(testID);
             int commendedNum = getTestCommendedNum(testID);
 
             //get the test template type for use in calculating griddables
-            thisTestTemplType = getTestTemplateType(testID);
+            //thisTestTemplType = getTestTemplateType(testID);
 
             //convert answer string to an array
             string[] studentAnswerStringArray = studentAnswerString.Split(',');
-            if (thisTestTemplType != testTemplTypeNoGrids)
+            //if (thisTestTemplType != testTemplTypeNoGrids)
+            if (GridHandler.isGriddable(testID))
             {
-                convertAnsStringForGrids(studentAnswerStringArray, thisTestTemplType, testID, curCampus);
+                //convertAnsStringForGrids(studentAnswerStringArray, thisTestTemplType, testID, curCampus);
+                GridHandler.ProcessAnswerStringWithGrids(studentAnswerStringArray, testID, curCampus);
             }
 
             //get the answer key as a DataSet
@@ -1099,30 +1104,30 @@ namespace Benchmark_Instant_Reports_2
         /// </summary>
         /// <param name="testID">the test ID to look up</param>
         /// <returns>an integer representing the type of griddable, or 0 if the test has no griddables</returns>
-        private static int getTestTemplateType(string testID)
-        {
-            string qs = queryGetTestTemplate.Replace("@testId", testID);
-            DataSet ds = dbIFOracle.getDataRows(qs);
-            string thisTemplateName = ds.Tables[0].Rows[0][0].ToString();
+        //private static int getTestTemplateType(string testID)
+        //{
+        //    string qs = queryGetTestTemplate.Replace("@testId", testID);
+        //    DataSet ds = dbIFOracle.getDataRows(qs);
+        //    string thisTemplateName = ds.Tables[0].Rows[0][0].ToString();
 
-            if (thisTemplateName == testTemplate60Q3GridEOC)
-                return testTemplType60_3GridEOC;
-            else if (thisTemplateName == testTemplate60Q3GridG68)
-                return testTemplType60_3GridG68;
-            else if (thisTemplateName == testTemplate18Q2GridEOC)
-                return testTemplType18_2GridEOC;
-            else if (thisTemplateName == testTemplate19Q1GridEOC)
-                return testTemplType19_1GridEOC;
-            else if (thisTemplateName == testTemplate28Q2GridG68)
-                return testTemplType28_2GridG68;
-            else if (thisTemplateName == testTemplate29Q1GridG68)
-                return testTemplType29_1GridG68;
-            else if (thisTemplateName == testTemplate24Q1GridG45)
-                return testTemplType24_1GridG45;
+        //    if (thisTemplateName == testTemplate60Q3GridEOC)
+        //        return testTemplType60_3GridEOC;
+        //    else if (thisTemplateName == testTemplate60Q3GridG68)
+        //        return testTemplType60_3GridG68;
+        //    else if (thisTemplateName == testTemplate18Q2GridEOC)
+        //        return testTemplType18_2GridEOC;
+        //    else if (thisTemplateName == testTemplate19Q1GridEOC)
+        //        return testTemplType19_1GridEOC;
+        //    else if (thisTemplateName == testTemplate28Q2GridG68)
+        //        return testTemplType28_2GridG68;
+        //    else if (thisTemplateName == testTemplate29Q1GridG68)
+        //        return testTemplType29_1GridG68;
+        //    else if (thisTemplateName == testTemplate24Q1GridG45)
+        //        return testTemplType24_1GridG45;
 
 
-            return testTemplTypeNoGrids;
-        }
+        //    return testTemplTypeNoGrids;
+        //}
 
 
         //**********************************************************************//

@@ -183,6 +183,10 @@
     <Compile Include="Exceptions\ExceptionItem.cs" />
     <Compile Include="Exceptions\GridNonExactMatch.cs" />
     <Compile Include="Exceptions\ExceptionData\GridNonExactMatchData.cs" />
+    <Compile Include="Grading\GridHandler.cs" />
+    <Compile Include="Grading\TestTemplate.cs" />
+    <Compile Include="Grading\GridTemplateData.cs" />
+    <Compile Include="Grading\TestTemplateHandler.cs" />
     <Compile Include="Helpers\TestFilter.cs" />
     <Compile Include="Helpers\TestFilterState.cs" />
     <Compile Include="Infrastructure\ReportPage.cs">
@@ -195,7 +199,6 @@
     <Compile Include="Classes\StudentStatsIF.cs" />
     <Compile Include="Classes\dbIFOracle.cs" />
     <Compile Include="Classes\CampusSecurity.cs" />
-    <Compile Include="Classes\TestFilter.cs" />
     <Compile Include="Metadata\TestMetadataItem.cs" />
     <Compile Include="Metadata\TestType.cs" />
     <Compile Include="db\CCDDControls.asmx.cs">

@@ -324,7 +324,8 @@ namespace Benchmark_Instant_Reports_2
         {
             List<int> indicesList = new List<int>();
             for (int i = 0; i < lb.Items.Count; i++)
-                if (isStringInStringArray(lb.Items[i].Text, itemNames))
+                //if (isStringInStringArray(lb.Items[i].Text, itemNames))
+                if (itemNames.Contains<string>(lb.Items[i].Text))
                     indicesList.Add(i);
 
             if (indicesList.Count > 0)
@@ -348,17 +349,6 @@ namespace Benchmark_Instant_Reports_2
                 lb.Items[indices[i]].Selected = true;
 
             return;
-        }
-
-
-
-        public static bool isStringInStringArray(string str, string[] strArray)
-        {
-            for (int i = 0; i < strArray.Length; i++)
-                if (strArray[i] == str)
-                    return true;
-
-            return false;
         }
 
 
