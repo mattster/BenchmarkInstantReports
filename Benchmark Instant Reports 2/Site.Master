@@ -98,11 +98,10 @@
     </div>
     <div class="footer">
         <div class="versionlabel">
-            <asp:Label ID="lblVersion" runat="server" Text="bir 1.9.9.h.1"></asp:Label>
+            <asp:Label ID="lblVersion" runat="server" Text="bir 1.9.9.h.2"></asp:Label>
         </div>
     </div>
     </form>
-    <script src="Scripts/jquery-1.4.1.min.js" type="text/javascript"></script>
     <script type="text/javascript">
         function hidePCE() {
             var pup = $find('popupCE');
@@ -113,15 +112,5 @@
             ldg.hidePopup();
         }
     </script>
-<%--    <script type="text/javascript">
-        function showLoading() {
-            $("#progressinfo").show();
-        }
-    </script>
-    <script type="text/javascript">
-        function hideLoading() {
-            $("#progressinfo").hide();
-        }
-    </script>--%>
 </body>
 </html>

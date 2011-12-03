@@ -5,6 +5,7 @@ using System.Web;
 using System.Data;
 using System.Data.OracleClient;
 using System.Configuration;
+using Benchmark_Instant_Reports_2.Exceptions;
 
 
 
@@ -109,7 +110,7 @@ namespace Benchmark_Instant_Reports_2
                     thisrow[lblTeacher] = dv.Table.Rows[j][birIF.teacherNameFieldName].ToString();
                     thisrow[lblPeriod] = dv.Table.Rows[j]["PERIOD"].ToString();
 
-                    ansKeyVersionIncrement = birExceptions.campusAnswerKeyVersionIncrement(curTest, curCampus, 
+                    ansKeyVersionIncrement = ExceptionHandler.campusAnswerKeyVersionIncrement(curTest, curCampus, 
                         thisrow[lblTeacher].ToString(), thisrow[lblPeriod].ToString());
                     DataTable resultTable = birIF.gradeScannedTest(curTest, curScanDataRow["ANSWERS"].ToString(), curCampus, ansKeyVersionIncrement,
                         thisrow[lblTeacher].ToString(), thisrow[lblPeriod].ToString());

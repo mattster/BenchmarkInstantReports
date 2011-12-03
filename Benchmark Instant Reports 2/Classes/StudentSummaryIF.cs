@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Data;
+using Benchmark_Instant_Reports_2.Exceptions;
 
 
 //* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
@@ -55,7 +56,7 @@ namespace Benchmark_Instant_Reports_2
                 {
                     //string[] thisTeacherPeriod = courseList.Length == 0 ? new string[] { "UNKNOWN", "01" } : birIF.getTeacherPeriodForStudentInCourses(curId, courseList);
 
-                    ansKeyVersionIncrement = birExceptions.campusAnswerKeyVersionIncrement(theTest, curCampus,
+                    ansKeyVersionIncrement = ExceptionHandler.campusAnswerKeyVersionIncrement(theTest, curCampus,
                     curTeacher, curPeriod);
                     DataTable gradedTable = birIF.gradeScannedTestDetail(theTest, curScanDataRow["ANSWERS"].ToString(), curCampus,
                         ansKeyVersionIncrement, curTeacher, curPeriod);

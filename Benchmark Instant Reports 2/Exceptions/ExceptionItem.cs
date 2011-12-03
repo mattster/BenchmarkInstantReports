@@ -148,12 +148,32 @@ namespace Benchmark_Instant_Reports_2.Exceptions
 
 
         #region utilities
+        public bool Equals(string testID, string campus)
+        {
+            if (TestID == testID)
+                if (Campuses.Contains<string>(campus))
+                    return true;
+
+            return false;
+        }
+        
         public bool Equals(string testID, string campus, int item)
         {
-            if (TestID == TestID)
+            if (TestID == testID)
                 if (Campuses.Contains<string>(campus) || Campuses.Contains<string>("ALL"))
                     if (Items.Contains<int>(item))
                         return true;
+
+            return false;
+        }
+
+        public bool Equals(string testID, string campus, string teacher, string period)
+        {
+            if (TestID == testID)
+                if (Campuses.Contains<string>(campus))
+                    if (Teachers.Contains<string>(teacher))
+                        if (Periods.Contains<string>(period))
+                            return true;
 
             return false;
         }

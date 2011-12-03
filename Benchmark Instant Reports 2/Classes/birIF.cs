@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Data;
+using Benchmark_Instant_Reports_2.Exceptions;
 //using DevExpress.Web.ASPxEditors;
 
 
@@ -819,7 +820,7 @@ namespace Benchmark_Instant_Reports_2
                     {                                                   // correct answer
                         row[columnLabels[1]] = true;
                     }
-                    else if (studentAnswer == birExceptions.getAlternateAnswer(testID, curItemNum, curCampus))
+                    else if (studentAnswer == ExceptionHandler.getAlternateAnswer(testID, curItemNum, curCampus))
                     {
                         row[columnLabels[1]] = true;
                     }
@@ -894,7 +895,7 @@ namespace Benchmark_Instant_Reports_2
                         // student's answer is correct
                         numCorrect++;
                     }
-                    if (studentAnswerStringArray[curItemNum - 1] == birExceptions.getAlternateAnswer(testID, curItemNum, curCampus))
+                    if (studentAnswerStringArray[curItemNum - 1] == ExceptionHandler.getAlternateAnswer(testID, curItemNum, curCampus))
                     {
                         // student's answer is correct as the alternate answer
                         numCorrect++;
@@ -1069,7 +1070,7 @@ namespace Benchmark_Instant_Reports_2
             // remove trailing zeroes if this item is specified as an inexact match
             for (int i = gridIdxFirst; i <= gridIdxLast && i < studentAnswerStringArray.Length; i++)
             {
-                if (birExceptions.isGriddableNonExactMatch(testID, campus, i + 1))
+                if (ExceptionHandler.isGriddableNonExactMatch(testID, campus, i + 1))
                 {
                     while (studentAnswerStringArray[i].Contains(".") && studentAnswerStringArray[i].EndsWith("0"))
                         studentAnswerStringArray[i] = studentAnswerStringArray[i].Substring(0, studentAnswerStringArray[i].Length - 1);
@@ -1079,7 +1080,7 @@ namespace Benchmark_Instant_Reports_2
             // remove trailing decimals if this item is specified as an inexact match
             for (int i = gridIdxFirst; i <= gridIdxLast && i < studentAnswerStringArray.Length; i++)
             {
-                if (birExceptions.isGriddableNonExactMatch(testID, campus, i + 1))
+                if (ExceptionHandler.isGriddableNonExactMatch(testID, campus, i + 1))
                 {
                     while (studentAnswerStringArray[i].EndsWith("."))
                         studentAnswerStringArray[i] = studentAnswerStringArray[i].Substring(0, studentAnswerStringArray[i].Length - 1);
@@ -1168,7 +1169,7 @@ namespace Benchmark_Instant_Reports_2
             DataSet dsDistrictAnsKey = dbIFOracle.getDataRows(qs);
 
             // check for any items that need to be dropped from the test
-            int[] distDropList = birExceptions.getDistrictItemDropList(testID, campus);
+            int[] distDropList = ExceptionHandler.getItemDropList(testID, campus);
             if (distDropList != null)
             {
                 // remove the dropped items from the results
@@ -1237,7 +1238,7 @@ namespace Benchmark_Instant_Reports_2
             }
 
             // check for any items that need to be dropped from the test
-            int[] campusDropList = birExceptions.getCampusItemDropList(testID, campus, teacher, period);
+            int[] campusDropList = ExceptionHandler.getItemDropList(testID, campus, teacher, period);
             if (campusDropList != null)
             {
                 // remove the dropped items from the results
