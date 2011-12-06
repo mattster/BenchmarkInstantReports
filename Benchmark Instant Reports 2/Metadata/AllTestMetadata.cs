@@ -15,6 +15,11 @@ namespace Benchmark_Instant_Reports_2.Metadata
                 foreach (Curriculum c in AllCurriculum)
                     yield return c as T;
             }
+            else if (typeof(T) == typeof(Subject))
+            {
+                foreach (Subject s in AllSubjects)
+                    yield return s as T;
+            }
             else if (typeof(T) == typeof(TestType))
             {
                 foreach (TestType tt in AllTestTypes)

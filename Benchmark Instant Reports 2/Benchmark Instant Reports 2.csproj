@@ -199,6 +199,7 @@
     <Compile Include="Classes\StudentStatsIF.cs" />
     <Compile Include="Classes\dbIFOracle.cs" />
     <Compile Include="Classes\CampusSecurity.cs" />
+    <Compile Include="Metadata\Subject.cs" />
     <Compile Include="Metadata\TestMetadataItem.cs" />
     <Compile Include="Metadata\TestType.cs" />
     <Compile Include="db\CCDDControls.asmx.cs">

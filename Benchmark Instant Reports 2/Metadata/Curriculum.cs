@@ -29,9 +29,9 @@ namespace Benchmark_Instant_Reports_2.Metadata
             new Curriculum("Writing", "Writing", "W", "E"),
             new Curriculum("English and Language Arts", "ELA", "ELA", "S"),
             new Curriculum("Languages Other Than English", "LOTE", "LOTE", "S"),
-            new Curriculum("Technology", "Technology", "TECH", "S"),
-            new Curriculum("Music", "Music", "MU", "S"),
-            new Curriculum("Band and Orchestra", "Band / Orch.", "BO", "B"),
+            //new Curriculum("Technology", "Technology", "TECH", "S"),
+            //new Curriculum("Music", "Music", "MU", "S"),
+            //new Curriculum("Band and Orchestra", "Band / Orch.", "BO", "B"),
         };
 
     }

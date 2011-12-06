@@ -89,7 +89,7 @@
         </div>
         <div class="main">
             <div class="attentionitem">
-                What's New: Filter the Test Lists -- Press the Filter Button
+                What's New: New Test Filter - By Subject -- Press the Filter Button
                 <img class="" id="imgFilterTests" alt="Filter Tests" src="content/images/f-circ-20x20.png" /></div>
             <asp:ContentPlaceHolder ID="MainContent" runat="server" />
         </div>
@@ -98,7 +98,7 @@
     </div>
     <div class="footer">
         <div class="versionlabel">
-            <asp:Label ID="lblVersion" runat="server" Text="bir 1.9.9.h.2"></asp:Label>
+            <asp:Label ID="lblVersion" runat="server" Text="bir 1.9.9.h.3"></asp:Label>
         </div>
     </div>
     </form>
