@@ -89,6 +89,17 @@
                                 <tr>
                                     <td class="FilterCol1">
                                         <div class="popupLabel">
+                                            Subject:</div>
+                                    </td>
+                                    <td class="FilterCol2">
+                                        <asp:DropDownList ID="ddTFSubj" CssClass="popupDDL" runat="server" Height="28px"
+                                            Width="150px" AutoPostBack="true" OnSelectedIndexChanged="ddTFSubj_SelectedIndexChanged">
+                                        </asp:DropDownList>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="FilterCol1">
+                                        <div class="popupLabel">
                                             Test Type:</div>
                                     </td>
                                     <td class="FilterCol2">

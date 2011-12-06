@@ -9,15 +9,15 @@ namespace Benchmark_Instant_Reports_2.Helpers
 {
     public static class TestFilter
     {
-        public static void SetupTestFilterPopup(DropDownList ddTFCur, DropDownList ddTFTT, DropDownList ddTFTV, string campus)
+        public static void SetupTestFilterPopup(DropDownList ddTFCur, DropDownList ddTFSubj, DropDownList ddTFTT, DropDownList ddTFTV, string campus)
         {
             loadFilterListInDD<Curriculum>(ddTFCur, campus);
+            loadFilterListInDD<Subject>(ddTFSubj, campus);
             loadFilterListInDD<TestType>(ddTFTT, campus);
             loadFilterListInDD<TestVersion>(ddTFTV, campus);
 
             return;
         }
-
 
         public static void SetFilterButtonImage(Image imgFilterTests, bool filtersapplied)
         {
@@ -25,6 +25,21 @@ namespace Benchmark_Instant_Reports_2.Helpers
                 imgFilterTests.ImageUrl = "~/content/images/f-circ-red-20x20.png";
             else
                 imgFilterTests.ImageUrl = "~/content/images/f-circ-20x20.png";
+
+            return;
+        }
+
+        public static void SetSubjectFilters(DropDownList ddTFSubj, TestFilterState theTestFilterState, string campus)
+        {
+            List<string> applicableSubjects = new List<string>();
+            applicableSubjects.Add(References.Constants.allIndicator);
+
+            foreach (Subject s in AllTestMetadata.AllSubjects)
+                if (s.CurricApplicable == theTestFilterState.Curric)
+                    applicableSubjects.Add(s.DispAbbr);
+
+            ddTFSubj.DataSource = applicableSubjects;
+            ddTFSubj.DataBind();
 
             return;
         }
@@ -37,6 +52,7 @@ namespace Benchmark_Instant_Reports_2.Helpers
 
             // find the tests for each filter criteria
             filteredTestsLists.Add(filterTestsBy<Curriculum>(campus, theTestFilterState.Curric));
+            filteredTestsLists.Add(filterTestsBy<Subject>(campus, theTestFilterState.Subject));
             filteredTestsLists.Add(filterTestsBy<TestType>(campus, theTestFilterState.TestType));
             filteredTestsLists.Add(filterTestsBy<TestVersion>(campus, theTestFilterState.TestVersion));
 

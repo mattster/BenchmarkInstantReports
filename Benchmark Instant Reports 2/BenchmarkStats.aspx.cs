@@ -82,7 +82,7 @@ namespace Benchmark_Instant_Reports_2
             listTests.DataSource = birIF.getTestListForSchool(ddCampus.SelectedValue.ToString());
             listTests.DataBind();
 
-            TestFilter.SetupTestFilterPopup(ddTFCur, ddTFTestType, ddTFTestVersion, ddCampus.SelectedValue.ToString());
+            setupTestFilters();
             listTests.Enabled = true;
             ddRepType.Enabled = false;
             ddTeacher.Visible = false;
@@ -336,7 +336,7 @@ namespace Benchmark_Instant_Reports_2
             else
                 ddCampus.SelectedIndex = 0;
 
-            TestFilter.SetupTestFilterPopup(ddTFCur, ddTFTestType, ddTFTestVersion, ddCampus.SelectedValue.ToString());
+            setupTestFilters();
 
             // load list of benchmarks in Benchmark dropdown
             listTests.DataSource = birIF.getTestListForSchool(ddCampus.SelectedValue.ToString());

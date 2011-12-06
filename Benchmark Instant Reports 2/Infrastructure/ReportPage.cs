@@ -9,8 +9,9 @@ namespace Benchmark_Instant_Reports_2.Infrastructure
         public virtual TestFilterState thisTestFilterState { get; set; }
 
         public DropDownList ddTFCur = new DropDownList();
-        public DropDownList ddTFTestType = new DropDownList();
-        public DropDownList ddTFTestVersion = new DropDownList();
+        public DropDownList ddTFSubj;// = new DropDownList();
+        public DropDownList ddTFTestType;// = new DropDownList();
+        public DropDownList ddTFTestVersion;// = new DropDownList();
         public DropDownList ddCampus;
         public DropDownList listTests;
         public ListBox lbListTests;
@@ -22,7 +23,19 @@ namespace Benchmark_Instant_Reports_2.Infrastructure
         {
             DropDownList dd = sender as DropDownList;
             thisTestFilterState.Curric = dd.SelectedItem.Value.ToString();
-            runTestFilter(); 
+            runTestFilter();
+            updateTestFilterDisplay(thisTestFilterState.AreAnyFiltersApplied);
+
+            TestFilter.SetSubjectFilters(ddTFSubj, thisTestFilterState, ddCampus.SelectedValue.ToString());
+
+            return;
+        }
+
+        protected void ddTFSubj_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            DropDownList dd = sender as DropDownList;
+            thisTestFilterState.Subject = dd.SelectedItem.Value.ToString();
+            runTestFilter();
             updateTestFilterDisplay(thisTestFilterState.AreAnyFiltersApplied);
 
             return;
@@ -52,6 +65,7 @@ namespace Benchmark_Instant_Reports_2.Infrastructure
         {
             thisTestFilterState.Reset();
             ddTFCur.SelectedIndex = 0;
+            ddTFSubj.SelectedIndex = 0;
             ddTFTestType.SelectedIndex = 0;
             ddTFTestVersion.SelectedIndex = 0;
 
@@ -61,16 +75,17 @@ namespace Benchmark_Instant_Reports_2.Infrastructure
             return;
         }
 
-        protected void showLoadingIndicator()
+
+        protected void setupTestFilters()
         {
+            TestFilter.SetupTestFilterPopup(ddTFCur, ddTFSubj, ddTFTestType, ddTFTestVersion, ddCampus.SelectedValue.ToString());
+
+            btnTFReset_Click(new object(), new EventArgs());
 
             return;
         }
 
-        protected void hideLoadingIndicator()
-        {
 
-        }
 
         private void updateTestFilterDisplay(bool filtersapplied)
         {
@@ -92,5 +107,7 @@ namespace Benchmark_Instant_Reports_2.Infrastructure
 
             return;
         }
+
+
     }
 }

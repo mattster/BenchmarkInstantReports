@@ -47,7 +47,10 @@ namespace Benchmark_Instant_Reports_2.Exceptions
                     new DropList("2011-11 SELA English I Reading EOC SIM 7-51", 25),
                     new DropList("2011-11 SELA English II SIM 7-53", new int[] { 29, 30, 31 }),
                     new DropList("2011-11 SC Physics Unit 2 T3-T4 CUT 91-41", "LHHS", "VALDEZ, MATTHEW", new string[] { "01", "03", "04", "06", "07" }, 
-                        new int[] { 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27 })
+                        new int[] { 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27 }),
+                    new DropList("2011-11 SC Physics Unit 3 T1-T4 CUT 91-51", "LHHS", "VALDEZ, MATTHEW", new string[] { "01", "03", "04", "06", "07" }, 
+                        new int[] { 16, 17, 18, 19, 20, 21, 22, 23, 24 }) 
+
 
                 };
 
