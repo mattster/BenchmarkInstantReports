@@ -74,7 +74,7 @@ namespace Benchmark_Instant_Reports_2
             setupTestFilters();
             listTests.Enabled = true;
             ddTeacher.Enabled = false;
-            btnGenReport.Enabled = false;
+            btnGenReport.Enabled = true;
             repvwStudentStats2a.Visible = false;
 
             int bidx = birUtilities.getIndexOfDDItem(birUtilities.savedSelectedTestID(Request), listTests);
@@ -217,7 +217,7 @@ namespace Benchmark_Instant_Reports_2
             listTests.AutoPostBack = true;
             ddTeacher.Enabled = false;
             ddTeacher.AutoPostBack = true;
-            btnGenReport.Enabled = false;
+            btnGenReport.Enabled = true;
             repvwStudentStats2a.Visible = false;
             lblNoScanData.Visible = false;
 

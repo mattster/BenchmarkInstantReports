@@ -84,10 +84,10 @@ namespace Benchmark_Instant_Reports_2
 
             setupTestFilters();
             listTests.Enabled = true;
-            ddRepType.Enabled = false;
+            ddRepType.Enabled = true;
             ddTeacher.Visible = false;
             lblSelectTeacher.Visible = false;
-            btnGenReport.Enabled = false;
+            btnGenReport.Enabled = true;
             makeRepsVisible(repsNone, repsNone);
             reportDataParmsHaveChanged = true;
 
@@ -161,7 +161,7 @@ namespace Benchmark_Instant_Reports_2
             {
                 lblSelectTeacher.Visible = true;
                 ddTeacher.Visible = true;
-                btnGenReport.Enabled = false;
+                btnGenReport.Enabled = true; // was false
                 makeRepsVisible(repsNone, repsNone);
                 if (!reportDataParmsHaveChanged && ddTeacher.SelectedIndex >= 0)
                     setupReportByPeriod(ddGroupBy.SelectedItem.ToString());
@@ -170,7 +170,7 @@ namespace Benchmark_Instant_Reports_2
             {
                 lblSelectTeacher.Visible = true;
                 ddTeacher.Visible = true;
-                btnGenReport.Enabled = false;
+                btnGenReport.Enabled = true; // was false
                 makeRepsVisible(repsNone, repsNone);
                 if (!reportDataParmsHaveChanged && ddTeacher.SelectedIndex >= 0)
                     setupReportByAnsTeacher(ddGroupBy.SelectedItem.ToString());
@@ -316,11 +316,11 @@ namespace Benchmark_Instant_Reports_2
             ddTeacher.Visible = false;
             ddTeacher.AutoPostBack = true;
             lblSelectTeacher.Visible = false;
-            ddRepType.Enabled = false;
+            ddRepType.Enabled = true;
             ddRepType.AutoPostBack = true;
-            ddGroupBy.Enabled = false;
+            ddGroupBy.Enabled = true;
             ddGroupBy.AutoPostBack = true;
-            btnGenReport.Enabled = false;
+            btnGenReport.Enabled = true;
             makeRepsVisible(repsNone, repsNone);
             lblNoScanData.Visible = false;
 

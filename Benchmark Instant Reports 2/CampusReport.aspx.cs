@@ -183,7 +183,7 @@ namespace Benchmark_Instant_Reports_2
             ddCampus.AutoPostBack = true;
             listTests.Enabled = true;
             listTests.AutoPostBack = true;
-            btnGenReport.Enabled = false;
+            btnGenReport.Enabled = true;
             repvwCampusReport1.Visible = false;
             repvwCampusReport2.Visible = false;
             

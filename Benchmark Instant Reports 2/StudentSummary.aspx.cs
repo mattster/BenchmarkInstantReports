@@ -73,7 +73,7 @@ namespace Benchmark_Instant_Reports_2
             listTests.Enabled = true;
             birUtilities.toggleDDLInitView(listTests, true);
             ddTeacher.Enabled = false;
-            btnGenReport.Enabled = false;
+            btnGenReport.Enabled = true;
             repvwStudentSummary.Visible = false;
             lblAlignmentNote.Visible = false;
 
@@ -209,7 +209,7 @@ namespace Benchmark_Instant_Reports_2
             listTests.AutoPostBack = true;
             ddTeacher.Enabled = false;
             ddTeacher.AutoPostBack = true;
-            btnGenReport.Enabled = false;
+            btnGenReport.Enabled = true;
             repvwStudentSummary.Visible = false;
             lblAlignmentNote.Visible = false;
             lblNoScanData.Visible = false;
