@@ -84,10 +84,8 @@ namespace Benchmark_Instant_Reports_2
 
             setupTestFilters();
             listTests.Enabled = true;
-            ddRepType.Enabled = true;
             ddTeacher.Visible = false;
             lblSelectTeacher.Visible = false;
-            btnGenReport.Enabled = true;
             makeRepsVisible(repsNone, repsNone);
             reportDataParmsHaveChanged = true;
 
@@ -122,8 +120,6 @@ namespace Benchmark_Instant_Reports_2
             // if there are no students taking this test at this campus, deal with it
             if (listOfTeachers.Count() == 0)
             {
-                btnGenReport.Enabled = false;
-                ddRepType.Enabled = false;
                 ddTeacher.Visible = false;
                 lblSelectTeacher.Visible = false;
                 makeRepsVisible(repsNone, repsNone);
@@ -134,9 +130,6 @@ namespace Benchmark_Instant_Reports_2
             }
 
             lblNoScanData.Visible = false;
-            ddRepType.Enabled = true;
-            ddGroupBy.Enabled = true;
-            btnGenReport.Enabled = true;
             makeRepsVisible(repsNone, repsNone);
             reportDataParmsHaveChanged = true;
 
@@ -357,8 +350,8 @@ namespace Benchmark_Instant_Reports_2
             if (bidx != -1)
             {
                 listTests.SelectedIndex = bidx;
-                listTests_SelectedIndexChanged(new object(), new EventArgs());
             }
+            listTests_SelectedIndexChanged(new object(), new EventArgs());
 
             return;
         }

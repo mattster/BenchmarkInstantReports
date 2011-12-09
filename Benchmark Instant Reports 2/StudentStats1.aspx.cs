@@ -73,7 +73,6 @@ namespace Benchmark_Instant_Reports_2
 
             setupTestFilters();
             listTests.Enabled = true;
-            ddTeacher.Enabled = false;
             btnGenReport.Enabled = true;
             repvwStudentStats2a.Visible = false;
 
@@ -106,9 +105,6 @@ namespace Benchmark_Instant_Reports_2
             // if there are no students taking this test at this campus (based on the number of teachers applicable), deal with it
             if (listOfTeachers.Count() == 0)
             {
-                ddTeacher.Enabled = false;
-                btnGenReport.Enabled = false;
-                listTests.Enabled = true;
                 repvwStudentStats2a.Visible = false;
                 lblNoScanData.Visible = true;
 
@@ -120,7 +116,6 @@ namespace Benchmark_Instant_Reports_2
 
             // activate the Teacher dropdown and populate with the list of teachers
             birUtilities.toggleDDLInitView(listTests, false);
-            ddTeacher.Enabled = true;
             ddTeacher.DataSource = listOfTeachers;
             ddTeacher.DataBind();
 
@@ -128,7 +123,6 @@ namespace Benchmark_Instant_Reports_2
             //ddTeacher.Items.Insert(0, new ListItem(birIF.allTeachers, birIF.allTeachers));
 
             birUtilities.toggleDDLInitView(ddTeacher, true);
-            btnGenReport.Enabled = false;
             repvwStudentStats2a.Visible = false;
 
             return;
@@ -138,7 +132,6 @@ namespace Benchmark_Instant_Reports_2
         protected void ddTeacher_SelectedIndexChanged(object sender, EventArgs e)
         {
             //*** User selected a teacher ***//
-            btnGenReport.Enabled = true;
             repvwStudentStats2a.Visible = false;
 
             return;
@@ -215,7 +208,7 @@ namespace Benchmark_Instant_Reports_2
             ddCampus.AutoPostBack = true;
             listTests.Enabled = true;
             listTests.AutoPostBack = true;
-            ddTeacher.Enabled = false;
+            ddTeacher.Enabled = true;
             ddTeacher.AutoPostBack = true;
             btnGenReport.Enabled = true;
             repvwStudentStats2a.Visible = false;
@@ -243,8 +236,8 @@ namespace Benchmark_Instant_Reports_2
             if (bidx != -1)
             {
                 listTests.SelectedIndex = bidx;
-                listTests_SelectedIndexChanged(new object(), new EventArgs());
             }
+            listTests_SelectedIndexChanged(new object(), new EventArgs());
 
             return;
         }
