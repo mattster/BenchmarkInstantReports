@@ -42,6 +42,8 @@ namespace Benchmark_Instant_Reports_2.Metadata
             new Subject("World Geography", "World Geography", "S.*(World Geography)", "S", "Social Studies"),
             new Subject("World History", "World History", "S.*(World History)", "S", "Social Studies"),
             new Subject("US History", "US History", "S.*(US History)", "S", "Social Studies"),
+            new Subject("Human Geography", "Human Geography", "S.*(Human Geography)", "S", "Social Studies"),
+            new Subject("European History", "European History", "S.*(European History)", "S", "Social Studies"),
 
             // Math
             new Subject("7th Grade Math", "Grade 7 Math", "M.*(Grade 7)", "S", "Math"),
