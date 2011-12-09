@@ -232,7 +232,7 @@ namespace Benchmark_Instant_Reports_2
         {
             //** User clicked the Generate Report button ***//
             int r = new int();
-
+            
             DataSet ds1 = new DataSet();
             DataTable bsResultsDataTable = new DataTable();
 
