@@ -72,8 +72,6 @@ namespace Benchmark_Instant_Reports_2
             setupTestFilters();
             listTests.Enabled = true;
             birUtilities.toggleDDLInitView(listTests, true);
-            ddTeacher.Enabled = false;
-            btnGenReport.Enabled = false;
             repvwStudentSummary.Visible = false;
             lblAlignmentNote.Visible = false;
 
@@ -105,8 +103,6 @@ namespace Benchmark_Instant_Reports_2
             // if there are no students taking this test at this campus, deal with it
             if (listOfTeachers.Count() == 0)
             {
-                ddTeacher.Enabled = false;
-                btnGenReport.Enabled = false;
                 repvwStudentSummary.Visible = false;
                 lblAlignmentNote.Visible = false;
 
@@ -119,11 +115,9 @@ namespace Benchmark_Instant_Reports_2
 
             // activate the Teacher dropdown and populate with the list of teachers
             birUtilities.toggleDDLInitView(listTests, false);
-            ddTeacher.Enabled = true;
             ddTeacher.DataSource = listOfTeachers;
             ddTeacher.DataBind();
             birUtilities.toggleDDLInitView(ddTeacher, true);
-            btnGenReport.Enabled = false;
             repvwStudentSummary.Visible = false;
             lblAlignmentNote.Visible = false;
 
@@ -132,7 +126,6 @@ namespace Benchmark_Instant_Reports_2
 
         protected void ddTeacher_SelectedIndexChanged(object sender, EventArgs e)
         {
-            btnGenReport.Enabled = true;
             repvwStudentSummary.Visible = false;
             lblAlignmentNote.Visible = false;
 
@@ -207,9 +200,9 @@ namespace Benchmark_Instant_Reports_2
             ddCampus.AutoPostBack = true;
             listTests.Enabled = true;
             listTests.AutoPostBack = true;
-            ddTeacher.Enabled = false;
+            ddTeacher.Enabled = true;
             ddTeacher.AutoPostBack = true;
-            btnGenReport.Enabled = false;
+            btnGenReport.Enabled = true;
             repvwStudentSummary.Visible = false;
             lblAlignmentNote.Visible = false;
             lblNoScanData.Visible = false;
@@ -236,8 +229,8 @@ namespace Benchmark_Instant_Reports_2
             if (bidx != -1)
             {
                 listTests.SelectedIndex = bidx;
-                listTests_SelectedIndexChanged(new object(), new EventArgs());
             }
+            listTests_SelectedIndexChanged(new object(), new EventArgs());
 
             return;
         }

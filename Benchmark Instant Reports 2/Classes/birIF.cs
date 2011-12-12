@@ -279,17 +279,29 @@ namespace Benchmark_Instant_Reports_2
                 "and @periodQuery " +
                 "order by STATE_SCHOOL_ID, TEACHER_NAME, PERIOD, STUDENT_NAME ";
 
+        //public static string queryGetStudentsWithScansNotInTestCriteria =
+        //        "select unique student_id, test_id  " +
+        //        "from " + dbScans + " b " +
+        //        "join " + dbStudentRoster + " r " +
+        //        "on student_id = local_student_id " +
+        //        "where test_id = nvl(\'@testId\',uid) " +
+        //        "and school2 = \'@campus\' " +
+        //        "and student_id not in ( " +
+        //        "select unique local_student_id from ( " +
+        //        " @query " +
+        //        " )  ) " +
+        //        "order by student_id asc";
+
+        //optimized query from Norma
         public static string queryGetStudentsWithScansNotInTestCriteria =
-                "select unique student_id, test_id  " +
-                "from " + dbScans + " b " +
-                "join " + dbStudentRoster + " r " +
-                "on student_id = local_student_id " +
+                "select /*+ no_cpu_costing */ unique student_id, test_id " +
+                "from " + dbScans + " b, " + dbStudentRoster + " r1 " +
                 "where test_id = nvl(\'@testId\',uid) " +
                 "and school2 = \'@campus\' " +
                 "and student_id not in ( " +
                 "select unique local_student_id from ( " +
-                " @query " +
-                " )  ) " +
+                " @query) ) " +
+                " and b.student_id = r1.local_student_id " +
                 "order by student_id asc";
 
         public static string queryMatchStudentToTeacherList =

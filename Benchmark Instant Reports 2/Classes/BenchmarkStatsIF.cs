@@ -138,16 +138,16 @@ namespace Benchmark_Instant_Reports_2
 
             // grade each student's test and add it to the DataSet
             int numNull = 0;
-            for (int j = 0; j < dvStudentData.Table.Rows.Count; j++)
+            for (int jj = 0; jj < dvStudentData.Table.Rows.Count; jj++)
             {
-                curId = dvStudentData.Table.Rows[j]["local_student_id"].ToString();
+                curId = dvStudentData.Table.Rows[jj]["local_student_id"].ToString();
                 
                 DataRow curScanDataRow = birIF.getLatestScanDataRow(curId, curTest);
                 if (curScanDataRow != null)
                 {
                     DataTable gradedTable = birIF.gradeScannedTestDetail(curTest, curScanDataRow["ANSWERS"].ToString(), curCampus, 0,
-                        dvStudentData.Table.Rows[j][birIF.teacherNameFieldName].ToString(),
-                        dvStudentData.Table.Rows[j]["PERIOD"].ToString());
+                        dvStudentData.Table.Rows[jj][birIF.teacherNameFieldName].ToString(),
+                        dvStudentData.Table.Rows[jj]["PERIOD"].ToString());
                     
                     // add data for each test item to the resultsTable
                     for (int k = 0; k < gradedTable.Rows.Count; k++)
@@ -155,10 +155,10 @@ namespace Benchmark_Instant_Reports_2
                         // see if this item is already in the dataset
                         string selectString =
                             //"CAMPUS = \'" + dvStudentData.Table.Rows[j]["SCHOOL_ABBR"].ToString() + "\' and " +
-                            "CAMPUS = \'" + dvStudentData.Table.Rows[j]["SCHOOL2"].ToString() + "\' and " +
+                            "CAMPUS = \'" + dvStudentData.Table.Rows[jj]["SCHOOL2"].ToString() + "\' and " +
                             "TEST_ID = \'" + curTest + "\' and " +
-                            "TEACHER = \'" + dvStudentData.Table.Rows[j][birIF.teacherNameFieldName].ToString().Replace("'", "''") + "\' and " +
-                            "PERIOD = \'" + dvStudentData.Table.Rows[j]["PERIOD"].ToString() + "\' and " +
+                            "TEACHER = \'" + dvStudentData.Table.Rows[jj][birIF.teacherNameFieldName].ToString().Replace("'", "''") + "\' and " +
+                            "PERIOD = \'" + dvStudentData.Table.Rows[jj]["PERIOD"].ToString() + "\' and " +
                             "ITEM_NUM = " + gradedTable.Rows[k]["ITEM_NUM"];
                         DataRow[] selectedRows = resultsTable.Select(selectString);
 
@@ -181,10 +181,10 @@ namespace Benchmark_Instant_Reports_2
                         // add the row to the results table
                         DataRow thisrow = resultsTable.NewRow();
                         //thisrow[lblCampus] = dvStudentData.Table.Rows[j]["SCHOOL_ABBR"].ToString();
-                        thisrow[lblCampus] = dvStudentData.Table.Rows[j]["SCHOOL2"].ToString();
+                        thisrow[lblCampus] = dvStudentData.Table.Rows[jj]["SCHOOL2"].ToString();
                         thisrow[lblTestId] = curTest;
-                        thisrow[lblTeacher] = dvStudentData.Table.Rows[j][birIF.teacherNameFieldName].ToString();
-                        thisrow[lblPeriod] = dvStudentData.Table.Rows[j]["PERIOD"].ToString();
+                        thisrow[lblTeacher] = dvStudentData.Table.Rows[jj][birIF.teacherNameFieldName].ToString();
+                        thisrow[lblPeriod] = dvStudentData.Table.Rows[jj]["PERIOD"].ToString();
                         thisrow[lblItemNum] = gradedTable.Rows[k]["ITEM_NUM"];
                         if ((bool)gradedTable.Rows[k]["CORRECT"])
                             curNumCorrect++;

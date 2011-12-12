@@ -53,7 +53,6 @@ namespace Benchmark_Instant_Reports_2
             setupTestFilters();
             listTests.Enabled = true;
             listTests.SelectedIndex = 0;
-            btnGenReport.Enabled = true;
             repvwCampusReport1.Visible = false;
             repvwCampusReport2.Visible = false;
             
@@ -73,7 +72,6 @@ namespace Benchmark_Instant_Reports_2
             //*** User selected a benchmark ***//
             birUtilities.savedSelectedTestID(Response, listTests.SelectedItem.ToString());
 
-            btnGenReport.Enabled = true;
             repvwCampusReport1.Visible = false;
             repvwCampusReport2.Visible = false;
             
@@ -183,7 +181,7 @@ namespace Benchmark_Instant_Reports_2
             ddCampus.AutoPostBack = true;
             listTests.Enabled = true;
             listTests.AutoPostBack = true;
-            btnGenReport.Enabled = false;
+            btnGenReport.Enabled = true;
             repvwCampusReport1.Visible = false;
             repvwCampusReport2.Visible = false;
             
@@ -217,8 +215,8 @@ namespace Benchmark_Instant_Reports_2
             if (bidx != -1)
             {
                 listTests.SelectedIndex = bidx;
-                listTests_SelectedIndexChanged(new object(), new EventArgs());
             }
+            listTests_SelectedIndexChanged(new object(), new EventArgs());
 
             return;
         }

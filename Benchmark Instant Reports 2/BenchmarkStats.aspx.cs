@@ -84,10 +84,8 @@ namespace Benchmark_Instant_Reports_2
 
             setupTestFilters();
             listTests.Enabled = true;
-            ddRepType.Enabled = false;
             ddTeacher.Visible = false;
             lblSelectTeacher.Visible = false;
-            btnGenReport.Enabled = false;
             makeRepsVisible(repsNone, repsNone);
             reportDataParmsHaveChanged = true;
 
@@ -122,8 +120,6 @@ namespace Benchmark_Instant_Reports_2
             // if there are no students taking this test at this campus, deal with it
             if (listOfTeachers.Count() == 0)
             {
-                btnGenReport.Enabled = false;
-                ddRepType.Enabled = false;
                 ddTeacher.Visible = false;
                 lblSelectTeacher.Visible = false;
                 makeRepsVisible(repsNone, repsNone);
@@ -134,9 +130,6 @@ namespace Benchmark_Instant_Reports_2
             }
 
             lblNoScanData.Visible = false;
-            ddRepType.Enabled = true;
-            ddGroupBy.Enabled = true;
-            btnGenReport.Enabled = true;
             makeRepsVisible(repsNone, repsNone);
             reportDataParmsHaveChanged = true;
 
@@ -161,7 +154,7 @@ namespace Benchmark_Instant_Reports_2
             {
                 lblSelectTeacher.Visible = true;
                 ddTeacher.Visible = true;
-                btnGenReport.Enabled = false;
+                btnGenReport.Enabled = true; // was false
                 makeRepsVisible(repsNone, repsNone);
                 if (!reportDataParmsHaveChanged && ddTeacher.SelectedIndex >= 0)
                     setupReportByPeriod(ddGroupBy.SelectedItem.ToString());
@@ -170,7 +163,7 @@ namespace Benchmark_Instant_Reports_2
             {
                 lblSelectTeacher.Visible = true;
                 ddTeacher.Visible = true;
-                btnGenReport.Enabled = false;
+                btnGenReport.Enabled = true; // was false
                 makeRepsVisible(repsNone, repsNone);
                 if (!reportDataParmsHaveChanged && ddTeacher.SelectedIndex >= 0)
                     setupReportByAnsTeacher(ddGroupBy.SelectedItem.ToString());
@@ -232,7 +225,7 @@ namespace Benchmark_Instant_Reports_2
         {
             //** User clicked the Generate Report button ***//
             int r = new int();
-
+            
             DataSet ds1 = new DataSet();
             DataTable bsResultsDataTable = new DataTable();
 
@@ -316,11 +309,11 @@ namespace Benchmark_Instant_Reports_2
             ddTeacher.Visible = false;
             ddTeacher.AutoPostBack = true;
             lblSelectTeacher.Visible = false;
-            ddRepType.Enabled = false;
+            ddRepType.Enabled = true;
             ddRepType.AutoPostBack = true;
-            ddGroupBy.Enabled = false;
+            ddGroupBy.Enabled = true;
             ddGroupBy.AutoPostBack = true;
-            btnGenReport.Enabled = false;
+            btnGenReport.Enabled = true;
             makeRepsVisible(repsNone, repsNone);
             lblNoScanData.Visible = false;
 
@@ -357,8 +350,8 @@ namespace Benchmark_Instant_Reports_2
             if (bidx != -1)
             {
                 listTests.SelectedIndex = bidx;
-                listTests_SelectedIndexChanged(new object(), new EventArgs());
             }
+            listTests_SelectedIndexChanged(new object(), new EventArgs());
 
             return;
         }

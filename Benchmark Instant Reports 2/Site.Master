@@ -16,7 +16,7 @@
 </head>
 <body>
     <form runat="server">
-    <asp:ToolkitScriptManager runat="server">
+    <asp:ToolkitScriptManager runat="server" AsyncPostBackTimeout="300">
         <Services>
         </Services>
     </asp:ToolkitScriptManager>
@@ -89,8 +89,7 @@
         </div>
         <div class="main">
             <div class="attentionitem">
-                What's New: New Test Filter - By Subject -- Press the Filter Button
-                <img class="" id="imgFilterTests" alt="Filter Tests" src="content/images/f-circ-20x20.png" /></div>
+                Due to heavy server load, generating reports for large tests may take a little longer. We are working to better optimize for speed, but thank you for your patience while we make those updates.</div>
             <asp:ContentPlaceHolder ID="MainContent" runat="server" />
         </div>
         <div class="clear">
@@ -98,7 +97,7 @@
     </div>
     <div class="footer">
         <div class="versionlabel">
-            <asp:Label ID="lblVersion" runat="server" Text="bir 1.9.9.h.4"></asp:Label>
+            <asp:Label ID="lblVersion" runat="server" Text="bir 1.9.9.h.8"></asp:Label>
         </div>
     </div>
     </form>
