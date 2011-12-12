@@ -39,6 +39,7 @@ namespace Benchmark_Instant_Reports_2.Exceptions
                         new int[] { 16, 17, 18, 19, 20, 21, 22, 23, 24 }),
                     new DropList("2011-10 SC Grade 7 Sci Unit 2 T2-T3 PreAP CUT 97-33", "FMJH", "CONOVER, AMY", new string[] { "02", "03", "06" }, 
                         new int[] { 21, 22, 23 }),
+                    new DropList("2011-12 SC Chemistry Unit 6 T2-T4 CUT 90-61", "LHHS", 14),
 
                         // Social Studies CUTs                        
                     new DropList("2011-09 SS US History Unit 2 CUT 81-21", "RHS", "ESPARZA, DAVID", "05", 

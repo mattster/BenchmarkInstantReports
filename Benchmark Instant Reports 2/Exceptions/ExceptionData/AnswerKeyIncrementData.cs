@@ -44,8 +44,15 @@ namespace Benchmark_Instant_Reports_2.Exceptions
                     // semester exams
                 new AnswerKeyIncrement("2011-12 SC Chemistry SEM 15-39", "LHHS", "TRUONG, THANH-THAI", 
                     new string[] { "02", "03", "05", "06" }, 2 * Constants.defAnsKeyIncrement),
-                //RHS Pre-AP Chemistry
-                //BHS Pre-AP Chemistry
+                        //RHS Pre-AP Chemistry
+                        
+                        //BHS Pre-AP Chemistry
+                new AnswerKeyIncrement("2011-12 SC Chemistry SEM 15-39", "BHS", "MILLER, SCOTT", new string[] { "06", "07" },
+                    2 * Constants.defAnsKeyIncrement),
+                new AnswerKeyIncrement("2011-12 SC Chemistry SEM 15-39", "BHS", "UMEAKU, ADAOBI", new string[] { "04", "05" },
+                    2 * Constants.defAnsKeyIncrement),
+                new AnswerKeyIncrement("2011-12 SC Chemistry SEM 15-39", "BHS", "WOLF, JAKOBUS", new string[] { "01", "03" },
+                    2 * Constants.defAnsKeyIncrement),
 
             };
     }
