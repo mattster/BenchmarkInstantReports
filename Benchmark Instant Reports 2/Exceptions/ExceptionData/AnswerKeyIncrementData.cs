@@ -39,7 +39,13 @@ namespace Benchmark_Instant_Reports_2.Exceptions
 
                 // 2011-2012 tests
                 new AnswerKeyIncrement("2011-11 SC Grade 8 Sci Unit 3 T2 CUT 98-41", "PHJH", "ANDERSON, ANGINELL", 
-                    new string[] { "01", "05" }, 2 * Constants.defAnsKeyIncrement)
+                    new string[] { "01", "05" }, 2 * Constants.defAnsKeyIncrement),
+
+                    // semester exams
+                new AnswerKeyIncrement("2011-12 SC Chemistry SEM 15-39", "LHHS", "TRUONG, THANH-THAI", 
+                    new string[] { "02", "03", "05", "06" }, 2 * Constants.defAnsKeyIncrement),
+                //RHS Pre-AP Chemistry
+                //BHS Pre-AP Chemistry
 
             };
     }
