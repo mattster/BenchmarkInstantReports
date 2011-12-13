@@ -23,6 +23,9 @@ namespace Benchmark_Instant_Reports_2.Exceptions
             new GridNonExactMatch("2011-12 EM 5th Grade Math TC 10-66", new int[] { 37, 38 }),
             new GridNonExactMatch("2011-12 EM 6th Grade Math TC 10-67", new int[] { 39, 40 }),
 
+            // December Elementary Science
+            new GridNonExactMatch("2011-12 EC 6th Grade Science TC 11-70", 25),
+
             // Math Semester Exams December 2011
             new GridNonExactMatch("2011-12 SM Algebra 2 SEM 14-27", new int[] { 61, 62, 63 }),
             new GridNonExactMatch("2011-12 SM Algebra 2-M SEM 14-34", new int[] { 61, 62, 63 }),
