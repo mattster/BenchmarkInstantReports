@@ -790,12 +790,13 @@ namespace Benchmark_Instant_Reports_2
 
             //convert answer string to an array
             string[] studentAnswerStringArray = studentAnswerString.Split(',');
-            //if (thisTestTemplType != testTemplTypeNoGrids)
+
+            // do special processing for special template types
             if (GridHandler.isGriddable(testID))
-            {
-                //convertAnsStringForGrids(studentAnswerStringArray, thisTestTemplType, testID, curCampus);
                 GridHandler.ProcessAnswerStringWithGrids(studentAnswerStringArray, testID, curCampus);
-            }
+
+            if (MultiAnswerTemplateHandler.IsMultiAnswerTemplate(testID))
+                MultiAnswerTemplateHandler.ProcessAnswerStringWithMultiAnswers(studentAnswerStringArray, testID, curCampus);
 
             //get the answer key as a DataSet
             dsAnswerKey = getTestAnswerKey(testID, curCampus, ansKeyIncAmt, teacher, period);
@@ -885,12 +886,13 @@ namespace Benchmark_Instant_Reports_2
 
             //convert answer string to an array
             string[] studentAnswerStringArray = studentAnswerString.Split(',');
-            //if (thisTestTemplType != testTemplTypeNoGrids)
+
+            // do special processing for special template types
             if (GridHandler.isGriddable(testID))
-            {
-                //convertAnsStringForGrids(studentAnswerStringArray, thisTestTemplType, testID, curCampus);
                 GridHandler.ProcessAnswerStringWithGrids(studentAnswerStringArray, testID, curCampus);
-            }
+
+            if (MultiAnswerTemplateHandler.IsMultiAnswerTemplate(testID))
+                MultiAnswerTemplateHandler.ProcessAnswerStringWithMultiAnswers(studentAnswerStringArray, testID, curCampus);
 
             //get the answer key as a DataSet
             dsAnswerKey = getTestAnswerKey(testID, curCampus, ansKeyIncAmt, teacher, period);
@@ -945,202 +947,6 @@ namespace Benchmark_Instant_Reports_2
         }
 
 
-        /// <summary>
-        /// change an answer string array to merge the correct griddable questions together
-        /// based on the type of test template
-        /// </summary>
-        /// <param name="studentAnswerStringArray">the answer string array to adjust</param>
-        /// <param name="thisTestTemplType">the test template type</param>
-        private static void convertAnsStringForGrids(string[] studentAnswerStringArray, int thisTestTemplType, string testID, string campus)
-        {
-            int gridIdxFirst = 0;
-            int gridIdxLast = 0;
-
-            if (thisTestTemplType == testTemplType60_3GridEOC)
-            {
-                // 3 EOC grids, questions 61,62,63 with + or - as questions 64,65,66
-                gridIdxFirst = 60;
-                gridIdxLast = 62;
-
-                // put a negative in front of the number if necessary
-                if (studentAnswerStringArray.Length > 63)
-                    if (studentAnswerStringArray[63] == "-")
-                        studentAnswerStringArray[60] = studentAnswerStringArray[63] + studentAnswerStringArray[60];
-                if (studentAnswerStringArray.Length > 64)
-                    if (studentAnswerStringArray[64] == "-")
-                        studentAnswerStringArray[61] = studentAnswerStringArray[64] + studentAnswerStringArray[61];
-                if (studentAnswerStringArray.Length > 65)
-                    if (studentAnswerStringArray[65] == "-")
-                        studentAnswerStringArray[62] = studentAnswerStringArray[65] + studentAnswerStringArray[62];
-            }
-            else if (thisTestTemplType == testTemplType18_2GridEOC)
-            {
-                // 18 mult choice + 2 EOC grids, questions 21, 22 are + or -
-                gridIdxFirst = 18;
-                gridIdxLast = 19;
-
-                // put a negative in front of the number if necessary
-                if (studentAnswerStringArray.Length > 20)
-                    if (studentAnswerStringArray[20] == "-")
-                        studentAnswerStringArray[18] = studentAnswerStringArray[20] + studentAnswerStringArray[18];
-                if (studentAnswerStringArray.Length > 21)
-                    if (studentAnswerStringArray[21] == "-")
-                        studentAnswerStringArray[19] = studentAnswerStringArray[21] + studentAnswerStringArray[19];
-            }
-            else if (thisTestTemplType == testTemplType19_1GridEOC)
-            {
-                // 19 mult choice + 1 EOC grid, question 21 is + or -
-                gridIdxFirst = 19;
-                gridIdxLast = 19;
-
-                // put a negative in front of the number if necessary
-                if (studentAnswerStringArray.Length > 20)
-                    if (studentAnswerStringArray[20] == "-")
-                        studentAnswerStringArray[19] = studentAnswerStringArray[20] + studentAnswerStringArray[19];
-            }
-            else if (thisTestTemplType == testTemplType60_3GridG68)
-            {
-                // 3 Grade 6-8 grids,   #1 = q61 & "." & q64;   #2 = q62 & "." & q65;   #3 = q63 & "." & q66
-                gridIdxFirst = 60;
-                gridIdxLast = 62;
-
-                if (studentAnswerStringArray.Length > 63)
-                    if (studentAnswerStringArray[63] != "" &&
-                        studentAnswerStringArray[63] != " " &&
-                        studentAnswerStringArray[63] != "0" &&
-                        studentAnswerStringArray[63] != "00")
-                    {
-                        studentAnswerStringArray[60] = studentAnswerStringArray[60] + "." + studentAnswerStringArray[63];
-                    }
-                if (studentAnswerStringArray.Length > 64)
-                    if (studentAnswerStringArray[64] != "" &&
-                        studentAnswerStringArray[64] != " " &&
-                        studentAnswerStringArray[64] != "0" &&
-                        studentAnswerStringArray[64] != "00")
-                    {
-                        studentAnswerStringArray[61] = studentAnswerStringArray[61] + "." + studentAnswerStringArray[64];
-                    }
-                if (studentAnswerStringArray.Length > 65)
-                    if (studentAnswerStringArray[65] != "" &&
-                        studentAnswerStringArray[65] != " " &&
-                        studentAnswerStringArray[65] != "0" &&
-                        studentAnswerStringArray[65] != "00")
-                    {
-                        studentAnswerStringArray[62] = studentAnswerStringArray[62] + "." + studentAnswerStringArray[65];
-                    }
-            }
-            else if (thisTestTemplType == testTemplType28_2GridG68)
-            {
-                // 28 mult choice + 2 EOC grids: #29 = q29 & "." & q31;   #30 = q30 & "." & q32
-                gridIdxFirst = 28;
-                gridIdxLast = 29;
-
-                if (studentAnswerStringArray.Length > 30)
-                    if (studentAnswerStringArray[30] != "" &&
-                        studentAnswerStringArray[30] != " " &&
-                        studentAnswerStringArray[30] != "0" &&
-                        studentAnswerStringArray[30] != "00")
-                    {
-                        studentAnswerStringArray[28] += "." + studentAnswerStringArray[30];
-                    }
-                if (studentAnswerStringArray.Length > 31)
-                    if (studentAnswerStringArray[31] != "" &&
-                        studentAnswerStringArray[31] != " " &&
-                        studentAnswerStringArray[31] != "0" &&
-                        studentAnswerStringArray[31] != "00")
-                    {
-                        studentAnswerStringArray[29] += "." + studentAnswerStringArray[31];
-                    }
-            }
-            else if (thisTestTemplType == testTemplType29_1GridG68)
-            {
-                // 29 mult choice + 1 EOC grid: #30 = q30 & "." & q31
-                gridIdxFirst = 29;
-                gridIdxLast = 29;
-
-                if (studentAnswerStringArray.Length > 30)
-                    if (studentAnswerStringArray[30] != "" &&
-                        studentAnswerStringArray[30] != " " &&
-                        studentAnswerStringArray[30] != "0" &&
-                        studentAnswerStringArray[30] != "00")
-                    {
-                        studentAnswerStringArray[29] += "." + studentAnswerStringArray[30];
-                    }
-            }
-            else if (thisTestTemplType == testTemplType24_1GridG45)
-            {
-                // 24 mult choice + 1 Grade 4-5 grid: #25 = q25
-                gridIdxFirst = 24;
-                gridIdxLast = 24;
-            }
-
-
-            // remove leading zeroes
-            for (int i = gridIdxFirst; i <= gridIdxLast && i < studentAnswerStringArray.Length; i++)
-            {
-                while (studentAnswerStringArray[i] != "" && studentAnswerStringArray[i][0] == '0')
-                    studentAnswerStringArray[i] = studentAnswerStringArray[i].Substring(1, studentAnswerStringArray[i].Length - 1);
-            }
-
-
-
-            // remove trailing zeroes if this item is specified as an inexact match
-            for (int i = gridIdxFirst; i <= gridIdxLast && i < studentAnswerStringArray.Length; i++)
-            {
-                if (ExceptionHandler.isGriddableNonExactMatch(testID, campus, i + 1))
-                {
-                    while (studentAnswerStringArray[i].Contains(".") && studentAnswerStringArray[i].EndsWith("0"))
-                        studentAnswerStringArray[i] = studentAnswerStringArray[i].Substring(0, studentAnswerStringArray[i].Length - 1);
-                }
-            }
-
-            // remove trailing decimals if this item is specified as an inexact match
-            for (int i = gridIdxFirst; i <= gridIdxLast && i < studentAnswerStringArray.Length; i++)
-            {
-                if (ExceptionHandler.isGriddableNonExactMatch(testID, campus, i + 1))
-                {
-                    while (studentAnswerStringArray[i].EndsWith("."))
-                        studentAnswerStringArray[i] = studentAnswerStringArray[i].Substring(0, studentAnswerStringArray[i].Length - 1);
-                }
-            }
-
-
-
-
-            return;
-        }
-
-
-        /// <summary>
-        /// returns an integer representing the type of test template for the specified test with respect to griddables
-        /// </summary>
-        /// <param name="testID">the test ID to look up</param>
-        /// <returns>an integer representing the type of griddable, or 0 if the test has no griddables</returns>
-        //private static int getTestTemplateType(string testID)
-        //{
-        //    string qs = queryGetTestTemplate.Replace("@testId", testID);
-        //    DataSet ds = dbIFOracle.getDataRows(qs);
-        //    string thisTemplateName = ds.Tables[0].Rows[0][0].ToString();
-
-        //    if (thisTemplateName == testTemplate60Q3GridEOC)
-        //        return testTemplType60_3GridEOC;
-        //    else if (thisTemplateName == testTemplate60Q3GridG68)
-        //        return testTemplType60_3GridG68;
-        //    else if (thisTemplateName == testTemplate18Q2GridEOC)
-        //        return testTemplType18_2GridEOC;
-        //    else if (thisTemplateName == testTemplate19Q1GridEOC)
-        //        return testTemplType19_1GridEOC;
-        //    else if (thisTemplateName == testTemplate28Q2GridG68)
-        //        return testTemplType28_2GridG68;
-        //    else if (thisTemplateName == testTemplate29Q1GridG68)
-        //        return testTemplType29_1GridG68;
-        //    else if (thisTemplateName == testTemplate24Q1GridG45)
-        //        return testTemplType24_1GridG45;
-
-
-        //    return testTemplTypeNoGrids;
-        //}
-
 
         //**********************************************************************//
         //** return a DataSet with the answer keys for the specified test
@@ -1157,6 +963,10 @@ namespace Benchmark_Instant_Reports_2
 
             dsBothAnsKeys.Tables.Add(dtSorted);
 
+            // convert answer key items if necessary
+            if (TFTemplateHandler.IsTFTemplate(testID))
+                dsBothAnsKeys = TFTemplateHandler.ProcessAnswerKeyWithTF(dsBothAnsKeys, testID);
+           
             return dsBothAnsKeys;
         }
 

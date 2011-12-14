@@ -15,17 +15,25 @@ namespace Benchmark_Instant_Reports_2.Grading
 
             // check for griddable types
             foreach (TestTemplate curTestTemplate in TestDefinitionData.GridTemplates)
-            {
                 if (curTestTemplate.Name == templateName)
                     return curTestTemplate.TemplateType;
-            }
+
+            // check for True-False types
+            foreach (TestTemplate curTestTemplate in TestDefinitionData.TFTemplates)
+                if (curTestTemplate.Name == templateName)
+                    return curTestTemplate.TemplateType;
+
+            // check for MultiAnswer types
+            foreach (TestTemplate curTestTemplate in TestDefinitionData.MultiAnswerTemplates)
+                if (curTestTemplate.Name == templateName)
+                    return curTestTemplate.TemplateType;
 
             // check for other custom types
-
 
             // default type is standard Multiple Choice
             return TestTemplate.TestTemplatetype.StandardMC;
         }
+
 
         public static TestTemplate getTestTemplate(string testid)
         {
@@ -33,17 +41,25 @@ namespace Benchmark_Instant_Reports_2.Grading
             
             // check for griddable types
             foreach (TestTemplate curTestTemplate in TestDefinitionData.GridTemplates)
-            {
                 if (curTestTemplate.Name == templateName)
                     return curTestTemplate;
-            }
+
+            // check for True-False types
+            foreach (TestTemplate curTestTemplate in TestDefinitionData.TFTemplates)
+                if (curTestTemplate.Name == templateName)
+                    return curTestTemplate;
+
+            // check for MultiAnswer types
+            foreach (TestTemplate curTestTemplate in TestDefinitionData.MultiAnswerTemplates)
+                if (curTestTemplate.Name == templateName)
+                    return curTestTemplate;
 
             // check for other custom types
 
-
             // default type is standard Multiple Choice
-            return new TestTemplate(templateName, 0, 0, 0, TestTemplate.TestTemplatetype.StandardMC);
+            return new TestTemplate(templateName, TestTemplate.TestTemplatetype.StandardMC);
         }
+
 
 
         private static string getTestTemplateName(string testid)

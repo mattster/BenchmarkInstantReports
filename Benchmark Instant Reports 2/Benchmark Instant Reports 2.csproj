@@ -184,9 +184,13 @@
     <Compile Include="Exceptions\GridNonExactMatch.cs" />
     <Compile Include="Exceptions\ExceptionData\GridNonExactMatchData.cs" />
     <Compile Include="Grading\GridHandler.cs" />
+    <Compile Include="Grading\MultiAnswerTemplateData.cs" />
+    <Compile Include="Grading\MultiAnswerTemplateHandler.cs" />
+    <Compile Include="Grading\TFTemplateData.cs" />
     <Compile Include="Grading\TestTemplate.cs" />
     <Compile Include="Grading\GridTemplateData.cs" />
     <Compile Include="Grading\TestTemplateHandler.cs" />
+    <Compile Include="Grading\TFTemplateHandler.cs" />
     <Compile Include="Helpers\TestFilter.cs" />
     <Compile Include="Helpers\TestFilterState.cs" />
     <Compile Include="Infrastructure\ReportPage.cs">
