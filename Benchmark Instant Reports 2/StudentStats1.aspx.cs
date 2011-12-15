@@ -140,21 +140,25 @@ namespace Benchmark_Instant_Reports_2
 
         protected void btnGenReport_Click(object sender, EventArgs e)
         {
+            if (dsStudentDataToGrade.Tables.Count == 0)
+                dsStudentDataToGrade = birIF.getStudentDataToGrade(listTests.SelectedItem.ToString(),
+                    ddCampus.SelectedValue.ToString());
+            
             DataSet ds1 = new DataSet();
             DataTable ssRresultsDataTable = new DataTable();
 
             //** User clicked the Generate Report button ***//
             //
             DataTable dtMatchingStudents = new DataTable();
-            if (ddTeacher.SelectedItem.ToString() == birIF.allTeachers)
-            {
-                dtMatchingStudents = dsStudentDataToGrade.Tables[0].Copy();
-            }
-            else
-            {
-                string selectFilter = "TEACHER_NAME = \'" + ddTeacher.SelectedItem.ToString().Replace("'", "''") + "\'";
-                dtMatchingStudents = birUtilities.getFilteredTable(dsStudentDataToGrade.Tables[0], selectFilter);
-            }
+            //if (ddTeacher.SelectedItem.ToString() == birIF.allTeachers)
+            //{
+            //    dtMatchingStudents = dsStudentDataToGrade.Tables[0].Copy();
+            //}
+            //else
+            //{
+            string selectFilter = "TEACHER_NAME = \'" + ddTeacher.SelectedItem.ToString().Replace("'", "''") + "\'";
+            dtMatchingStudents = birUtilities.getFilteredTable(dsStudentDataToGrade.Tables[0], selectFilter);
+            //}
             ssRresultsDataTable = StudentStatsIF.generateStudentStatsRepTable(dtMatchingStudents,
                 listTests.SelectedItem.ToString());
             int r = StudentStatsIF.writeStudentStatsResultsToDb(ssRresultsDataTable);

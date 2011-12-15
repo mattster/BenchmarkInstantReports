@@ -136,6 +136,12 @@ namespace Benchmark_Instant_Reports_2
         {
             //** User clicked the Generate Report button ***//
             //
+
+            if (dsStudentDataToGrade.Tables.Count == 0)
+                dsStudentDataToGrade = birIF.getStudentDataToGrade(listTests.SelectedItem.ToString(),
+                    ddCampus.SelectedValue.ToString());
+
+
             string selectFilter = "TEACHER_NAME = \'" + ddTeacher.SelectedItem.ToString().Replace("'", "''") + "\'";
             DataTable dtMatchingStudents = birUtilities.getFilteredTable(dsStudentDataToGrade.Tables[0], selectFilter);
 

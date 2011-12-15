@@ -966,7 +966,31 @@ namespace Benchmark_Instant_Reports_2
             // convert answer key items if necessary
             if (TFTemplateHandler.IsTFTemplate(testID))
                 dsBothAnsKeys = TFTemplateHandler.ProcessAnswerKeyWithTF(dsBothAnsKeys, testID);
-           
+            if (MultiAnswerTemplateHandler.IsMultiAnswerTemplate(testID))
+                dsBothAnsKeys = MultiAnswerTemplateHandler.ProcessAnswerKeyWithMultiAnswers(dsBothAnsKeys, testID);
+
+            //// check for any items that need to be dropped from the test
+            //int[] distDropList = ExceptionHandler.getItemDropList(testID, campus);
+            //if (distDropList != null)
+            //{
+            //    // remove the dropped items from the results
+            //    int curItemNum = new int();
+            //    for (int rowIdx = 0; rowIdx < dsBothAnsKeys.Tables[0].Rows.Count; rowIdx++)
+            //    {
+            //        // if this row's item number is in the drop list, then delete it
+            //        curItemNum = (int)(decimal)dsBothAnsKeys.Tables[0].Rows[rowIdx]["ITEM_NUM"];
+            //        for (int j = 0; j < distDropList.Length; j++)
+            //        {
+            //            if (curItemNum == distDropList[j])
+            //            {
+            //                dsBothAnsKeys.Tables[0].Rows[rowIdx].Delete();
+            //                break;
+            //            }
+            //        }
+            //    }
+            //}
+
+            dsBothAnsKeys.Tables[0].AcceptChanges();
             return dsBothAnsKeys;
         }
 
@@ -1065,20 +1089,20 @@ namespace Benchmark_Instant_Reports_2
             }
 
             // check for any items that need to be dropped from the test
-            int[] campusDropList = ExceptionHandler.getItemDropList(testID, campus, teacher, period);
-            if (campusDropList != null)
+            int[] campusdroplist = ExceptionHandler.getItemDropList(testID, campus, teacher, period);
+            if (campusdroplist != null)
             {
                 // remove the dropped items from the results
-                int curItemNum = new int();
-                for (int rowIdx = 0; rowIdx < dsCampusAnsKey.Tables[0].Rows.Count; rowIdx++)
+                int curitemnum = new int();
+                for (int rowidx = 0; rowidx < dsCampusAnsKey.Tables[0].Rows.Count; rowidx++)
                 {
                     // if this row's item number is in the drop list, then delete it
-                    curItemNum = (int)(decimal)dsCampusAnsKey.Tables[0].Rows[rowIdx][lblItemNum];
-                    for (int j = 0; j < campusDropList.Length; j++)
+                    curitemnum = (int)(decimal)dsCampusAnsKey.Tables[0].Rows[rowidx][lblItemNum];
+                    for (int j = 0; j < campusdroplist.Length; j++)
                     {
-                        if (curItemNum == campusDropList[j])
+                        if (curitemnum == campusdroplist[j])
                         {
-                            dsCampusAnsKey.Tables[0].Rows[rowIdx].Delete();
+                            dsCampusAnsKey.Tables[0].Rows[rowidx].Delete();
                             break;
                         }
                     }

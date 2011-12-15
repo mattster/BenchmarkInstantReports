@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Data;
 
 namespace Benchmark_Instant_Reports_2.Grading
 {
@@ -31,5 +32,31 @@ namespace Benchmark_Instant_Reports_2.Grading
             }
         }
 
+        public static DataSet ProcessAnswerKeyWithMultiAnswers(DataSet dsAnswerKey, string testid)
+        {
+            TestTemplate template = TestTemplateHandler.getTestTemplate(testid);
+            DataTable dtUpdatedKey = dsAnswerKey.Tables[0].Clone();
+
+            // combine the multi-part answers
+            for (int i = 0; i < template.MULTPartBFirst; i++)
+            {
+                DataRow newrow = dtUpdatedKey.NewRow();
+                newrow.ItemArray = dsAnswerKey.Tables[0].Rows[i].ItemArray;
+
+                if ((i >= template.MULTPartAFirst - 1) && (i <= template.MULTPartALast - 1))
+                {
+                    newrow["ANSWER"] = newrow["ANSWER"].ToString() + 
+                        dsAnswerKey.Tables[0].Rows[template.MULTPartBFirst + (i - template.MULTPartAFirst + 1) - 1]["ANSWER"].ToString(); 
+                }
+
+                dtUpdatedKey.Rows.Add(newrow);
+            }
+
+            DataSet dsReturn = new DataSet();
+            dsReturn.Tables.Add(dtUpdatedKey);
+
+            return dsReturn;
+
+        }
     }
 }

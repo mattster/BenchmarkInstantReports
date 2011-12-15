@@ -56,6 +56,16 @@ namespace Benchmark_Instant_Reports_2.Exceptions
                 new AnswerKeyIncrement("2011-12 SC Chemistry SEM 15-39", "BHS", "GILLIAM, LEONA", new string[] { "01", "02", "04", "05", "06" },
                     2 * Constants.defAnsKeyIncrement),
 
+                        //RHS Pre-AP Chemistry
+                new AnswerKeyIncrement("2011-12 SC Chemistry SEM 15-39", "RHS", "GUZMAN, HEATHER", new string[] { "02", "03" },
+                    2 * Constants.defAnsKeyIncrement),
+                new AnswerKeyIncrement("2011-12 SC Chemistry SEM 15-39", "RHS", "HAMMER, AMY", new string[] { "01", "03", "10" },
+                    2 * Constants.defAnsKeyIncrement),
+                new AnswerKeyIncrement("2011-12 SC Chemistry SEM 15-39", "RHS", "JOHNSON, DAVID", new string[] { "01", "10" },
+                    2 * Constants.defAnsKeyIncrement),
+                new AnswerKeyIncrement("2011-12 SC Chemistry SEM 15-39", "RHS", "SALVANS, ALISA", new string[] { "06", "07" },
+                    2 * Constants.defAnsKeyIncrement),
+
                         //PHS Pre-AP Bio
                 new AnswerKeyIncrement("2011-12 SC Biology SEM 15-37", "PHS", "ANDREWS, SUSAN", new string[] { "04", "06", "07" },
                     2 * Constants.defAnsKeyIncrement),
