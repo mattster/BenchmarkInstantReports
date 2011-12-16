@@ -75,10 +75,10 @@
                         </asp:MenuItem>
                         <asp:MenuItem NavigateUrl="~/StudentStats1.aspx" Text="Student Grades   |" Value="Student Stats">
                         </asp:MenuItem>
-                        <asp:MenuItem NavigateUrl="~/BenchmarkStats.aspx" Text="Item Analysis   |" Value="Item Analysis Report">
+                        <%--<asp:MenuItem NavigateUrl="~/BenchmarkStats.aspx" Text="Item Analysis   |" Value="Item Analysis Report">
                         </asp:MenuItem>
                         <asp:MenuItem NavigateUrl="~/StudentSummary.aspx" Text="Student Summaries   |" Value="Student Summary Report">
-                        </asp:MenuItem>
+                        </asp:MenuItem>--%>
                         <asp:MenuItem NavigateUrl="~/Info.aspx" Text="Info & Help" Value="Info & Help"></asp:MenuItem>
                     </Items>
                     <StaticHoverStyle BackColor="#284E98" ForeColor="White" />
@@ -89,7 +89,7 @@
         </div>
         <div class="main">
             <div class="attentionitem">
-                Due to heavy server load, generating reports for large tests may take a little longer. We are working to better optimize for speed, but thank you for your patience while we make those updates.</div>
+                In order to help process grades as quickly as possible, only the Scan Report and Student Grades reports are currently available.</div>
             <asp:ContentPlaceHolder ID="MainContent" runat="server" />
         </div>
         <div class="clear">
@@ -97,7 +97,7 @@
     </div>
     <div class="footer">
         <div class="versionlabel">
-            <asp:Label ID="lblVersion" runat="server" Text="bir 1.9.9.h.18"></asp:Label>
+            <asp:Label ID="lblVersion" runat="server" Text="bir 1.9.9.h.21"></asp:Label>
         </div>
     </div>
     </form>
