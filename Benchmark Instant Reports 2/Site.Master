@@ -89,7 +89,7 @@
         </div>
         <div class="main">
             <div class="attentionitem">
-                In order to help process grades as quickly as possible, only the Scan Report and Student Grades reports are currently available.</div>
+                Happy New Year!</div>
             <asp:ContentPlaceHolder ID="MainContent" runat="server" />
         </div>
         <div class="clear">
@@ -97,7 +97,7 @@
     </div>
     <div class="footer">
         <div class="versionlabel">
-            <asp:Label ID="lblVersion" runat="server" Text="bir 1.9.9.h.21"></asp:Label>
+            <asp:Label ID="lblVersion" runat="server" Text="bir 1.9.9.h.22"></asp:Label>
         </div>
     </div>
     </form>
