@@ -89,7 +89,7 @@
         </div>
         <div class="main">
             <div class="attentionitem">
-                Due to heavy server load, generating reports for large tests may take a little longer. We are working to better optimize for speed, but thank you for your patience while we make those updates.</div>
+                 Happy New Year! </div>
             <asp:ContentPlaceHolder ID="MainContent" runat="server" />
         </div>
         <div class="clear">
