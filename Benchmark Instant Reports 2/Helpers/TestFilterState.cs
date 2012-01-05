@@ -11,25 +11,25 @@ namespace Benchmark_Instant_Reports_2.Helpers
         public string Curric { get; set; }
         public bool CurricFiltered
         {
-            get { return (Curric == Constants.allIndicator) ? false : true; }
+            get { return (Curric == Constants.AllIndicator) ? false : true; }
         }
 
         public string Subject { get; set; }
         public bool SubjectFiltered
         {
-            get { return (Subject == Constants.allIndicator) ? false : true; }
+            get { return (Subject == Constants.AllIndicator) ? false : true; }
         }
 
         public string TestType { get; set; }
         public bool TestTypeFiltered
         {
-            get { return (TestType == Constants.allIndicator) ? false : true; }
+            get { return (TestType == Constants.AllIndicator) ? false : true; }
         }
 
         public string TestVersion { get; set; }
         public bool TestVersionFiltered
         {
-            get { return (TestVersion == Constants.allIndicator) ? false : true; }
+            get { return (TestVersion == Constants.AllIndicator) ? false : true; }
         }
 
         public bool AreAnyFiltersApplied
@@ -40,10 +40,10 @@ namespace Benchmark_Instant_Reports_2.Helpers
         // default constructor
         public TestFilterState()
         {
-            Curric = Constants.allIndicator;
-            Subject = Constants.allIndicator;
-            TestType = Constants.allIndicator;
-            TestVersion = Constants.allIndicator;
+            Curric = Constants.AllIndicator;
+            Subject = Constants.AllIndicator;
+            TestType = Constants.AllIndicator;
+            TestVersion = Constants.AllIndicator;
         }
 
         // constructor with specific values
@@ -58,10 +58,10 @@ namespace Benchmark_Instant_Reports_2.Helpers
         // reset all filters
         public void Reset()
         {
-            Curric = Constants.allIndicator;
-            Subject = Constants.allIndicator;
-            TestType = Constants.allIndicator;
-            TestVersion = Constants.allIndicator;
+            Curric = Constants.AllIndicator;
+            Subject = Constants.AllIndicator;
+            TestType = Constants.AllIndicator;
+            TestVersion = Constants.AllIndicator;
         }
 
     }

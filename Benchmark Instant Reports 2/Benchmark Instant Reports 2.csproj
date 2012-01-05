@@ -170,9 +170,9 @@
       <DependentUpon>CascadingDropDown1.asmx</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Classes\BenchmarkStatsIF.cs" />
-    <Compile Include="Classes\birUtilities.cs" />
-    <Compile Include="Classes\birIF.cs" />
+    <Compile Include="Interfaces\BenchmarkStatsIF.cs" />
+    <Compile Include="Interfaces\birUtilities.cs" />
+    <Compile Include="Interfaces\birIF.cs" />
     <Compile Include="Exceptions\AlternateAnswer.cs" />
     <Compile Include="Exceptions\ExceptionData\AlternateAnswerData.cs" />
     <Compile Include="Exceptions\AnswerKeyIncrement.cs" />
@@ -198,11 +198,11 @@
     </Compile>
     <Compile Include="Metadata\AllTestMetadata.cs" />
     <Compile Include="Metadata\Curriculum.cs" />
-    <Compile Include="Classes\ScanReportIF.cs" />
-    <Compile Include="Classes\StudentSummaryIF.cs" />
-    <Compile Include="Classes\StudentStatsIF.cs" />
-    <Compile Include="Classes\dbIFOracle.cs" />
-    <Compile Include="Classes\CampusSecurity.cs" />
+    <Compile Include="Interfaces\ScanReportIF.cs" />
+    <Compile Include="Interfaces\StudentSummaryIF.cs" />
+    <Compile Include="Interfaces\StudentStatsIF.cs" />
+    <Compile Include="Interfaces\dbIFOracle.cs" />
+    <Compile Include="Interfaces\CampusSecurity.cs" />
     <Compile Include="Metadata\Subject.cs" />
     <Compile Include="Metadata\TestMetadataItem.cs" />
     <Compile Include="Metadata\TestType.cs" />

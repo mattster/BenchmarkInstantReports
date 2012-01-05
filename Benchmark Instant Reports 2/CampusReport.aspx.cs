@@ -5,7 +5,7 @@ using System.Web.UI.WebControls;
 using Benchmark_Instant_Reports_2.Helpers;
 using Microsoft.Reporting.WebForms;
 using Benchmark_Instant_Reports_2.Infrastructure;
-
+using Benchmark_Instant_Reports_2.Interfaces;
 
 namespace Benchmark_Instant_Reports_2
 {

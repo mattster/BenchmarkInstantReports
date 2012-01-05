@@ -14,19 +14,19 @@ namespace Benchmark_Instant_Reports_2.Exceptions
         }
 
 
-        public AnswerKeyIncrement(string testID, object campuses, object teachers, object periods, int items = Constants.defAnsKeyIncrement)
+        public AnswerKeyIncrement(string testID, object campuses, object teachers, object periods, int items = Constants.DfltAnsKeyIncrement)
             : base(testID, campuses, teachers, periods, items)
         {
 
         }
 
-        public AnswerKeyIncrement(string testID, object campuses, object teachers, int items = Constants.defAnsKeyIncrement)
+        public AnswerKeyIncrement(string testID, object campuses, object teachers, int items = Constants.DfltAnsKeyIncrement)
             : base(testID, campuses, teachers, items)
         {
 
         }
 
-        public AnswerKeyIncrement(string testID, object campuses, int items = Constants.defAnsKeyIncrement)
+        public AnswerKeyIncrement(string testID, object campuses, int items = Constants.DfltAnsKeyIncrement)
             : base(testID, campuses, items)
         {
 

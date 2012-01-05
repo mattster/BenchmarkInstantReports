@@ -5,6 +5,8 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.Security;
+using Benchmark_Instant_Reports_2.References;
+using Benchmark_Instant_Reports_2.Interfaces;
 
 namespace Benchmark_Instant_Reports_2
 {
@@ -18,7 +20,7 @@ namespace Benchmark_Instant_Reports_2
 
             if (!IsPostBack)
             {
-                ddLoginCampus.DataSource = dbIFOracle.getDataSource(birIF.getCampusListQuery);
+                ddLoginCampus.DataSource = dbIFOracle.getDataSource(Queries.GetCampusList);
                 ddLoginCampus.DataTextField = "SCHOOLNAME";
                 ddLoginCampus.DataValueField = "SCHOOL_ABBR";
                 ddLoginCampus.DataBind();
@@ -63,7 +65,7 @@ namespace Benchmark_Instant_Reports_2
             else if (tbPasswordAdmin.Text.Length > 0)
             {
                 enteredpassword = tbPasswordAdmin.Text.ToString();
-                username = birIF.usernameAllCampuses;
+                username = Constants.UsernameAllCampuses;
             }
             else
                 return;

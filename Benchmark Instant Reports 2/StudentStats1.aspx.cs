@@ -6,6 +6,8 @@ using System.Web.UI.WebControls;
 using Benchmark_Instant_Reports_2.Helpers;
 using Benchmark_Instant_Reports_2.Infrastructure;
 using Microsoft.Reporting.WebForms;
+using Benchmark_Instant_Reports_2.References;
+using Benchmark_Instant_Reports_2.Interfaces;
 
 
 
@@ -98,7 +100,7 @@ namespace Benchmark_Instant_Reports_2
 
             // get a list of teachers applicable for this query
             string[] listOfTeachers = birUtilities.getUniqueTableColumnStringValues(dsStudentDataToGrade.Tables[0],
-                birIF.teacherNameFieldName);
+                Constants.TeacherNameFieldName);
             Array.Sort(listOfTeachers);
 
 

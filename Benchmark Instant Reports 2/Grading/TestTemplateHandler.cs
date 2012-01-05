@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using Benchmark_Instant_Reports_2.References;
 using System.Data;
+using Benchmark_Instant_Reports_2.Interfaces;
 
 namespace Benchmark_Instant_Reports_2.Grading
 {
@@ -64,7 +65,7 @@ namespace Benchmark_Instant_Reports_2.Grading
 
         private static string getTestTemplateName(string testid)
         {
-            string qs = Queries.queryGetTestTemplate.Replace("@testId", testid);
+            string qs = Queries.GetTestTemplate.Replace("@testId", testid);
             DataSet ds = dbIFOracle.getDataRows(qs);
 
             return ds.Tables[0].Rows[0][0].ToString();

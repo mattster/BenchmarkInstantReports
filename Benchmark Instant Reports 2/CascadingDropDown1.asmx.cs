@@ -6,6 +6,8 @@ using System.Web.Services;
 using AjaxControlToolkit;
 using System.Data;
 using System.Collections.Specialized;
+using Benchmark_Instant_Reports_2.References;
+using Benchmark_Instant_Reports_2.Interfaces;
 
 namespace Benchmark_Instant_Reports_2
 {
@@ -30,7 +32,7 @@ namespace Benchmark_Instant_Reports_2
         public CascadingDropDownNameValue[] GetCampusList(string knownCategoryValues, string category)
         {
             List<CascadingDropDownNameValue> returnList = new List<CascadingDropDownNameValue>();
-            DataSet ds = dbIFOracle.getDataRows(birIF.getCampusListQuery);
+            DataSet ds = dbIFOracle.getDataRows(Queries.GetCampusList);
 
             foreach (DataRow row in ds.Tables[0].Rows)
             {

@@ -7,6 +7,8 @@ using System.Web.UI.WebControls;
 using System.Data;
 using Microsoft.Reporting.Common;
 using Microsoft.Reporting.WebForms;
+using Benchmark_Instant_Reports_2.References;
+using Benchmark_Instant_Reports_2.Interfaces;
 
 
 namespace Benchmark_Instant_Reports_2.Classes
@@ -62,7 +64,7 @@ namespace Benchmark_Instant_Reports_2.Classes
             //else
                 schoolTypeList = birUtilities.getSchoolTypeList(ddCampus.SelectedValue);
     
-            string benchmarkListQuery = birIF.getBenchmarkListQuery.Replace("@schoolTypeList", schoolTypeList);
+            string benchmarkListQuery = Queries.GetTestListBySchoolTypes.Replace("@schoolTypeList", schoolTypeList);
             lbBenchmark.DataSource = dbIFOracle.getDataSource(benchmarkListQuery);
             lbBenchmark.DataTextField = "TEST_ID";
             lbBenchmark.DataValueField = "TEST_ID";
@@ -195,7 +197,7 @@ namespace Benchmark_Instant_Reports_2.Classes
             {
                 schoolTypeList = "\'E\',\'S\'";
             }
-            string benchmarkListQuery = birIF.getBenchmarkListQuery.Replace("@schoolTypeList", schoolTypeList);
+            string benchmarkListQuery = Queries.GetTestListBySchoolTypes.Replace("@schoolTypeList", schoolTypeList);
             lbBenchmark.DataSource = dbIFOracle.getDataSource(benchmarkListQuery);
             lbBenchmark.DataTextField = "TEST_ID";
             lbBenchmark.DataValueField = "TEST_ID";

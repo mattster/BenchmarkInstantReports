@@ -4,6 +4,7 @@ using System.Text.RegularExpressions;
 using System.Web.UI.WebControls;
 using Benchmark_Instant_Reports_2.Metadata;
 using Benchmark_Instant_Reports_2.References;
+using Benchmark_Instant_Reports_2.Interfaces;
 
 namespace Benchmark_Instant_Reports_2.Helpers
 {
@@ -32,7 +33,7 @@ namespace Benchmark_Instant_Reports_2.Helpers
         public static void SetSubjectFilters(DropDownList ddTFSubj, TestFilterState theTestFilterState, string campus)
         {
             List<string> applicableSubjects = new List<string>();
-            applicableSubjects.Add(References.Constants.allIndicator);
+            applicableSubjects.Add(References.Constants.AllIndicator);
 
             foreach (Subject s in AllTestMetadata.AllSubjects)
                 if (s.CurricApplicable == theTestFilterState.Curric)
@@ -81,7 +82,7 @@ namespace Benchmark_Instant_Reports_2.Helpers
             string schtype = birIF.getSchoolType(campus);
 
             // first add ALL choice
-            thelist.Add(References.Constants.allIndicator);
+            thelist.Add(References.Constants.AllIndicator);
 
             if (schtype == "A")                 // both Elem & Sec
             {
@@ -122,7 +123,7 @@ namespace Benchmark_Instant_Reports_2.Helpers
 
             foreach (string curTest in alltests)
             {
-                if (Regex.IsMatch(curTest, pattern) || filteredSelection == Constants.allIndicator)
+                if (Regex.IsMatch(curTest, pattern) || filteredSelection == Constants.AllIndicator)
                     resultList.Add(curTest);
             }
 

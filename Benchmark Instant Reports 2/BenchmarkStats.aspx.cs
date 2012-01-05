@@ -6,6 +6,8 @@ using System.Web.UI.WebControls;
 using Benchmark_Instant_Reports_2.Helpers;
 using Benchmark_Instant_Reports_2.Infrastructure;
 using Microsoft.Reporting.WebForms;
+using Benchmark_Instant_Reports_2.References;
+using Benchmark_Instant_Reports_2.Interfaces;
 
 
 namespace Benchmark_Instant_Reports_2
@@ -111,7 +113,7 @@ namespace Benchmark_Instant_Reports_2
             birUtilities.savedSelectedTestID(Response, listTests.SelectedItem.ToString());
 
             DataSet ds1 = birIF.getTeachersForTestCampus(listTests.SelectedItem.ToString(), ddCampus.SelectedValue.ToString());
-            string[] listOfTeachers = birUtilities.getUniqueTableColumnStringValues(ds1.Tables[0], birIF.teacherNameFieldName);
+            string[] listOfTeachers = birUtilities.getUniqueTableColumnStringValues(ds1.Tables[0], Constants.TeacherNameFieldName);
             ddTeacher.DataSource = listOfTeachers;
             ddTeacher.DataBind();
             birUtilities.toggleDDLInitView(ddTeacher, true);
