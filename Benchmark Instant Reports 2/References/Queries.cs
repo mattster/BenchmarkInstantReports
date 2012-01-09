@@ -8,6 +8,10 @@ namespace Benchmark_Instant_Reports_2.References
         // ***** get campuses
         #region get_campuses
 
+        private static string GetSeparator =
+        "select cast('" + Constants.DropDownSeparatorString + "' as nvarchar2(4)) as school_abbr, " +
+        "cast('" + Constants.DropDownSeparatorString + "' as varchar2(50)) as schoolname from dual";
+
         public static string GetHSCampuses =
             "select school_abbr, schoolname from " + DatabaseDefn.DBSchool + " " +
             "where schoolid between 1 and 9 or schoolid = 52 order by schoolname";
@@ -223,9 +227,6 @@ namespace Benchmark_Instant_Reports_2.References
                 "group by " + Constants.TeacherNameFieldName + ", period " +
                 "order by " + Constants.TeacherNameFieldName + ", period ";
 
-        private static string GetSeparator =
-                "select cast('" + Constants.DropDownSeparatorString + "' as nvarchar2(4)) as school_abbr, " +
-                "cast('" + Constants.DropDownSeparatorString + "' as varchar2(50)) as schoolname from dual";
 
         #endregion
 
