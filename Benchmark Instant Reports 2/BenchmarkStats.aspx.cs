@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -8,7 +9,8 @@ using Benchmark_Instant_Reports_2.Infrastructure;
 using Microsoft.Reporting.WebForms;
 using Benchmark_Instant_Reports_2.References;
 using Benchmark_Instant_Reports_2.Interfaces;
-
+using Benchmark_Instant_Reports_2.Interfaces.DBDataStruct;
+using Benchmark_Instant_Reports_2.Grading;
 
 namespace Benchmark_Instant_Reports_2
 {
@@ -229,6 +231,7 @@ namespace Benchmark_Instant_Reports_2
             int r = new int();
             
             DataSet ds1 = new DataSet();
+            List<StudentScanDataItem> studentData = new List<StudentScanDataItem>();
             DataTable bsResultsDataTable = new DataTable();
 
             // generate results for the given criteria on the page if we need to
@@ -239,14 +242,18 @@ namespace Benchmark_Instant_Reports_2
                 {
                     //ds1 = birIF.getStudentScanListData(ddBenchmark.SelectedItem.ToString(),
                     //    ddCampus.SelectedValue.ToString(), ddTeacher.SelectedValue.ToString());
-                    ds1 = birIF.getStudentDataToGrade(listTests.SelectedItem.ToString(),
+                    //ds1 = birIF.getStudentDataToGrade(listTests.SelectedItem.ToString(),
+                    //    ddCampus.SelectedValue.ToString(), ddTeacher.SelectedValue.ToString());
+                    studentData = StudentData.GetStudentDataToGradeq(listTests.SelectedItem.ToString(),
                         ddCampus.SelectedValue.ToString(), ddTeacher.SelectedValue.ToString());
                 }
                 else
                 {
                     //ds1 = birIF.getStudentScanListData(ddBenchmark.SelectedItem.ToString(),
                     //    ddCampus.SelectedValue.ToString());
-                    ds1 = birIF.getStudentDataToGrade(listTests.SelectedItem.ToString(),
+                    //ds1 = birIF.getStudentDataToGrade(listTests.SelectedItem.ToString(),
+                    //    ddCampus.SelectedValue.ToString());
+                    studentData = StudentData.GetStudentDataToGradeq(listTests.SelectedItem.ToString(),
                         ddCampus.SelectedValue.ToString());
                 }
                 bsResultsDataTable = BenchmarkStatsIF.generateBenchmarkStatsRepTable(ds1.Tables[0],

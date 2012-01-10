@@ -169,6 +169,11 @@
       <DependentUpon>CascadingDropDown1.asmx</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Interfaces\DBDataStruct\AnswerKey.cs" />
+    <Compile Include="Grading\GradeTest.cs" />
+    <Compile Include="Grading\StudentData.cs" />
+    <Compile Include="Helpers\Reports\AnswerCounter.cs" />
+    <Compile Include="Helpers\Reports\ItemAnalysisHelper.cs" />
     <Compile Include="Interfaces\BenchmarkStatsIF.cs" />
     <Compile Include="Interfaces\birUtilities.cs" />
     <Compile Include="Interfaces\birIF.cs" />
@@ -195,6 +200,10 @@
     <Compile Include="Infrastructure\ReportPage.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="Interfaces\DBDataStruct\DBIOWorkaround.cs" />
+    <Compile Include="Interfaces\DBDataStruct\ResultsTableItem.cs" />
+    <Compile Include="Interfaces\DBDataStruct\ScanItem.cs" />
+    <Compile Include="Interfaces\DBDataStruct\StudentScanDataItem.cs" />
     <Compile Include="Metadata\AllTestMetadata.cs" />
     <Compile Include="Metadata\Curriculum.cs" />
     <Compile Include="Interfaces\ScanReportIF.cs" />

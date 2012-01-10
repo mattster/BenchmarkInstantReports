@@ -4,6 +4,8 @@ using System.Data;
 using System.Data.OracleClient;
 using Benchmark_Instant_Reports_2.Exceptions;
 using Benchmark_Instant_Reports_2.References;
+using System.Collections.Generic;
+using Benchmark_Instant_Reports_2.Interfaces.DBDataStruct;
 
 namespace Benchmark_Instant_Reports_2.Interfaces
 {
@@ -23,12 +25,13 @@ namespace Benchmark_Instant_Reports_2.Interfaces
         //** (student_id, student_name, test_id, scan_datetime, letter_grade,
         //**    num_correct, num_total, pct_correct)
 
-        public static DataTable generateStudentStatsRepTable(DataTable studentData, string curTest)
+        public static List<ResultsTableItem> generateStudentStatsRepTable(DataTable studentData, string curTest)
         {
             DataView dv = new DataView(studentData);
+
             string curId;
-            DataSet dsFinal = new DataSet();
-            DataTable table = new DataTable();
+            //DataSet dsFinal = new DataSet();
+            //DataTable table = new DataTable();
             int ansKeyVersionIncrement = new int();
             string lblStudentID = "STUDENT_ID";
             string lblStudentName = "STUDENT_NAME";
@@ -45,19 +48,19 @@ namespace Benchmark_Instant_Reports_2.Interfaces
             string lblCommendedNum = "COMMENDED_NUM";
 
             // create columns for the resulting table
-            table.Columns.Add(new DataColumn(lblStudentID, System.Type.GetType("System.String")));
-            table.Columns.Add(new DataColumn(lblStudentName, System.Type.GetType("System.String")));
-            table.Columns.Add(new DataColumn(lblTestId, System.Type.GetType("System.String")));
-            table.Columns.Add(new DataColumn(lblScanDate, System.Type.GetType("System.DateTime")));
-            table.Columns.Add(new DataColumn(lblLetterGrade, System.Type.GetType("System.Char")));
-            table.Columns.Add(new DataColumn(lblNumCorrect, System.Type.GetType("System.Int32")));
-            table.Columns.Add(new DataColumn(lblNumTotal, System.Type.GetType("System.Int32")));
-            table.Columns.Add(new DataColumn(lblPctCorrect, System.Type.GetType("System.Decimal")));
-            table.Columns.Add(new DataColumn(lblPassNum, System.Type.GetType("System.Int32")));
-            table.Columns.Add(new DataColumn(lblCommendedNum, System.Type.GetType("System.Int32")));
-            table.Columns.Add(new DataColumn(lblCampus, System.Type.GetType("System.String")));
-            table.Columns.Add(new DataColumn(lblTeacher, System.Type.GetType("System.String")));
-            table.Columns.Add(new DataColumn(lblPeriod, System.Type.GetType("System.String")));
+            //table.Columns.Add(new DataColumn(lblStudentID, System.Type.GetType("System.String")));
+            //table.Columns.Add(new DataColumn(lblStudentName, System.Type.GetType("System.String")));
+            //table.Columns.Add(new DataColumn(lblTestId, System.Type.GetType("System.String")));
+            //table.Columns.Add(new DataColumn(lblScanDate, System.Type.GetType("System.DateTime")));
+            //table.Columns.Add(new DataColumn(lblLetterGrade, System.Type.GetType("System.Char")));
+            //table.Columns.Add(new DataColumn(lblNumCorrect, System.Type.GetType("System.Int32")));
+            //table.Columns.Add(new DataColumn(lblNumTotal, System.Type.GetType("System.Int32")));
+            //table.Columns.Add(new DataColumn(lblPctCorrect, System.Type.GetType("System.Decimal")));
+            //table.Columns.Add(new DataColumn(lblPassNum, System.Type.GetType("System.Int32")));
+            //table.Columns.Add(new DataColumn(lblCommendedNum, System.Type.GetType("System.Int32")));
+            //table.Columns.Add(new DataColumn(lblCampus, System.Type.GetType("System.String")));
+            //table.Columns.Add(new DataColumn(lblTeacher, System.Type.GetType("System.String")));
+            //table.Columns.Add(new DataColumn(lblPeriod, System.Type.GetType("System.String")));
 
 
             // grade each student's test and add it to the DataSet
