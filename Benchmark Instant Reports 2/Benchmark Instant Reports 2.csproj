@@ -170,6 +170,8 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Grading\AnswerKey.cs" />
+    <Compile Include="Infrastructure\ClassKey.cs" />
+    <Compile Include="Infrastructure\Extensions.cs" />
     <Compile Include="Interfaces\DBDataStruct\AnswerKeyItem.cs" />
     <Compile Include="Grading\GradeTest.cs" />
     <Compile Include="Grading\StudentData.cs" />
