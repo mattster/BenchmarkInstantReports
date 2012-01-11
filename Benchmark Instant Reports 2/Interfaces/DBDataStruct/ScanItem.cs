@@ -13,9 +13,9 @@ namespace Benchmark_Instant_Reports_2.Interfaces.DBDataStruct
         public string Name { get; set; }
         public string StudentID { get; set; }
         public string TestID { get; set; }
-        public char Language { get; set; }
-        public char Exempt { get; set; }
-        public char PreSlugged { get; set; }
+        public String Language { get; set; }
+        public String Exempt { get; set; }
+        public String PreSlugged { get; set; }
         public string Answers { get; set; }
 
         public ScanItem()
@@ -26,9 +26,9 @@ namespace Benchmark_Instant_Reports_2.Interfaces.DBDataStruct
             Name = "";
             StudentID = "";
             TestID = "";
-            Language = 'E';
-            Exempt = 'N';
-            PreSlugged = 'Y';
+            Language = "E";
+            Exempt = "N";
+            PreSlugged = "Y";
             Answers = "";
         }
     }

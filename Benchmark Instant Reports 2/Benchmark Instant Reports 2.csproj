@@ -169,7 +169,8 @@
       <DependentUpon>CascadingDropDown1.asmx</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Interfaces\DBDataStruct\AnswerKey.cs" />
+    <Compile Include="Grading\AnswerKey.cs" />
+    <Compile Include="Interfaces\DBDataStruct\AnswerKeyItem.cs" />
     <Compile Include="Grading\GradeTest.cs" />
     <Compile Include="Grading\StudentData.cs" />
     <Compile Include="Helpers\Reports\AnswerCounter.cs" />
@@ -201,6 +202,8 @@
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Interfaces\DBDataStruct\DBIOWorkaround.cs" />
+    <Compile Include="Interfaces\DBDataStruct\GradedItem.cs" />
+    <Compile Include="Interfaces\DBDataStruct\GradedItemDetail.cs" />
     <Compile Include="Interfaces\DBDataStruct\ResultsTableItem.cs" />
     <Compile Include="Interfaces\DBDataStruct\ScanItem.cs" />
     <Compile Include="Interfaces\DBDataStruct\StudentScanDataItem.cs" />

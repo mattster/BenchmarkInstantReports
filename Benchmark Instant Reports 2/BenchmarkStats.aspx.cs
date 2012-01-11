@@ -11,6 +11,7 @@ using Benchmark_Instant_Reports_2.References;
 using Benchmark_Instant_Reports_2.Interfaces;
 using Benchmark_Instant_Reports_2.Interfaces.DBDataStruct;
 using Benchmark_Instant_Reports_2.Grading;
+using Benchmark_Instant_Reports_2.Helpers.Reports;
 
 namespace Benchmark_Instant_Reports_2
 {
@@ -230,9 +231,10 @@ namespace Benchmark_Instant_Reports_2
             //** User clicked the Generate Report button ***//
             int r = new int();
             
-            DataSet ds1 = new DataSet();
+            //DataSet ds1 = new DataSet();
             List<StudentScanDataItem> studentData = new List<StudentScanDataItem>();
-            DataTable bsResultsDataTable = new DataTable();
+            //DataTable bsResultsDataTable = new DataTable();
+            List<ResultsTableItem> resultsData = new List<ResultsTableItem>();
 
             // generate results for the given criteria on the page if we need to
             if (reportDataParmsHaveChanged)
@@ -256,10 +258,10 @@ namespace Benchmark_Instant_Reports_2
                     studentData = StudentData.GetStudentDataToGradeq(listTests.SelectedItem.ToString(),
                         ddCampus.SelectedValue.ToString());
                 }
-                bsResultsDataTable = BenchmarkStatsIF.generateBenchmarkStatsRepTable(ds1.Tables[0],
+                resultsData = ItemAnalysisHelper.generateBenchmarkStatsRepTableQ(studentData,
                     listTests.SelectedItem.ToString(), ddCampus.SelectedValue.ToString());
 
-                r = BenchmarkStatsIF.writeBenchmarkStatsResultsToDb(bsResultsDataTable);
+                r = ItemAnalysisHelper.writeBenchmarkStatsResultsToDbQ(resultsData);
                 reportDataParmsHaveChanged = false;
             }
 

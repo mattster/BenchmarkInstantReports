@@ -42,17 +42,41 @@ namespace Benchmark_Instant_Reports_2.Interfaces.DBDataStruct
             ScanItem item = new ScanItem();
 
             item.DateScannedStr = row["DATE_SCANNED"].ToString();
-            item.ScanSequence = (int)row["SCANNED_SEQUENCE"];
+            item.ScanSequence = (int)(decimal)row["SCANNED_SEQUENCE"];
             item.Imagepath = row["IMAGEPATH"].ToString();
             item.Name = row["NAME"].ToString();
             item.StudentID = row["STUDENT_ID"].ToString();
             item.TestID = row["TEST_ID"].ToString();
-            item.Language = (char)row["LANGUAGE"];
-            item.Exempt = (char)row["EXEMPT"];
-            item.PreSlugged = (char)row["PRESLUGGED"];
+            item.Language = row["LANGUAGE_VERSION"].ToString();
+            item.Exempt = row["EXEMPT"].ToString();
+            item.PreSlugged = row["PRESLUGGED"].ToString();
             item.Answers = row["ANSWERS"].ToString();
 
             return item;
+        }
+
+        public static List<AnswerKeyItem> ReturnAnswerKey(string qs)
+        {
+            DataSet ds = dbIFOracle.getDataRows(qs);
+            if (ds.Tables.Count == 0)
+                return null;
+
+            List<AnswerKeyItem> finalData = new List<AnswerKeyItem>();
+
+            foreach (DataRow row in ds.Tables[0].Rows)
+            {
+                AnswerKeyItem newItem = new AnswerKeyItem();
+                newItem.TestID = row["TEST_ID"].ToString();
+                newItem.ItemNum = (int)(decimal)row["ITEM_NUM"];
+                newItem.Answer = row["ANSWER"].ToString();
+                newItem.Category = (int)(decimal)row["OBJECTIVE"];
+                newItem.TEKS = row["TEKS"].ToString();
+                newItem.Weight = (int)(decimal)row["WEIGHT"];
+
+                finalData.Add(newItem);
+            }
+
+            return finalData;
         }
     }
 }
