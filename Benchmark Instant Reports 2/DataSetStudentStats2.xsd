@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="DataSet1" targetNamespace="http://tempuri.org/DataSet1.xsd" xmlns:mstns="http://tempuri.org/DataSet1.xsd" xmlns="http://tempuri.org/DataSet1.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="DataSet1" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="DataSet1" msprop:Generator_UserDSName="DataSet1">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="TempStudentStats" msprop:Generator_TableClassName="TempStudentStatsDataTable" msprop:Generator_TableVarName="tableTempStudentStats" msprop:Generator_TablePropName="TempStudentStats" msprop:Generator_RowDeletingName="TempStudentStatsRowDeleting" msprop:Generator_UserTableName="TempStudentStats" msprop:Generator_RowChangingName="TempStudentStatsRowChanging" msprop:Generator_RowEvHandlerName="TempStudentStatsRowChangeEventHandler" msprop:Generator_RowDeletedName="TempStudentStatsRowDeleted" msprop:Generator_RowEvArgName="TempStudentStatsRowChangeEvent" msprop:Generator_RowChangedName="TempStudentStatsRowChanged" msprop:Generator_RowClassName="TempStudentStatsRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="STUDENT_ID" msprop:Generator_ColumnVarNameInTable="columnSTUDENT_ID" msprop:Generator_ColumnPropNameInRow="STUDENT_ID" msprop:Generator_ColumnPropNameInTable="STUDENT_IDColumn" msprop:Generator_UserColumnName="STUDENT_ID" type="xs:string" minOccurs="0" />
+              <xs:element name="STUDENT_NAME" msprop:Generator_ColumnVarNameInTable="columnSTUDENT_NAME" msprop:Generator_ColumnPropNameInRow="STUDENT_NAME" msprop:Generator_ColumnPropNameInTable="STUDENT_NAMEColumn" msprop:Generator_UserColumnName="STUDENT_NAME" type="xs:string" minOccurs="0" />
+              <xs:element name="TEST_ID" msprop:Generator_ColumnVarNameInTable="columnTEST_ID" msprop:Generator_ColumnPropNameInRow="TEST_ID" msprop:Generator_ColumnPropNameInTable="TEST_IDColumn" msprop:Generator_UserColumnName="TEST_ID" type="xs:string" minOccurs="0" />
+              <xs:element name="SCAN_DATETIME" msprop:Generator_ColumnVarNameInTable="columnSCAN_DATETIME" msprop:Generator_ColumnPropNameInRow="SCAN_DATETIME" msprop:Generator_ColumnPropNameInTable="SCAN_DATETIMEColumn" msprop:Generator_UserColumnName="SCAN_DATETIME" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="LETTER_GRADE" msprop:Generator_ColumnVarNameInTable="columnLETTER_GRADE" msprop:Generator_ColumnPropNameInRow="LETTER_GRADE" msprop:Generator_ColumnPropNameInTable="LETTER_GRADEColumn" msprop:Generator_UserColumnName="LETTER_GRADE" type="xs:string" minOccurs="0" />
+              <xs:element name="NUM_CORRECT" msprop:Generator_ColumnVarNameInTable="columnNUM_CORRECT" msprop:Generator_ColumnPropNameInRow="NUM_CORRECT" msprop:Generator_ColumnPropNameInTable="NUM_CORRECTColumn" msprop:Generator_UserColumnName="NUM_CORRECT" type="xs:int" minOccurs="0" />
+              <xs:element name="NUM_TOTAL" msprop:Generator_ColumnVarNameInTable="columnNUM_TOTAL" msprop:Generator_ColumnPropNameInRow="NUM_TOTAL" msprop:Generator_ColumnPropNameInTable="NUM_TOTALColumn" msprop:Generator_UserColumnName="NUM_TOTAL" type="xs:int" minOccurs="0" />
+              <xs:element name="PCT_CORRECT" msprop:Generator_ColumnVarNameInTable="columnPCT_CORRECT" msprop:Generator_ColumnPropNameInRow="PCT_CORRECT" msprop:Generator_ColumnPropNameInTable="PCT_CORRECTColumn" msprop:Generator_UserColumnName="PCT_CORRECT" type="xs:decimal" minOccurs="0" />
+              <xs:element name="PASS_NUM" msprop:Generator_ColumnVarNameInTable="columnPASS_NUM" msprop:Generator_ColumnPropNameInRow="PASS_NUM" msprop:Generator_ColumnPropNameInTable="PASS_NUMColumn" msprop:Generator_UserColumnName="PASS_NUM" type="xs:int" minOccurs="0" />
+              <xs:element name="COMMENDED_NUM" msprop:Generator_ColumnVarNameInTable="columnCOMMENDED_NUM" msprop:Generator_ColumnPropNameInRow="COMMENDED_NUM" msprop:Generator_ColumnPropNameInTable="COMMENDED_NUMColumn" msprop:Generator_UserColumnName="COMMENDED_NUM" type="xs:string" minOccurs="0" />
+              <xs:element name="CAMPUS" msprop:Generator_ColumnVarNameInTable="columnCAMPUS" msprop:Generator_ColumnPropNameInRow="CAMPUS" msprop:Generator_ColumnPropNameInTable="CAMPUSColumn" msprop:Generator_UserColumnName="CAMPUS" type="xs:string" minOccurs="0" />
+              <xs:element name="TEACHER" msprop:Generator_ColumnVarNameInTable="columnTEACHER" msprop:Generator_ColumnPropNameInRow="TEACHER" msprop:Generator_ColumnPropNameInTable="TEACHERColumn" msprop:Generator_UserColumnName="TEACHER" type="xs:string" minOccurs="0" />
+              <xs:element name="PERIOD" msprop:Generator_ColumnVarNameInTable="columnPERIOD" msprop:Generator_ColumnPropNameInRow="PERIOD" msprop:Generator_ColumnPropNameInTable="PERIODColumn" msprop:Generator_UserColumnName="PERIOD" type="xs:string" minOccurs="0" />
+              <xs:element name="GRADED_ANSWERS" msprop:Generator_ColumnVarNameInTable="columnGRADED_ANSWERS" msprop:Generator_ColumnPropNameInRow="GRADED_ANSWERS" msprop:Generator_ColumnPropNameInTable="GRADED_ANSWERSColumn" msprop:Generator_UserColumnName="GRADED_ANSWERS" type="xs:string" minOccurs="0" />
+              <xs:element name="GRADED_ANSWERS_FORMATTED" msprop:Generator_ColumnVarNameInTable="columnGRADED_ANSWERS_FORMATTED" msprop:Generator_ColumnPropNameInRow="GRADED_ANSWERS_FORMATTED" msprop:Generator_ColumnPropNameInTable="GRADED_ANSWERS_FORMATTEDColumn" msprop:Generator_UserColumnName="GRADED_ANSWERS_FORMATTED" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

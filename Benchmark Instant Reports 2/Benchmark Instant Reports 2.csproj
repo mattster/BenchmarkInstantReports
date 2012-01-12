@@ -44,6 +44,7 @@
       <HintPath>..\packages\AjaxControlToolkit.4.1.51116\lib\40\SanitizerProviders\HtmlSanitizationLibrary.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Build.Conversion.v3.5" />
+    <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.ReportViewer.Common, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.ReportViewer.WebForms, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.ReportViewer.WinForms, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
@@ -169,6 +170,12 @@
       <DependentUpon>CascadingDropDown1.asmx</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Dapper\SqlMapper.cs" />
+    <Compile Include="DataSetStudentStats2.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DataSetStudentStats2.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Grading\AnswerKey.cs" />
     <Compile Include="Infrastructure\ClassKey.cs" />
     <Compile Include="Infrastructure\Extensions.cs" />
@@ -209,6 +216,18 @@
     <Compile Include="Interfaces\DBDataStruct\ResultsTableItem.cs" />
     <Compile Include="Interfaces\DBDataStruct\ScanItem.cs" />
     <Compile Include="Interfaces\DBDataStruct\StudentScanDataItem.cs" />
+    <Compile Include="Interfaces\EF\BenchmarkStat.cs" />
+    <Compile Include="Interfaces\EF\EFDataSetBenchmarkStats.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EFDataSetBenchmarkStats.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Interfaces\EF\ReportStatsEntities.cs" />
+    <Compile Include="Interfaces\EF\ResultsModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ResultsModel.edmx</DependentUpon>
+    </Compile>
     <Compile Include="Metadata\AllTestMetadata.cs" />
     <Compile Include="Metadata\Curriculum.cs" />
     <Compile Include="Interfaces\ScanReportIF.cs" />
@@ -346,6 +365,17 @@
     <Content Include="content\files\Benchmark Instant Reports reference.pdf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="DataSetStudentStats2.xsc">
+      <DependentUpon>DataSetStudentStats2.xsd</DependentUpon>
+    </None>
+    <None Include="DataSetStudentStats2.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DataSetStudentStats2.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="DataSetStudentStats2.xss">
+      <DependentUpon>DataSetStudentStats2.xsd</DependentUpon>
+    </None>
     <None Include="DataSetScanReport.xsc">
       <DependentUpon>DataSetScanReport.xsd</DependentUpon>
     </None>
@@ -380,6 +410,21 @@
       <DependentUpon>DataSetStudentStats.xsd</DependentUpon>
     </None>
     <Content Include="packages.config" />
+    <EntityDeploy Include="Interfaces\EF\ResultsModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>ResultsModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="Interfaces\EF\EFDataSetBenchmarkStats.xsc">
+      <DependentUpon>EFDataSetBenchmarkStats.xsd</DependentUpon>
+    </None>
+    <None Include="Interfaces\EF\EFDataSetBenchmarkStats.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>EFDataSetBenchmarkStats.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Interfaces\EF\EFDataSetBenchmarkStats.xss">
+      <DependentUpon>EFDataSetBenchmarkStats.xsd</DependentUpon>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Content Include="StudentStatsRep2.rdlc">

@@ -163,27 +163,31 @@ namespace Benchmark_Instant_Reports_2
             //}
             ssRresultsDataTable = StudentStatsIF.generateStudentStatsRepTable(dtMatchingStudents,
                 listTests.SelectedItem.ToString());
-            int r = StudentStatsIF.writeStudentStatsResultsToDb(ssRresultsDataTable);
+            
+            ///// ****************************** 
+            //int r = StudentStatsIF.writeStudentStatsResultsToDb(ssRresultsDataTable);
 
             repvwStudentStats2a.Visible = true;
 
             // setup the report
-            ObjectDataSource ods = new ObjectDataSource();
-            ReportDataSource rds = new ReportDataSource();
+            //ObjectDataSource ods = new ObjectDataSource();
+            //ReportDataSource rds = new ReportDataSource();
 
-            // setup parameters for query
-            Parameter paramTeacher = new Parameter();
-            Parameter paramTestID = new Parameter("parmTestId", DbType.String, listTests.SelectedItem.ToString());
-            Parameter paramCampus = new Parameter("campus", DbType.String, ddCampus.SelectedValue.ToString());
-            paramTeacher = new Parameter("parmTeacher", DbType.String, ddTeacher.SelectedItem.ToString().Replace("'", "''"));
-            ods.FilterExpression = "TEST_ID = \'{0}\' AND CAMPUS = \'{1}\' AND TEACHER = \'{2}\'";
-            ods.FilterParameters.Add(paramTestID);
-            ods.FilterParameters.Add(paramCampus);
-            ods.FilterParameters.Add(paramTeacher);
-            ods.SelectMethod = "GetDataByUseFilter";
-            ods.TypeName = "Benchmark_Instant_Reports_2.DataSetStudentStatsTableAdapters.TEMP_RESULTS_STUDENTSTATSTableAdapter";
+            //// setup parameters for query
+            //Parameter paramTeacher = new Parameter();
+            //Parameter paramTestID = new Parameter("parmTestId", DbType.String, listTests.SelectedItem.ToString());
+            //Parameter paramCampus = new Parameter("campus", DbType.String, ddCampus.SelectedValue.ToString());
+            //paramTeacher = new Parameter("parmTeacher", DbType.String, ddTeacher.SelectedItem.ToString().Replace("'", "''"));
+            //ods.FilterExpression = "TEST_ID = \'{0}\' AND CAMPUS = \'{1}\' AND TEACHER = \'{2}\'";
+            //ods.FilterParameters.Add(paramTestID);
+            //ods.FilterParameters.Add(paramCampus);
+            //ods.FilterParameters.Add(paramTeacher);
+            //ods.SelectMethod = "GetDataByUseFilter";
+            //ods.TypeName = "Benchmark_Instant_Reports_2.DataSetStudentStatsTableAdapters.TEMP_RESULTS_STUDENTSTATSTableAdapter";
 
-            rds = new ReportDataSource("DataSetStudentStatsRep2", ods);
+            //rds = new ReportDataSource("DataSetStudentStatsRep2", ods);
+
+            ReportDataSource rds = new ReportDataSource(this.repvwStudentStats2a.LocalReport.GetDataSourceNames()[0], ssRresultsDataTable);
             this.repvwStudentStats2a.LocalReport.DataSources.Clear();
             this.repvwStudentStats2a.LocalReport.DataSources.Add(rds);
             this.repvwStudentStats2a.ShowPrintButton = true;

@@ -1,0 +1,78 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl" Namespace="ResultsModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2005">
+        <EntityContainer Name="ResultsModelTargetContainer" >
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2008/09/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="ResultsModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation">
+        <EntityContainer Name="ResultsModelContainer" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="BenchmarkStats" EntityType="ResultsModel.BenchmarkStat" />
+        </EntityContainer>
+        <EntityType Name="BenchmarkStat">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Campus" Nullable="false" />
+          <Property Type="String" Name="TestID" Nullable="false" />
+          <Property Type="String" Name="Teacher" Nullable="false" />
+          <Property Type="String" Name="Period" Nullable="false" />
+          <Property Type="Int32" Name="ItemNum" Nullable="false" />
+          <Property Type="Decimal" Name="PctCorrect" Nullable="false" />
+          <Property Type="Int32" Name="NumCorrect" Nullable="false" />
+          <Property Type="Int32" Name="NumTotal" Nullable="false" />
+          <Property Type="Int32" Name="NumA" Nullable="false" />
+          <Property Type="Int32" Name="NumB" Nullable="false" />
+          <Property Type="Int32" Name="NumC" Nullable="false" />
+          <Property Type="Int32" Name="NumD" Nullable="false" />
+          <Property Type="Int32" Name="NumE" Nullable="false" />
+          <Property Type="Int32" Name="NumF" Nullable="false" />
+          <Property Type="Int32" Name="NumG" Nullable="false" />
+          <Property Type="Int32" Name="NumH" Nullable="false" />
+          <Property Type="Int32" Name="NumJ" Nullable="false" />
+          <Property Type="Int32" Name="NumK" Nullable="false" />
+          <Property Type="String" Name="Answer" Nullable="false" />
+          <Property Type="Int32" Name="Objective" Nullable="false" />
+          <Property Type="String" Name="TEKS" Nullable="false" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs" Space="C-S">
+        <Alias Key="Model" Value="ResultsModel" />
+        <Alias Key="Target" Value="ResultsModel.Store" />
+        <EntityContainerMapping CdmEntityContainer="ResultsModelContainer" StorageEntityContainer="ResultsModelTargetContainer">
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram Name="ResultsModel" >
+        <EntityTypeShape EntityType="ResultsModel.BenchmarkStat" Width="1.5" PointX="1.25" PointY="0.5" Height="4.5505582682291656" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
