@@ -62,7 +62,7 @@ namespace Benchmark_Instant_Reports_2.Interfaces
             table.Columns.Add(new DataColumn(lblCampus, System.Type.GetType("System.String")));
             table.Columns.Add(new DataColumn(lblTeacher, System.Type.GetType("System.String")));
             table.Columns.Add(new DataColumn(lblPeriod, System.Type.GetType("System.String")));
-
+            
 
             // grade each student's test and add it to the DataSet
             int numNull = 0;

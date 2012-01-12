@@ -245,7 +245,7 @@
                         </DataSources>--%>
                     </LocalReport>
                 </rsweb:ReportViewer>
-                <asp:ObjectDataSource ID="ObjectDataSource1" runat="server" SelectMethod="GetData"
+<%--                <asp:ObjectDataSource ID="ObjectDataSource1" runat="server" SelectMethod="GetData"
                     TypeName="Benchmark_Instant_Reports_2.DataSetStudentStatsTableAdapters.TEMP_RESULTS_STUDENTSTATSTableAdapter"
                     DeleteMethod="Delete" InsertMethod="Insert" OldValuesParameterFormatString="original_{0}"
                     UpdateMethod="Update">
@@ -280,7 +280,7 @@
                         <asp:Parameter Name="Original_TEST_ID" Type="String" />
                     </UpdateParameters>
                 </asp:ObjectDataSource>
-            </ContentTemplate>
+--%>            </ContentTemplate>
         </asp:UpdatePanel>
     </asp:Panel>
 </asp:Content>

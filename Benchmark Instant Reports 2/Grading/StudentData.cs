@@ -200,142 +200,89 @@ namespace Benchmark_Instant_Reports_2.Grading
             return returnData;
         }
 
-        public static List<ResultsTableItem> generateBenchmarkStatsRepTableQ(List<StudentScanDataItem> studentData, string curTest, string curCampus)
-        {
-            //DataView dvStudentData = new DataView(studentData);
-            string curId;
-            //DataSet dsFinal = new DataSet();
-            //DataTable resultsTable = new DataTable();
-            int curNumCorrect, curNumTotal = new int();
-            AnswerCounter curAnsCount = new AnswerCounter();
+        //public static ResultsTableData generateBenchmarkStatsRepTableQ(List<StudentScanDataItem> studentData, string curTest, string curCampus)
+        //{
+        //    string curId;
+        //    int curNumCorrect, curNumTotal = new int();
+        //    AnswerCounter curAnsCount = new AnswerCounter();
 
-            //setupResultsDataTable(resultsTable);
-            List<ResultsTableItem> finalData = new List<ResultsTableItem>();
+        //    ResultsTableData finalData = new ResultsTableData();
 
-            // grade each student's test and add it to the DataSet
-            int numNull = 0;
-            //for (int jj = 0; jj < dvStudentData.Table.Rows.Count; jj++)
-            for (int jj = 0; jj < studentData.Count; jj++)
-            {
-                //curId = dvStudentData.Table.Rows[jj]["local_student_id"].ToString();
-                curId = studentData[jj].StudentID;
+        //    // grade each student's test and add it to the DataSet
+        //    int numNull = 0;
+        //    for (int jj = 0; jj < studentData.Count; jj++)
+        //    {
+        //        curId = studentData[jj].StudentID;
                 
-                //DataRow curScanDataRow = birIF.getLatestScanDataRow(curId, curTest);
-                ScanItem curScanItem = birIF.getLatestScanDataRowq(curId, curTest);
-                //if (curScanDataRow != null)
-                if (curScanItem != null)
-                {
-                    //DataTable gradedTable = birIF.gradeScannedTestDetail(curTest, curScanDataRow["ANSWERS"].ToString(), curCampus, 0,
-                    //    dvStudentData.Table.Rows[jj][Constants.TeacherNameFieldName].ToString(),
-                    //    dvStudentData.Table.Rows[jj]["PERIOD"].ToString());
-                    List<GradedItemDetail> gradedData = GradeTest.gradeScannedTestDetailQ(curTest, curScanItem.Answers, curCampus, 0,
-                        studentData[jj].TeacherName, studentData[jj].Period);
+        //        ScanItem curScanItem = birIF.getLatestScanDataRowq(curId, curTest);
+        //        if (curScanItem != null)
+        //        {
+        //            List<GradedItemDetail> gradedData = GradeTest.gradeScannedTestDetailQ(curTest, curScanItem.Answers, curCampus, 0,
+        //                studentData[jj].TeacherName, studentData[jj].Period);
                     
-                    // add data for each test item to the resultsTable
-                    //for (int k = 0; k < gradedTable.Rows.Count; k++)
-                    for (int k = 0; k < gradedData.Count; k++)
-                    {
-                        // see if this item is already in the dataset
-                        //string selectString =
-                        //    //"CAMPUS = \'" + dvStudentData.Table.Rows[j]["SCHOOL_ABBR"].ToString() + "\' and " +
-                        //    "CAMPUS = \'" + dvStudentData.Table.Rows[jj]["SCHOOL2"].ToString() + "\' and " +
-                        //    "TEST_ID = \'" + curTest + "\' and " +
-                        //    "TEACHER = \'" + dvStudentData.Table.Rows[jj][Constants.TeacherNameFieldName].ToString().Replace("'", "''") + "\' and " +
-                        //    "PERIOD = \'" + dvStudentData.Table.Rows[jj]["PERIOD"].ToString() + "\' and " +
-                        //    "ITEM_NUM = " + gradedTable.Rows[k]["ITEM_NUM"];
-                        //DataRow[] selectedRows = resultsTable.Select(selectString);
-                        List<ResultsTableItem> foundData = finalData.FindAll(delegate(ResultsTableItem rti)
-                        {
-                            if (rti.Campus == studentData[jj].Campus &&
-                                rti.TestID == curTest &&
-                                rti.Teacher == studentData[jj].TeacherName.Replace("'", "''") &&
-                                rti.Period == studentData[jj].Period &&
-                                rti.ItemNum == gradedData[k].ItemNum)
-                                return true;
+        //            // add data for each test item to the resultsTable
+        //            for (int k = 0; k < gradedData.Count; k++)
+        //            {
+        //                // see if this item is already in the dataset
+        //                ResultsTableData foundData = new ResultsTableData(finalData.GetItemsWhere( i => 
+        //                        i.Campus == studentData[jj].Campus &&    
+        //                        i.TestID == curTest &&
+        //                        i.Teacher == studentData[jj].TeacherName.Replace("'", "''") &&
+        //                        i.Period == studentData[jj].Period &&
+        //                        i.ItemNum == gradedData[k].ItemNum));
 
-                            return false;
-                        });
+        //                if (foundData.Count > 0)
+        //                {
+        //                    // this item is here - get the values and then delete it
+        //                    curNumCorrect = foundData.First().NumCorrect;
+        //                    curNumTotal = foundData.First().NumTotal;
+        //                    curAnsCount.UpdateFromResultsTableItem(foundData.First());
 
-                        //if (selectedRows.Length > 0)
-                        if (foundData.Count > 0)
-                        {
-                            // this item is here - get the values and then delete it
-                            //curNumCorrect = (int)selectedRows[0][lblNumCorrect];
-                            curNumCorrect = foundData[0].NumCorrect;
-                            //curNumTotal = (int)selectedRows[0][lblNumTotal];
-                            curNumTotal = foundData[0].NumTotal;
-                            //curAnsCount = getAnswerCounts(selectedRows[0]);
-                            curAnsCount.UpdateFromResultsTableItem(foundData[0]);
+        //                    finalData.Remove(finalData.GetItemWhere(i =>
+        //                            i.Campus == foundData.First().Campus &&
+        //                            i.TestID == foundData.First().TestID &&
+        //                            i.Teacher == foundData.First().Teacher &&
+        //                            i.Period == foundData.First().Period &&
+        //                            i.ItemNum == foundData.First().ItemNum));
+        //                }
+        //                else
+        //                {
+        //                    curNumCorrect = 0;
+        //                    curNumTotal = 0;
+        //                    curAnsCount.Reset();
+        //                }
 
-                            //resultsTable.Rows.Remove(selectedRows[0]);
-                            finalData.Remove(finalData.Find(delegate(ResultsTableItem rti)
-                            {
-                                if (rti.Campus == foundData[0].Campus &&
-                                    rti.TestID == foundData[0].TestID &&
-                                    rti.Teacher == foundData[0].Teacher &&
-                                    rti.Period == foundData[0].Period &&
-                                    rti.ItemNum == foundData[0].ItemNum)
-                                    return true;
+        //                // add the row to the results table
+        //                ResultsTableItem newItem = new ResultsTableItem();
+        //                newItem.Campus = studentData[jj].Campus;
+        //                newItem.TestID = curTest;
+        //                newItem.Teacher = studentData[jj].TeacherName;
+        //                newItem.Period = studentData[jj].Period;
+        //                newItem.ItemNum = gradedData[k].ItemNum;
+        //                if (gradedData[k].Correct)
+        //                    curNumCorrect++;
+        //                curAnsCount.Increment(gradedData[k].StudentAnswer);
+        //                curNumTotal++;
+        //                newItem.NumCorrect = curNumCorrect;
+        //                newItem.NumTotal = curNumTotal;
+        //                newItem.PctCorrect = (decimal)curNumCorrect / (decimal)curNumTotal; 
+        //                curAnsCount.UpdateToResultsTableItem(newItem);
+        //                newItem.Answer = gradedData[k].CorrectAnswer;
+        //                newItem.Objective = gradedData[k].Category;
+        //                newItem.TEKS = gradedData[k].TEKS;
 
-                                return false;
-                            }));
-                        }
-                        else
-                        {
-                            curNumCorrect = 0;
-                            curNumTotal = 0;
-                            curAnsCount.Reset();
-                        }
+        //                finalData.Add(newItem);
+        //            }
 
-                        // add the row to the results table
-                        //DataRow thisrow = resultsTable.NewRow();
-                        ResultsTableItem newItem = new ResultsTableItem();
-                        //thisrow[lblCampus] = dvStudentData.Table.Rows[j]["SCHOOL_ABBR"].ToString();
-                        //thisrow[lblCampus] = dvStudentData.Table.Rows[jj]["SCHOOL2"].ToString();
-                        newItem.Campus = studentData[jj].Campus;
-                        //thisrow[lblTestId] = curTest;
-                        newItem.TestID = curTest;
-                        //thisrow[lblTeacher] = dvStudentData.Table.Rows[jj][Constants.TeacherNameFieldName].ToString();
-                        newItem.Teacher = studentData[jj].TeacherName;
-                        //thisrow[lblPeriod] = dvStudentData.Table.Rows[jj]["PERIOD"].ToString();
-                        newItem.Period = studentData[jj].Period;
-                        //thisrow[lblItemNum] = gradedTable.Rows[k]["ITEM_NUM"];
-                        newItem.ItemNum = gradedData[k].ItemNum;
-                        //if ((bool)gradedTable.Rows[k]["CORRECT"])
-                        if (gradedData[k].Correct)
-                            curNumCorrect++;
-                        //curAnsCount.Increment(gradedTable.Rows[k]["STUDENT_ANS"].ToString());
-                        curAnsCount.Increment(gradedData[k].StudentAnswer);
-                        curNumTotal++;
-                        //thisrow[lblNumCorrect] = curNumCorrect;
-                        newItem.NumCorrect = curNumCorrect;
-                        //thisrow[lblNumTotal] = curNumTotal;
-                        newItem.NumTotal = curNumTotal;
-                        //thisrow[lblPctCorrect] = (decimal)curNumCorrect / (decimal)curNumTotal;
-                        newItem.PctCorrect = (decimal)curNumCorrect / (decimal)curNumTotal; 
-                        //putAnswerCounts(curAnsCount, thisrow);
-                        curAnsCount.UpdateToResultsTableItem(newItem);
-                        //thisrow[lblAnswer] = gradedTable.Rows[k]["CORRECT_ANS"].ToString();
-                        newItem.Answer = gradedData[k].CorrectAnswer;
-                        //thisrow[lblObjective] = gradedTable.Rows[k]["OBJECTIVE"];
-                        newItem.Objective = gradedData[k].Category;
-                        //thisrow[lblTEKS] = gradedTable.Rows[k]["TEKS"];
-                        newItem.TEKS = gradedData[k].TEKS;
+        //        }
+        //        else
+        //        {
+        //            numNull++;
+        //        }
+        //    }
 
-                        //resultsTable.Rows.Add(thisrow);
-                        finalData.Add(newItem);
-                    }
-
-                }
-                else
-                {
-                    numNull++;
-                }
-            }
-
-            //return resultsTable;
-            return finalData;
-        }
+        //    return finalData;
+        //}
     
     
     }

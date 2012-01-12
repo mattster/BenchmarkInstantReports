@@ -27,22 +27,20 @@ namespace Benchmark_Instant_Reports_2
             set { _thisTestFilterState = value; }
         }
 
-        private static DataSet studentListQueryData = new DataSet();        // holds results of the custom query
-        private static DataView studentListDataByTeacher = new DataView();  // custom query filtered by teacher
-        private static DataView studentListDataByTeacherPeriod = new DataView();    // custom query filtered by teacher, period
-        private static DataSet dsStudentListData = new DataSet();           // the filtered list of students
         private static bool reportDataParmsHaveChanged = true;
-        private static string repTypeResultsByTeacher = "% Correct-All Teachers";
-        private static string repTypeResultsByPeriod = "% Correct-One Teacher";
-        private static string repTypeResultsByAnsTeacher = "Ans. Choice-One Teacher";
-        private static string repTypeResultsByAnsCampus = "Ans. Choice-All Teachers";
+        private static string repTypePctCorrectAllTeachers = "% Correct-All Teachers";
+        private static string repTypePctCorrectOneTeacher = "% Correct-One Teacher";
+        private static string repTypeAnsChoiceOneTeacher = "Ans. Choice-One Teacher";
+        private static string repTypeAnsChoiceAllTeachers = "Ans. Choice-All Teachers";
         private static string groupByQ = "Question Num.";
         private static string groupByObj = "Rep. Category";
         private static string groupByTEKS = "TEKS";
         private static string repsNone = "NONE";
-        private static string[] reportTypesList = { repTypeResultsByTeacher, repTypeResultsByPeriod, repTypeResultsByAnsCampus, repTypeResultsByAnsTeacher };
-        private static string[] reportTypesListTeacherOnly = { repTypeResultsByPeriod, repTypeResultsByAnsTeacher, repTypeResultsByAnsCampus };
+        private static string[] reportTypesList = { repTypePctCorrectAllTeachers, repTypePctCorrectOneTeacher, repTypeAnsChoiceAllTeachers, repTypeAnsChoiceOneTeacher };
+        private static string[] reportTypesListTeacherOnly = { repTypePctCorrectOneTeacher, repTypeAnsChoiceOneTeacher, repTypeAnsChoiceAllTeachers };
         private static string[] groupByList = { groupByQ, groupByObj, groupByTEKS };
+
+        private static ResultsTableData resultsData = new ResultsTableData();
 
         #endregion
 
@@ -146,41 +144,41 @@ namespace Benchmark_Instant_Reports_2
         {
             //** User changed the report type **//
 
-            if (ddRepType.SelectedItem.ToString() == repTypeResultsByTeacher)
+            if (ddRepType.SelectedItem.ToString() == repTypePctCorrectAllTeachers)
             {
                 lblSelectTeacher.Visible = false;
                 ddTeacher.Visible = false;
                 btnGenReport.Enabled = true;
                 makeRepsVisible(repsNone, repsNone);
                 if (!reportDataParmsHaveChanged)
-                    setupReportByTeacher(ddGroupBy.SelectedItem.ToString());
+                    setupReportPctCorrectAllTeachers(ddGroupBy.SelectedItem.ToString());
             }
-            else if (ddRepType.SelectedItem.ToString() == repTypeResultsByPeriod)
+            else if (ddRepType.SelectedItem.ToString() == repTypePctCorrectOneTeacher)
             {
                 lblSelectTeacher.Visible = true;
                 ddTeacher.Visible = true;
                 btnGenReport.Enabled = true; // was false
                 makeRepsVisible(repsNone, repsNone);
                 if (!reportDataParmsHaveChanged && ddTeacher.SelectedIndex >= 0)
-                    setupReportByPeriod(ddGroupBy.SelectedItem.ToString());
+                    setupReportPctCorrectOneTeacher(ddGroupBy.SelectedItem.ToString());
             }
-            else if (ddRepType.SelectedItem.ToString() == repTypeResultsByAnsTeacher)
+            else if (ddRepType.SelectedItem.ToString() == repTypeAnsChoiceOneTeacher)
             {
                 lblSelectTeacher.Visible = true;
                 ddTeacher.Visible = true;
                 btnGenReport.Enabled = true; // was false
                 makeRepsVisible(repsNone, repsNone);
                 if (!reportDataParmsHaveChanged && ddTeacher.SelectedIndex >= 0)
-                    setupReportByAnsTeacher(ddGroupBy.SelectedItem.ToString());
+                    setupReportAnsChoiceOneTeacher(ddGroupBy.SelectedItem.ToString());
             }
-            else if (ddRepType.SelectedItem.ToString() == repTypeResultsByAnsCampus)
+            else if (ddRepType.SelectedItem.ToString() == repTypeAnsChoiceAllTeachers)
             {
                 lblSelectTeacher.Visible = false;
                 ddTeacher.Visible = false;
                 btnGenReport.Enabled = true;
                 makeRepsVisible(repsNone, repsNone);
                 if (!reportDataParmsHaveChanged)
-                    setupReportByAnsCampus(ddGroupBy.SelectedItem.ToString());
+                    setupReportAnsChoiceAllTeachers(ddGroupBy.SelectedItem.ToString());
             }
 
             return;
@@ -196,10 +194,10 @@ namespace Benchmark_Instant_Reports_2
             makeRepsVisible(repsNone, repsNone);
 
             if (!reportDataParmsHaveChanged)
-                if (ddRepType.SelectedItem.ToString() == repTypeResultsByPeriod)
-                    setupReportByPeriod(ddGroupBy.SelectedItem.ToString());
-                else if (ddRepType.SelectedItem.ToString() == repTypeResultsByAnsTeacher)
-                    setupReportByAnsTeacher(ddGroupBy.SelectedItem.ToString());
+                if (ddRepType.SelectedItem.ToString() == repTypePctCorrectOneTeacher)
+                    setupReportPctCorrectOneTeacher(ddGroupBy.SelectedItem.ToString());
+                else if (ddRepType.SelectedItem.ToString() == repTypeAnsChoiceOneTeacher)
+                    setupReportAnsChoiceOneTeacher(ddGroupBy.SelectedItem.ToString());
 
             return;
         }
@@ -213,14 +211,14 @@ namespace Benchmark_Instant_Reports_2
             //** to true
 
             if (!reportDataParmsHaveChanged)
-                if (ddRepType.SelectedItem.ToString() == repTypeResultsByTeacher)
-                    setupReportByTeacher(ddGroupBy.SelectedItem.ToString());
-                else if (ddRepType.SelectedItem.ToString() == repTypeResultsByPeriod)
-                    setupReportByPeriod(ddGroupBy.SelectedItem.ToString());
-                else if (ddRepType.SelectedItem.ToString() == repTypeResultsByAnsTeacher)
-                    setupReportByAnsTeacher(ddGroupBy.SelectedItem.ToString());
-                else if (ddRepType.SelectedItem.ToString() == repTypeResultsByAnsCampus)
-                    setupReportByAnsCampus(ddGroupBy.SelectedItem.ToString());
+                if (ddRepType.SelectedItem.ToString() == repTypePctCorrectAllTeachers)
+                    setupReportPctCorrectAllTeachers(ddGroupBy.SelectedItem.ToString());
+                else if (ddRepType.SelectedItem.ToString() == repTypePctCorrectOneTeacher)
+                    setupReportPctCorrectOneTeacher(ddGroupBy.SelectedItem.ToString());
+                else if (ddRepType.SelectedItem.ToString() == repTypeAnsChoiceOneTeacher)
+                    setupReportAnsChoiceOneTeacher(ddGroupBy.SelectedItem.ToString());
+                else if (ddRepType.SelectedItem.ToString() == repTypeAnsChoiceAllTeachers)
+                    setupReportAnsChoiceAllTeachers(ddGroupBy.SelectedItem.ToString());
 
             return;
         }
@@ -229,66 +227,48 @@ namespace Benchmark_Instant_Reports_2
         protected void btnGenReport_Click(object sender, EventArgs e)
         {
             //** User clicked the Generate Report button ***//
-            int r = new int();
-            
-            //DataSet ds1 = new DataSet();
             List<StudentScanDataItem> studentData = new List<StudentScanDataItem>();
-            //DataTable bsResultsDataTable = new DataTable();
-            List<ResultsTableItem> resultsData = new List<ResultsTableItem>();
-
+            
             // generate results for the given criteria on the page if we need to
             if (reportDataParmsHaveChanged)
             {
                 // do a new query by school
                 if (ddTeacher.SelectedIndex != 0)
                 {
-                    //ds1 = birIF.getStudentScanListData(ddBenchmark.SelectedItem.ToString(),
-                    //    ddCampus.SelectedValue.ToString(), ddTeacher.SelectedValue.ToString());
-                    //ds1 = birIF.getStudentDataToGrade(listTests.SelectedItem.ToString(),
-                    //    ddCampus.SelectedValue.ToString(), ddTeacher.SelectedValue.ToString());
                     studentData = StudentData.GetStudentDataToGradeq(listTests.SelectedItem.ToString(),
                         ddCampus.SelectedValue.ToString(), ddTeacher.SelectedValue.ToString());
                 }
                 else
                 {
-                    //ds1 = birIF.getStudentScanListData(ddBenchmark.SelectedItem.ToString(),
-                    //    ddCampus.SelectedValue.ToString());
-                    //ds1 = birIF.getStudentDataToGrade(listTests.SelectedItem.ToString(),
-                    //    ddCampus.SelectedValue.ToString());
                     studentData = StudentData.GetStudentDataToGradeq(listTests.SelectedItem.ToString(),
                         ddCampus.SelectedValue.ToString());
                 }
                 resultsData = ItemAnalysisHelper.generateBenchmarkStatsRepTableQ(studentData,
                     listTests.SelectedItem.ToString(), ddCampus.SelectedValue.ToString());
 
-                r = ItemAnalysisHelper.writeBenchmarkStatsResultsToDbQ(resultsData);
                 reportDataParmsHaveChanged = false;
             }
 
-            if (ddRepType.SelectedItem.ToString() == repTypeResultsByTeacher)
+            if (ddRepType.SelectedItem.ToString() == repTypePctCorrectAllTeachers)
             {
-                // **** report Results by Teacher ****
-                setupReportByTeacher(ddGroupBy.SelectedItem.ToString());
+                setupReportPctCorrectAllTeachers(ddGroupBy.SelectedItem.ToString());
                 return;
             }
-            else if (ddRepType.SelectedItem.ToString() == repTypeResultsByPeriod)
+            else if (ddRepType.SelectedItem.ToString() == repTypePctCorrectOneTeacher)
             {
-                // **** report Results by Period ****
-                setupReportByPeriod(ddGroupBy.SelectedItem.ToString());
+                setupReportPctCorrectOneTeacher(ddGroupBy.SelectedItem.ToString());
 
                 return;
             }
-            else if (ddRepType.SelectedItem.ToString() == repTypeResultsByAnsTeacher)
+            else if (ddRepType.SelectedItem.ToString() == repTypeAnsChoiceOneTeacher)
             {
-                // **** report Results by Answer (Teacher) ****
-                setupReportByAnsTeacher(ddGroupBy.SelectedItem.ToString());
+                setupReportAnsChoiceOneTeacher(ddGroupBy.SelectedItem.ToString());
 
                 return;
             }
-            else if (ddRepType.SelectedItem.ToString() == repTypeResultsByAnsCampus)
+            else if (ddRepType.SelectedItem.ToString() == repTypeAnsChoiceAllTeachers)
             {
-                // **** report Results by Answer (Campus) ****
-                setupReportByAnsCampus(ddGroupBy.SelectedItem.ToString());
+                setupReportAnsChoiceAllTeachers(ddGroupBy.SelectedItem.ToString());
 
                 return;
             }
@@ -371,37 +351,21 @@ namespace Benchmark_Instant_Reports_2
         //**********************************************************************//
         //** setup the Report by Teacher report
         //**
-        private void setupReportByTeacher(string groupBySelection)
+        private void setupReportPctCorrectAllTeachers(string groupBySelection)
         {
-            makeRepsVisible(repTypeResultsByTeacher, groupBySelection);
-
-            // setup the report
-            ObjectDataSource ods = new ObjectDataSource();
-            ReportDataSource rds = new ReportDataSource();
-
-            // setup parameters for query
-            Parameter paramCampus = new Parameter("parmCampus", DbType.String, ddCampus.SelectedValue.ToString());
-            Parameter paramTestID = new Parameter("parmTestId", DbType.String, listTests.SelectedItem.ToString());
-
-            ods.SelectMethod = "GetDataByUseFilter";
-            ods.FilterExpression = "CAMPUS = \'{0}\' AND  TEST_ID = \'{1}\'";
-            ods.FilterParameters.Add(paramCampus);
-            ods.FilterParameters.Add(paramTestID);
-
-            ods.TypeName = "Benchmark_Instant_Reports_2.DataSetBenchmarkStatsTableAdapters.TEMP_RESULTS_BENCHMARKSTATSTableAdapter";
-
-
-            rds = new ReportDataSource("DataSetBenchmarkStats", ods);
-
+            makeRepsVisible(repTypePctCorrectAllTeachers, groupBySelection);
+            
             if (groupBySelection == groupByQ)
             {
                 repvwBenchmarkStats1a.LocalReport.DataSources.Clear();
+                ReportDataSource rds = new ReportDataSource(repvwBenchmarkStats1a.LocalReport.GetDataSourceNames()[0], resultsData.GetItems());
                 repvwBenchmarkStats1a.LocalReport.DataSources.Add(rds);
                 repvwBenchmarkStats1a.ShowPrintButton = true;
                 repvwBenchmarkStats1a.LocalReport.Refresh();
             }
             else if (groupBySelection == groupByObj)
             {
+                ReportDataSource rds = new ReportDataSource(repvwBenchmarkStats1b.LocalReport.GetDataSourceNames()[0], resultsData.GetItems());
                 repvwBenchmarkStats1b.LocalReport.DataSources.Clear();
                 repvwBenchmarkStats1b.LocalReport.DataSources.Add(rds);
                 repvwBenchmarkStats1b.ShowPrintButton = true;
@@ -409,6 +373,7 @@ namespace Benchmark_Instant_Reports_2
             }
             else if (groupBySelection == groupByTEKS)
             {
+                ReportDataSource rds = new ReportDataSource(repvwBenchmarkStats1c.LocalReport.GetDataSourceNames()[0], resultsData.GetItems());
                 repvwBenchmarkStats1c.LocalReport.DataSources.Clear();
                 repvwBenchmarkStats1c.LocalReport.DataSources.Add(rds);
                 repvwBenchmarkStats1c.ShowPrintButton = true;
@@ -422,31 +387,14 @@ namespace Benchmark_Instant_Reports_2
         //**********************************************************************//
         //** setup the Report by Period report
         //**
-        private void setupReportByPeriod(string groupBySelection)
+        private void setupReportPctCorrectOneTeacher(string groupBySelection)
         {
-            makeRepsVisible(repTypeResultsByPeriod, groupBySelection);
-
-            // setup the report
-            ObjectDataSource ods = new ObjectDataSource();
-            ReportDataSource rds = new ReportDataSource();
-
-            // setup parameters for query
-            Parameter paramCampus = new Parameter("parmCampus", DbType.String, ddCampus.SelectedValue.ToString());
-            Parameter paramTestID = new Parameter("parmTestId", DbType.String, listTests.SelectedItem.ToString());
-            Parameter paramTeacher = new Parameter("parmTeacher", DbType.String, ddTeacher.SelectedItem.ToString().Replace("'", "''"));
-
-            ods.SelectMethod = "GetDataByUseFilter";
-            ods.FilterExpression = "CAMPUS = \'{0}\' AND  TEST_ID = \'{1}\' AND TEACHER = \'{2}\'";
-            ods.FilterParameters.Add(paramCampus);
-            ods.FilterParameters.Add(paramTestID);
-            ods.FilterParameters.Add(paramTeacher);
-
-            ods.TypeName = "Benchmark_Instant_Reports_2.DataSetBenchmarkStatsTableAdapters.TEMP_RESULTS_BENCHMARKSTATSTableAdapter";
-
-            rds = new ReportDataSource("DataSetBenchmarkStats", ods);
+            makeRepsVisible(repTypePctCorrectOneTeacher, groupBySelection);
 
             if (groupBySelection == groupByQ)
             {
+                ReportDataSource rds = new ReportDataSource(repvwBenchmarkStats2a.LocalReport.GetDataSourceNames()[0], 
+                    resultsData.GetItemsWhere(d => d.Teacher == ddTeacher.SelectedItem.ToString().Replace("'", "''")));
                 repvwBenchmarkStats2a.LocalReport.DataSources.Clear();
                 repvwBenchmarkStats2a.LocalReport.DataSources.Add(rds);
                 repvwBenchmarkStats2a.ShowPrintButton = true;
@@ -454,6 +402,8 @@ namespace Benchmark_Instant_Reports_2
             }
             else if (groupBySelection == groupByObj)
             {
+                ReportDataSource rds = new ReportDataSource(repvwBenchmarkStats2b.LocalReport.GetDataSourceNames()[0],
+                    resultsData.GetItemsWhere(d => d.Teacher == ddTeacher.SelectedItem.ToString().Replace("'", "''")));
                 repvwBenchmarkStats2b.LocalReport.DataSources.Clear();
                 repvwBenchmarkStats2b.LocalReport.DataSources.Add(rds);
                 repvwBenchmarkStats2b.ShowPrintButton = true;
@@ -461,6 +411,8 @@ namespace Benchmark_Instant_Reports_2
             }
             else if (groupBySelection == groupByTEKS)
             {
+                ReportDataSource rds = new ReportDataSource(repvwBenchmarkStats2c.LocalReport.GetDataSourceNames()[0],
+                    resultsData.GetItemsWhere(d => d.Teacher == ddTeacher.SelectedItem.ToString().Replace("'", "''")));
                 repvwBenchmarkStats2c.LocalReport.DataSources.Clear();
                 repvwBenchmarkStats2c.LocalReport.DataSources.Add(rds);
                 repvwBenchmarkStats2c.ShowPrintButton = true;
@@ -474,31 +426,14 @@ namespace Benchmark_Instant_Reports_2
         //**********************************************************************//
         //** setup the Report by Answer Choice by Teacher report
         //**
-        private void setupReportByAnsTeacher(string groupBySelection)
+        private void setupReportAnsChoiceOneTeacher(string groupBySelection)
         {
-            makeRepsVisible(repTypeResultsByAnsTeacher, groupBySelection);
-
-            // setup the report
-            ObjectDataSource ods = new ObjectDataSource();
-            ReportDataSource rds = new ReportDataSource();
-
-            // setup parameters for query
-            Parameter paramCampus = new Parameter("parmCampus", DbType.String, ddCampus.SelectedValue.ToString());
-            Parameter paramTestID = new Parameter("parmTestId", DbType.String, listTests.SelectedItem.ToString());
-            Parameter paramTeacher = new Parameter("parmTeacher", DbType.String, ddTeacher.SelectedItem.ToString().Replace("'", "''"));
-
-            ods.SelectMethod = "GetDataByUseFilter";
-            ods.FilterExpression = "CAMPUS = \'{0}\' AND  TEST_ID = \'{1}\' AND TEACHER = \'{2}\'";
-            ods.FilterParameters.Add(paramCampus);
-            ods.FilterParameters.Add(paramTestID);
-            ods.FilterParameters.Add(paramTeacher);
-
-            ods.TypeName = "Benchmark_Instant_Reports_2.DataSetBenchmarkStatsTableAdapters.TEMP_RESULTS_BENCHMARKSTATSTableAdapter";
-
-            rds = new ReportDataSource("DataSetBenchmarkStats", ods);
+            makeRepsVisible(repTypeAnsChoiceOneTeacher, groupBySelection);
 
             if (groupBySelection == groupByQ)
             {
+                ReportDataSource rds = new ReportDataSource(repvwBenchmarkStats3a.LocalReport.GetDataSourceNames()[0], 
+                    resultsData.GetItemsWhere(d => d.Teacher == ddTeacher.SelectedItem.ToString().Replace("'", "''")));
                 repvwBenchmarkStats3a.LocalReport.DataSources.Clear();
                 repvwBenchmarkStats3a.LocalReport.DataSources.Add(rds);
                 repvwBenchmarkStats3a.ShowPrintButton = true;
@@ -506,6 +441,8 @@ namespace Benchmark_Instant_Reports_2
             }
             else if (groupBySelection == groupByObj)
             {
+                ReportDataSource rds = new ReportDataSource(repvwBenchmarkStats3b.LocalReport.GetDataSourceNames()[0],
+                    resultsData.GetItemsWhere(d => d.Teacher == ddTeacher.SelectedItem.ToString().Replace("'", "''")));
                 repvwBenchmarkStats3b.LocalReport.DataSources.Clear();
                 repvwBenchmarkStats3b.LocalReport.DataSources.Add(rds);
                 repvwBenchmarkStats3b.ShowPrintButton = true;
@@ -513,6 +450,8 @@ namespace Benchmark_Instant_Reports_2
             }
             else if (groupBySelection == groupByTEKS)
             {
+                ReportDataSource rds = new ReportDataSource(repvwBenchmarkStats3c.LocalReport.GetDataSourceNames()[0], 
+                    resultsData.GetItemsWhere(d => d.Teacher == ddTeacher.SelectedItem.ToString().Replace("'", "''")));
                 repvwBenchmarkStats3c.LocalReport.DataSources.Clear();
                 repvwBenchmarkStats3c.LocalReport.DataSources.Add(rds);
                 repvwBenchmarkStats3c.ShowPrintButton = true;
@@ -526,29 +465,13 @@ namespace Benchmark_Instant_Reports_2
         //**********************************************************************//
         //** setup the Report by Answer Choice by Campus report
         //**
-        private void setupReportByAnsCampus(string groupBySelection)
+        private void setupReportAnsChoiceAllTeachers(string groupBySelection)
         {
-            makeRepsVisible(repTypeResultsByAnsCampus, groupBySelection);
-
-            // setup the report
-            ObjectDataSource ods = new ObjectDataSource();
-            ReportDataSource rds = new ReportDataSource();
-
-            // setup parameters for query
-            Parameter paramCampus = new Parameter("parmCampus", DbType.String, ddCampus.SelectedValue.ToString());
-            Parameter paramTestID = new Parameter("parmTestId", DbType.String, listTests.SelectedItem.ToString());
-
-            ods.SelectMethod = "GetDataByUseFilter";
-            ods.FilterExpression = "CAMPUS = \'{0}\' AND  TEST_ID = \'{1}\'";
-            ods.FilterParameters.Add(paramCampus);
-            ods.FilterParameters.Add(paramTestID);
-
-            ods.TypeName = "Benchmark_Instant_Reports_2.DataSetBenchmarkStatsTableAdapters.TEMP_RESULTS_BENCHMARKSTATSTableAdapter";
-
-            rds = new ReportDataSource("DataSetBenchmarkStats", ods);
+            makeRepsVisible(repTypeAnsChoiceAllTeachers, groupBySelection);
 
             if (groupBySelection == groupByQ)
             {
+                ReportDataSource rds = new ReportDataSource(repvwBenchmarkStats4a.LocalReport.GetDataSourceNames()[0], resultsData.GetItems());
                 repvwBenchmarkStats4a.LocalReport.DataSources.Clear();
                 repvwBenchmarkStats4a.LocalReport.DataSources.Add(rds);
                 repvwBenchmarkStats4a.ShowPrintButton = true;
@@ -556,6 +479,7 @@ namespace Benchmark_Instant_Reports_2
             }
             else if (groupBySelection == groupByObj)
             {
+                ReportDataSource rds = new ReportDataSource(repvwBenchmarkStats4b.LocalReport.GetDataSourceNames()[0], resultsData.GetItems());
                 repvwBenchmarkStats4b.LocalReport.DataSources.Clear();
                 repvwBenchmarkStats4b.LocalReport.DataSources.Add(rds);
                 repvwBenchmarkStats4b.ShowPrintButton = true;
@@ -563,6 +487,7 @@ namespace Benchmark_Instant_Reports_2
             }
             else if (groupBySelection == groupByTEKS)
             {
+                ReportDataSource rds = new ReportDataSource(repvwBenchmarkStats4c.LocalReport.GetDataSourceNames()[0], resultsData.GetItems());
                 repvwBenchmarkStats4c.LocalReport.DataSources.Clear();
                 repvwBenchmarkStats4c.LocalReport.DataSources.Add(rds);
                 repvwBenchmarkStats4c.ShowPrintButton = true;
@@ -594,7 +519,7 @@ namespace Benchmark_Instant_Reports_2
             if (theReport == repsNone || groupBy == repsNone)
                 return;
 
-            else if (theReport == repTypeResultsByTeacher)
+            else if (theReport == repTypePctCorrectAllTeachers)
             {
                 if (groupBy == groupByQ)
                     repvwBenchmarkStats1a.Visible = true;
@@ -604,7 +529,7 @@ namespace Benchmark_Instant_Reports_2
                     repvwBenchmarkStats1c.Visible = true;
             }
 
-            else if (theReport == repTypeResultsByPeriod)
+            else if (theReport == repTypePctCorrectOneTeacher)
             {
                 if (groupBy == groupByQ)
                     repvwBenchmarkStats2a.Visible = true;
@@ -614,7 +539,7 @@ namespace Benchmark_Instant_Reports_2
                     repvwBenchmarkStats2c.Visible = true;
             }
 
-            else if (theReport == repTypeResultsByAnsTeacher)
+            else if (theReport == repTypeAnsChoiceOneTeacher)
             {
                 if (groupBy == groupByQ)
                     repvwBenchmarkStats3a.Visible = true;
@@ -624,7 +549,7 @@ namespace Benchmark_Instant_Reports_2
                     repvwBenchmarkStats3c.Visible = true;
             }
 
-            else if (theReport == repTypeResultsByAnsCampus)
+            else if (theReport == repTypeAnsChoiceAllTeachers)
             {
                 if (groupBy == groupByQ)
                     repvwBenchmarkStats4a.Visible = true;

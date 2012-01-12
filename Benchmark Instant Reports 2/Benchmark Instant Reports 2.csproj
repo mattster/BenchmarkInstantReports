@@ -171,6 +171,15 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Dapper\SqlMapper.cs" />
+    <Compile Include="DataSetBenchmarkStats2.cs">
+      <DependentUpon>DataSetBenchmarkStats2.xsd</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DataSetBenchmarkStats2.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DataSetBenchmarkStats2.xsd</DependentUpon>
+    </Compile>
     <Compile Include="DataSetStudentStats2.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -213,6 +222,7 @@
     <Compile Include="Interfaces\DBDataStruct\DBIOWorkaround.cs" />
     <Compile Include="Interfaces\DBDataStruct\GradedItem.cs" />
     <Compile Include="Interfaces\DBDataStruct\GradedItemDetail.cs" />
+    <Compile Include="Interfaces\DBDataStruct\ResultsTableData.cs" />
     <Compile Include="Interfaces\DBDataStruct\ResultsTableItem.cs" />
     <Compile Include="Interfaces\DBDataStruct\ScanItem.cs" />
     <Compile Include="Interfaces\DBDataStruct\StudentScanDataItem.cs" />
@@ -365,6 +375,17 @@
     <Content Include="content\files\Benchmark Instant Reports reference.pdf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="DataSetBenchmarkStats2.xsc">
+      <DependentUpon>DataSetBenchmarkStats2.xsd</DependentUpon>
+    </None>
+    <None Include="DataSetBenchmarkStats2.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DataSetBenchmarkStats2.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="DataSetBenchmarkStats2.xss">
+      <DependentUpon>DataSetBenchmarkStats2.xsd</DependentUpon>
+    </None>
     <None Include="DataSetStudentStats2.xsc">
       <DependentUpon>DataSetStudentStats2.xsd</DependentUpon>
     </None>
@@ -437,6 +458,7 @@
     </Content>
     <Content Include="BenchmarkStatsRep1a.rdlc">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
     </Content>
     <Content Include="BenchmarkStatsRep1b.rdlc">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -519,6 +541,11 @@
     <Content Include="StudentStatsRep2c.rdlc">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Report1.rdlc">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
