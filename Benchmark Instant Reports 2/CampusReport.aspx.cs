@@ -125,28 +125,11 @@ namespace Benchmark_Instant_Reports_2
 
                 dtResultsDataTable = StudentStatsIF.generateStudentStatsRepTable(ds1.Tables[0],
                     listTests.SelectedItem.ToString());
-                int r = StudentStatsIF.writeStudentStatsResultsToDb(dtResultsDataTable);
 
                 this.repvwCampusReport1.Visible = true;
                 this.repvwCampusReport2.Visible = false;
 
-                // setup the report
-                ObjectDataSource ods = new ObjectDataSource();
-                ReportDataSource rds = new ReportDataSource();
-
-                // setup parameters for query
-                Parameter paramCampus = new Parameter("campus", DbType.String, ddCampus.SelectedValue.ToString());
-                Parameter paramTestID = new Parameter("parmTestId", DbType.String, listTests.SelectedItem.ToString());
-
-                ods.SelectMethod = "GetDataByUseFilter";
-
-                ods.FilterExpression = "TEST_ID = \'{0}\' AND CAMPUS = \'{1}\'";
-                ods.FilterParameters.Add(paramTestID);
-                ods.FilterParameters.Add(paramCampus);
-
-                ods.TypeName = "Benchmark_Instant_Reports_2.DataSetStudentStatsTableAdapters.TEMP_RESULTS_STUDENTSTATSTableAdapter";
-
-                rds = new ReportDataSource("DataSetStudentStatsC", ods);
+                ReportDataSource rds = new ReportDataSource(repvwCampusReport1.LocalReport.GetDataSourceNames()[0], dtResultsDataTable);
                 this.repvwCampusReport1.LocalReport.DataSources.Clear();
                 this.repvwCampusReport1.LocalReport.DataSources.Add(rds);
                 this.repvwCampusReport1.ShowPrintButton = true;

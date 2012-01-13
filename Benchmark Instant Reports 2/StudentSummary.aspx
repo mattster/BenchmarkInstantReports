@@ -248,46 +248,8 @@
                     Font-Size="8pt" InteractiveDeviceInfos="(Collection)" SizeToReportContent="True"
                     WaitMessageFont-Names="Verdana" WaitMessageFont-Size="14pt">
                     <LocalReport ReportPath="StudentSummaryRep.rdlc">
-                        <DataSources>
-                            <rsweb:ReportDataSource DataSourceId="ObjectDataSource1" Name="DataSetStudentStats" />
-                        </DataSources>
                     </LocalReport>
                 </rsweb:ReportViewer>
-                <asp:ObjectDataSource ID="ObjectDataSource1" runat="server" DeleteMethod="Delete"
-                    InsertMethod="Insert" OldValuesParameterFormatString="original_{0}" SelectMethod="GetDataByUseFilter"
-                    TypeName="Benchmark_Instant_Reports_2.DataSetStudentStatsTableAdapters.TEMP_RESULTS_STUDENTSTATSTableAdapter"
-                    UpdateMethod="Update">
-                    <DeleteParameters>
-                        <asp:Parameter Name="Original_STUDENT_ID" Type="String" />
-                        <asp:Parameter Name="Original_TEST_ID" Type="String" />
-                    </DeleteParameters>
-                    <InsertParameters>
-                        <asp:Parameter Name="STUDENT_ID" Type="String" />
-                        <asp:Parameter Name="STUDENT_NAME" Type="String" />
-                        <asp:Parameter Name="TEST_ID" Type="String" />
-                        <asp:Parameter Name="SCAN_DATETIME" Type="DateTime" />
-                        <asp:Parameter Name="LETTER_GRADE" Type="String" />
-                        <asp:Parameter Name="NUM_CORRECT" Type="Decimal" />
-                        <asp:Parameter Name="NUM_TOTAL" Type="Decimal" />
-                        <asp:Parameter Name="PCT_CORRECT" Type="Decimal" />
-                        <asp:Parameter Name="CAMPUS" Type="String" />
-                        <asp:Parameter Name="TEACHER" Type="String" />
-                        <asp:Parameter Name="PERIOD" Type="String" />
-                    </InsertParameters>
-                    <UpdateParameters>
-                        <asp:Parameter Name="STUDENT_NAME" Type="String" />
-                        <asp:Parameter Name="SCAN_DATETIME" Type="DateTime" />
-                        <asp:Parameter Name="LETTER_GRADE" Type="String" />
-                        <asp:Parameter Name="NUM_CORRECT" Type="Decimal" />
-                        <asp:Parameter Name="NUM_TOTAL" Type="Decimal" />
-                        <asp:Parameter Name="PCT_CORRECT" Type="Decimal" />
-                        <asp:Parameter Name="CAMPUS" Type="String" />
-                        <asp:Parameter Name="TEACHER" Type="String" />
-                        <asp:Parameter Name="PERIOD" Type="String" />
-                        <asp:Parameter Name="Original_STUDENT_ID" Type="String" />
-                        <asp:Parameter Name="Original_TEST_ID" Type="String" />
-                    </UpdateParameters>
-                </asp:ObjectDataSource>
             </ContentTemplate>
         </asp:UpdatePanel>
     </asp:Panel>
