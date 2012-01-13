@@ -2,6 +2,7 @@
 using System.Data;
 using System.Data.OracleClient;
 using Benchmark_Instant_Reports_2.References;
+using Benchmark_Instant_Reports_2.Helpers.Reports;
 
 
 namespace Benchmark_Instant_Reports_2.Interfaces
@@ -33,75 +34,6 @@ namespace Benchmark_Instant_Reports_2.Interfaces
         static string lblTEKS = "TEKS";
         #endregion
 
-        //*******************
-        //* class to manage the counts for 
-        //* the different answer choices for a test
-        //********
-         public class answerCounter
-        {
-            public int a, b, c, d, e, f, g, h, j, k;
-
-
-            // default constructor
-            public answerCounter()
-            {
-                a = 0;
-                b = 0;
-                c = 0;
-                d = 0;
-                e = 0;
-                f = 0;
-                g = 0;
-                h = 0;
-                j = 0;
-                k = 0;
-            }
-
-            public void Increment(string x) 
-            {
-                if (x.ToUpper() == "A")
-                    a++;
-                else if (x.ToUpper() == "B")
-                    b++;
-                else if (x.ToUpper() == "C")
-                    c++;
-                else if (x.ToUpper() == "D")
-                    d++;
-                else if (x.ToUpper() == "E")
-                    e++;
-                else if (x.ToUpper() == "F")
-                    f++;
-                else if (x.ToUpper() == "G")
-                    g++;
-                else if (x.ToUpper() == "H")
-                    h++;
-                else if (x.ToUpper() == "J")
-                    j++;
-                else if (x.ToUpper() == "K")
-                    k++;
-                
-                return; 
-            }
-
-            public void Reset()
-            {
-                a = 0;
-                b = 0;
-                c = 0;
-                d = 0;
-                e = 0;
-                f = 0;
-                g = 0;
-                h = 0;
-                j = 0;
-                k = 0;
-
-                return;
-            }
-
-        }
-
-
         
 
         //**********************************************************************//
@@ -120,7 +52,7 @@ namespace Benchmark_Instant_Reports_2.Interfaces
             DataSet dsFinal = new DataSet();
             DataTable resultsTable = new DataTable();
             int curNumCorrect, curNumTotal = new int();
-            answerCounter curAnsCount = new answerCounter();
+            AnswerCounter curAnsCount = new AnswerCounter();
 
             setupResultsDataTable(resultsTable);
 
@@ -306,9 +238,9 @@ namespace Benchmark_Instant_Reports_2.Interfaces
         //** get the current values of answers from the results data table,
         //** return them in an answerCounter class structure
         //**
-        private static answerCounter getAnswerCounts(DataRow row)
+        private static AnswerCounter getAnswerCounts(DataRow row)
         {
-            answerCounter c = new answerCounter();
+            AnswerCounter c = new AnswerCounter();
 
             c.a = (int)row[lblNumA];
             c.b = (int)row[lblNumB];
@@ -329,7 +261,7 @@ namespace Benchmark_Instant_Reports_2.Interfaces
         //** put the current values of answers from the answerCounter class
         //** instance into a data row
         //**
-        private static void putAnswerCounts(answerCounter ac, DataRow row)
+        private static void putAnswerCounts(AnswerCounter ac, DataRow row)
         {
             row[lblNumA] = ac.a;
             row[lblNumB] = ac.b;

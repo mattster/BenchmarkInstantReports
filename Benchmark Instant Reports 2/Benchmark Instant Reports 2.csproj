@@ -44,6 +44,7 @@
       <HintPath>..\packages\AjaxControlToolkit.4.1.51116\lib\40\SanitizerProviders\HtmlSanitizationLibrary.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Build.Conversion.v3.5" />
+    <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.ReportViewer.Common, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.ReportViewer.WebForms, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.ReportViewer.WinForms, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
@@ -169,6 +170,29 @@
       <DependentUpon>CascadingDropDown1.asmx</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Dapper\SqlMapper.cs" />
+    <Compile Include="DataSetBenchmarkStats2.cs">
+      <DependentUpon>DataSetBenchmarkStats2.xsd</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DataSetBenchmarkStats2.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DataSetBenchmarkStats2.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DataSetStudentStats2.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DataSetStudentStats2.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Grading\AnswerKey.cs" />
+    <Compile Include="Infrastructure\ClassKey.cs" />
+    <Compile Include="Infrastructure\Extensions.cs" />
+    <Compile Include="Interfaces\DBDataStruct\AnswerKeyItem.cs" />
+    <Compile Include="Grading\GradeTest.cs" />
+    <Compile Include="Grading\StudentData.cs" />
+    <Compile Include="Helpers\Reports\AnswerCounter.cs" />
+    <Compile Include="Helpers\Reports\ItemAnalysisHelper.cs" />
     <Compile Include="Interfaces\BenchmarkStatsIF.cs" />
     <Compile Include="Interfaces\birUtilities.cs" />
     <Compile Include="Interfaces\birIF.cs" />
@@ -194,6 +218,25 @@
     <Compile Include="Helpers\TestFilterState.cs" />
     <Compile Include="Infrastructure\ReportPage.cs">
       <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Interfaces\DBDataStruct\DBIOWorkaround.cs" />
+    <Compile Include="Interfaces\DBDataStruct\GradedItem.cs" />
+    <Compile Include="Interfaces\DBDataStruct\GradedItemDetail.cs" />
+    <Compile Include="Interfaces\DBDataStruct\ResultsTableData.cs" />
+    <Compile Include="Interfaces\DBDataStruct\ResultsTableItem.cs" />
+    <Compile Include="Interfaces\DBDataStruct\ScanItem.cs" />
+    <Compile Include="Interfaces\DBDataStruct\StudentScanDataItem.cs" />
+    <Compile Include="Interfaces\EF\BenchmarkStat.cs" />
+    <Compile Include="Interfaces\EF\EFDataSetBenchmarkStats.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EFDataSetBenchmarkStats.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Interfaces\EF\ReportStatsEntities.cs" />
+    <Compile Include="Interfaces\EF\ResultsModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ResultsModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="Metadata\AllTestMetadata.cs" />
     <Compile Include="Metadata\Curriculum.cs" />
@@ -332,6 +375,28 @@
     <Content Include="content\files\Benchmark Instant Reports reference.pdf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="DataSetBenchmarkStats2.xsc">
+      <DependentUpon>DataSetBenchmarkStats2.xsd</DependentUpon>
+    </None>
+    <None Include="DataSetBenchmarkStats2.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DataSetBenchmarkStats2.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="DataSetBenchmarkStats2.xss">
+      <DependentUpon>DataSetBenchmarkStats2.xsd</DependentUpon>
+    </None>
+    <None Include="DataSetStudentStats2.xsc">
+      <DependentUpon>DataSetStudentStats2.xsd</DependentUpon>
+    </None>
+    <None Include="DataSetStudentStats2.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DataSetStudentStats2.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="DataSetStudentStats2.xss">
+      <DependentUpon>DataSetStudentStats2.xsd</DependentUpon>
+    </None>
     <None Include="DataSetScanReport.xsc">
       <DependentUpon>DataSetScanReport.xsd</DependentUpon>
     </None>
@@ -366,6 +431,21 @@
       <DependentUpon>DataSetStudentStats.xsd</DependentUpon>
     </None>
     <Content Include="packages.config" />
+    <EntityDeploy Include="Interfaces\EF\ResultsModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>ResultsModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="Interfaces\EF\EFDataSetBenchmarkStats.xsc">
+      <DependentUpon>EFDataSetBenchmarkStats.xsd</DependentUpon>
+    </None>
+    <None Include="Interfaces\EF\EFDataSetBenchmarkStats.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>EFDataSetBenchmarkStats.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Interfaces\EF\EFDataSetBenchmarkStats.xss">
+      <DependentUpon>EFDataSetBenchmarkStats.xsd</DependentUpon>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Content Include="StudentStatsRep2.rdlc">
@@ -378,6 +458,7 @@
     </Content>
     <Content Include="BenchmarkStatsRep1a.rdlc">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
     </Content>
     <Content Include="BenchmarkStatsRep1b.rdlc">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -460,6 +541,11 @@
     <Content Include="StudentStatsRep2c.rdlc">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Report1.rdlc">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

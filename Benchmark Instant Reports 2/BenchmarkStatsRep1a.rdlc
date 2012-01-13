@@ -1,96 +1,96 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Report xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner" xmlns="http://schemas.microsoft.com/sqlserver/reporting/2008/01/reportdefinition">
   <DataSources>
-    <DataSource Name="DataSetBenchmarkStats">
+    <DataSource Name="Benchmark_Instant_Reports_2InterfacesDBDataStruct">
       <ConnectionProperties>
         <DataProvider>System.Data.DataSet</DataProvider>
         <ConnectString>/* Local Connection */</ConnectString>
       </ConnectionProperties>
-      <rd:DataSourceID>6fd22970-747c-4a44-9cab-19ba988bacc6</rd:DataSourceID>
+      <rd:DataSourceID>e95139cf-9661-45bb-ab20-d6fa73f312bb</rd:DataSourceID>
     </DataSource>
   </DataSources>
   <DataSets>
-    <DataSet Name="DataSetBenchmarkStats">
+    <DataSet Name="TBenchmarkStats">
       <Fields>
-        <Field Name="CAMPUS">
-          <DataField>CAMPUS</DataField>
+        <Field Name="Campus">
+          <DataField>Campus</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="TEST_ID">
-          <DataField>TEST_ID</DataField>
+        <Field Name="TestID">
+          <DataField>TestID</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="TEACHER">
-          <DataField>TEACHER</DataField>
+        <Field Name="Teacher">
+          <DataField>Teacher</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="PERIOD">
-          <DataField>PERIOD</DataField>
+        <Field Name="Period">
+          <DataField>Period</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="ITEM_NUM">
-          <DataField>ITEM_NUM</DataField>
+        <Field Name="ItemNum">
+          <DataField>ItemNum</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="PctCorrect">
+          <DataField>PctCorrect</DataField>
           <rd:TypeName>System.Decimal</rd:TypeName>
         </Field>
-        <Field Name="PCT_CORRECT">
-          <DataField>PCT_CORRECT</DataField>
-          <rd:TypeName>System.Decimal</rd:TypeName>
+        <Field Name="NumCorrect">
+          <DataField>NumCorrect</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
         </Field>
-        <Field Name="NUM_CORRECT">
-          <DataField>NUM_CORRECT</DataField>
-          <rd:TypeName>System.Decimal</rd:TypeName>
+        <Field Name="NumTotal">
+          <DataField>NumTotal</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
         </Field>
-        <Field Name="NUM_TOTAL">
-          <DataField>NUM_TOTAL</DataField>
-          <rd:TypeName>System.Decimal</rd:TypeName>
+        <Field Name="NumA">
+          <DataField>NumA</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
         </Field>
-        <Field Name="NUM_A">
-          <DataField>NUM_A</DataField>
-          <rd:TypeName>System.Decimal</rd:TypeName>
+        <Field Name="NumB">
+          <DataField>NumB</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
         </Field>
-        <Field Name="NUM_B">
-          <DataField>NUM_B</DataField>
-          <rd:TypeName>System.Decimal</rd:TypeName>
+        <Field Name="NumC">
+          <DataField>NumC</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
         </Field>
-        <Field Name="NUM_C">
-          <DataField>NUM_C</DataField>
-          <rd:TypeName>System.Decimal</rd:TypeName>
+        <Field Name="NumD">
+          <DataField>NumD</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
         </Field>
-        <Field Name="NUM_D">
-          <DataField>NUM_D</DataField>
-          <rd:TypeName>System.Decimal</rd:TypeName>
+        <Field Name="NumE">
+          <DataField>NumE</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
         </Field>
-        <Field Name="NUM_E">
-          <DataField>NUM_E</DataField>
-          <rd:TypeName>System.Decimal</rd:TypeName>
+        <Field Name="NumF">
+          <DataField>NumF</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
         </Field>
-        <Field Name="NUM_F">
-          <DataField>NUM_F</DataField>
-          <rd:TypeName>System.Decimal</rd:TypeName>
+        <Field Name="NumG">
+          <DataField>NumG</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
         </Field>
-        <Field Name="NUM_G">
-          <DataField>NUM_G</DataField>
-          <rd:TypeName>System.Decimal</rd:TypeName>
+        <Field Name="NumH">
+          <DataField>NumH</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
         </Field>
-        <Field Name="NUM_H">
-          <DataField>NUM_H</DataField>
-          <rd:TypeName>System.Decimal</rd:TypeName>
+        <Field Name="NumJ">
+          <DataField>NumJ</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
         </Field>
-        <Field Name="NUM_J">
-          <DataField>NUM_J</DataField>
-          <rd:TypeName>System.Decimal</rd:TypeName>
+        <Field Name="NumK">
+          <DataField>NumK</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
         </Field>
-        <Field Name="NUM_K">
-          <DataField>NUM_K</DataField>
-          <rd:TypeName>System.Decimal</rd:TypeName>
-        </Field>
-        <Field Name="ANSWER">
-          <DataField>ANSWER</DataField>
+        <Field Name="Answer">
+          <DataField>Answer</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="OBJECTIVE">
-          <DataField>OBJECTIVE</DataField>
-          <rd:TypeName>System.Decimal</rd:TypeName>
+        <Field Name="Objective">
+          <DataField>Objective</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
         </Field>
         <Field Name="TEKS">
           <DataField>TEKS</DataField>
@@ -98,16 +98,14 @@
         </Field>
       </Fields>
       <Query>
-        <DataSourceName>DataSetBenchmarkStats</DataSourceName>
+        <DataSourceName>Benchmark_Instant_Reports_2InterfacesDBDataStruct</DataSourceName>
         <CommandText>/* Local Query */</CommandText>
       </Query>
       <rd:DataSetInfo>
-        <rd:DataSetName>DataSetBenchmarkStats</rd:DataSetName>
-        <rd:SchemaPath>C:\Documents and Settings\mholling\My Documents\DTA\Visual Studio 2010\Projects\Benchmark Instant Reports 2\Benchmark Instant Reports 2\DataSetBenchmarkStats.xsd</rd:SchemaPath>
-        <rd:TableName>TEMP_RESULTS_BENCHMARKSTATS</rd:TableName>
-        <rd:TableAdapterFillMethod>Fill</rd:TableAdapterFillMethod>
-        <rd:TableAdapterGetDataMethod>GetData</rd:TableAdapterGetDataMethod>
-        <rd:TableAdapterName>TEMP_RESULTS_BENCHMARKSTATSTableAdapter</rd:TableAdapterName>
+        <rd:DataSetName>Benchmark_Instant_Reports_2.Interfaces.DBDataStruct</rd:DataSetName>
+        <rd:TableName>ResultsTableData</rd:TableName>
+        <rd:ObjectDataSourceSelectMethod>GetItems</rd:ObjectDataSourceSelectMethod>
+        <rd:ObjectDataSourceType>Benchmark_Instant_Reports_2.Interfaces.DBDataStruct.ResultsTableData, Benchmark Instant Reports 2, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</rd:ObjectDataSourceType>
       </rd:DataSetInfo>
     </DataSet>
   </DataSets>
@@ -272,7 +270,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>=Sum(Fields!NUM_CORRECT.Value) / Sum(Fields!NUM_TOTAL.Value)</Value>
+                              <Value>=Sum(Fields!NumCorrect.Value) / Sum(Fields!NumTotal.Value)</Value>
                               <Style>
                                 <Format>0%</Format>
                               </Style>
@@ -304,7 +302,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>=Sum(Fields!NUM_CORRECT.Value) / Sum(Fields!NUM_TOTAL.Value)</Value>
+                              <Value>=Sum(Fields!NumCorrect.Value) / Sum(Fields!NumTotal.Value)</Value>
                               <Style>
                                 <FontWeight>Bold</FontWeight>
                                 <Format>0%</Format>
@@ -347,7 +345,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>=Sum(Fields!NUM_CORRECT.Value) / Sum(Fields!NUM_TOTAL.Value)</Value>
+                              <Value>=Sum(Fields!NumCorrect.Value) / Sum(Fields!NumTotal.Value)</Value>
                               <Style>
                                 <FontFamily>Tahoma</FontFamily>
                                 <FontWeight>Bold</FontWeight>
@@ -387,7 +385,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>=Sum(Fields!NUM_CORRECT.Value) / Sum(Fields!NUM_TOTAL.Value)</Value>
+                              <Value>=Sum(Fields!NumCorrect.Value) / Sum(Fields!NumTotal.Value)</Value>
                               <Style>
                                 <FontFamily>Tahoma</FontFamily>
                                 <FontWeight>Bold</FontWeight>
@@ -432,12 +430,12 @@
             <TablixMember>
               <Group Name="TEACHER">
                 <GroupExpressions>
-                  <GroupExpression>=Fields!TEACHER.Value</GroupExpression>
+                  <GroupExpression>=Fields!Teacher.Value</GroupExpression>
                 </GroupExpressions>
               </Group>
               <SortExpressions>
                 <SortExpression>
-                  <Value>=Fields!TEACHER.Value</Value>
+                  <Value>=Fields!Teacher.Value</Value>
                 </SortExpression>
               </SortExpressions>
               <TablixHeader>
@@ -450,7 +448,7 @@
                       <Paragraph>
                         <TextRuns>
                           <TextRun>
-                            <Value>=Fields!TEACHER.Value &amp; " (" &amp; Int(Sum(Fields!NUM_TOTAL.Value) / Count(Fields!NUM_TOTAL.Value) * CountDistinct(Fields!PERIOD.Value)) &amp; ")"</Value>
+                            <Value>=Fields!Teacher.Value &amp; " (" &amp; Int(Sum(Fields!NumTotal.Value) / Count(Fields!NumTotal.Value) * CountDistinct(Fields!Period.Value)) &amp; ")"</Value>
                             <Style>
                               <FontFamily>Tahoma</FontFamily>
                               <FontSize>8pt</FontSize>
@@ -497,7 +495,7 @@
                       <Paragraph>
                         <TextRuns>
                           <TextRun>
-                            <Value>=Fields!CAMPUS.Value &amp; " (" &amp; Int(Sum(Fields!NUM_TOTAL.Value) / Max(Fields!ITEM_NUM.Value)) &amp; ")"</Value>
+                            <Value>=Fields!Campus.Value &amp; " (" &amp; Int(Sum(Fields!NumTotal.Value) / Max(Fields!ItemNum.Value)) &amp; ")"</Value>
                             <Style>
                               <FontFamily>Tahoma</FontFamily>
                               <FontWeight>Bold</FontWeight>
@@ -542,12 +540,12 @@
             <TablixMember>
               <Group Name="ITEM_NUM">
                 <GroupExpressions>
-                  <GroupExpression>=Fields!ITEM_NUM.Value</GroupExpression>
+                  <GroupExpression>=Fields!ItemNum.Value</GroupExpression>
                 </GroupExpressions>
               </Group>
               <SortExpressions>
                 <SortExpression>
-                  <Value>=Fields!ITEM_NUM.Value</Value>
+                  <Value>=Fields!ItemNum.Value</Value>
                 </SortExpression>
               </SortExpressions>
               <TablixHeader>
@@ -560,7 +558,7 @@
                       <Paragraph>
                         <TextRuns>
                           <TextRun>
-                            <Value>=Fields!ITEM_NUM.Value</Value>
+                            <Value>=Fields!ItemNum.Value</Value>
                             <Style />
                           </TextRun>
                         </TextRuns>
@@ -593,7 +591,7 @@
                           <Paragraph>
                             <TextRuns>
                               <TextRun>
-                                <Value>=Fields!OBJECTIVE.Value</Value>
+                                <Value>=Fields!Objective.Value</Value>
                                 <Style />
                               </TextRun>
                             </TextRuns>
@@ -710,7 +708,7 @@
         <RepeatRowHeaders>true</RepeatRowHeaders>
         <FixedColumnHeaders>true</FixedColumnHeaders>
         <FixedRowHeaders>true</FixedRowHeaders>
-        <DataSetName>DataSetBenchmarkStats</DataSetName>
+        <DataSetName>TBenchmarkStats</DataSetName>
         <Top>0.08514in</Top>
         <Left>0.08001in</Left>
         <Height>0.66667in</Height>
@@ -753,7 +751,7 @@
             <Paragraph>
               <TextRuns>
                 <TextRun>
-                  <Value>=Fields!TEST_ID.Value</Value>
+                  <Value>=Fields!TestID.Value</Value>
                   <Style>
                     <FontWeight>Bold</FontWeight>
                   </Style>
@@ -786,7 +784,7 @@
             <Paragraph>
               <TextRuns>
                 <TextRun>
-                  <Value>=Fields!CAMPUS.Value</Value>
+                  <Value>=Fields!Campus.Value</Value>
                   <Style>
                     <FontWeight>Bold</FontWeight>
                   </Style>

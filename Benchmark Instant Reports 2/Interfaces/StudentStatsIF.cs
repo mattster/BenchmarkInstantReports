@@ -4,6 +4,8 @@ using System.Data;
 using System.Data.OracleClient;
 using Benchmark_Instant_Reports_2.Exceptions;
 using Benchmark_Instant_Reports_2.References;
+using System.Collections.Generic;
+using Benchmark_Instant_Reports_2.Interfaces.DBDataStruct;
 
 namespace Benchmark_Instant_Reports_2.Interfaces
 {
@@ -26,6 +28,7 @@ namespace Benchmark_Instant_Reports_2.Interfaces
         public static DataTable generateStudentStatsRepTable(DataTable studentData, string curTest)
         {
             DataView dv = new DataView(studentData);
+
             string curId;
             DataSet dsFinal = new DataSet();
             DataTable table = new DataTable();
@@ -49,7 +52,8 @@ namespace Benchmark_Instant_Reports_2.Interfaces
             table.Columns.Add(new DataColumn(lblStudentName, System.Type.GetType("System.String")));
             table.Columns.Add(new DataColumn(lblTestId, System.Type.GetType("System.String")));
             table.Columns.Add(new DataColumn(lblScanDate, System.Type.GetType("System.DateTime")));
-            table.Columns.Add(new DataColumn(lblLetterGrade, System.Type.GetType("System.Char")));
+            //table.Columns.Add(new DataColumn(lblLetterGrade, System.Type.GetType("System.Char")));
+            table.Columns.Add(new DataColumn(lblLetterGrade, System.Type.GetType("System.String")));
             table.Columns.Add(new DataColumn(lblNumCorrect, System.Type.GetType("System.Int32")));
             table.Columns.Add(new DataColumn(lblNumTotal, System.Type.GetType("System.Int32")));
             table.Columns.Add(new DataColumn(lblPctCorrect, System.Type.GetType("System.Decimal")));
@@ -58,7 +62,7 @@ namespace Benchmark_Instant_Reports_2.Interfaces
             table.Columns.Add(new DataColumn(lblCampus, System.Type.GetType("System.String")));
             table.Columns.Add(new DataColumn(lblTeacher, System.Type.GetType("System.String")));
             table.Columns.Add(new DataColumn(lblPeriod, System.Type.GetType("System.String")));
-
+            
 
             // grade each student's test and add it to the DataSet
             int numNull = 0;
@@ -85,7 +89,7 @@ namespace Benchmark_Instant_Reports_2.Interfaces
                         thisrow[lblTeacher].ToString(), thisrow[lblPeriod].ToString());
                     DataTable resultTable = birIF.gradeScannedTest(curTest, curScanDataRow["ANSWERS"].ToString(), curCampus, ansKeyVersionIncrement,
                         thisrow[lblTeacher].ToString(), thisrow[lblPeriod].ToString());
-                    thisrow[lblLetterGrade] = resultTable.Rows[0][lblLetterGrade];
+                    thisrow[lblLetterGrade] = resultTable.Rows[0][lblLetterGrade].ToString();
                     thisrow[lblNumCorrect] = resultTable.Rows[0][lblNumCorrect];
                     thisrow[lblNumTotal] = resultTable.Rows[0][lblNumTotal];
                     thisrow[lblPctCorrect] = resultTable.Rows[0][lblPctCorrect];

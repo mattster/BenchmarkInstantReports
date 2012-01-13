@@ -5,6 +5,7 @@ using System.Linq;
 using Benchmark_Instant_Reports_2.Exceptions;
 using Benchmark_Instant_Reports_2.Grading;
 using Benchmark_Instant_Reports_2.References;
+using Benchmark_Instant_Reports_2.Interfaces.DBDataStruct;
 
 
 
@@ -134,6 +135,20 @@ namespace Benchmark_Instant_Reports_2.Interfaces
             return makeUniqueDataSet(dbIFOracle.getDataRows(qs));
         }
 
+        public static List<StudentScanDataItem> getStudentScanListData2q(string benchmark, string campus)
+        {
+            string customQuery = GetRawCustomQuery(benchmark);
+            customQuery = customQuery.Replace("@school", "\'" + campus + "\'");
+
+            string qs = Queries.GetStudentScansFromTestQuery.Replace("@testId", benchmark);
+            qs = qs.Replace("@query", customQuery);
+            qs = qs.Replace("@teacherQuery", "1=1 ");
+            qs = qs.Replace("@periodQuery", "1=1 ");
+
+            return DBIOWorkaround.ReturnStudentScanDataItemsFromQ(qs);
+        }
+
+
 
         public static DataSet getStudentScanListData(string benchmark, string campus, string teacher)
         {
@@ -164,6 +179,22 @@ namespace Benchmark_Instant_Reports_2.Interfaces
             qs = qs.Replace("@periodQuery", "period in (" + periodList + ") ");
 
             return makeUniqueDataSet(dbIFOracle.getDataRows(qs));
+        }
+
+
+        public static List<StudentScanDataItem> getStudentScanListDataq(string benchmark, string campus, 
+            string teacher, string periodList)
+        {
+            string customQuery = GetRawCustomQuery(benchmark);
+            customQuery = customQuery.Replace("@school", "\'" + campus + "\'");
+
+            string qs = Queries.GetStudentScansFromTestQuery.Replace("@testId", benchmark);
+            qs = qs.Replace("@query", customQuery);
+            string qTeacher = teacher.Replace("'", "''");
+            qs = qs.Replace("@teacherQuery", "teacher_name = \'" + qTeacher + "\' ");
+            qs = qs.Replace("@periodQuery", "period in (" + periodList + ") ");
+
+            return DBIOWorkaround.ReturnStudentScanDataItemsFromQ(qs);
         }
 
 
@@ -764,6 +795,17 @@ namespace Benchmark_Instant_Reports_2.Interfaces
             }
         }
 
+
+        public static ScanItem getLatestScanDataRowq(string studentId, string testId)
+        {
+            string q = Queries.GetLatestScanForStudent;
+
+            q = q.Replace("@studentId", studentId);
+            q = q.Replace("@testId", testId);
+
+            return DBIOWorkaround.ReturnScanItemFromQ(q);
+
+        }
 
         //**********************************************************************//
         //** just like getLatestScanDataRow, but uses an existing data table

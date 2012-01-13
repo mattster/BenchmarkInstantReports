@@ -99,37 +99,14 @@ namespace Benchmark_Instant_Reports_2
 
             DataTable scanRepResultsTable = ScanReportIF.generateScanRepTable(ddCampus.SelectedValue.ToString(),
                 birUtilities.getLBSelectionsAsArray(lbListTests));
-            // write results to database
-            int r = ScanReportIF.writeScanReportResultsToDb(scanRepResultsTable);
 
             if (ddCampus.SelectedValue == "ALL Elementary" || ddCampus.SelectedValue == "ALL Secondary")
             {
                 // setup the report
                 repvwScanReport2.Visible = true;
                 repvwScanReport1.Visible = false;
-                ObjectDataSource ods = new ObjectDataSource();
-                ReportDataSource rds = new ReportDataSource();
 
-                // setup parameters for query
-                Parameter paramCampus;
-                if (ddCampus.SelectedValue == "ALL Elementary")
-                    paramCampus = new Parameter("parmCampus", DbType.String,
-                        birUtilities.convertStringArrayForQuery(birIF.getElemAbbrList()));
-                else
-                    paramCampus = new Parameter("parmCampus", DbType.String,
-                        birUtilities.convertStringArrayForQuery(birIF.getSecAbbrList()));
-
-                Parameter paramTestIDList = new Parameter("parmTestIdList", DbType.String,
-                    birUtilities.convertStringArrayForQuery(birUtilities.getLBSelectionsAsArray(lbListTests)));
-
-                ods.SelectMethod = "GetData";
-                ods.FilterExpression = "CAMPUS IN ({0}) AND TEST_ID IN ({1})";
-                ods.FilterParameters.Add(paramCampus);
-                ods.FilterParameters.Add(paramTestIDList);
-
-                ods.TypeName = "Benchmark_Instant_Reports_2.DataSetScanReportTableAdapters.TEMP_RESULTS_SCANREPORTTableAdapter";
-
-                rds = new ReportDataSource("DataSetScanReport", ods);
+                ReportDataSource rds = new ReportDataSource(repvwScanReport2.LocalReport.GetDataSourceNames()[0], scanRepResultsTable);
                 repvwScanReport2.LocalReport.DataSources.Clear();
                 repvwScanReport2.LocalReport.DataSources.Add(rds);
                 repvwScanReport2.ShowPrintButton = true;
@@ -142,22 +119,7 @@ namespace Benchmark_Instant_Reports_2
                 //setup the report
                 repvwScanReport1.Visible = true;
                 repvwScanReport2.Visible = false;
-                ObjectDataSource ods = new ObjectDataSource();
-                ReportDataSource rds = new ReportDataSource();
-
-                // setup parameters for query
-                Parameter paramCampus = new Parameter("parmCampus", DbType.String, ddCampus.SelectedValue.ToString());
-                Parameter paramTestIDList = new Parameter("parmTestIdList", DbType.String,
-                    birUtilities.convertStringArrayForQuery(birUtilities.getLBSelectionsAsArray(lbListTests)));
-
-                ods.SelectMethod = "GetData";
-                ods.FilterExpression = "CAMPUS = \'{0}\' AND  TEST_ID IN ({1})";
-                ods.FilterParameters.Add(paramCampus);
-                ods.FilterParameters.Add(paramTestIDList);
-
-                ods.TypeName = "Benchmark_Instant_Reports_2.DataSetScanReportTableAdapters.TEMP_RESULTS_SCANREPORTTableAdapter";
-
-                rds = new ReportDataSource("DataSetScanReport", ods);
+                ReportDataSource rds = new ReportDataSource(repvwScanReport1.LocalReport.GetDataSourceNames()[0], scanRepResultsTable);
                 repvwScanReport1.LocalReport.DataSources.Clear();
                 repvwScanReport1.LocalReport.DataSources.Add(rds);
                 repvwScanReport1.ShowPrintButton = true;

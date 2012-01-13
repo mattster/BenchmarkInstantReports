@@ -3107,6 +3107,7 @@ Iif(Fields!LETTER_GRADE.Value = "P","Pass",
                       <PaddingBottom>2pt</PaddingBottom>
                     </Style>
                   </Textbox>
+                  <rd:Selected>true</rd:Selected>
                 </CellContents>
               </TablixHeader>
               <TablixMembers>

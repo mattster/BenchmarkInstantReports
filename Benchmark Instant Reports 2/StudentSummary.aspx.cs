@@ -143,42 +143,18 @@ namespace Benchmark_Instant_Reports_2
                 dsStudentDataToGrade = birIF.getStudentDataToGrade(listTests.SelectedItem.ToString(),
                     ddCampus.SelectedValue.ToString());
 
-
             string selectFilter = "TEACHER_NAME = \'" + ddTeacher.SelectedItem.ToString().Replace("'", "''") + "\'";
             DataTable dtMatchingStudents = birUtilities.getFilteredTable(dsStudentDataToGrade.Tables[0], selectFilter);
-
-
-
             DataTable ssResultsDataTable = StudentStatsIF.generateStudentStatsRepTable(dtMatchingStudents,
                 listTests.SelectedItem.ToString());
 
             // add in the individual student answer data
             StudentSummaryIF.addStudentAnswerData(ssResultsDataTable, listTests.SelectedItem.ToString(), ddCampus.SelectedValue.ToString());
 
-            int r = StudentStatsIF.writeStudentStatsResultsToDb(ssResultsDataTable);
-
-
             repvwStudentSummary.Visible = true;
             lblAlignmentNote.Visible = true;
 
-            // setup the report
-            ObjectDataSource ods = new ObjectDataSource();
-            ReportDataSource rds = new ReportDataSource();
-
-            // setup parameters for query
-            Parameter paramCampus = new Parameter("parmCampus", DbType.String, ddCampus.SelectedValue.ToString());
-            Parameter paramTeacher = new Parameter("parmTeacher", DbType.String, ddTeacher.SelectedItem.ToString().Replace("'", "''"));
-            Parameter paramTestID = new Parameter("parmTestId", DbType.String, listTests.SelectedItem.ToString());
-
-            ods.SelectMethod = "GetDataByUseFilter";
-            ods.FilterExpression = "CAMPUS = \'{0}\' AND TEST_ID = \'{1}\' AND TEACHER = \'{2}\'";
-            ods.FilterParameters.Add(paramCampus);
-            ods.FilterParameters.Add(paramTestID);
-            ods.FilterParameters.Add(paramTeacher);
-
-            ods.TypeName = "Benchmark_Instant_Reports_2.DataSetStudentStatsTableAdapters.TEMP_RESULTS_STUDENTSTATSTableAdapter";
-
-            rds = new ReportDataSource("DataSetStudentStats", ods);
+            ReportDataSource rds = new ReportDataSource(repvwStudentSummary.LocalReport.GetDataSourceNames()[0], ssResultsDataTable);
             repvwStudentSummary.LocalReport.DataSources.Clear();
             repvwStudentSummary.LocalReport.DataSources.Add(rds);
             repvwStudentSummary.ShowPrintButton = true;
