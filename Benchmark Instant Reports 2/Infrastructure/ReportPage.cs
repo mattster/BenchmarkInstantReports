@@ -75,7 +75,6 @@ namespace Benchmark_Instant_Reports_2.Infrastructure
             return;
         }
 
-
         protected void setupTestFilters()
         {
             TestFilter.SetupTestFilterPopup(ddTFCur, ddTFSubj, ddTFTestType, ddTFTestVersion, ddCampus.SelectedValue.ToString());

@@ -186,13 +186,21 @@
       <DependentUpon>DataSetStudentStats2.xsd</DependentUpon>
     </Compile>
     <Compile Include="Grading\AnswerKey.cs" />
+    <Compile Include="Helpers\QueryHelper.cs" />
+    <Compile Include="Helpers\Reports\ScanRepHelper.cs" />
+    <Compile Include="Helpers\Reports\StGradesRepHelper.cs" />
+    <Compile Include="Helpers\ScanHelper.cs" />
+    <Compile Include="Helpers\SchoolHelper.cs" />
+    <Compile Include="Helpers\TestHelper.cs" />
     <Compile Include="Infrastructure\ClassKey.cs" />
+    <Compile Include="Infrastructure\DataEntityItem.cs" />
+    <Compile Include="Infrastructure\DataItemCollection.cs" />
     <Compile Include="Infrastructure\Extensions.cs" />
     <Compile Include="Interfaces\DBDataStruct\AnswerKeyItem.cs" />
     <Compile Include="Grading\GradeTest.cs" />
     <Compile Include="Grading\StudentData.cs" />
     <Compile Include="Helpers\Reports\AnswerCounter.cs" />
-    <Compile Include="Helpers\Reports\ItemAnalysisHelper.cs" />
+    <Compile Include="Helpers\Reports\IARepHelper.cs" />
     <Compile Include="Interfaces\BenchmarkStatsIF.cs" />
     <Compile Include="Interfaces\birUtilities.cs" />
     <Compile Include="Interfaces\birIF.cs" />
@@ -219,25 +227,21 @@
     <Compile Include="Infrastructure\ReportPage.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="Interfaces\DBDataStruct\AnswerKeyItemData.cs" />
     <Compile Include="Interfaces\DBDataStruct\DBIOWorkaround.cs" />
     <Compile Include="Interfaces\DBDataStruct\GradedItem.cs" />
     <Compile Include="Interfaces\DBDataStruct\GradedItemDetail.cs" />
-    <Compile Include="Interfaces\DBDataStruct\ResultsTableData.cs" />
-    <Compile Include="Interfaces\DBDataStruct\ResultsTableItem.cs" />
+    <Compile Include="Interfaces\DBDataStruct\IAReportData.cs" />
+    <Compile Include="Interfaces\DBDataStruct\IAReportItem.cs" />
+    <Compile Include="Interfaces\DBDataStruct\PreslugData.cs" />
+    <Compile Include="Interfaces\DBDataStruct\PreslugItem.cs" />
     <Compile Include="Interfaces\DBDataStruct\ScanItem.cs" />
-    <Compile Include="Interfaces\DBDataStruct\StudentScanDataItem.cs" />
-    <Compile Include="Interfaces\EF\BenchmarkStat.cs" />
-    <Compile Include="Interfaces\EF\EFDataSetBenchmarkStats.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>EFDataSetBenchmarkStats.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="Interfaces\EF\ReportStatsEntities.cs" />
-    <Compile Include="Interfaces\EF\ResultsModel.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ResultsModel.edmx</DependentUpon>
-    </Compile>
+    <Compile Include="Interfaces\DBDataStruct\ScanItemData.cs" />
+    <Compile Include="Interfaces\DBDataStruct\ScanReportData.cs" />
+    <Compile Include="Interfaces\DBDataStruct\ScanReportItem.cs" />
+    <Compile Include="Interfaces\DBDataStruct\StGradeReportData.cs" />
+    <Compile Include="Interfaces\DBDataStruct\StGradeReportItem.cs" />
+    <Compile Include="Interfaces\DBDataStruct\StudentListItem.cs" />
     <Compile Include="Metadata\AllTestMetadata.cs" />
     <Compile Include="Metadata\Curriculum.cs" />
     <Compile Include="Interfaces\ScanReportIF.cs" />
@@ -431,21 +435,7 @@
       <DependentUpon>DataSetStudentStats.xsd</DependentUpon>
     </None>
     <Content Include="packages.config" />
-    <EntityDeploy Include="Interfaces\EF\ResultsModel.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>ResultsModel.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <None Include="Interfaces\EF\EFDataSetBenchmarkStats.xsc">
-      <DependentUpon>EFDataSetBenchmarkStats.xsd</DependentUpon>
-    </None>
-    <None Include="Interfaces\EF\EFDataSetBenchmarkStats.xsd">
-      <SubType>Designer</SubType>
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>EFDataSetBenchmarkStats.Designer.cs</LastGenOutput>
-    </None>
-    <None Include="Interfaces\EF\EFDataSetBenchmarkStats.xss">
-      <DependentUpon>EFDataSetBenchmarkStats.xsd</DependentUpon>
-    </None>
+    <Compile Include="Interfaces\DBDataStruct\StudentListItemData.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="StudentStatsRep2.rdlc">

@@ -1,89 +1,87 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Report xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner" xmlns="http://schemas.microsoft.com/sqlserver/reporting/2008/01/reportdefinition">
   <DataSources>
-    <DataSource Name="DataSetScanReport">
+    <DataSource Name="Benchmark_Instant_Reports_2InterfacesDBDataStruct">
       <ConnectionProperties>
         <DataProvider>System.Data.DataSet</DataProvider>
         <ConnectString>/* Local Connection */</ConnectString>
       </ConnectionProperties>
-      <rd:DataSourceID>094fd699-5db9-44e1-94c8-ef161cefd69f</rd:DataSourceID>
+      <rd:DataSourceID>12de0050-937d-40c1-a6ce-8052a6c9507e</rd:DataSourceID>
     </DataSource>
   </DataSources>
   <DataSets>
-    <DataSet Name="DataSetStudentStatsC">
+    <DataSet Name="TStudentStatsRep">
       <Fields>
-        <Field Name="STUDENT_ID">
-          <DataField>STUDENT_ID</DataField>
+        <Field Name="StudentID">
+          <DataField>StudentID</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="STUDENT_NAME">
-          <DataField>STUDENT_NAME</DataField>
+        <Field Name="StudentName">
+          <DataField>StudentName</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="TEST_ID">
-          <DataField>TEST_ID</DataField>
+        <Field Name="TestID">
+          <DataField>TestID</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="SCAN_DATETIME">
-          <DataField>SCAN_DATETIME</DataField>
+        <Field Name="ScanDate">
+          <DataField>ScanDate</DataField>
           <rd:TypeName>System.DateTime</rd:TypeName>
         </Field>
-        <Field Name="LETTER_GRADE">
-          <DataField>LETTER_GRADE</DataField>
+        <Field Name="LetterGrade">
+          <DataField>LetterGrade</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="NUM_CORRECT">
-          <DataField>NUM_CORRECT</DataField>
+        <Field Name="NumCorrect">
+          <DataField>NumCorrect</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="NumTotal">
+          <DataField>NumTotal</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="PctCorrect">
+          <DataField>PctCorrect</DataField>
           <rd:TypeName>System.Decimal</rd:TypeName>
         </Field>
-        <Field Name="NUM_TOTAL">
-          <DataField>NUM_TOTAL</DataField>
-          <rd:TypeName>System.Decimal</rd:TypeName>
+        <Field Name="PassNum">
+          <DataField>PassNum</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
         </Field>
-        <Field Name="PCT_CORRECT">
-          <DataField>PCT_CORRECT</DataField>
-          <rd:TypeName>System.Decimal</rd:TypeName>
+        <Field Name="CommendedNum">
+          <DataField>CommendedNum</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
         </Field>
-        <Field Name="CAMPUS">
-          <DataField>CAMPUS</DataField>
+        <Field Name="Campus">
+          <DataField>Campus</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="TEACHER">
-          <DataField>TEACHER</DataField>
+        <Field Name="Teacher">
+          <DataField>Teacher</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="PERIOD">
-          <DataField>PERIOD</DataField>
+        <Field Name="Period">
+          <DataField>Period</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="GRADED_ANSWERS">
-          <DataField>GRADED_ANSWERS</DataField>
+        <Field Name="GradedAnswers">
+          <DataField>GradedAnswers</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="GRADED_ANSWERS_FORMATTED">
-          <DataField>GRADED_ANSWERS_FORMATTED</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="PASS_NUM">
-          <DataField>PASS_NUM</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="COMMENDED_NUM">
-          <DataField>COMMENDED_NUM</DataField>
+        <Field Name="GradedAnswersFormatted">
+          <DataField>GradedAnswersFormatted</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
       </Fields>
       <Query>
-        <DataSourceName>DataSetScanReport</DataSourceName>
+        <DataSourceName>Benchmark_Instant_Reports_2InterfacesDBDataStruct</DataSourceName>
         <CommandText>/* Local Query */</CommandText>
       </Query>
       <rd:DataSetInfo>
-        <rd:DataSetName>DataSetStudentStats</rd:DataSetName>
-        <rd:SchemaPath>D:\mholling\My Documents\Dropbox\dev\Benchmark Instant Reports 2\Benchmark Instant Reports 2\DataSetStudentStats.xsd</rd:SchemaPath>
-        <rd:TableName>TEMP_RESULTS_STUDENTSTATS</rd:TableName>
-        <rd:TableAdapterFillMethod>FillBy</rd:TableAdapterFillMethod>
-        <rd:TableAdapterGetDataMethod>GetDataBy</rd:TableAdapterGetDataMethod>
-        <rd:TableAdapterName>TEMP_RESULTS_STUDENTSTATSTableAdapter</rd:TableAdapterName>
+        <rd:DataSetName>Benchmark_Instant_Reports_2.Interfaces.DBDataStruct</rd:DataSetName>
+        <rd:TableName>StGradeReportData</rd:TableName>
+        <rd:ObjectDataSourceSelectMethod>GetItems</rd:ObjectDataSourceSelectMethod>
+        <rd:ObjectDataSourceType>Benchmark_Instant_Reports_2.Interfaces.DBDataStruct.StGradeReportData, Benchmark Instant Reports 2, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</rd:ObjectDataSourceType>
       </rd:DataSetInfo>
     </DataSet>
   </DataSets>
@@ -201,7 +199,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>= round(100 * count(fields!STUDENT_ID.Value) / count(fields!STUDENT_ID.Value, "CAMPUS"), 1) &amp; "%"</Value>
+                              <Value>= round(100 * count(Fields!StudentID.Value) / count(Fields!StudentID.Value, "CAMPUS"), 1) &amp; "%"</Value>
                               <Style />
                             </TextRun>
                           </TextRuns>
@@ -239,7 +237,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>= "(" &amp; count(fields!STUDENT_ID.Value) &amp; " / " &amp; count(fields!STUDENT_ID.Value, "CAMPUS") &amp; ")"</Value>
+                              <Value>= "(" &amp; count(fields!StudentID.Value) &amp; " / " &amp; count(fields!StudentID.Value, "CAMPUS") &amp; ")"</Value>
                               <Style />
                             </TextRun>
                           </TextRuns>
@@ -277,7 +275,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>= round(100 * Sum(fields!NUM_CORRECT.Value, "CAMPUS") / sum(fields!NUM_TOTAL.Value, "CAMPUS"), 1) &amp; "%"</Value>
+                              <Value>= round(100 * Sum(fields!NumCorrect.Value, "CAMPUS") / sum(fields!NumTotal.Value, "CAMPUS"), 1) &amp; "%"</Value>
                               <Style />
                             </TextRun>
                           </TextRuns>
@@ -317,7 +315,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>= round(100 * count(fields!STUDENT_ID.Value) / count(fields!STUDENT_ID.Value, "DataSetStudentStatsC"), 1) &amp; "%"</Value>
+                              <Value>= round(100 * count(fields!StudentID.Value) / count(fields!StudentID.Value, "TStudentStatsRep"), 1) &amp; "%"</Value>
                               <Style>
                                 <FontWeight>Bold</FontWeight>
                               </Style>
@@ -358,7 +356,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>= "(" &amp; count(fields!STUDENT_ID.Value) &amp; " / " &amp; count(fields!STUDENT_ID.Value, "DataSetStudentStatsC") &amp; ")"</Value>
+                              <Value>= "(" &amp; count(fields!StudentID.Value) &amp; " / " &amp; count(fields!StudentID.Value, "TStudentStatsRep") &amp; ")"</Value>
                               <Style>
                                 <FontWeight>Bold</FontWeight>
                               </Style>
@@ -399,7 +397,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>= round(100 * Sum(fields!NUM_CORRECT.Value, "DataSetStudentStatsC") / sum(fields!NUM_TOTAL.Value, "DataSetStudentStatsC"), 1) &amp; "%"</Value>
+                              <Value>= round(100 * Sum(fields!NumCorrect.Value, "TStudentStatsRep") / sum(fields!NumTotal.Value, "TStudentStatsRep"), 1) &amp; "%"</Value>
                               <Style>
                                 <FontWeight>Bold</FontWeight>
                               </Style>
@@ -525,32 +523,32 @@
             <TablixMember>
               <Group Name="CAMPUS">
                 <GroupExpressions>
-                  <GroupExpression>=Fields!CAMPUS.Value</GroupExpression>
+                  <GroupExpression>=Fields!Campus.Value</GroupExpression>
                 </GroupExpressions>
               </Group>
               <SortExpressions>
                 <SortExpression>
-                  <Value>=Fields!CAMPUS.Value</Value>
+                  <Value>=Fields!Campus.Value</Value>
                 </SortExpression>
               </SortExpressions>
               <TablixHeader>
                 <Size>1.02083in</Size>
                 <CellContents>
-                  <Textbox Name="CAMPUS1">
+                  <Textbox Name="Campus">
                     <CanGrow>true</CanGrow>
                     <KeepTogether>true</KeepTogether>
                     <Paragraphs>
                       <Paragraph>
                         <TextRuns>
                           <TextRun>
-                            <Value>=Fields!CAMPUS.Value</Value>
+                            <Value>=Fields!Campus.Value</Value>
                             <Style />
                           </TextRun>
                         </TextRuns>
                         <Style />
                       </Paragraph>
                     </Paragraphs>
-                    <rd:DefaultName>CAMPUS1</rd:DefaultName>
+                    <rd:DefaultName>Campus</rd:DefaultName>
                     <Style>
                       <Border>
                         <Color>LightGrey</Color>
@@ -571,11 +569,11 @@
                 <TablixMember>
                   <Group Name="GRADE1">
                     <GroupExpressions>
-                      <GroupExpression>=Fields!LETTER_GRADE.Value</GroupExpression>
+                      <GroupExpression>=Fields!LetterGrade.Value</GroupExpression>
                     </GroupExpressions>
                     <Filters>
                       <Filter>
-                        <FilterExpression>=Fields!LETTER_GRADE.Value</FilterExpression>
+                        <FilterExpression>=Fields!LetterGrade.Value</FilterExpression>
                         <Operator>Equal</Operator>
                         <FilterValues>
                           <FilterValue>P</FilterValue>
@@ -585,7 +583,7 @@
                   </Group>
                   <SortExpressions>
                     <SortExpression>
-                      <Value>=Fields!LETTER_GRADE.Value</Value>
+                      <Value>=Fields!LetterGrade.Value</Value>
                     </SortExpression>
                   </SortExpressions>
                   <TablixHeader>
@@ -628,11 +626,11 @@
             <TablixMember>
               <Group Name="GRADE2">
                 <GroupExpressions>
-                  <GroupExpression>=Fields!LETTER_GRADE.Value</GroupExpression>
+                  <GroupExpression>=Fields!LetterGrade.Value</GroupExpression>
                 </GroupExpressions>
                 <Filters>
                   <Filter>
-                    <FilterExpression>=Fields!LETTER_GRADE.Value</FilterExpression>
+                    <FilterExpression>=Fields!LetterGrade.Value</FilterExpression>
                     <Operator>Equal</Operator>
                     <FilterValues>
                       <FilterValue>P</FilterValue>
@@ -642,7 +640,7 @@
               </Group>
               <SortExpressions>
                 <SortExpression>
-                  <Value>=Fields!LETTER_GRADE.Value</Value>
+                  <Value>=Fields!LetterGrade.Value</Value>
                 </SortExpression>
               </SortExpressions>
               <TablixHeader>
@@ -726,7 +724,7 @@
             </TablixMember>
           </TablixMembers>
         </TablixRowHierarchy>
-        <DataSetName>DataSetStudentStatsC</DataSetName>
+        <DataSetName>TStudentStatsRep</DataSetName>
         <Top>0.34389in</Top>
         <Left>0.29875in</Left>
         <Height>0.75in</Height>
@@ -744,7 +742,7 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>=Fields!PASS_NUM.Value</Value>
+                <Value>=Sum(Fields!PassNum.Value, "TStudentStatsRep") &amp; " / " &amp; Sum(Fields!NumTotal.Value, "TStudentStatsRep") &amp; " (" &amp; 100 * Round(Sum(Fields!PassNum.Value, "TStudentStatsRep") / Sum(Fields!NumTotal.Value, "TStudentStatsRep"), 3) &amp; "%)"</Value>
                 <Style>
                   <FontWeight>Bold</FontWeight>
                 </Style>
@@ -1180,7 +1178,7 @@
             <Paragraph>
               <TextRuns>
                 <TextRun>
-                  <Value>=Fields!TEST_ID.Value</Value>
+                  <Value>=First(Fields!TestID.Value, "TStudentStatsRep")</Value>
                   <Style>
                     <FontWeight>Bold</FontWeight>
                   </Style>

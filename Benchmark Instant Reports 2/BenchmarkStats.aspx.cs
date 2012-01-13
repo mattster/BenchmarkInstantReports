@@ -40,7 +40,7 @@ namespace Benchmark_Instant_Reports_2
         private static string[] reportTypesListTeacherOnly = { repTypePctCorrectOneTeacher, repTypeAnsChoiceOneTeacher, repTypeAnsChoiceAllTeachers };
         private static string[] groupByList = { groupByQ, groupByObj, groupByTEKS };
 
-        private static ResultsTableData resultsData = new ResultsTableData();
+        private static IAReportData resultsData = new IAReportData();
 
         #endregion
 
@@ -227,7 +227,8 @@ namespace Benchmark_Instant_Reports_2
         protected void btnGenReport_Click(object sender, EventArgs e)
         {
             //** User clicked the Generate Report button ***//
-            List<StudentScanDataItem> studentData = new List<StudentScanDataItem>();
+            List<StudentListItem> studentData = new List<StudentListItem>();
+            //StudentListItemData studentData = new StudentListItemData();
             
             // generate results for the given criteria on the page if we need to
             if (reportDataParmsHaveChanged)
@@ -243,7 +244,7 @@ namespace Benchmark_Instant_Reports_2
                     studentData = StudentData.GetStudentDataToGradeq(listTests.SelectedItem.ToString(),
                         ddCampus.SelectedValue.ToString());
                 }
-                resultsData = ItemAnalysisHelper.generateBenchmarkStatsRepTableQ(studentData,
+                resultsData = IARepHelper.generateBenchmarkStatsRepTableQ(studentData,
                     listTests.SelectedItem.ToString(), ddCampus.SelectedValue.ToString());
 
                 reportDataParmsHaveChanged = false;
@@ -357,8 +358,8 @@ namespace Benchmark_Instant_Reports_2
             
             if (groupBySelection == groupByQ)
             {
-                repvwBenchmarkStats1a.LocalReport.DataSources.Clear();
                 ReportDataSource rds = new ReportDataSource(repvwBenchmarkStats1a.LocalReport.GetDataSourceNames()[0], resultsData.GetItems());
+                repvwBenchmarkStats1a.LocalReport.DataSources.Clear();
                 repvwBenchmarkStats1a.LocalReport.DataSources.Add(rds);
                 repvwBenchmarkStats1a.ShowPrintButton = true;
                 repvwBenchmarkStats1a.LocalReport.Refresh();
