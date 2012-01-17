@@ -490,6 +490,7 @@
   <ItemGroup>
     <Content Include="ScanReportRep2.rdlc">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
     </Content>
   </ItemGroup>
   <ItemGroup>

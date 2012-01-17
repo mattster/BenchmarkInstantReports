@@ -107,7 +107,6 @@ namespace Benchmark_Instant_Reports_2
                 // setup the report
                 repvwScanReport2.Visible = true;
                 repvwScanReport1.Visible = false;
-
                 ReportDataSource rds = new ReportDataSource(repvwScanReport2.LocalReport.GetDataSourceNames()[0], reportData.GetItems());
                 repvwScanReport2.LocalReport.DataSources.Clear();
                 repvwScanReport2.LocalReport.DataSources.Add(rds);
@@ -117,7 +116,6 @@ namespace Benchmark_Instant_Reports_2
 
             else
             {
-
                 //setup the report
                 repvwScanReport1.Visible = true;
                 repvwScanReport2.Visible = false;

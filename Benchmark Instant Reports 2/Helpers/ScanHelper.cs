@@ -46,7 +46,19 @@ namespace Benchmark_Instant_Reports_2.Helpers
         public static List<StudentListItem> GetStudentScanListData(string testid, string campus)
         {
             string customQuery = TestHelper.ReturnRawCustomQuery(testid);
-            customQuery = customQuery.Replace("@school", "\'" + campus + "\'");
+
+            if (campus == "ALL Elementary" || campus == "ALL Secondary")
+            {
+                customQuery = customQuery.Replace("AND R.SCHOOL2 = @school", " ");
+                customQuery = customQuery.Replace("AND SCHOOL2 = @school", " ");
+                customQuery = customQuery.Replace("AND SCHOOL_ABBR = @school", " ");
+                customQuery = customQuery.Replace("AND school_abbr = @school", " ");
+                customQuery = customQuery.Replace("and school_abbr = @school", " ");
+            }
+            else
+            {
+                customQuery = customQuery.Replace("@school", "\'" + campus + "\'");
+            }
 
             string qs = Queries.GetStudentScansFromTestQuery.Replace("@testId", testid);
             qs = qs.Replace("@query", customQuery);
