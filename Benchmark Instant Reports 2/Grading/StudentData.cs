@@ -16,23 +16,18 @@ namespace Benchmark_Instant_Reports_2.Grading
         public static List<StudentListItem> GetStudentDataToGradeq(string testID, string campus, string teacher = "",
             string periodList = "'00','01','02','03','04','05','06','07','08','09','10','11','12','13','14'")
         {
-            //DataSet dsReturn = new DataSet();
             List<string> studIdList1 = new List<string>();
 
-            // get a dataset of the student scans for this test and campus
-            string qs1 = Queries.GetScansForCampus.Replace("@campus", campus);
-            qs1 = qs1.Replace("@testId", testID);
-            DataSet dsStudentScansForCampus = dbIFOracle.getDataRows(qs1);
+            //// get a set of the student scans for this test and campus
+            //ScanItemData scans = DBIOWorkaround.ReturnDataFromScans(qs1);
 
-            // get a dataset of students who meet the criteria for this test
-            string qs2 = Queries.GetCustomQuery.Replace("@testId", testID);
-            DataSet dsCustQuery = dbIFOracle.getDataRows(qs2);
-            string qs3 = dsCustQuery.Tables[0].Rows[0][0].ToString().Replace("@school", "\'" + campus + "\'");
-            DataSet dsPreslugDataForTest = dbIFOracle.getDataRows(qs3);
-            string[] teacherList = birUtilities.getUniqueTableColumnStringValues(dsPreslugDataForTest.Tables[0], Constants.TeacherNameFieldName);
+            // get a set of students who meet the criteria for this test
+            PreslugData preslugged = ScanHelper.ReturnPreslugData(testID, campus);
+            string[] teacherList = preslugged.GetItems().Select(p => p.TeacherName).Distinct().ToArray();
+            Array.Sort(teacherList);
+
 
             // get student data for students who have scans and meet the test criteria
-            DataSet dsPresluggedStudentsWithScans = new DataSet();
             List<StudentListItem> PresluggedStudentsWithScans = new List<StudentListItem>();
             if (teacher == "")
                 PresluggedStudentsWithScans = ScanHelper.GetStudentScanListData(testID, campus);
@@ -41,25 +36,19 @@ namespace Benchmark_Instant_Reports_2.Grading
             List<StudentListItem> returnData = PresluggedStudentsWithScans;
 
             // get student ID's for students who have scans but do not meet the test criteria
-            string qs4 = Queries.GetStudentsWithScansNotInTestCriteria.Replace("@testId", testID);
-            qs4 = qs4.Replace("@campus", campus);
-            string customQuery = birIF.GetRawCustomQuery(testID);
-            customQuery = customQuery.Replace("@school", "\'" + campus + "\'");
-            qs4 = qs4.Replace("@query", customQuery);
-            DataSet dsStudentsWithScansNotInTestCriteria = dbIFOracle.getDataRows(qs4);
+            List<string> studentIDsWithScansNotInTestCriteria = DBIOWorkaround.ReturnStudentIDsWScansNotPreslugged(testID, campus);
 
             // for any students who do not match test criteria, try to match them up somehow
-            if (dsStudentsWithScansNotInTestCriteria.Tables[0].Rows.Count > 0)
+            if (studentIDsWithScansNotInTestCriteria.Count > 0)
             {
-                foreach (DataRow row in dsStudentsWithScansNotInTestCriteria.Tables[0].Rows)
+                foreach (string curstudentid in studentIDsWithScansNotInTestCriteria)
                 {
-                    string studentId = row["STUDENT_ID"].ToString();
+                    string studentId = curstudentid;
                     if (studentId.Length == 5)              // add a leading 0 if necessary - makes things better
                         studentId = "0" + studentId;
 
                     if (birUtilities.isTeacherUnknown(studentId))
                     {
-                        //DataRow temprow = returnTable.NewRow();
                         StudentListItem newItem = new StudentListItem();
                         newItem.StudentID = studentId;
                         newItem.StudentName = "";
@@ -88,6 +77,7 @@ namespace Benchmark_Instant_Reports_2.Grading
                         else
                         {
                             // try to match them up to teachers when removing the BENCHMARK_MOD criteria
+                            string customQuery = DBIOWorkaround.ReturnRawCustomQuery(testID);
                             string customQueryNoMod = customQuery.Replace("AND BENCHMARK_MOD LIKE \'____1\'", " ");
                             customQueryNoMod = customQueryNoMod.Replace("AND BENCHMARK_MOD LIKE \'___1_\'", " ");
                             customQueryNoMod = customQueryNoMod.Replace("AND BENCHMARK_MOD LIKE \'__1__\'", " ");

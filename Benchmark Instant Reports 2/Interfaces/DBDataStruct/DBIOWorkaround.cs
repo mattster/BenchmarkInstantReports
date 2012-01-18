@@ -56,6 +56,35 @@ namespace Benchmark_Instant_Reports_2.Interfaces.DBDataStruct
             return item;
         }
 
+        public static ScanItemData ReturnDataFromScans(string qs)
+        {
+            DataSet ds = dbIFOracle.getDataRows(qs);
+            if (ds.Tables.Count == 0)
+                return null;
+
+            ScanItemData finalData = new ScanItemData();
+
+            foreach (DataRow row in ds.Tables[0].Rows)
+            {
+                ScanItem item = new ScanItem();
+
+                item.DateScannedStr = row["DATE_SCANNED"].ToString();
+                item.ScanSequence = (int)(decimal)row["SCANNED_SEQUENCE"];
+                item.Imagepath = row["IMAGEPATH"].ToString();
+                item.Name = row["NAME"].ToString();
+                item.StudentID = row["STUDENT_ID"].ToString();
+                item.TestID = row["TEST_ID"].ToString();
+                item.Language = row["LANGUAGE_VERSION"].ToString();
+                item.Exempt = row["EXEMPT"].ToString();
+                item.PreSlugged = row["PRESLUGGED"].ToString();
+                item.Answers = row["ANSWERS"].ToString();
+
+                finalData.Add(item);
+            }
+
+            return finalData;
+        }
+
         public static List<AnswerKeyItem> ReturnAnswerKey(string qs)
         {
             DataSet ds = dbIFOracle.getDataRows(qs);
@@ -148,6 +177,27 @@ namespace Benchmark_Instant_Reports_2.Interfaces.DBDataStruct
             return query;
         }
 
-    
+
+        public static List<string> ReturnStudentIDsWScansNotPreslugged(string testid, string campus)
+        {
+            string qs4 = Queries.GetStudentsWithScansNotInTestCriteria.Replace("@testId", testid);
+            qs4 = qs4.Replace("@campus", campus);
+            string customQuery = birIF.GetRawCustomQuery(testid);
+            customQuery = customQuery.Replace("@school", "\'" + campus + "\'");
+            qs4 = qs4.Replace("@query", customQuery);
+            DataSet dsStudentsWithScansNotInTestCriteria = dbIFOracle.getDataRows(qs4);
+
+            if (dsStudentsWithScansNotInTestCriteria.Tables.Count == 0)
+                return null;
+
+            List<string> finalData = new List<string>();
+
+            foreach (DataRow row in dsStudentsWithScansNotInTestCriteria.Tables[0].Rows)
+            {
+                finalData.Add(row["STUDENT_ID"].ToString());
+            }
+
+            return finalData;
+        }
     }
 }

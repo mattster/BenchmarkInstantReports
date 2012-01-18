@@ -96,28 +96,37 @@
               <Width>0.28153in</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>2.16984in</Width>
+              <Width>1.9447in</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>0.66959in</Width>
+              <Width>0.56793in</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>0.51416in</Width>
+              <Width>0.46916in</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>0.48959in</Width>
+              <Width>0.61459in</Width>
             </TablixColumn>
             <TablixColumn>
               <Width>0.20833in</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>0.33374in</Width>
+              <Width>0.30624in</Width>
+            </TablixColumn>
+            <TablixColumn>
+              <Width>0.5104in</Width>
+            </TablixColumn>
+            <TablixColumn>
+              <Width>0.19792in</Width>
+            </TablixColumn>
+            <TablixColumn>
+              <Width>0.53152in</Width>
             </TablixColumn>
             <TablixColumn>
               <Width>0.46848in</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>1.35445in</Width>
+              <Width>1.2568in</Width>
             </TablixColumn>
           </TablixColumns>
           <TablixRows>
@@ -162,6 +171,9 @@
                   <CellContents>
                     <Textbox Name="Textbox9">
                       <CanGrow>true</CanGrow>
+                      <UserSort>
+                        <SortExpression>=Fields!STUDENT_NAME.Value</SortExpression>
+                      </UserSort>
                       <KeepTogether>true</KeepTogether>
                       <Paragraphs>
                         <Paragraph>
@@ -196,6 +208,9 @@
                   <CellContents>
                     <Textbox Name="Textbox45">
                       <CanGrow>true</CanGrow>
+                      <UserSort>
+                        <SortExpression>=Fields!STUDENT_ID.Value</SortExpression>
+                      </UserSort>
                       <KeepTogether>true</KeepTogether>
                       <Paragraphs>
                         <Paragraph>
@@ -230,12 +245,15 @@
                   <CellContents>
                     <Textbox Name="Textbox13">
                       <CanGrow>true</CanGrow>
+                      <UserSort>
+                        <SortExpression>=Fields!LETTER_GRADE.Value</SortExpression>
+                      </UserSort>
                       <KeepTogether>true</KeepTogether>
                       <Paragraphs>
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>Grade</Value>
+                              <Value>Pass?</Value>
                               <Style>
                                 <FontFamily>Tahoma</FontFamily>
                                 <FontWeight>Bold</FontWeight>
@@ -264,14 +282,18 @@
                   <CellContents>
                     <Textbox Name="Textbox24">
                       <CanGrow>true</CanGrow>
+                      <UserSort>
+                        <SortExpression>=Fields!NUM_CORRECT.Value</SortExpression>
+                      </UserSort>
                       <KeepTogether>true</KeepTogether>
                       <Paragraphs>
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>Correct /  Tot</Value>
+                              <Value>Raw Score</Value>
                               <Style>
                                 <FontFamily>Tahoma</FontFamily>
+                                <FontSize>8pt</FontSize>
                                 <FontWeight>Bold</FontWeight>
                               </Style>
                             </TextRun>
@@ -301,8 +323,51 @@
                 <TablixCell />
                 <TablixCell>
                   <CellContents>
+                    <Textbox Name="Textbox1">
+                      <CanGrow>true</CanGrow>
+                      <KeepTogether>true</KeepTogether>
+                      <Paragraphs>
+                        <Paragraph>
+                          <TextRuns>
+                            <TextRun>
+                              <Value>Weighted Score</Value>
+                              <Style>
+                                <FontFamily>Tahoma</FontFamily>
+                                <FontSize>8pt</FontSize>
+                                <FontWeight>Bold</FontWeight>
+                              </Style>
+                            </TextRun>
+                          </TextRuns>
+                          <Style>
+                            <TextAlign>Center</TextAlign>
+                          </Style>
+                        </Paragraph>
+                      </Paragraphs>
+                      <rd:DefaultName>Textbox1</rd:DefaultName>
+                      <Style>
+                        <Border>
+                          <Color>LightGrey</Color>
+                          <Style>Solid</Style>
+                        </Border>
+                        <BackgroundColor>LightGrey</BackgroundColor>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                    </Textbox>
+                    <ColSpan>3</ColSpan>
+                  </CellContents>
+                </TablixCell>
+                <TablixCell />
+                <TablixCell />
+                <TablixCell>
+                  <CellContents>
                     <Textbox Name="Textbox43">
                       <CanGrow>true</CanGrow>
+                      <UserSort>
+                        <SortExpression>=Fields!PCT_CORRECT.Value</SortExpression>
+                      </UserSort>
                       <KeepTogether>true</KeepTogether>
                       <Paragraphs>
                         <Paragraph>
@@ -627,6 +692,120 @@ Iif(Fields!LETTER_GRADE.Value = "P","Pass",
                         </Paragraph>
                       </Paragraphs>
                       <rd:DefaultName>NUM_TOTAL1</rd:DefaultName>
+                      <Style>
+                        <Border>
+                          <Color>LightGrey</Color>
+                          <Style>Solid</Style>
+                        </Border>
+                        <LeftBorder>
+                          <Style>None</Style>
+                        </LeftBorder>
+                        <RightBorder>
+                          <Style>None</Style>
+                        </RightBorder>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                    </Textbox>
+                  </CellContents>
+                </TablixCell>
+                <TablixCell>
+                  <CellContents>
+                    <Textbox Name="Textbox4">
+                      <CanGrow>true</CanGrow>
+                      <KeepTogether>true</KeepTogether>
+                      <Paragraphs>
+                        <Paragraph>
+                          <TextRuns>
+                            <TextRun>
+                              <Value />
+                              <Style>
+                                <FontFamily>Tahoma</FontFamily>
+                              </Style>
+                            </TextRun>
+                          </TextRuns>
+                          <Style />
+                        </Paragraph>
+                      </Paragraphs>
+                      <rd:DefaultName>Textbox4</rd:DefaultName>
+                      <Style>
+                        <Border>
+                          <Color>LightGrey</Color>
+                          <Style>Solid</Style>
+                        </Border>
+                        <LeftBorder>
+                          <Style>None</Style>
+                        </LeftBorder>
+                        <RightBorder>
+                          <Style>None</Style>
+                        </RightBorder>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                    </Textbox>
+                  </CellContents>
+                </TablixCell>
+                <TablixCell>
+                  <CellContents>
+                    <Textbox Name="Textbox10">
+                      <CanGrow>true</CanGrow>
+                      <KeepTogether>true</KeepTogether>
+                      <Paragraphs>
+                        <Paragraph>
+                          <TextRuns>
+                            <TextRun>
+                              <Value> / </Value>
+                              <Style>
+                                <FontFamily>Tahoma</FontFamily>
+                              </Style>
+                            </TextRun>
+                          </TextRuns>
+                          <Style />
+                        </Paragraph>
+                      </Paragraphs>
+                      <rd:DefaultName>Textbox10</rd:DefaultName>
+                      <Style>
+                        <Border>
+                          <Color>LightGrey</Color>
+                          <Style>Solid</Style>
+                        </Border>
+                        <LeftBorder>
+                          <Style>None</Style>
+                        </LeftBorder>
+                        <RightBorder>
+                          <Style>None</Style>
+                        </RightBorder>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                    </Textbox>
+                  </CellContents>
+                </TablixCell>
+                <TablixCell>
+                  <CellContents>
+                    <Textbox Name="Textbox22">
+                      <CanGrow>true</CanGrow>
+                      <KeepTogether>true</KeepTogether>
+                      <Paragraphs>
+                        <Paragraph>
+                          <TextRuns>
+                            <TextRun>
+                              <Value />
+                              <Style>
+                                <FontFamily>Tahoma</FontFamily>
+                              </Style>
+                            </TextRun>
+                          </TextRuns>
+                          <Style />
+                        </Paragraph>
+                      </Paragraphs>
+                      <rd:DefaultName>Textbox22</rd:DefaultName>
                       <Style>
                         <Border>
                           <Color>LightGrey</Color>
@@ -1215,6 +1394,126 @@ Iif(Fields!LETTER_GRADE.Value = "P","Pass",
                         </Paragraph>
                       </Paragraphs>
                       <rd:DefaultName>Textbox61</rd:DefaultName>
+                      <Style>
+                        <Border>
+                          <Color>LightGrey</Color>
+                          <Style>Solid</Style>
+                        </Border>
+                        <LeftBorder>
+                          <Style>None</Style>
+                        </LeftBorder>
+                        <RightBorder>
+                          <Style>None</Style>
+                        </RightBorder>
+                        <BackgroundColor>WhiteSmoke</BackgroundColor>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                    </Textbox>
+                  </CellContents>
+                </TablixCell>
+                <TablixCell>
+                  <CellContents>
+                    <Textbox Name="Textbox5">
+                      <CanGrow>true</CanGrow>
+                      <KeepTogether>true</KeepTogether>
+                      <Paragraphs>
+                        <Paragraph>
+                          <TextRuns>
+                            <TextRun>
+                              <Value />
+                              <Style>
+                                <FontFamily>Tahoma</FontFamily>
+                                <FontWeight>Bold</FontWeight>
+                              </Style>
+                            </TextRun>
+                          </TextRuns>
+                          <Style />
+                        </Paragraph>
+                      </Paragraphs>
+                      <rd:DefaultName>Textbox5</rd:DefaultName>
+                      <Style>
+                        <Border>
+                          <Color>LightGrey</Color>
+                          <Style>Solid</Style>
+                        </Border>
+                        <LeftBorder>
+                          <Style>None</Style>
+                        </LeftBorder>
+                        <RightBorder>
+                          <Style>None</Style>
+                        </RightBorder>
+                        <BackgroundColor>WhiteSmoke</BackgroundColor>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                    </Textbox>
+                  </CellContents>
+                </TablixCell>
+                <TablixCell>
+                  <CellContents>
+                    <Textbox Name="STUDENT_ID1">
+                      <CanGrow>true</CanGrow>
+                      <KeepTogether>true</KeepTogether>
+                      <Paragraphs>
+                        <Paragraph>
+                          <TextRuns>
+                            <TextRun>
+                              <Value> /</Value>
+                              <Style>
+                                <FontFamily>Tahoma</FontFamily>
+                                <FontWeight>Bold</FontWeight>
+                              </Style>
+                            </TextRun>
+                          </TextRuns>
+                          <Style />
+                        </Paragraph>
+                      </Paragraphs>
+                      <rd:DefaultName>STUDENT_ID1</rd:DefaultName>
+                      <Style>
+                        <Border>
+                          <Color>LightGrey</Color>
+                          <Style>Solid</Style>
+                        </Border>
+                        <LeftBorder>
+                          <Style>None</Style>
+                        </LeftBorder>
+                        <RightBorder>
+                          <Style>None</Style>
+                        </RightBorder>
+                        <BackgroundColor>WhiteSmoke</BackgroundColor>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                    </Textbox>
+                  </CellContents>
+                </TablixCell>
+                <TablixCell>
+                  <CellContents>
+                    <Textbox Name="Textbox30">
+                      <CanGrow>true</CanGrow>
+                      <KeepTogether>true</KeepTogether>
+                      <Paragraphs>
+                        <Paragraph>
+                          <TextRuns>
+                            <TextRun>
+                              <Value />
+                              <Style>
+                                <FontFamily>Tahoma</FontFamily>
+                                <FontWeight>Bold</FontWeight>
+                              </Style>
+                            </TextRun>
+                          </TextRuns>
+                          <Style />
+                        </Paragraph>
+                      </Paragraphs>
+                      <rd:DefaultName>Textbox30</rd:DefaultName>
                       <Style>
                         <Border>
                           <Color>LightGrey</Color>
@@ -1835,6 +2134,129 @@ Iif(Fields!LETTER_GRADE.Value = "P","Pass",
                 </TablixCell>
                 <TablixCell>
                   <CellContents>
+                    <Textbox Name="Textbox6">
+                      <CanGrow>true</CanGrow>
+                      <KeepTogether>true</KeepTogether>
+                      <Paragraphs>
+                        <Paragraph>
+                          <TextRuns>
+                            <TextRun>
+                              <Value />
+                              <Style>
+                                <FontFamily>Tahoma</FontFamily>
+                                <FontWeight>Bold</FontWeight>
+                                <Color>White</Color>
+                              </Style>
+                            </TextRun>
+                          </TextRuns>
+                          <Style />
+                        </Paragraph>
+                      </Paragraphs>
+                      <rd:DefaultName>Textbox6</rd:DefaultName>
+                      <Style>
+                        <Border>
+                          <Color>LightGrey</Color>
+                          <Style>Solid</Style>
+                        </Border>
+                        <LeftBorder>
+                          <Style>None</Style>
+                        </LeftBorder>
+                        <RightBorder>
+                          <Style>None</Style>
+                        </RightBorder>
+                        <BackgroundColor>DimGray</BackgroundColor>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                    </Textbox>
+                  </CellContents>
+                </TablixCell>
+                <TablixCell>
+                  <CellContents>
+                    <Textbox Name="Textbox19">
+                      <CanGrow>true</CanGrow>
+                      <KeepTogether>true</KeepTogether>
+                      <Paragraphs>
+                        <Paragraph>
+                          <TextRuns>
+                            <TextRun>
+                              <Value> /</Value>
+                              <Style>
+                                <FontFamily>Tahoma</FontFamily>
+                                <FontWeight>Bold</FontWeight>
+                                <Color>White</Color>
+                              </Style>
+                            </TextRun>
+                          </TextRuns>
+                          <Style />
+                        </Paragraph>
+                      </Paragraphs>
+                      <rd:DefaultName>Textbox19</rd:DefaultName>
+                      <Style>
+                        <Border>
+                          <Color>LightGrey</Color>
+                          <Style>Solid</Style>
+                        </Border>
+                        <LeftBorder>
+                          <Style>None</Style>
+                        </LeftBorder>
+                        <RightBorder>
+                          <Style>None</Style>
+                        </RightBorder>
+                        <BackgroundColor>DimGray</BackgroundColor>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                    </Textbox>
+                  </CellContents>
+                </TablixCell>
+                <TablixCell>
+                  <CellContents>
+                    <Textbox Name="Textbox31">
+                      <CanGrow>true</CanGrow>
+                      <KeepTogether>true</KeepTogether>
+                      <Paragraphs>
+                        <Paragraph>
+                          <TextRuns>
+                            <TextRun>
+                              <Value />
+                              <Style>
+                                <FontFamily>Tahoma</FontFamily>
+                                <FontWeight>Bold</FontWeight>
+                                <Color>White</Color>
+                              </Style>
+                            </TextRun>
+                          </TextRuns>
+                          <Style />
+                        </Paragraph>
+                      </Paragraphs>
+                      <rd:DefaultName>Textbox31</rd:DefaultName>
+                      <Style>
+                        <Border>
+                          <Color>LightGrey</Color>
+                          <Style>Solid</Style>
+                        </Border>
+                        <LeftBorder>
+                          <Style>None</Style>
+                        </LeftBorder>
+                        <RightBorder>
+                          <Style>None</Style>
+                        </RightBorder>
+                        <BackgroundColor>DimGray</BackgroundColor>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                    </Textbox>
+                  </CellContents>
+                </TablixCell>
+                <TablixCell>
+                  <CellContents>
                     <Textbox Name="Textbox75">
                       <CanGrow>true</CanGrow>
                       <KeepTogether>true</KeepTogether>
@@ -2154,6 +2576,9 @@ Iif(Fields!LETTER_GRADE.Value = "P","Pass",
             <TablixMember />
             <TablixMember />
             <TablixMember />
+            <TablixMember />
+            <TablixMember />
+            <TablixMember />
           </TablixMembers>
         </TablixColumnHierarchy>
         <TablixRowHierarchy>
@@ -2169,7 +2594,7 @@ Iif(Fields!LETTER_GRADE.Value = "P","Pass",
                       <Paragraph>
                         <TextRuns>
                           <TextRun>
-                            <Value>Period</Value>
+                            <Value>Period </Value>
                             <Style>
                               <FontFamily>Tahoma</FontFamily>
                               <FontWeight>Bold</FontWeight>
@@ -2252,11 +2677,6 @@ Iif(Fields!LETTER_GRADE.Value = "P","Pass",
               <TablixMembers>
                 <TablixMember>
                   <Group Name="Details" />
-                  <SortExpressions>
-                    <SortExpression>
-                      <Value>=Fields!STUDENT_ID.Value</Value>
-                    </SortExpression>
-                  </SortExpressions>
                 </TablixMember>
                 <TablixMember>
                   <KeepWithGroup>Before</KeepWithGroup>
@@ -2311,7 +2731,7 @@ Iif(Fields!LETTER_GRADE.Value = "P","Pass",
         <Top>1.05709in</Top>
         <Left>0.21168in</Left>
         <Height>1.03125in</Height>
-        <Width>7.05555in</Width>
+        <Width>7.92344in</Width>
         <Style>
           <Border>
             <Style>None</Style>
@@ -2334,7 +2754,7 @@ Iif(Fields!LETTER_GRADE.Value = "P","Pass",
               <Width>0.86458in</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>1.1875in</Width>
+              <Width>1.4375in</Width>
             </TablixColumn>
           </TablixColumns>
           <TablixRows>
@@ -2435,7 +2855,7 @@ Iif(Fields!LETTER_GRADE.Value = "P","Pass",
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>Avg % Correct</Value>
+                              <Value>Avg Weighted %</Value>
                               <Style>
                                 <FontFamily>Tahoma</FontFamily>
                                 <FontWeight>Bold</FontWeight>
@@ -3108,7 +3528,7 @@ Iif(Fields!LETTER_GRADE.Value = "P","Pass",
         <Top>0.0375in</Top>
         <Left>2.41264in</Left>
         <Height>0.75in</Height>
-        <Width>4.85444in</Width>
+        <Width>5.10444in</Width>
         <ZIndex>1</ZIndex>
         <Style>
           <Border>
@@ -3153,9 +3573,9 @@ Iif(Fields!LETTER_GRADE.Value = "P","Pass",
       </Textbox>
       <Line Name="Line2">
         <Top>0.92375in</Top>
-        <Left>7.06624in</Left>
+        <Left>7.86524in</Left>
         <Height>0in</Height>
-        <Width>-6.65356in</Width>
+        <Width>-7.45256in</Width>
         <ZIndex>3</ZIndex>
         <Style>
           <Border>
@@ -3283,7 +3703,7 @@ Iif(Fields!LETTER_GRADE.Value = "P","Pass",
     <Height>2.11459in</Height>
     <Style />
   </Body>
-  <Width>7.63167in</Width>
+  <Width>9.89528in</Width>
   <Page>
     <PageHeader>
       <Height>1.30209in</Height>

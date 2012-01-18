@@ -16,42 +16,42 @@ namespace Benchmark_Instant_Reports_2.Helpers.Reports
         {
             string curId;
             StGradeReportData finalData = new StGradeReportData();
-            Hashtable resultsDataH = new Hashtable();
             int ansKeyVersionIncrement = new int();
 
             // grade each student's test and add it to the DataSet
             int numNull = 0;
-            for (int j = 0; j < studentData.Count; j++)
+            foreach (StudentListItem item in studentData)
             {
-                curId = studentData[j].StudentID;
-                string curCampus = studentData[j].Campus;
+                curId = item.StudentID;
+                string curCampus = item.Campus;
                 ScanItem curScanDataItem = birIF.getLatestScanDataRowq(curId, curTest);
                 if (curScanDataItem != null)
                 {
                     ansKeyVersionIncrement = ExceptionHandler.campusAnswerKeyVersionIncrement(curTest, curCampus,
-                        studentData[j].TeacherName, studentData[j].Period);
+                        item.TeacherName, item.Period);
 
-                    List<GradedItem> gradedData = GradeTest.gradeScannedTestQ(curTest, curScanDataItem.Answers, curCampus, ansKeyVersionIncrement,
-                        studentData[j].TeacherName, studentData[j].Period);
+                    GradedItem gradedData = GradeTest.gradeScannedTestQ(curTest, curScanDataItem.Answers, curCampus, ansKeyVersionIncrement,
+                        item.TeacherName, item.Period);
 
                     StGradeReportItem newItem = new StGradeReportItem();
-                    newItem.StudentID = studentData[j].StudentID;
-                    newItem.StudentName = studentData[j].StudentName;
-                    newItem.TestID = studentData[j].TestID;
+                    newItem.StudentID = item.StudentID;
+                    newItem.StudentName = item.StudentName;
+                    newItem.TestID = item.TestID;
                     newItem.ScanDate = DateTime.Parse(curScanDataItem.DateScannedStr);
-                    newItem.Campus = studentData[j].Campus;
-                    newItem.Teacher = studentData[j].TeacherName;
-                    newItem.Period = studentData[j].Period;
+                    newItem.Campus = item.Campus;
+                    newItem.Teacher = item.TeacherName;
+                    newItem.Period = item.Period;
 
-                    newItem.LetterGrade = gradedData[0].LetterGrade;
-                    newItem.NumCorrect = gradedData[0].NumCorrect;
-                    newItem.NumTotal = gradedData[0].NumTotal;
-                    newItem.PctCorrect = gradedData[0].PctCorrect;
-                    newItem.PassNum = gradedData[0].PassNum;
-                    newItem.CommendedNum = gradedData[0].CommendedNum;
+                    newItem.LetterGrade = gradedData.LetterGrade;
+                    newItem.NumCorrect = gradedData.NumCorrect;
+                    newItem.NumTotal = gradedData.NumTotal;
+                    newItem.NumPoints = gradedData.NumPoints;
+                    newItem.NumTotalPoints = gradedData.NumTotalPoints;
+                    newItem.PctCorrect = gradedData.PctCorrect;
+                    newItem.PassNum = gradedData.PassNum;
+                    newItem.CommendedNum = gradedData.CommendedNum;
                     
-                    StGradeReportItemKey newItemKey = new StGradeReportItemKey(newItem);
-                    resultsDataH.Add(newItemKey, newItem);
+                    finalData.Add(newItem);
                 }
                 else
                 {
@@ -59,7 +59,7 @@ namespace Benchmark_Instant_Reports_2.Helpers.Reports
                 }
             }
 
-            return new StGradeReportData(resultsDataH.Values.Cast<StGradeReportItem>().ToList());
+            return finalData;
         }
     }
 }

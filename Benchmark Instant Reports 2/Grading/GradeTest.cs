@@ -11,7 +11,8 @@ namespace Benchmark_Instant_Reports_2.Grading
 {
     public class GradeTest
     {
-        public static List<GradedItemDetail> gradeScannedTestDetailQ(string testID, string studentAnswerString, string curCampus, int ansKeyIncAmt, string teacher, string period)
+        public static List<GradedItemDetail> gradeScannedTestDetailQ(string testID, string studentAnswerString, string curCampus, 
+                                                                     int ansKeyIncAmt, string teacher, string period)
         {
             int itemObjective = new int();
             int curItemNum = new int();
@@ -75,9 +76,11 @@ namespace Benchmark_Instant_Reports_2.Grading
         }
 
 
-        public static List<GradedItem> gradeScannedTestQ(string testID, string studentAnswerString, string curCampus, int ansKeyIncAmt, string teacher, string period)
+        public static GradedItem gradeScannedTestQ(string testID, string studentAnswerString, string curCampus, int ansKeyIncAmt, 
+                                                         string teacher, string period)
         {
             int numCorrect, numTotal = new int();
+            decimal numPoints, numTotalPoints = new decimal();
             int curItemNum = new int();
             decimal pctCorrect = new decimal();
             char letterGrade = new char();
@@ -100,44 +103,52 @@ namespace Benchmark_Instant_Reports_2.Grading
 
             //grade each item on the test
             numCorrect = 0;
+            numPoints = 0;
+            numTotalPoints = 0;
             numTotal = theAnswerKey.Count;
 
-            for (int i = 0; i < numTotal; i++)
+            //for (int i = 0; i < numTotal; i++)
+            foreach (AnswerKeyItem itemAnswerKey in theAnswerKey)
             {
-                curItemNum = theAnswerKey[i].ItemNum;
+                curItemNum = itemAnswerKey.ItemNum;
 
                 if (studentAnswerStringArray.Length >= curItemNum)       // a student answer exists
                 {
-                    if (studentAnswerStringArray[curItemNum - 1] == theAnswerKey[i].Answer)
+                    if (studentAnswerStringArray[curItemNum - 1] == itemAnswerKey.Answer)
                     {
                         // student's answer is correct
                         numCorrect++;
+                        numPoints += itemAnswerKey.Weight;
                     }
-                    if (studentAnswerStringArray[curItemNum - 1] == ExceptionHandler.getAlternateAnswer(testID, curItemNum, curCampus))
+                    else if (studentAnswerStringArray[curItemNum - 1] == ExceptionHandler.getAlternateAnswer(testID, curItemNum, curCampus))
                     {
                         // student's answer is correct as the alternate answer
                         numCorrect++;
+                        numPoints += itemAnswerKey.Weight;
                     }
+
+                    numTotalPoints += itemAnswerKey.Weight;
                 }
             }
 
             //calculate stuff
-            pctCorrect = (decimal)numCorrect / (decimal)numTotal;
+            //pctCorrect = (decimal)numCorrect / (decimal)numTotal;
+            pctCorrect = numPoints / numTotalPoints;
             letterGrade = birUtilities.calcLetterGrade(testID, numCorrect, numTotal, passNum, commendedNum);
 
             //return the results
-            List<GradedItem> finalData = new List<GradedItem>();
             GradedItem newItem = new GradedItem();
             newItem.LetterGrade = letterGrade.ToString();
             newItem.NumCorrect = numCorrect;
             newItem.NumTotal = numTotal;
+            newItem.NumPoints = numPoints;
+            newItem.NumTotalPoints = numTotalPoints;
             newItem.PctCorrect = pctCorrect;
             newItem.PassNum = passNum;
             newItem.CommendedNum = commendedNum;
-            finalData.Add(newItem);
 
             //return table;
-            return finalData;
+            return newItem;
         }
 
     }

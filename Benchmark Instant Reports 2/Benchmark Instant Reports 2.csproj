@@ -359,11 +359,6 @@
     <Content Include="Site.Master" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="StudentStatsRep1.rdlc">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="content\files\Lexmark Introduction 201108.pdf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -438,11 +433,6 @@
     <Compile Include="Interfaces\DBDataStruct\StudentListItemData.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="StudentStatsRep2.rdlc">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="ScanReportRep1.rdlc">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -514,11 +504,6 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="StudentStatsRep2_orig.rdlc">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="StudentStatsRep2a.rdlc">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -527,13 +512,6 @@
     <Content Include="StudentStatsRep2b.rdlc">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="StudentStatsRep2c.rdlc">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="Report1.rdlc">
       <SubType>Designer</SubType>
     </EmbeddedResource>
