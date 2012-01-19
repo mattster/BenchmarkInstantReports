@@ -396,7 +396,7 @@
               </TablixCells>
             </TablixRow>
             <TablixRow>
-              <Height>0.25in</Height>
+              <Height>0.22083in</Height>
               <TablixCells>
                 <TablixCell>
                   <CellContents>
@@ -645,7 +645,9 @@ Iif(Fields!LetterGrade.Value = "P","Pass",
                               </Style>
                             </TextRun>
                           </TextRuns>
-                          <Style />
+                          <Style>
+                            <TextAlign>Left</TextAlign>
+                          </Style>
                         </Paragraph>
                       </Paragraphs>
                       <rd:DefaultName>NumTotal</rd:DefaultName>
@@ -680,7 +682,7 @@ Iif(Fields!LetterGrade.Value = "P","Pass",
                               <Value>=Fields!PctCorrect.Value</Value>
                               <Style>
                                 <FontFamily>Tahoma</FontFamily>
-                                <Format>0%</Format>
+                                <Format>0.0%</Format>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -1233,7 +1235,9 @@ Iif(Fields!LetterGrade.Value = "P","Pass",
                               </Style>
                             </TextRun>
                           </TextRuns>
-                          <Style />
+                          <Style>
+                            <TextAlign>Left</TextAlign>
+                          </Style>
                         </Paragraph>
                       </Paragraphs>
                       <rd:DefaultName>Textbox61</rd:DefaultName>
@@ -1266,11 +1270,11 @@ Iif(Fields!LetterGrade.Value = "P","Pass",
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>=Sum(Fields!NumCorrect.Value) / Sum(Fields!NumTotal.Value)</Value>
+                              <Value>=Avg(Fields!PctCorrect.Value)</Value>
                               <Style>
                                 <FontFamily>Tahoma</FontFamily>
                                 <FontWeight>Bold</FontWeight>
-                                <Format>0%</Format>
+                                <Format>0.0%</Format>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -1831,7 +1835,9 @@ Iif(Fields!LetterGrade.Value = "P","Pass",
                               </Style>
                             </TextRun>
                           </TextRuns>
-                          <Style />
+                          <Style>
+                            <TextAlign>Left</TextAlign>
+                          </Style>
                         </Paragraph>
                       </Paragraphs>
                       <rd:DefaultName>Textbox74</rd:DefaultName>
@@ -1864,11 +1870,11 @@ Iif(Fields!LetterGrade.Value = "P","Pass",
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>=Sum(Fields!NumCorrect.Value, "TStudentGradeReport") / Sum(Fields!NumTotal.Value, "TStudentGradeReport")</Value>
+                              <Value>=Avg(Fields!PctCorrect.Value, "TStudentGradeReport")</Value>
                               <Style>
                                 <FontFamily>Tahoma</FontFamily>
                                 <FontWeight>Bold</FontWeight>
-                                <Format>0%</Format>
+                                <Format>0.0%</Format>
                                 <Color>White</Color>
                               </Style>
                             </TextRun>
@@ -2327,7 +2333,7 @@ Iif(Fields!LetterGrade.Value = "P","Pass",
         <DataSetName>TStudentGradeReport</DataSetName>
         <Top>1.05709in</Top>
         <Left>0.21168in</Left>
-        <Height>1.03125in</Height>
+        <Height>1.00208in</Height>
         <Width>7.0554in</Width>
         <Style>
           <Border>

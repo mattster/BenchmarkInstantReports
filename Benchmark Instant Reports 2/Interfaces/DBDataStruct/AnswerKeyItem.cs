@@ -17,7 +17,7 @@ namespace Benchmark_Instant_Reports_2.Interfaces.DBDataStruct
         public string Answer { get; set; }
         public int Category { get; set; }
         public string TEKS { get; set; }
-        public int Weight { get; set; }
+        public decimal Weight { get; set; }
 
         /// <summary>
         /// default constructor - empty / blank / zero items

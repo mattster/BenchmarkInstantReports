@@ -75,6 +75,7 @@ namespace Benchmark_Instant_Reports_2
             listTests.Enabled = true;
             btnGenReport.Enabled = true;
             repvwStudentStats2a.Visible = false;
+            repvwStudentStats2b.Visible = false;
 
             int bidx = birUtilities.getIndexOfDDItem(birUtilities.savedSelectedTestID(Request), listTests);
             if (bidx != -1)
@@ -105,6 +106,7 @@ namespace Benchmark_Instant_Reports_2
             if (listOfTeachers.Count() == 0)
             {
                 repvwStudentStats2a.Visible = false;
+                repvwStudentStats2b.Visible = false;
                 lblNoScanData.Visible = true;
 
                 return;
@@ -123,6 +125,7 @@ namespace Benchmark_Instant_Reports_2
 
             birUtilities.toggleDDLInitView(ddTeacher, true);
             repvwStudentStats2a.Visible = false;
+            repvwStudentStats2b.Visible = false;
 
             return;
         }
@@ -132,6 +135,7 @@ namespace Benchmark_Instant_Reports_2
         {
             //*** User selected a teacher ***//
             repvwStudentStats2a.Visible = false;
+            repvwStudentStats2b.Visible = false;
 
             return;
         }
@@ -143,20 +147,34 @@ namespace Benchmark_Instant_Reports_2
                 studentDataToGrade = StudentData.GetStudentDataToGradeq(listTests.SelectedItem.ToString(),
                     ddCampus.SelectedValue.ToString(), ddTeacher.SelectedItem.ToString());
 
-            StGradeReportData gradedData = StGradesRepHelper.generateStudentStatsRepTable(studentDataToGrade, 
+            StGradeReportData gradedData = StGradesRepHelper.generateStudentStatsRepTable(studentDataToGrade,
                 listTests.SelectedItem.ToString());
 
-            ReportDataSource rds = new ReportDataSource(repvwStudentStats2a.LocalReport.GetDataSourceNames()[0],
-                gradedData.GetItems());
+            if (TestHelper.UsesWeightedAnswers(listTests.SelectedItem.ToString()))
+            {
+                //test with weighted items
+                ReportDataSource rds = new ReportDataSource(repvwStudentStats2b.LocalReport.GetDataSourceNames()[0],
+                    gradedData.GetItems());
+                repvwStudentStats2b.Visible = true;
+                repvwStudentStats2a.Visible = false;
 
-            repvwStudentStats2a.Visible = true;
+                this.repvwStudentStats2b.LocalReport.DataSources.Clear();
+                this.repvwStudentStats2b.LocalReport.DataSources.Add(rds);
+                this.repvwStudentStats2b.ShowPrintButton = true;
+                this.repvwStudentStats2b.LocalReport.Refresh();
+            }
+            else
+            {
+                ReportDataSource rds = new ReportDataSource(repvwStudentStats2a.LocalReport.GetDataSourceNames()[0],
+                    gradedData.GetItems());
+                repvwStudentStats2a.Visible = true;
+                repvwStudentStats2b.Visible = false;
 
-            // setup the report
-            this.repvwStudentStats2a.LocalReport.DataSources.Clear();
-            this.repvwStudentStats2a.LocalReport.DataSources.Add(rds);
-            this.repvwStudentStats2a.ShowPrintButton = true;
-            this.repvwStudentStats2a.LocalReport.Refresh();
-
+                this.repvwStudentStats2a.LocalReport.DataSources.Clear();
+                this.repvwStudentStats2a.LocalReport.DataSources.Add(rds);
+                this.repvwStudentStats2a.ShowPrintButton = true;
+                this.repvwStudentStats2a.LocalReport.Refresh();
+            }
 
             return;
         }
@@ -186,6 +204,7 @@ namespace Benchmark_Instant_Reports_2
             ddTeacher.AutoPostBack = true;
             btnGenReport.Enabled = true;
             repvwStudentStats2a.Visible = false;
+            repvwStudentStats2b.Visible = false;
             lblNoScanData.Visible = false;
 
             // load list of campuses in Campus dropdown

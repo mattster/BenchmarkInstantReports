@@ -1,89 +1,95 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Report xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner" xmlns="http://schemas.microsoft.com/sqlserver/reporting/2008/01/reportdefinition">
   <DataSources>
-    <DataSource Name="DataSetStudentStats">
+    <DataSource Name="Benchmark_Instant_Reports_2InterfacesDBDataStruct">
       <ConnectionProperties>
         <DataProvider>System.Data.DataSet</DataProvider>
         <ConnectString>/* Local Connection */</ConnectString>
       </ConnectionProperties>
-      <rd:DataSourceID>c3c832e2-3313-4bf4-b5c1-fe2d4e454747</rd:DataSourceID>
+      <rd:DataSourceID>cc557392-0501-4e3c-8863-75e68efc6747</rd:DataSourceID>
     </DataSource>
   </DataSources>
   <DataSets>
-    <DataSet Name="DataSetStudentStatsRep2">
+    <DataSet Name="TStudentGradeReport">
       <Fields>
-        <Field Name="STUDENT_ID">
-          <DataField>STUDENT_ID</DataField>
+        <Field Name="StudentID">
+          <DataField>StudentID</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="STUDENT_NAME">
-          <DataField>STUDENT_NAME</DataField>
+        <Field Name="StudentName">
+          <DataField>StudentName</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="TEST_ID">
-          <DataField>TEST_ID</DataField>
+        <Field Name="TestID">
+          <DataField>TestID</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="SCAN_DATETIME">
-          <DataField>SCAN_DATETIME</DataField>
+        <Field Name="ScanDate">
+          <DataField>ScanDate</DataField>
           <rd:TypeName>System.DateTime</rd:TypeName>
         </Field>
-        <Field Name="LETTER_GRADE">
-          <DataField>LETTER_GRADE</DataField>
+        <Field Name="LetterGrade">
+          <DataField>LetterGrade</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="NUM_CORRECT">
-          <DataField>NUM_CORRECT</DataField>
+        <Field Name="NumCorrect">
+          <DataField>NumCorrect</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="NumTotal">
+          <DataField>NumTotal</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="NumPoints">
+          <DataField>NumPoints</DataField>
           <rd:TypeName>System.Decimal</rd:TypeName>
         </Field>
-        <Field Name="NUM_TOTAL">
-          <DataField>NUM_TOTAL</DataField>
+        <Field Name="NumTotalPoints">
+          <DataField>NumTotalPoints</DataField>
           <rd:TypeName>System.Decimal</rd:TypeName>
         </Field>
-        <Field Name="PCT_CORRECT">
-          <DataField>PCT_CORRECT</DataField>
+        <Field Name="PctCorrect">
+          <DataField>PctCorrect</DataField>
           <rd:TypeName>System.Decimal</rd:TypeName>
         </Field>
-        <Field Name="CAMPUS">
-          <DataField>CAMPUS</DataField>
+        <Field Name="PassNum">
+          <DataField>PassNum</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="CommendedNum">
+          <DataField>CommendedNum</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="Campus">
+          <DataField>Campus</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="TEACHER">
-          <DataField>TEACHER</DataField>
+        <Field Name="Teacher">
+          <DataField>Teacher</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="PERIOD">
-          <DataField>PERIOD</DataField>
+        <Field Name="Period">
+          <DataField>Period</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="GRADED_ANSWERS">
-          <DataField>GRADED_ANSWERS</DataField>
+        <Field Name="GradedAnswers">
+          <DataField>GradedAnswers</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="GRADED_ANSWERS_FORMATTED">
-          <DataField>GRADED_ANSWERS_FORMATTED</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="PASS_NUM">
-          <DataField>PASS_NUM</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="COMMENDED_NUM">
-          <DataField>COMMENDED_NUM</DataField>
+        <Field Name="GradedAnswersFormatted">
+          <DataField>GradedAnswersFormatted</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
       </Fields>
       <Query>
-        <DataSourceName>DataSetStudentStats</DataSourceName>
+        <DataSourceName>Benchmark_Instant_Reports_2InterfacesDBDataStruct</DataSourceName>
         <CommandText>/* Local Query */</CommandText>
       </Query>
       <rd:DataSetInfo>
-        <rd:DataSetName>DataSetStudentStats</rd:DataSetName>
-        <rd:SchemaPath>D:\mholling\My Documents\Dropbox\dev\Benchmark Instant Reports 2\Benchmark Instant Reports 2\DataSetStudentStats.xsd</rd:SchemaPath>
-        <rd:TableName>TEMP_RESULTS_STUDENTSTATS</rd:TableName>
-        <rd:TableAdapterFillMethod>FillBy</rd:TableAdapterFillMethod>
-        <rd:TableAdapterGetDataMethod>GetDataBy</rd:TableAdapterGetDataMethod>
-        <rd:TableAdapterName>TEMP_RESULTS_STUDENTSTATSTableAdapter</rd:TableAdapterName>
+        <rd:DataSetName>Benchmark_Instant_Reports_2.Interfaces.DBDataStruct</rd:DataSetName>
+        <rd:TableName>StGradeReportData</rd:TableName>
+        <rd:ObjectDataSourceSelectMethod>GetItems</rd:ObjectDataSourceSelectMethod>
+        <rd:ObjectDataSourceType>Benchmark_Instant_Reports_2.Interfaces.DBDataStruct.StGradeReportData, Benchmark Instant Reports 2, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</rd:ObjectDataSourceType>
       </rd:DataSetInfo>
     </DataSet>
   </DataSets>
@@ -105,22 +111,25 @@
               <Width>0.46916in</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>0.61459in</Width>
+              <Width>0.41667in</Width>
             </TablixColumn>
             <TablixColumn>
               <Width>0.20833in</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>0.30624in</Width>
+              <Width>0.27499in</Width>
             </TablixColumn>
             <TablixColumn>
               <Width>0.5104in</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>0.19792in</Width>
+              <Width>0.1875in</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>0.53152in</Width>
+              <Width>0.32319in</Width>
+            </TablixColumn>
+            <TablixColumn>
+              <Width>0.11458in</Width>
             </TablixColumn>
             <TablixColumn>
               <Width>0.46848in</Width>
@@ -172,7 +181,7 @@
                     <Textbox Name="Textbox9">
                       <CanGrow>true</CanGrow>
                       <UserSort>
-                        <SortExpression>=Fields!STUDENT_NAME.Value</SortExpression>
+                        <SortExpression>=Fields!StudentName.Value</SortExpression>
                       </UserSort>
                       <KeepTogether>true</KeepTogether>
                       <Paragraphs>
@@ -209,7 +218,7 @@
                     <Textbox Name="Textbox45">
                       <CanGrow>true</CanGrow>
                       <UserSort>
-                        <SortExpression>=Fields!STUDENT_ID.Value</SortExpression>
+                        <SortExpression>=Fields!StudentID.Value</SortExpression>
                       </UserSort>
                       <KeepTogether>true</KeepTogether>
                       <Paragraphs>
@@ -246,14 +255,14 @@
                     <Textbox Name="Textbox13">
                       <CanGrow>true</CanGrow>
                       <UserSort>
-                        <SortExpression>=Fields!LETTER_GRADE.Value</SortExpression>
+                        <SortExpression>=Fields!LetterGrade.Value</SortExpression>
                       </UserSort>
                       <KeepTogether>true</KeepTogether>
                       <Paragraphs>
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>Pass?</Value>
+                              <Value>P/F</Value>
                               <Style>
                                 <FontFamily>Tahoma</FontFamily>
                                 <FontWeight>Bold</FontWeight>
@@ -283,7 +292,7 @@
                     <Textbox Name="Textbox24">
                       <CanGrow>true</CanGrow>
                       <UserSort>
-                        <SortExpression>=Fields!NUM_CORRECT.Value</SortExpression>
+                        <SortExpression>=Fields!NumCorrect.Value</SortExpression>
                       </UserSort>
                       <KeepTogether>true</KeepTogether>
                       <Paragraphs>
@@ -325,6 +334,9 @@
                   <CellContents>
                     <Textbox Name="Textbox1">
                       <CanGrow>true</CanGrow>
+                      <UserSort>
+                        <SortExpression>=Fields!NumPoints.Value</SortExpression>
+                      </UserSort>
                       <KeepTogether>true</KeepTogether>
                       <Paragraphs>
                         <Paragraph>
@@ -363,10 +375,46 @@
                 <TablixCell />
                 <TablixCell>
                   <CellContents>
+                    <Textbox Name="Textbox4">
+                      <CanGrow>true</CanGrow>
+                      <KeepTogether>true</KeepTogether>
+                      <Paragraphs>
+                        <Paragraph>
+                          <TextRuns>
+                            <TextRun>
+                              <Value />
+                              <Style>
+                                <FontFamily>Tahoma</FontFamily>
+                                <FontWeight>Bold</FontWeight>
+                              </Style>
+                            </TextRun>
+                          </TextRuns>
+                          <Style>
+                            <TextAlign>Right</TextAlign>
+                          </Style>
+                        </Paragraph>
+                      </Paragraphs>
+                      <rd:DefaultName>Textbox4</rd:DefaultName>
+                      <Style>
+                        <Border>
+                          <Color>LightGrey</Color>
+                          <Style>Solid</Style>
+                        </Border>
+                        <BackgroundColor>LightGrey</BackgroundColor>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                    </Textbox>
+                  </CellContents>
+                </TablixCell>
+                <TablixCell>
+                  <CellContents>
                     <Textbox Name="Textbox43">
                       <CanGrow>true</CanGrow>
                       <UserSort>
-                        <SortExpression>=Fields!PCT_CORRECT.Value</SortExpression>
+                        <SortExpression>=Fields!PctCorrect.Value</SortExpression>
                       </UserSort>
                       <KeepTogether>true</KeepTogether>
                       <Paragraphs>
@@ -481,14 +529,14 @@
                 </TablixCell>
                 <TablixCell>
                   <CellContents>
-                    <Textbox Name="STUDENT_NAME">
+                    <Textbox Name="StudentName">
                       <CanGrow>true</CanGrow>
                       <KeepTogether>true</KeepTogether>
                       <Paragraphs>
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>=Fields!STUDENT_NAME.Value</Value>
+                              <Value>=Fields!StudentName.Value</Value>
                               <Style>
                                 <FontFamily>Tahoma</FontFamily>
                               </Style>
@@ -497,7 +545,7 @@
                           <Style />
                         </Paragraph>
                       </Paragraphs>
-                      <rd:DefaultName>STUDENT_NAME</rd:DefaultName>
+                      <rd:DefaultName>StudentName</rd:DefaultName>
                       <Style>
                         <Border>
                           <Color>LightGrey</Color>
@@ -519,14 +567,14 @@
                 </TablixCell>
                 <TablixCell>
                   <CellContents>
-                    <Textbox Name="STUDENT_ID">
+                    <Textbox Name="StudentID">
                       <CanGrow>true</CanGrow>
                       <KeepTogether>true</KeepTogether>
                       <Paragraphs>
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>=Fields!STUDENT_ID.Value</Value>
+                              <Value>=Fields!StudentID.Value</Value>
                               <Style>
                                 <FontFamily>Tahoma</FontFamily>
                               </Style>
@@ -535,7 +583,7 @@
                           <Style />
                         </Paragraph>
                       </Paragraphs>
-                      <rd:DefaultName>STUDENT_ID</rd:DefaultName>
+                      <rd:DefaultName>StudentID</rd:DefaultName>
                       <Style>
                         <Border>
                           <Color>LightGrey</Color>
@@ -564,8 +612,8 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>=Iif(Fields!LETTER_GRADE.Value = "C","Cmdd",
-Iif(Fields!LETTER_GRADE.Value = "P","Pass",
+                              <Value>=Iif(Fields!LetterGrade.Value = "C","Cmdd",
+Iif(Fields!LetterGrade.Value = "P","Pass",
 "Fail"))</Value>
                               <Style>
                                 <FontFamily>Tahoma</FontFamily>
@@ -599,14 +647,14 @@ Iif(Fields!LETTER_GRADE.Value = "P","Pass",
                 </TablixCell>
                 <TablixCell>
                   <CellContents>
-                    <Textbox Name="NUM_CORRECT1">
+                    <Textbox Name="NumCorrect">
                       <CanGrow>true</CanGrow>
                       <KeepTogether>true</KeepTogether>
                       <Paragraphs>
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>=Fields!NUM_CORRECT.Value</Value>
+                              <Value>=Fields!NumCorrect.Value</Value>
                               <Style>
                                 <FontFamily>Tahoma</FontFamily>
                               </Style>
@@ -615,7 +663,7 @@ Iif(Fields!LETTER_GRADE.Value = "P","Pass",
                           <Style />
                         </Paragraph>
                       </Paragraphs>
-                      <rd:DefaultName>NUM_CORRECT1</rd:DefaultName>
+                      <rd:DefaultName>NumCorrect</rd:DefaultName>
                       <Style>
                         <Border>
                           <Color>LightGrey</Color>
@@ -675,23 +723,25 @@ Iif(Fields!LETTER_GRADE.Value = "P","Pass",
                 </TablixCell>
                 <TablixCell>
                   <CellContents>
-                    <Textbox Name="NUM_TOTAL1">
+                    <Textbox Name="NumTotal">
                       <CanGrow>true</CanGrow>
                       <KeepTogether>true</KeepTogether>
                       <Paragraphs>
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>=Fields!NUM_TOTAL.Value</Value>
+                              <Value>=Fields!NumTotal.Value</Value>
                               <Style>
                                 <FontFamily>Tahoma</FontFamily>
                               </Style>
                             </TextRun>
                           </TextRuns>
-                          <Style />
+                          <Style>
+                            <TextAlign>Left</TextAlign>
+                          </Style>
                         </Paragraph>
                       </Paragraphs>
-                      <rd:DefaultName>NUM_TOTAL1</rd:DefaultName>
+                      <rd:DefaultName>NumTotal</rd:DefaultName>
                       <Style>
                         <Border>
                           <Color>LightGrey</Color>
@@ -713,23 +763,24 @@ Iif(Fields!LETTER_GRADE.Value = "P","Pass",
                 </TablixCell>
                 <TablixCell>
                   <CellContents>
-                    <Textbox Name="Textbox4">
+                    <Textbox Name="NumPoints">
                       <CanGrow>true</CanGrow>
                       <KeepTogether>true</KeepTogether>
                       <Paragraphs>
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value />
+                              <Value>=Fields!NumPoints.Value</Value>
                               <Style>
                                 <FontFamily>Tahoma</FontFamily>
+                                <Format>0.0;(0.0)</Format>
                               </Style>
                             </TextRun>
                           </TextRuns>
                           <Style />
                         </Paragraph>
                       </Paragraphs>
-                      <rd:DefaultName>Textbox4</rd:DefaultName>
+                      <rd:DefaultName>NumPoints</rd:DefaultName>
                       <Style>
                         <Border>
                           <Color>LightGrey</Color>
@@ -789,23 +840,26 @@ Iif(Fields!LETTER_GRADE.Value = "P","Pass",
                 </TablixCell>
                 <TablixCell>
                   <CellContents>
-                    <Textbox Name="Textbox22">
+                    <Textbox Name="NumTotalPoints">
                       <CanGrow>true</CanGrow>
                       <KeepTogether>true</KeepTogether>
                       <Paragraphs>
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value />
+                              <Value>=Fields!NumTotalPoints.Value</Value>
                               <Style>
                                 <FontFamily>Tahoma</FontFamily>
+                                <Format>0;(0)</Format>
                               </Style>
                             </TextRun>
                           </TextRuns>
-                          <Style />
+                          <Style>
+                            <TextAlign>Left</TextAlign>
+                          </Style>
                         </Paragraph>
                       </Paragraphs>
-                      <rd:DefaultName>Textbox22</rd:DefaultName>
+                      <rd:DefaultName>NumTotalPoints</rd:DefaultName>
                       <Style>
                         <Border>
                           <Color>LightGrey</Color>
@@ -827,24 +881,62 @@ Iif(Fields!LETTER_GRADE.Value = "P","Pass",
                 </TablixCell>
                 <TablixCell>
                   <CellContents>
-                    <Textbox Name="PCT_CORRECT1">
+                    <Textbox Name="Textbox7">
                       <CanGrow>true</CanGrow>
                       <KeepTogether>true</KeepTogether>
                       <Paragraphs>
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>=Fields!PCT_CORRECT.Value</Value>
+                              <Value />
                               <Style>
                                 <FontFamily>Tahoma</FontFamily>
-                                <Format>0%</Format>
                               </Style>
                             </TextRun>
                           </TextRuns>
                           <Style />
                         </Paragraph>
                       </Paragraphs>
-                      <rd:DefaultName>PCT_CORRECT1</rd:DefaultName>
+                      <rd:DefaultName>Textbox7</rd:DefaultName>
+                      <Style>
+                        <Border>
+                          <Color>LightGrey</Color>
+                          <Style>Solid</Style>
+                        </Border>
+                        <LeftBorder>
+                          <Style>None</Style>
+                        </LeftBorder>
+                        <RightBorder>
+                          <Style>None</Style>
+                        </RightBorder>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                    </Textbox>
+                  </CellContents>
+                </TablixCell>
+                <TablixCell>
+                  <CellContents>
+                    <Textbox Name="PctCorrect">
+                      <CanGrow>true</CanGrow>
+                      <KeepTogether>true</KeepTogether>
+                      <Paragraphs>
+                        <Paragraph>
+                          <TextRuns>
+                            <TextRun>
+                              <Value>=Fields!PctCorrect.Value</Value>
+                              <Style>
+                                <FontFamily>Tahoma</FontFamily>
+                                <Format>0.0%</Format>
+                              </Style>
+                            </TextRun>
+                          </TextRuns>
+                          <Style />
+                        </Paragraph>
+                      </Paragraphs>
+                      <rd:DefaultName>PctCorrect</rd:DefaultName>
                       <Style>
                         <Border>
                           <Color>LightGrey</Color>
@@ -891,7 +983,7 @@ Iif(Fields!LETTER_GRADE.Value = "P","Pass",
                                     <ShadowOffset>1.5pt</ShadowOffset>
                                   </Style>
                                   <GaugeInputValue>
-                                    <Value>=Sum(Fields!PCT_CORRECT.Value)</Value>
+                                    <Value>=Sum(Fields!PctCorrect.Value)</Value>
                                     <Multiplier>1</Multiplier>
                                   </GaugeInputValue>
                                   <DistanceFromScale>-45</DistanceFromScale>
@@ -1117,7 +1209,7 @@ Iif(Fields!LETTER_GRADE.Value = "P","Pass",
                         <Source>External</Source>
                         <Value />
                       </TopImage>
-                      <DataSetName>DataSetStudentStatsRep2</DataSetName>
+                      <DataSetName>TStudentGradeReport</DataSetName>
                       <Style>
                         <Border>
                           <Color>LightGrey</Color>
@@ -1182,7 +1274,7 @@ Iif(Fields!LETTER_GRADE.Value = "P","Pass",
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>="Period " &amp; Fields!PERIOD.Value &amp; " Avg % Correct"</Value>
+                              <Value>="Period " &amp; Fields!Period.Value &amp; " Avg % Correct"</Value>
                               <Style>
                                 <FontFamily>Tahoma</FontFamily>
                                 <FontWeight>Bold</FontWeight>
@@ -1302,11 +1394,11 @@ Iif(Fields!LETTER_GRADE.Value = "P","Pass",
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>=Avg(Fields!NUM_CORRECT.Value)</Value>
+                              <Value>=Avg(Fields!NumCorrect.Value)</Value>
                               <Style>
                                 <FontFamily>Tahoma</FontFamily>
                                 <FontWeight>Bold</FontWeight>
-                                <Format>0.0;(0.0)</Format>
+                                <Format>0;(0)</Format>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -1383,14 +1475,16 @@ Iif(Fields!LETTER_GRADE.Value = "P","Pass",
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>=Avg(Fields!NUM_TOTAL.Value)</Value>
+                              <Value>=Avg(Fields!NumTotal.Value)</Value>
                               <Style>
                                 <FontFamily>Tahoma</FontFamily>
                                 <FontWeight>Bold</FontWeight>
                               </Style>
                             </TextRun>
                           </TextRuns>
-                          <Style />
+                          <Style>
+                            <TextAlign>Left</TextAlign>
+                          </Style>
                         </Paragraph>
                       </Paragraphs>
                       <rd:DefaultName>Textbox61</rd:DefaultName>
@@ -1423,10 +1517,11 @@ Iif(Fields!LETTER_GRADE.Value = "P","Pass",
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value />
+                              <Value>=Avg(Fields!NumPoints.Value)</Value>
                               <Style>
                                 <FontFamily>Tahoma</FontFamily>
                                 <FontWeight>Bold</FontWeight>
+                                <Format>0.0;(0.0)</Format>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -1503,6 +1598,49 @@ Iif(Fields!LETTER_GRADE.Value = "P","Pass",
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
+                              <Value>=Avg(Fields!NumTotalPoints.Value)</Value>
+                              <Style>
+                                <FontFamily>Tahoma</FontFamily>
+                                <FontWeight>Bold</FontWeight>
+                                <Format>0;(0)</Format>
+                              </Style>
+                            </TextRun>
+                          </TextRuns>
+                          <Style>
+                            <TextAlign>Left</TextAlign>
+                          </Style>
+                        </Paragraph>
+                      </Paragraphs>
+                      <rd:DefaultName>Textbox30</rd:DefaultName>
+                      <Style>
+                        <Border>
+                          <Color>LightGrey</Color>
+                          <Style>Solid</Style>
+                        </Border>
+                        <LeftBorder>
+                          <Style>None</Style>
+                        </LeftBorder>
+                        <RightBorder>
+                          <Style>None</Style>
+                        </RightBorder>
+                        <BackgroundColor>WhiteSmoke</BackgroundColor>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                    </Textbox>
+                  </CellContents>
+                </TablixCell>
+                <TablixCell>
+                  <CellContents>
+                    <Textbox Name="Textbox18">
+                      <CanGrow>true</CanGrow>
+                      <KeepTogether>true</KeepTogether>
+                      <Paragraphs>
+                        <Paragraph>
+                          <TextRuns>
+                            <TextRun>
                               <Value />
                               <Style>
                                 <FontFamily>Tahoma</FontFamily>
@@ -1513,7 +1651,7 @@ Iif(Fields!LETTER_GRADE.Value = "P","Pass",
                           <Style />
                         </Paragraph>
                       </Paragraphs>
-                      <rd:DefaultName>Textbox30</rd:DefaultName>
+                      <rd:DefaultName>Textbox18</rd:DefaultName>
                       <Style>
                         <Border>
                           <Color>LightGrey</Color>
@@ -1543,11 +1681,11 @@ Iif(Fields!LETTER_GRADE.Value = "P","Pass",
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>=Sum(Fields!NUM_CORRECT.Value) / Sum(Fields!NUM_TOTAL.Value)</Value>
+                              <Value>=Sum(Fields!NumPoints.Value) / Sum(Fields!NumTotalPoints.Value)</Value>
                               <Style>
                                 <FontFamily>Tahoma</FontFamily>
                                 <FontWeight>Bold</FontWeight>
-                                <Format>0%</Format>
+                                <Format>0.0%</Format>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -1602,7 +1740,7 @@ Iif(Fields!LETTER_GRADE.Value = "P","Pass",
                                     <ShadowOffset>1.5pt</ShadowOffset>
                                   </Style>
                                   <GaugeInputValue>
-                                    <Value>=Sum(Fields!NUM_CORRECT.Value) / Sum(Fields!NUM_TOTAL.Value)</Value>
+                                    <Value>=Sum(Fields!NumPoints.Value) / Sum(Fields!NumTotalPoints.Value)</Value>
                                     <Multiplier>1</Multiplier>
                                   </GaugeInputValue>
                                   <DistanceFromScale>-45</DistanceFromScale>
@@ -1828,7 +1966,7 @@ Iif(Fields!LETTER_GRADE.Value = "P","Pass",
                         <Source>External</Source>
                         <Value />
                       </TopImage>
-                      <DataSetName>DataSetStudentStatsRep2</DataSetName>
+                      <DataSetName>TStudentGradeReport</DataSetName>
                       <Style>
                         <Border>
                           <Color>LightGrey</Color>
@@ -1894,7 +2032,7 @@ Iif(Fields!LETTER_GRADE.Value = "P","Pass",
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>="Teacher Mean (" &amp; CountRows("DataSetStudentStatsRep2") &amp; " Students)"</Value>
+                              <Value>="Teacher Mean (" &amp; CountRows("TStudentGradeReport") &amp; " Student" &amp; iif(CountRows("TStudentGradeReport") &gt; 1, "s", "")  &amp; ")"</Value>
                               <Style>
                                 <FontFamily>Tahoma</FontFamily>
                                 <FontWeight>Bold</FontWeight>
@@ -2017,11 +2155,11 @@ Iif(Fields!LETTER_GRADE.Value = "P","Pass",
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>=Avg(Fields!NUM_CORRECT.Value)</Value>
+                              <Value>=Avg(Fields!NumCorrect.Value)</Value>
                               <Style>
                                 <FontFamily>Tahoma</FontFamily>
                                 <FontWeight>Bold</FontWeight>
-                                <Format>0.0;(0.0)</Format>
+                                <Format>0;(0)</Format>
                                 <Color>White</Color>
                               </Style>
                             </TextRun>
@@ -2100,7 +2238,7 @@ Iif(Fields!LETTER_GRADE.Value = "P","Pass",
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>=Avg(Fields!NUM_TOTAL.Value)</Value>
+                              <Value>=Avg(Fields!NumTotal.Value)</Value>
                               <Style>
                                 <FontFamily>Tahoma</FontFamily>
                                 <FontWeight>Bold</FontWeight>
@@ -2108,7 +2246,9 @@ Iif(Fields!LETTER_GRADE.Value = "P","Pass",
                               </Style>
                             </TextRun>
                           </TextRuns>
-                          <Style />
+                          <Style>
+                            <TextAlign>Left</TextAlign>
+                          </Style>
                         </Paragraph>
                       </Paragraphs>
                       <rd:DefaultName>Textbox74</rd:DefaultName>
@@ -2141,10 +2281,11 @@ Iif(Fields!LETTER_GRADE.Value = "P","Pass",
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value />
+                              <Value>=Avg(Fields!NumPoints.Value)</Value>
                               <Style>
                                 <FontFamily>Tahoma</FontFamily>
                                 <FontWeight>Bold</FontWeight>
+                                <Format>0.0;(0.0)</Format>
                                 <Color>White</Color>
                               </Style>
                             </TextRun>
@@ -2223,6 +2364,50 @@ Iif(Fields!LETTER_GRADE.Value = "P","Pass",
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
+                              <Value>=Avg(Fields!NumTotalPoints.Value)</Value>
+                              <Style>
+                                <FontFamily>Tahoma</FontFamily>
+                                <FontWeight>Bold</FontWeight>
+                                <Format>0;(0)</Format>
+                                <Color>White</Color>
+                              </Style>
+                            </TextRun>
+                          </TextRuns>
+                          <Style>
+                            <TextAlign>Left</TextAlign>
+                          </Style>
+                        </Paragraph>
+                      </Paragraphs>
+                      <rd:DefaultName>Textbox31</rd:DefaultName>
+                      <Style>
+                        <Border>
+                          <Color>LightGrey</Color>
+                          <Style>Solid</Style>
+                        </Border>
+                        <LeftBorder>
+                          <Style>None</Style>
+                        </LeftBorder>
+                        <RightBorder>
+                          <Style>None</Style>
+                        </RightBorder>
+                        <BackgroundColor>DimGray</BackgroundColor>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                    </Textbox>
+                  </CellContents>
+                </TablixCell>
+                <TablixCell>
+                  <CellContents>
+                    <Textbox Name="Textbox21">
+                      <CanGrow>true</CanGrow>
+                      <KeepTogether>true</KeepTogether>
+                      <Paragraphs>
+                        <Paragraph>
+                          <TextRuns>
+                            <TextRun>
                               <Value />
                               <Style>
                                 <FontFamily>Tahoma</FontFamily>
@@ -2234,7 +2419,7 @@ Iif(Fields!LETTER_GRADE.Value = "P","Pass",
                           <Style />
                         </Paragraph>
                       </Paragraphs>
-                      <rd:DefaultName>Textbox31</rd:DefaultName>
+                      <rd:DefaultName>Textbox21</rd:DefaultName>
                       <Style>
                         <Border>
                           <Color>LightGrey</Color>
@@ -2264,11 +2449,11 @@ Iif(Fields!LETTER_GRADE.Value = "P","Pass",
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>=Sum(Fields!NUM_CORRECT.Value, "DataSetStudentStatsRep2") / Sum(Fields!NUM_TOTAL.Value, "DataSetStudentStatsRep2")</Value>
+                              <Value>=Sum(Fields!NumPoints.Value, "TStudentGradeReport") / Sum(Fields!NumTotalPoints.Value, "TStudentGradeReport")</Value>
                               <Style>
                                 <FontFamily>Tahoma</FontFamily>
                                 <FontWeight>Bold</FontWeight>
-                                <Format>0%</Format>
+                                <Format>0.0%</Format>
                                 <Color>White</Color>
                               </Style>
                             </TextRun>
@@ -2324,7 +2509,7 @@ Iif(Fields!LETTER_GRADE.Value = "P","Pass",
                                     <ShadowOffset>1.5pt</ShadowOffset>
                                   </Style>
                                   <GaugeInputValue>
-                                    <Value>=Sum(Fields!NUM_CORRECT.Value, "DataSetStudentStatsRep2") / Sum(Fields!NUM_TOTAL.Value, "DataSetStudentStatsRep2")</Value>
+                                    <Value>=Sum(Fields!NumPoints.Value, "TStudentGradeReport") / Sum(Fields!NumTotalPoints.Value, "TStudentGradeReport")</Value>
                                     <Multiplier>1</Multiplier>
                                   </GaugeInputValue>
                                   <DistanceFromScale>-45</DistanceFromScale>
@@ -2550,7 +2735,7 @@ Iif(Fields!LETTER_GRADE.Value = "P","Pass",
                         <Source>External</Source>
                         <Value />
                       </TopImage>
-                      <DataSetName>DataSetStudentStatsRep2</DataSetName>
+                      <DataSetName>TStudentGradeReport</DataSetName>
                       <Style>
                         <Border>
                           <Color>LightGrey</Color>
@@ -2567,6 +2752,7 @@ Iif(Fields!LETTER_GRADE.Value = "P","Pass",
         </TablixBody>
         <TablixColumnHierarchy>
           <TablixMembers>
+            <TablixMember />
             <TablixMember />
             <TablixMember />
             <TablixMember />
@@ -2628,7 +2814,7 @@ Iif(Fields!LETTER_GRADE.Value = "P","Pass",
             <TablixMember>
               <Group Name="Period">
                 <GroupExpressions>
-                  <GroupExpression>=Fields!PERIOD.Value</GroupExpression>
+                  <GroupExpression>=Fields!Period.Value</GroupExpression>
                 </GroupExpressions>
                 <PageBreak>
                   <BreakLocation>Between</BreakLocation>
@@ -2636,20 +2822,20 @@ Iif(Fields!LETTER_GRADE.Value = "P","Pass",
               </Group>
               <SortExpressions>
                 <SortExpression>
-                  <Value>=Fields!PERIOD.Value</Value>
+                  <Value>=Fields!Period.Value</Value>
                 </SortExpression>
               </SortExpressions>
               <TablixHeader>
                 <Size>0.56584in</Size>
                 <CellContents>
-                  <Textbox Name="Group1">
+                  <Textbox Name="Period1">
                     <CanGrow>true</CanGrow>
                     <KeepTogether>true</KeepTogether>
                     <Paragraphs>
                       <Paragraph>
                         <TextRuns>
                           <TextRun>
-                            <Value>=Fields!PERIOD.Value</Value>
+                            <Value>=Fields!Period.Value</Value>
                             <Style>
                               <FontFamily>Tahoma</FontFamily>
                             </Style>
@@ -2660,7 +2846,7 @@ Iif(Fields!LETTER_GRADE.Value = "P","Pass",
                         </Style>
                       </Paragraph>
                     </Paragraphs>
-                    <rd:DefaultName>Group1</rd:DefaultName>
+                    <rd:DefaultName>Period1</rd:DefaultName>
                     <Style>
                       <Border>
                         <Color>LightGrey</Color>
@@ -2694,7 +2880,7 @@ Iif(Fields!LETTER_GRADE.Value = "P","Pass",
                       <Paragraph>
                         <TextRuns>
                           <TextRun>
-                            <Value />
+                            <Value>Total</Value>
                             <Style>
                               <FontFamily>Tahoma</FontFamily>
                               <FontWeight>Bold</FontWeight>
@@ -2727,11 +2913,11 @@ Iif(Fields!LETTER_GRADE.Value = "P","Pass",
             </TablixMember>
           </TablixMembers>
         </TablixRowHierarchy>
-        <DataSetName>DataSetStudentStatsRep2</DataSetName>
+        <DataSetName>TStudentGradeReport</DataSetName>
         <Top>1.05709in</Top>
         <Left>0.21168in</Left>
         <Height>1.03125in</Height>
-        <Width>7.92344in</Width>
+        <Width>7.59011in</Width>
         <Style>
           <Border>
             <Style>None</Style>
@@ -2899,7 +3085,7 @@ Iif(Fields!LETTER_GRADE.Value = "P","Pass",
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>=Round(100 * Count(Fields!STUDENT_ID.Value) / Count(Fields!STUDENT_ID.Value, "PERIOD"), 1) &amp; "%"</Value>
+                              <Value>=Round(100 * Count(Fields!StudentID.Value) / Count(Fields!StudentID.Value, "PERIOD"), 1) &amp; "%"</Value>
                               <Style>
                                 <FontFamily>Tahoma</FontFamily>
                                 <FontWeight>Bold</FontWeight>
@@ -2940,7 +3126,7 @@ Iif(Fields!LETTER_GRADE.Value = "P","Pass",
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>= " (" &amp; Count(Fields!STUDENT_ID.Value) &amp; " / " &amp;  Count(Fields!STUDENT_ID.Value, "PERIOD") &amp; ")"</Value>
+                              <Value>= " (" &amp; Count(Fields!StudentID.Value) &amp; " / " &amp;  Count(Fields!StudentID.Value, "PERIOD") &amp; ")"</Value>
                               <Style>
                                 <FontFamily>Tahoma</FontFamily>
                                 <FontWeight>Bold</FontWeight>
@@ -2981,7 +3167,7 @@ Iif(Fields!LETTER_GRADE.Value = "P","Pass",
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>=Round(100 * Count(Fields!STUDENT_ID.Value) / Count(Fields!STUDENT_ID.Value, "PERIOD"), 1) &amp; "%"</Value>
+                              <Value>=Round(100 * Count(Fields!StudentID.Value) / Count(Fields!StudentID.Value, "PERIOD"), 1) &amp; "%"</Value>
                               <Style>
                                 <FontFamily>Tahoma</FontFamily>
                               </Style>
@@ -3022,7 +3208,7 @@ Iif(Fields!LETTER_GRADE.Value = "P","Pass",
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>= " (" &amp; Count(Fields!STUDENT_ID.Value) &amp; " / " &amp;  Count(Fields!STUDENT_ID.Value, "PERIOD") &amp; ")"</Value>
+                              <Value>= " (" &amp; Count(Fields!StudentID.Value) &amp; " / " &amp;  Count(Fields!StudentID.Value, "PERIOD") &amp; ")"</Value>
                               <Style>
                                 <FontFamily>Tahoma</FontFamily>
                               </Style>
@@ -3063,9 +3249,10 @@ Iif(Fields!LETTER_GRADE.Value = "P","Pass",
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>= Round(100 * Sum(Fields!NUM_CORRECT.Value, "PERIOD") / Sum(Fields!NUM_TOTAL.Value, "PERIOD"), 1) &amp; "%"</Value>
+                              <Value>= Avg(Fields!PctCorrect.Value)</Value>
                               <Style>
                                 <FontFamily>Tahoma</FontFamily>
+                                <Format>0.0%</Format>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -3082,7 +3269,6 @@ Iif(Fields!LETTER_GRADE.Value = "P","Pass",
                         </Border>
                         <LeftBorder>
                           <Color>Black</Color>
-                          <Style>Solid</Style>
                         </LeftBorder>
                         <PaddingLeft>2pt</PaddingLeft>
                         <PaddingRight>2pt</PaddingRight>
@@ -3106,7 +3292,7 @@ Iif(Fields!LETTER_GRADE.Value = "P","Pass",
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>= Round(100 * Count(Fields!STUDENT_ID.Value) / Count(Fields!STUDENT_ID.Value, "DataSetStudentStatsRep2"), 1) &amp; "%"</Value>
+                              <Value>= Round(100 * Count(Fields!StudentID.Value) / Count(Fields!StudentID.Value, "TStudentGradeReport"), 1) &amp; "%"</Value>
                               <Style>
                                 <FontFamily>Tahoma</FontFamily>
                                 <FontWeight>Bold</FontWeight>
@@ -3148,7 +3334,7 @@ Iif(Fields!LETTER_GRADE.Value = "P","Pass",
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>= "(" &amp; Count(Fields!STUDENT_ID.Value) &amp; " / " &amp; Count(Fields!STUDENT_ID.Value, "DataSetStudentStatsRep2") &amp; ")"</Value>
+                              <Value>= "(" &amp; Count(Fields!StudentID.Value) &amp; " / " &amp; Count(Fields!StudentID.Value, "TStudentGradeReport") &amp; ")"</Value>
                               <Style>
                                 <FontFamily>Tahoma</FontFamily>
                                 <FontWeight>Bold</FontWeight>
@@ -3190,7 +3376,7 @@ Iif(Fields!LETTER_GRADE.Value = "P","Pass",
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>= Round(100 * (Count(Fields!STUDENT_ID.Value, "DataSetStudentStatsRep2") - Count(Fields!STUDENT_ID.Value, "GRADE2")) / Count(Fields!STUDENT_ID.Value, "DataSetStudentStatsRep2"), 1) &amp; "%"</Value>
+                              <Value>= Round(100 * (Count(Fields!StudentID.Value, "TStudentGradeReport") - Count(Fields!StudentID.Value, "GRADE2")) / Count(Fields!StudentID.Value, "TStudentGradeReport"), 1) &amp; "%"</Value>
                               <Style>
                                 <FontFamily>Tahoma</FontFamily>
                                 <FontWeight>Bold</FontWeight>
@@ -3233,7 +3419,7 @@ Iif(Fields!LETTER_GRADE.Value = "P","Pass",
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>= "(" &amp; Count(Fields!STUDENT_ID.Value, "DataSetStudentStatsRep2") - Count(Fields!STUDENT_ID.Value, "GRADE2") &amp; " / " &amp; Count(Fields!STUDENT_ID.Value, "DataSetStudentStatsRep2") &amp; ")"</Value>
+                              <Value>= "(" &amp; Count(Fields!StudentID.Value, "TStudentGradeReport") - Count(Fields!StudentID.Value, "GRADE2") &amp; " / " &amp; Count(Fields!StudentID.Value, "TStudentGradeReport") &amp; ")"</Value>
                               <Style>
                                 <FontFamily>Tahoma</FontFamily>
                                 <FontWeight>Bold</FontWeight>
@@ -3276,10 +3462,11 @@ Iif(Fields!LETTER_GRADE.Value = "P","Pass",
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>= Round(100 * Sum(Fields!NUM_CORRECT.Value, "DataSetStudentStatsRep2") / Sum(Fields!NUM_TOTAL.Value, "DataSetStudentStatsRep2"), 1) &amp; "%"</Value>
+                              <Value>= Avg(Fields!PctCorrect.Value, "TStudentGradeReport")</Value>
                               <Style>
                                 <FontFamily>Tahoma</FontFamily>
                                 <FontWeight>Bold</FontWeight>
+                                <Format>0.0%</Format>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -3296,7 +3483,6 @@ Iif(Fields!LETTER_GRADE.Value = "P","Pass",
                         </Border>
                         <LeftBorder>
                           <Color>Black</Color>
-                          <Style>Solid</Style>
                         </LeftBorder>
                         <BackgroundColor>LightBlue</BackgroundColor>
                         <PaddingLeft>2pt</PaddingLeft>
@@ -3316,11 +3502,11 @@ Iif(Fields!LETTER_GRADE.Value = "P","Pass",
             <TablixMember>
               <Group Name="GRADE_P">
                 <GroupExpressions>
-                  <GroupExpression>=Fields!LETTER_GRADE.Value</GroupExpression>
+                  <GroupExpression>=Fields!LetterGrade.Value</GroupExpression>
                 </GroupExpressions>
                 <Filters>
                   <Filter>
-                    <FilterExpression>=Fields!LETTER_GRADE.Value</FilterExpression>
+                    <FilterExpression>=Fields!LetterGrade.Value</FilterExpression>
                     <Operator>Equal</Operator>
                     <FilterValues>
                       <FilterValue>P</FilterValue>
@@ -3330,7 +3516,7 @@ Iif(Fields!LETTER_GRADE.Value = "P","Pass",
               </Group>
               <SortExpressions>
                 <SortExpression>
-                  <Value>=Fields!LETTER_GRADE.Value</Value>
+                  <Value>=Fields!LetterGrade.Value</Value>
                 </SortExpression>
               </SortExpressions>
               <TablixMembers>
@@ -3341,11 +3527,11 @@ Iif(Fields!LETTER_GRADE.Value = "P","Pass",
             <TablixMember>
               <Group Name="GRADE_F">
                 <GroupExpressions>
-                  <GroupExpression>=Fields!LETTER_GRADE.Value</GroupExpression>
+                  <GroupExpression>=Fields!LetterGrade.Value</GroupExpression>
                 </GroupExpressions>
                 <Filters>
                   <Filter>
-                    <FilterExpression>=Fields!LETTER_GRADE.Value</FilterExpression>
+                    <FilterExpression>=Fields!LetterGrade.Value</FilterExpression>
                     <Operator>Equal</Operator>
                     <FilterValues>
                       <FilterValue>F</FilterValue>
@@ -3355,7 +3541,7 @@ Iif(Fields!LETTER_GRADE.Value = "P","Pass",
               </Group>
               <SortExpressions>
                 <SortExpression>
-                  <Value>=Fields!LETTER_GRADE.Value</Value>
+                  <Value>=Fields!LetterGrade.Value</Value>
                 </SortExpression>
               </SortExpressions>
               <TablixMembers>
@@ -3414,25 +3600,25 @@ Iif(Fields!LETTER_GRADE.Value = "P","Pass",
             <TablixMember>
               <Group Name="PERIOD">
                 <GroupExpressions>
-                  <GroupExpression>=Fields!PERIOD.Value</GroupExpression>
+                  <GroupExpression>=Fields!Period.Value</GroupExpression>
                 </GroupExpressions>
               </Group>
               <SortExpressions>
                 <SortExpression>
-                  <Value>=Fields!PERIOD.Value</Value>
+                  <Value>=Fields!Period.Value</Value>
                 </SortExpression>
               </SortExpressions>
               <TablixHeader>
                 <Size>0.59375in</Size>
                 <CellContents>
-                  <Textbox Name="PERIOD">
+                  <Textbox Name="Period">
                     <CanGrow>true</CanGrow>
                     <KeepTogether>true</KeepTogether>
                     <Paragraphs>
                       <Paragraph>
                         <TextRuns>
                           <TextRun>
-                            <Value>=Fields!PERIOD.Value</Value>
+                            <Value>=Fields!Period.Value</Value>
                             <Style>
                               <FontFamily>Tahoma</FontFamily>
                             </Style>
@@ -3443,7 +3629,7 @@ Iif(Fields!LETTER_GRADE.Value = "P","Pass",
                         </Style>
                       </Paragraph>
                     </Paragraphs>
-                    <rd:DefaultName>PERIOD</rd:DefaultName>
+                    <rd:DefaultName>Period</rd:DefaultName>
                     <Style>
                       <Border>
                         <Color>LightGrey</Color>
@@ -3464,11 +3650,11 @@ Iif(Fields!LETTER_GRADE.Value = "P","Pass",
             <TablixMember>
               <Group Name="GRADE2">
                 <GroupExpressions>
-                  <GroupExpression>=Fields!LETTER_GRADE.Value</GroupExpression>
+                  <GroupExpression>=Fields!LetterGrade.Value</GroupExpression>
                 </GroupExpressions>
                 <Filters>
                   <Filter>
-                    <FilterExpression>=Fields!LETTER_GRADE.Value</FilterExpression>
+                    <FilterExpression>=Fields!LetterGrade.Value</FilterExpression>
                     <Operator>Equal</Operator>
                     <FilterValues>
                       <FilterValue>P</FilterValue>
@@ -3478,7 +3664,7 @@ Iif(Fields!LETTER_GRADE.Value = "P","Pass",
               </Group>
               <SortExpressions>
                 <SortExpression>
-                  <Value>=Fields!LETTER_GRADE.Value</Value>
+                  <Value>=Fields!LetterGrade.Value</Value>
                 </SortExpression>
               </SortExpressions>
               <TablixHeader>
@@ -3524,7 +3710,7 @@ Iif(Fields!LETTER_GRADE.Value = "P","Pass",
             </TablixMember>
           </TablixMembers>
         </TablixRowHierarchy>
-        <DataSetName>DataSetStudentStatsRep2</DataSetName>
+        <DataSetName>TStudentGradeReport</DataSetName>
         <Top>0.0375in</Top>
         <Left>2.41264in</Left>
         <Height>0.75in</Height>
@@ -3573,9 +3759,9 @@ Iif(Fields!LETTER_GRADE.Value = "P","Pass",
       </Textbox>
       <Line Name="Line2">
         <Top>0.92375in</Top>
-        <Left>7.86524in</Left>
+        <Left>5.65691in</Left>
         <Height>0in</Height>
-        <Width>-7.45256in</Width>
+        <Width>-5.24423in</Width>
         <ZIndex>3</ZIndex>
         <Style>
           <Border>
@@ -3640,7 +3826,7 @@ Iif(Fields!LETTER_GRADE.Value = "P","Pass",
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>=Fields!PASS_NUM.Value &amp; " / " &amp; Fields!NUM_TOTAL.Value &amp; " (" &amp; 100 * Round(Fields!PASS_NUM.Value / Fields!NUM_TOTAL.Value, 3) &amp; "%)"</Value>
+                              <Value>=Fields!PassNum.Value &amp; " / " &amp; Round(Fields!NumTotalPoints.Value, 0) &amp; " (" &amp; 100 * Round(Fields!PassNum.Value / Fields!NumTotalPoints.Value, 1) &amp; "%)"</Value>
                               <Style>
                                 <FontWeight>Bold</FontWeight>
                               </Style>
@@ -3681,13 +3867,13 @@ Iif(Fields!LETTER_GRADE.Value = "P","Pass",
             <TablixMember>
               <Group Name="Details1">
                 <GroupExpressions>
-                  <GroupExpression>=Fields!PASS_NUM.Value</GroupExpression>
+                  <GroupExpression>=Fields!PassNum.Value</GroupExpression>
                 </GroupExpressions>
               </Group>
             </TablixMember>
           </TablixMembers>
         </TablixRowHierarchy>
-        <DataSetName>DataSetStudentStatsRep2</DataSetName>
+        <DataSetName>TStudentGradeReport</DataSetName>
         <Top>0.54181in</Top>
         <Left>0.21168in</Left>
         <Height>0.25in</Height>
@@ -3703,7 +3889,7 @@ Iif(Fields!LETTER_GRADE.Value = "P","Pass",
     <Height>2.11459in</Height>
     <Style />
   </Body>
-  <Width>9.89528in</Width>
+  <Width>8.19736in</Width>
   <Page>
     <PageHeader>
       <Height>1.30209in</Height>
@@ -3717,7 +3903,7 @@ Iif(Fields!LETTER_GRADE.Value = "P","Pass",
             <Paragraph>
               <TextRuns>
                 <TextRun>
-                  <Value>=Fields!TEST_ID.Value</Value>
+                  <Value>=First(Fields!TestID.Value, "TStudentGradeReport")</Value>
                   <Style>
                     <FontWeight>Bold</FontWeight>
                   </Style>
@@ -3750,7 +3936,7 @@ Iif(Fields!LETTER_GRADE.Value = "P","Pass",
             <Paragraph>
               <TextRuns>
                 <TextRun>
-                  <Value>=Fields!CAMPUS.Value</Value>
+                  <Value>=First(Fields!Campus.Value, "TStudentGradeReport")</Value>
                   <Style>
                     <FontWeight>Bold</FontWeight>
                   </Style>
@@ -3782,7 +3968,7 @@ Iif(Fields!LETTER_GRADE.Value = "P","Pass",
             <Paragraph>
               <TextRuns>
                 <TextRun>
-                  <Value>=Fields!TEACHER.Value</Value>
+                  <Value>=First(Fields!Teacher.Value, "TStudentGradeReport")</Value>
                   <Style>
                     <FontWeight>Bold</FontWeight>
                   </Style>

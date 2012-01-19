@@ -27,7 +27,7 @@ namespace Benchmark_Instant_Reports_2.Grading
             if (MultiAnswerTemplateHandler.IsMultiAnswerTemplate(testID))
                 MultiAnswerTemplateHandler.ProcessAnswerStringWithMultiAnswers(studentAnswerStringArray, testID, curCampus);
 
-            List<AnswerKeyItem> theAnswerKey = AnswerKey.getTestAnswerKeyQ(testID, curCampus, ansKeyIncAmt, teacher, period);
+            List<AnswerKeyItem> theAnswerKey = AnswerKey.getTestAnswerKey(testID, curCampus, ansKeyIncAmt, teacher, period);
 
             List<GradedItemDetail> finalData = new List<GradedItemDetail>();
 
@@ -99,7 +99,7 @@ namespace Benchmark_Instant_Reports_2.Grading
             if (MultiAnswerTemplateHandler.IsMultiAnswerTemplate(testID))
                 MultiAnswerTemplateHandler.ProcessAnswerStringWithMultiAnswers(studentAnswerStringArray, testID, curCampus);
 
-            List<AnswerKeyItem> theAnswerKey = AnswerKey.getTestAnswerKeyQ(testID, curCampus, ansKeyIncAmt, teacher, period);
+            List<AnswerKeyItem> theAnswerKey = AnswerKey.getTestAnswerKey(testID, curCampus, ansKeyIncAmt, teacher, period);
 
             //grade each item on the test
             numCorrect = 0;
@@ -132,9 +132,8 @@ namespace Benchmark_Instant_Reports_2.Grading
             }
 
             //calculate stuff
-            //pctCorrect = (decimal)numCorrect / (decimal)numTotal;
             pctCorrect = numPoints / numTotalPoints;
-            letterGrade = birUtilities.calcLetterGrade(testID, numCorrect, numTotal, passNum, commendedNum);
+            letterGrade = CalcLetterGrade(numPoints, passNum);
 
             //return the results
             GradedItem newItem = new GradedItem();
@@ -151,5 +150,14 @@ namespace Benchmark_Instant_Reports_2.Grading
             return newItem;
         }
 
+
+
+        private static char CalcLetterGrade(decimal pointsfor, int passnum)
+        {
+            if (pointsfor >= passnum)
+                return 'P';
+
+            return 'F';
+        }
     }
 }

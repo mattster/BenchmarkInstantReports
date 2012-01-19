@@ -10,10 +10,10 @@ namespace Benchmark_Instant_Reports_2.Grading
 {
     public class AnswerKey
     {
-        public static List<AnswerKeyItem> getTestAnswerKeyQ(string testID, string campus, int ansKeyIncAmt, string teacher, string period)
+        public static List<AnswerKeyItem> getTestAnswerKey(string testID, string campus, int ansKeyIncAmt, string teacher, string period)
         {
-            List<AnswerKeyItem> distAnsKey = getDistrictAnswerKeyQ(testID, campus);
-            List<AnswerKeyItem> finalData = getCampusAnswerKeyQ(testID, campus, ansKeyIncAmt, teacher, period);
+            List<AnswerKeyItem> distAnsKey = getDistrictAnswerKey(testID, campus);
+            List<AnswerKeyItem> finalData = getCampusAnswerKey(testID, campus, ansKeyIncAmt, teacher, period);
 
             finalData.InsertRange(0, distAnsKey.ToArray<AnswerKeyItem>());
             finalData.Sort();
@@ -28,12 +28,13 @@ namespace Benchmark_Instant_Reports_2.Grading
             return finalData;
         }
 
+        
 
         //**********************************************************************//
         //** return a DataSet with the District (common) portion of the 
         //** answer key for the specified test
         //**
-        public static List<AnswerKeyItem> getDistrictAnswerKeyQ(string testID, string campus)
+        public static List<AnswerKeyItem> getDistrictAnswerKey(string testID, string campus = "")
         {
             string qs = Queries.GetDistrictTestAnswerKey.Replace("@testId", testID);
             List<AnswerKeyItem> thisAnswerKey = DBIOWorkaround.ReturnAnswerKey(qs);
@@ -63,7 +64,7 @@ namespace Benchmark_Instant_Reports_2.Grading
         }
 
 
-        public static List<AnswerKeyItem> getCampusAnswerKeyQ(string testID, string campus, int ansKeyIncAmt, string teacher, string period)
+        public static List<AnswerKeyItem> getCampusAnswerKey(string testID, string campus, int ansKeyIncAmt, string teacher, string period)
         {
             ansKeyIncAmt = (ansKeyIncAmt == 0) ? Constants.MaxNumTestQuestions : ansKeyIncAmt;
 

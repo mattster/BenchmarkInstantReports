@@ -101,7 +101,7 @@ namespace Benchmark_Instant_Reports_2.Interfaces.DBDataStruct
                 newItem.Answer = row["ANSWER"].ToString();
                 newItem.Category = (int)(decimal)row["OBJECTIVE"];
                 newItem.TEKS = row["TEKS"].ToString();
-                newItem.Weight = (int)(decimal)row["WEIGHT"];
+                newItem.Weight = (decimal)row["WEIGHT"];
 
                 finalData.Add(newItem);
             }
