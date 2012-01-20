@@ -197,7 +197,7 @@
     <Compile Include="Infrastructure\DataItemCollection.cs" />
     <Compile Include="Infrastructure\Extensions.cs" />
     <Compile Include="Interfaces\DBDataStruct\AnswerKeyItem.cs" />
-    <Compile Include="Grading\GradeTest.cs" />
+    <Compile Include="Grading\GradeTests.cs" />
     <Compile Include="Grading\StudentData.cs" />
     <Compile Include="Helpers\Reports\AnswerCounter.cs" />
     <Compile Include="Helpers\Reports\IARepHelper.cs" />
@@ -229,7 +229,7 @@
     </Compile>
     <Compile Include="Interfaces\DBDataStruct\AnswerKeyItemData.cs" />
     <Compile Include="Interfaces\DBDataStruct\DBIOWorkaround.cs" />
-    <Compile Include="Interfaces\DBDataStruct\GradedItem.cs" />
+    <Compile Include="Interfaces\DBDataStruct\GradedTestData.cs" />
     <Compile Include="Interfaces\DBDataStruct\GradedItemDetail.cs" />
     <Compile Include="Interfaces\DBDataStruct\IAReportData.cs" />
     <Compile Include="Interfaces\DBDataStruct\IAReportItem.cs" />
@@ -245,8 +245,6 @@
     <Compile Include="Metadata\AllTestMetadata.cs" />
     <Compile Include="Metadata\Curriculum.cs" />
     <Compile Include="Interfaces\ScanReportIF.cs" />
-    <Compile Include="Interfaces\StudentSummaryIF.cs" />
-    <Compile Include="Interfaces\StudentStatsIF.cs" />
     <Compile Include="Interfaces\dbIFOracle.cs" />
     <Compile Include="Interfaces\CampusSecurity.cs" />
     <Compile Include="Metadata\Subject.cs" />

@@ -30,7 +30,7 @@ namespace Benchmark_Instant_Reports_2.Helpers.Reports
                     ansKeyVersionIncrement = ExceptionHandler.campusAnswerKeyVersionIncrement(curTest, curCampus,
                         item.TeacherName, item.Period);
 
-                    GradedItem gradedData = GradeTest.gradeScannedTestQ(curTest, curScanDataItem.Answers, curCampus, ansKeyVersionIncrement,
+                    GradedTestData gradedData = GradeTests.GradeTest(curTest, curScanDataItem.Answers, curCampus, ansKeyVersionIncrement,
                         item.TeacherName, item.Period);
 
                     StGradeReportItem newItem = new StGradeReportItem();

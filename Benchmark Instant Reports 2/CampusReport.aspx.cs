@@ -91,7 +91,7 @@ namespace Benchmark_Instant_Reports_2
 
             if (ddCampus.SelectedValue.ToString() == "ALL Elementary" || ddCampus.SelectedValue.ToString() == "ALL Secondary")
             {   // Show All Campuses
-                studentData = StudentData.GetStudentDataToGradeq(listTests.SelectedItem.ToString(),
+                studentData = StudentData.GetStudentDataToGrade(listTests.SelectedItem.ToString(),
                     ddCampus.SelectedValue.ToString());
 
                 resultsData = StGradesRepHelper.generateStudentStatsRepTable(studentData, listTests.SelectedItem.ToString());
@@ -109,7 +109,7 @@ namespace Benchmark_Instant_Reports_2
             }
             else
             {   // Show One Campus
-                studentData = StudentData.GetStudentDataToGradeq(listTests.SelectedItem.ToString(),
+                studentData = StudentData.GetStudentDataToGrade(listTests.SelectedItem.ToString(),
                     ddCampus.SelectedValue.ToString());
 
                 resultsData = StGradesRepHelper.generateStudentStatsRepTable(studentData, listTests.SelectedItem.ToString());

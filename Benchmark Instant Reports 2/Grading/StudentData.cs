@@ -13,14 +13,13 @@ namespace Benchmark_Instant_Reports_2.Grading
 {
     public class StudentData
     {
-        public static List<StudentListItem> GetStudentDataToGradeq(string testID, string campus, string teacher = "",
+        public static List<StudentListItem> GetStudentDataToGrade(string testID, string campus, string teacher = "",
             string periodList = "'00','01','02','03','04','05','06','07','08','09','10','11','12','13','14'")
         {
             List<string> studIdList1 = new List<string>();
 
             //// get a set of the student scans for this test and campus
-            //ScanItemData scans = DBIOWorkaround.ReturnDataFromScans(qs1);
-
+            
             // get a set of students who meet the criteria for this test
             PreslugData preslugged = ScanHelper.ReturnPreslugData(testID, campus);
             string[] teacherList = preslugged.GetItems().Select(p => p.TeacherName).Distinct().ToArray();

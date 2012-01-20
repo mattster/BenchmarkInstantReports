@@ -89,5 +89,10 @@ namespace Benchmark_Instant_Reports_2.Infrastructure
         {
             return _items.Where(predicate);
         }
+
+        public void UpdateItemAtIndexWith(int index, T newitem)
+        {
+            _items[index] = newitem;
+        }
     }
 }

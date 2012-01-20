@@ -1,89 +1,95 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Report xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner" xmlns="http://schemas.microsoft.com/sqlserver/reporting/2008/01/reportdefinition">
   <DataSources>
-    <DataSource Name="DataSetStudentStats">
+    <DataSource Name="Benchmark_Instant_Reports_2InterfacesDBDataStruct">
       <ConnectionProperties>
         <DataProvider>System.Data.DataSet</DataProvider>
         <ConnectString>/* Local Connection */</ConnectString>
       </ConnectionProperties>
-      <rd:DataSourceID>ef0d37b4-536e-4c55-aa6d-90c292234155</rd:DataSourceID>
+      <rd:DataSourceID>ec3e9027-34ef-4c9f-a14d-2bc1ae7747ba</rd:DataSourceID>
     </DataSource>
   </DataSources>
   <DataSets>
-    <DataSet Name="DataSetStudentStats">
+    <DataSet Name="TStudentGradeReport">
       <Fields>
-        <Field Name="STUDENT_ID">
-          <DataField>STUDENT_ID</DataField>
+        <Field Name="StudentID">
+          <DataField>StudentID</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="STUDENT_NAME">
-          <DataField>STUDENT_NAME</DataField>
+        <Field Name="StudentName">
+          <DataField>StudentName</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="TEST_ID">
-          <DataField>TEST_ID</DataField>
+        <Field Name="TestID">
+          <DataField>TestID</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="SCAN_DATETIME">
-          <DataField>SCAN_DATETIME</DataField>
+        <Field Name="ScanDate">
+          <DataField>ScanDate</DataField>
           <rd:TypeName>System.DateTime</rd:TypeName>
         </Field>
-        <Field Name="LETTER_GRADE">
-          <DataField>LETTER_GRADE</DataField>
+        <Field Name="LetterGrade">
+          <DataField>LetterGrade</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="NUM_CORRECT">
-          <DataField>NUM_CORRECT</DataField>
+        <Field Name="NumCorrect">
+          <DataField>NumCorrect</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="NumTotal">
+          <DataField>NumTotal</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="NumPoints">
+          <DataField>NumPoints</DataField>
           <rd:TypeName>System.Decimal</rd:TypeName>
         </Field>
-        <Field Name="NUM_TOTAL">
-          <DataField>NUM_TOTAL</DataField>
+        <Field Name="NumTotalPoints">
+          <DataField>NumTotalPoints</DataField>
           <rd:TypeName>System.Decimal</rd:TypeName>
         </Field>
-        <Field Name="PCT_CORRECT">
-          <DataField>PCT_CORRECT</DataField>
+        <Field Name="PctCorrect">
+          <DataField>PctCorrect</DataField>
           <rd:TypeName>System.Decimal</rd:TypeName>
         </Field>
-        <Field Name="CAMPUS">
-          <DataField>CAMPUS</DataField>
+        <Field Name="PassNum">
+          <DataField>PassNum</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="CommendedNum">
+          <DataField>CommendedNum</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="Campus">
+          <DataField>Campus</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="TEACHER">
-          <DataField>TEACHER</DataField>
+        <Field Name="Teacher">
+          <DataField>Teacher</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="PERIOD">
-          <DataField>PERIOD</DataField>
+        <Field Name="Period">
+          <DataField>Period</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="GRADED_ANSWERS">
-          <DataField>GRADED_ANSWERS</DataField>
+        <Field Name="GradedAnswers">
+          <DataField>GradedAnswers</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="GRADED_ANSWERS_FORMATTED">
-          <DataField>GRADED_ANSWERS_FORMATTED</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="PASS_NUM">
-          <DataField>PASS_NUM</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="COMMENDED_NUM">
-          <DataField>COMMENDED_NUM</DataField>
+        <Field Name="GradedAnswersFormatted">
+          <DataField>GradedAnswersFormatted</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
       </Fields>
       <Query>
-        <DataSourceName>DataSetStudentStats</DataSourceName>
+        <DataSourceName>Benchmark_Instant_Reports_2InterfacesDBDataStruct</DataSourceName>
         <CommandText>/* Local Query */</CommandText>
       </Query>
       <rd:DataSetInfo>
-        <rd:DataSetName>DataSetStudentStats</rd:DataSetName>
-        <rd:SchemaPath>C:\Documents and Settings\mholling\My Documents\DTA\Visual Studio 2010\Projects\Benchmark Instant Reports 2\Benchmark Instant Reports 2\DataSetStudentStats.xsd</rd:SchemaPath>
-        <rd:TableName>TEMP_RESULTS_STUDENTSTATS</rd:TableName>
-        <rd:TableAdapterFillMethod>FillBy</rd:TableAdapterFillMethod>
-        <rd:TableAdapterGetDataMethod>GetDataBy</rd:TableAdapterGetDataMethod>
-        <rd:TableAdapterName>TEMP_RESULTS_STUDENTSTATSTableAdapter</rd:TableAdapterName>
+        <rd:DataSetName>Benchmark_Instant_Reports_2.Interfaces.DBDataStruct</rd:DataSetName>
+        <rd:TableName>StGradeReportData</rd:TableName>
+        <rd:ObjectDataSourceSelectMethod>GetItems</rd:ObjectDataSourceSelectMethod>
+        <rd:ObjectDataSourceType>Benchmark_Instant_Reports_2.Interfaces.DBDataStruct.StGradeReportData, Benchmark Instant Reports 2, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</rd:ObjectDataSourceType>
       </rd:DataSetInfo>
     </DataSet>
   </DataSets>
@@ -112,7 +118,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>= "Period " &amp; Fields!PERIOD.Value</Value>
+                              <Value>= "Period " &amp; Fields!Period.Value</Value>
                               <Style>
                                 <FontFamily>Courier New</FontFamily>
                                 <FontSize>8pt</FontSize>
@@ -196,12 +202,19 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>=Fields!STUDENT_NAME.Value &amp; "  (" &amp; Fields!STUDENT_ID.Value &amp; ")" &amp; vbCrLf &amp; 
-"             " &amp; "Raw Score: " &amp; Fields!NUM_CORRECT.Value &amp; vbCrLf &amp;
-"             " &amp; "% Correct: " &amp; Round(Fields!PCT_CORRECT.Value*100, 1) &amp; "%" &amp; vbCrLf &amp;
-"             " &amp; "   Passed: " &amp; Iif(Fields!NUM_CORRECT.Value &gt;= Fields!PASS_NUM.Value,"Yes","No") &amp; vbCrLf &amp;
-Iif(InStr(Fields!TEST_ID.Value, "CUT") &gt; 0, "",
-"             " &amp; "Commended: " &amp; Iif(Fields!NUM_CORRECT.Value &gt;= Fields!COMMENDED_NUM.Value,"Yes","No"))</Value>
+                              <Value>=Fields!StudentName.Value &amp; "  (" &amp; Fields!StudentID.Value &amp; ")" &amp; vbCrLf &amp; 
+ Iif(Fields!NumPoints.Value = Fields!NumCorrect.Value, 
+"      " &amp; "     Raw Score: " &amp; Fields!NumCorrect.Value &amp; vbCrLf &amp;
+"      " &amp; "     % Correct: " &amp; Round(Fields!PctCorrect.Value * 100, 1) &amp; "%" &amp; vbCrLf &amp;
+"      " &amp; "        Passed: " &amp; Iif(Fields!NumCorrect.Value &gt;= Fields!PassNum.Value,"Yes","No") &amp; vbCrLf &amp;
+                                Iif(InStr(Fields!TestID.Value, "CUT") &gt; 0, "",
+"      " &amp; "     Commended: " &amp; Iif(Fields!NumCorrect.Value &gt;= Fields!CommendedNum.Value,"Yes","No"))
+,
+"      " &amp; "Weighted Score: " &amp; Round(Fields!NumPoints.Value,1) &amp; vbCrLf &amp;
+"      " &amp; "     % Correct: " &amp; Round(Fields!PctCorrect.Value * 100, 1) &amp; "%" &amp; vbCrLf &amp;
+"      " &amp; "        Passed: " &amp; Iif(Fields!NumPoints.Value &gt;= Fields!PassNum.Value,"Yes","No") &amp; vbCrLf &amp;
+                                Iif(InStr(Fields!TestID.Value, "CUT") &gt; 0, "",
+"      " &amp; "     Commended: " &amp; Iif(Fields!NumPoints.Value &gt;= Fields!CommendedNum.Value,"Yes","No")))</Value>
                               <Style>
                                 <FontFamily>Courier New</FontFamily>
                                 <FontSize>8pt</FontSize>
@@ -234,7 +247,7 @@ Iif(InStr(Fields!TEST_ID.Value, "CUT") &gt; 0, "",
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>=Fields!GRADED_ANSWERS_FORMATTED.Value</Value>
+                              <Value>=Fields!GradedAnswersFormatted.Value</Value>
                               <Style>
                                 <FontFamily>Courier New</FontFamily>
                                 <FontSize>8pt</FontSize>
@@ -344,12 +357,12 @@ Iif(InStr(Fields!TEST_ID.Value, "CUT") &gt; 0, "",
             <TablixMember>
               <Group Name="Period">
                 <GroupExpressions>
-                  <GroupExpression>=Fields!PERIOD.Value</GroupExpression>
+                  <GroupExpression>=Fields!Period.Value</GroupExpression>
                 </GroupExpressions>
               </Group>
               <SortExpressions>
                 <SortExpression>
-                  <Value>=Fields!PERIOD.Value</Value>
+                  <Value>=Fields!Period.Value</Value>
                 </SortExpression>
               </SortExpressions>
               <TablixHeader>
@@ -414,7 +427,7 @@ Iif(InStr(Fields!TEST_ID.Value, "CUT") &gt; 0, "",
         <RepeatRowHeaders>true</RepeatRowHeaders>
         <FixedColumnHeaders>true</FixedColumnHeaders>
         <FixedRowHeaders>true</FixedRowHeaders>
-        <DataSetName>DataSetStudentStats</DataSetName>
+        <DataSetName>TStudentGradeReport</DataSetName>
         <Top>0.21944in</Top>
         <Left>0.06924in</Left>
         <Height>0.53646in</Height>
@@ -443,7 +456,7 @@ Iif(InStr(Fields!TEST_ID.Value, "CUT") &gt; 0, "",
             <Paragraph>
               <TextRuns>
                 <TextRun>
-                  <Value>=Fields!TEST_ID.Value</Value>
+                  <Value>=First(Fields!TestID.Value, "TStudentGradeReport")</Value>
                   <Style>
                     <FontWeight>Bold</FontWeight>
                   </Style>
@@ -476,7 +489,7 @@ Iif(InStr(Fields!TEST_ID.Value, "CUT") &gt; 0, "",
             <Paragraph>
               <TextRuns>
                 <TextRun>
-                  <Value>=Fields!CAMPUS.Value</Value>
+                  <Value>=First(Fields!Campus.Value, "TStudentGradeReport")</Value>
                   <Style>
                     <FontWeight>Bold</FontWeight>
                   </Style>
@@ -508,7 +521,7 @@ Iif(InStr(Fields!TEST_ID.Value, "CUT") &gt; 0, "",
             <Paragraph>
               <TextRuns>
                 <TextRun>
-                  <Value>=Fields!TEACHER.Value</Value>
+                  <Value>=First(Fields!Teacher.Value, "TStudentGradeReport")</Value>
                   <Style>
                     <FontWeight>Bold</FontWeight>
                   </Style>

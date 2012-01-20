@@ -228,7 +228,6 @@ namespace Benchmark_Instant_Reports_2
         {
             //** User clicked the Generate Report button ***//
             List<StudentListItem> studentData = new List<StudentListItem>();
-            //StudentListItemData studentData = new StudentListItemData();
             
             // generate results for the given criteria on the page if we need to
             if (reportDataParmsHaveChanged)
@@ -236,15 +235,15 @@ namespace Benchmark_Instant_Reports_2
                 // do a new query by school
                 if (ddTeacher.SelectedIndex != 0)
                 {
-                    studentData = StudentData.GetStudentDataToGradeq(listTests.SelectedItem.ToString(),
+                    studentData = StudentData.GetStudentDataToGrade(listTests.SelectedItem.ToString(),
                         ddCampus.SelectedValue.ToString(), ddTeacher.SelectedValue.ToString());
                 }
                 else
                 {
-                    studentData = StudentData.GetStudentDataToGradeq(listTests.SelectedItem.ToString(),
+                    studentData = StudentData.GetStudentDataToGrade(listTests.SelectedItem.ToString(),
                         ddCampus.SelectedValue.ToString());
                 }
-                resultsData = IARepHelper.generateBenchmarkStatsRepTableQ(studentData,
+                resultsData = IARepHelper.GenerateBenchmarkStatsRepTable(studentData,
                     listTests.SelectedItem.ToString(), ddCampus.SelectedValue.ToString());
 
                 reportDataParmsHaveChanged = false;

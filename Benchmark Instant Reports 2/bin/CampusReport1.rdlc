@@ -40,6 +40,14 @@
           <DataField>NumTotal</DataField>
           <rd:TypeName>System.Int32</rd:TypeName>
         </Field>
+        <Field Name="NumPoints">
+          <DataField>NumPoints</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="NumTotalPoints">
+          <DataField>NumTotalPoints</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
         <Field Name="PctCorrect">
           <DataField>PctCorrect</DataField>
           <rd:TypeName>System.Decimal</rd:TypeName>
@@ -272,8 +280,10 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>= round(100 * Sum(fields!NumCorrect.Value, "TEACHER2") / sum(fields!NumTotal.Value, "TEACHER2"), 1) &amp; "%"</Value>
-                              <Style />
+                              <Value>= Avg(Fields!PctCorrect.Value, "TEACHER2")</Value>
+                              <Style>
+                                <Format>0.0%</Format>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style>
@@ -394,9 +404,10 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>= round(100 * Sum(fields!NumCorrect.Value, "TStudentGradeRep") / sum(fields!NumTotal.Value, "TStudentGradeRep"), 1) &amp; "%"</Value>
+                              <Value>= Avg(Fields!PctCorrect.Value, "TStudentGradeRep")</Value>
                               <Style>
                                 <FontWeight>Bold</FontWeight>
+                                <Format>0.0%</Format>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -801,8 +812,10 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>=Round(100 * Sum(Fields!NumCorrect.Value, "PERIOD") / Sum(Fields!NumTotal.Value, "PERIOD"), 1) &amp; "%"</Value>
-                              <Style />
+                              <Value>= Avg(Fields!PctCorrect.Value, "PERIOD")</Value>
+                              <Style>
+                                <Format>0.0%</Format>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style>
@@ -923,9 +936,10 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>=Round(100 * Sum(Fields!NumCorrect.Value, "TEACHER") / Sum(Fields!NumTotal.Value, "TEACHER"), 1) &amp; "%"</Value>
+                              <Value>= Avg(Fields!PctCorrect.Value, "TEACHER")</Value>
                               <Style>
                                 <FontWeight>Bold</FontWeight>
+                                <Format>0.0%</Format>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -1048,9 +1062,10 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>=Round(100 * Sum(Fields!NumCorrect.Value, "TStudentGradeRep") / Sum(Fields!NumTotal.Value, "TStudentGradeRep"), 1) &amp; "%"</Value>
+                              <Value>= Avg(Fields!PctCorrect.Value, "TStudentGradeRep")</Value>
                               <Style>
                                 <FontWeight>Bold</FontWeight>
+                                <Format>0.0%</Format>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -1432,7 +1447,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>=Fields!PassNum.Value &amp; " / " &amp; Fields!NumTotal.Value &amp; " (" &amp; 100 * Round(Fields!PassNum.Value / Fields!NumTotal.Value, 3) &amp; "%)"</Value>
+                              <Value>=Fields!PassNum.Value &amp; " / " &amp; Round(Fields!NumTotalPoints.Value, 0) &amp; " (" &amp; Round(100 * Fields!PassNum.Value / Fields!NumTotalPoints.Value, 1) &amp; "%)"</Value>
                               <Style>
                                 <FontWeight>Bold</FontWeight>
                               </Style>

@@ -89,7 +89,7 @@
         </div>
         <div class="main">
             <div class="attentionitem">
-                Now With Speed -- Faster Reports Phase 2 (still more speediness to come)</div>
+                Now With More Speed -- Faster Reports Phase 2 (still more speediness to come)</div>
             <asp:ContentPlaceHolder ID="MainContent" runat="server" />
         </div>
         <div class="clear">

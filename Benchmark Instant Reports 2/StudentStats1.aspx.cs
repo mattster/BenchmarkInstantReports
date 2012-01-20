@@ -94,7 +94,7 @@ namespace Benchmark_Instant_Reports_2
             lblNoScanData.Visible = false;
             birUtilities.savedSelectedTestID(Response, listTests.SelectedItem.ToString());
 
-            studentDataToGrade = StudentData.GetStudentDataToGradeq(listTests.SelectedItem.ToString(),
+            studentDataToGrade = StudentData.GetStudentDataToGrade(listTests.SelectedItem.ToString(),
                 ddCampus.SelectedValue.ToString());
 
             // get a list of teachers applicable for this query
@@ -144,7 +144,7 @@ namespace Benchmark_Instant_Reports_2
         protected void btnGenReport_Click(object sender, EventArgs e)
         {
             if (studentDataToGrade.Count == 0)
-                studentDataToGrade = StudentData.GetStudentDataToGradeq(listTests.SelectedItem.ToString(),
+                studentDataToGrade = StudentData.GetStudentDataToGrade(listTests.SelectedItem.ToString(),
                     ddCampus.SelectedValue.ToString(), ddTeacher.SelectedItem.ToString());
 
             StGradeReportData gradedData = StGradesRepHelper.generateStudentStatsRepTable(studentDataToGrade,
