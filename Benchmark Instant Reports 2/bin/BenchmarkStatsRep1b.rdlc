@@ -442,11 +442,11 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>=Sum(Fields!NumCorrect.Value) / Sum(Fields!NumTotal.Value)</Value>
+                              <Value>=Avg(Fields!PctCorrect.Value)</Value>
                               <Style>
                                 <FontFamily>Tahoma</FontFamily>
                                 <FontWeight>Bold</FontWeight>
-                                <Format>0%</Format>
+                                <Format>0.0%</Format>
                                 <Color>White</Color>
                               </Style>
                             </TextRun>
@@ -481,11 +481,11 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>=Sum(Fields!NumCorrect.Value) / Sum(Fields!NumTotal.Value)</Value>
+                              <Value>=Avg(Fields!PctCorrect.Value)</Value>
                               <Style>
                                 <FontFamily>Tahoma</FontFamily>
                                 <FontWeight>Bold</FontWeight>
-                                <Format>0%</Format>
+                                <Format>0.0%</Format>
                                 <Color>White</Color>
                               </Style>
                             </TextRun>
@@ -847,7 +847,7 @@
                       <Paragraph>
                         <TextRuns>
                           <TextRun>
-                            <Value>Avg. % Correct -</Value>
+                            <Value>% #Items Correct-</Value>
                             <Style>
                               <FontStyle>Normal</FontStyle>
                               <FontFamily>Tahoma</FontFamily>

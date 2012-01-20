@@ -107,34 +107,15 @@ namespace Benchmark_Instant_Reports_2.Classes
 
         protected void btnGenReport_Click(object sender, EventArgs e)
         {
-            //** User clicked the Generate Report button ***//
-            //
-
             DataTable queryRepResultsTable = ScanReportIF.generateQueryRepTable(ddCampus.SelectedValue.ToString(),
                 birUtilities.getLBSelectionsAsArray(lbBenchmark));
-            // write results to database
-            int r = ScanReportIF.writeScanReportResultsToDb(queryRepResultsTable);
-
 
                 //setup the report
                 repvwMaterialsRep1.Visible = true;
                 ObjectDataSource ods = new ObjectDataSource();
                 ReportDataSource rds = new ReportDataSource();
 
-                // setup parameters for query
-                Parameter paramCampus = new Parameter("parmCampus", DbType.String, ddCampus.SelectedValue.ToString());
-                Parameter paramTestIDList = new Parameter("parmTestIdList", DbType.String,
-                    birUtilities.convertStringArrayForQuery(birUtilities.getLBSelectionsAsArray(lbBenchmark)));
-
-                ods.SelectMethod = "GetData";
-                ods.FilterExpression = "CAMPUS = \'{0}\' AND  TEST_ID IN ({1})";
-                ods.FilterParameters.Add(paramCampus);
-                ods.FilterParameters.Add(paramTestIDList);
-
-                ods.TypeName = "Benchmark_Instant_Reports_2.DataSetScanReportTableAdapters.TEMP_RESULTS_SCANREPORTTableAdapter";
-
-                
-                rds = new ReportDataSource("DataSetScanReport", ods);
+                rds = new ReportDataSource(repvwMaterialsRep1.LocalReport.GetDataSourceNames()[0], queryRepResultsTable);
                 repvwMaterialsRep1.LocalReport.DataSources.Clear();
                 repvwMaterialsRep1.LocalReport.DataSources.Add(rds);
                 repvwMaterialsRep1.ShowPrintButton = true;
@@ -171,14 +152,6 @@ namespace Benchmark_Instant_Reports_2.Classes
             ddCampus.DataTextField = "SCHOOLNAME";
             ddCampus.DataValueField = "SCHOOL_ABBR";
             ddCampus.DataBind();
-
-            // add option for "ALL" if authorized as admin
-            //if (CampusSecurity.isAuthorizedAsAdmin(Request))
-            //{
-            //    //ddCampus.Items.Insert(0, new ListItem("ALL Secondary", "ALL Secondary"));
-            //    //ddCampus.Items.Insert(0, new ListItem("ALL Elementary", "ALL Elementary"));
-            //    //ddCampus.SelectedIndex = 0;
-            //}
 
             int cidx = birUtilities.getIndexOfDDItem(birUtilities.savedSelectedCampus(Request), ddCampus);
             if (cidx != -1)

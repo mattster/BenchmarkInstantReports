@@ -6,6 +6,8 @@ using Benchmark_Instant_Reports_2.Helpers;
 using Benchmark_Instant_Reports_2.Infrastructure;
 using Microsoft.Reporting.WebForms;
 using Benchmark_Instant_Reports_2.Interfaces;
+using Benchmark_Instant_Reports_2.Interfaces.DBDataStruct;
+using Benchmark_Instant_Reports_2.Helpers.Reports;
 
 namespace Benchmark_Instant_Reports_2
 {
@@ -97,7 +99,7 @@ namespace Benchmark_Instant_Reports_2
             //** User clicked the Generate Report button ***//
             //
 
-            DataTable scanRepResultsTable = ScanReportIF.generateScanRepTable(ddCampus.SelectedValue.ToString(),
+            ScanReportData reportData = ScanRepHelper.generateScanRepTable(ddCampus.SelectedValue.ToString(),
                 birUtilities.getLBSelectionsAsArray(lbListTests));
 
             if (ddCampus.SelectedValue == "ALL Elementary" || ddCampus.SelectedValue == "ALL Secondary")
@@ -105,8 +107,7 @@ namespace Benchmark_Instant_Reports_2
                 // setup the report
                 repvwScanReport2.Visible = true;
                 repvwScanReport1.Visible = false;
-
-                ReportDataSource rds = new ReportDataSource(repvwScanReport2.LocalReport.GetDataSourceNames()[0], scanRepResultsTable);
+                ReportDataSource rds = new ReportDataSource(repvwScanReport2.LocalReport.GetDataSourceNames()[0], reportData.GetItems());
                 repvwScanReport2.LocalReport.DataSources.Clear();
                 repvwScanReport2.LocalReport.DataSources.Add(rds);
                 repvwScanReport2.ShowPrintButton = true;
@@ -115,11 +116,10 @@ namespace Benchmark_Instant_Reports_2
 
             else
             {
-
                 //setup the report
                 repvwScanReport1.Visible = true;
                 repvwScanReport2.Visible = false;
-                ReportDataSource rds = new ReportDataSource(repvwScanReport1.LocalReport.GetDataSourceNames()[0], scanRepResultsTable);
+                ReportDataSource rds = new ReportDataSource(repvwScanReport1.LocalReport.GetDataSourceNames()[0], reportData.GetItems());
                 repvwScanReport1.LocalReport.DataSources.Clear();
                 repvwScanReport1.LocalReport.DataSources.Add(rds);
                 repvwScanReport1.ShowPrintButton = true;

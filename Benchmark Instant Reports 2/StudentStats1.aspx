@@ -242,6 +242,12 @@
                     <LocalReport ReportPath="StudentStatsRep2a.rdlc">
                     </LocalReport>
                 </rsweb:ReportViewer>
+                <rsweb:ReportViewer ID="repvwStudentStats2b" runat="server" Font-Names="Verdana"
+                    Font-Size="8pt" InteractiveDeviceInfos="(Collection)" WaitMessageFont-Names="Verdana"
+                    WaitMessageFont-Size="14pt" Width="800px" Height="113px" SizeToReportContent="True">
+                    <LocalReport ReportPath="StudentStatsRep2b.rdlc">
+                    </LocalReport>
+                </rsweb:ReportViewer>
             </ContentTemplate>
         </asp:UpdatePanel>
     </asp:Panel>

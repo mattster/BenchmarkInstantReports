@@ -6,12 +6,17 @@ using Benchmark_Instant_Reports_2.Helpers;
 using Microsoft.Reporting.WebForms;
 using Benchmark_Instant_Reports_2.Infrastructure;
 using Benchmark_Instant_Reports_2.Interfaces;
+using System.Collections.Generic;
+using Benchmark_Instant_Reports_2.Interfaces.DBDataStruct;
+using Benchmark_Instant_Reports_2.Grading;
+using Benchmark_Instant_Reports_2.Helpers.Reports;
 
 namespace Benchmark_Instant_Reports_2
 {
     public partial class CampusReport : ReportPage<DropDownList>
     {
         public SiteMaster theMasterPage;
+        private static StGradeReportData resultsData = new StGradeReportData();
         private static TestFilterState _thisTestFilterState = new TestFilterState();
         public override TestFilterState thisTestFilterState
         {
@@ -81,38 +86,21 @@ namespace Benchmark_Instant_Reports_2
 
         protected void btnGenReport_Click(object sender, EventArgs e)
         {
-            //** User clicked the Generate Report button ***//
-            //
-          
-            DataSet ds1 = new DataSet();
-            DataTable dtResultsDataTable = new DataTable();
+            //** User clicked the Generate Report button ***//          
+            List<StudentListItem> studentData = new List<StudentListItem>();
 
             if (ddCampus.SelectedValue.ToString() == "ALL Elementary" || ddCampus.SelectedValue.ToString() == "ALL Secondary")
             {   // Show All Campuses
-                ds1 = birIF.getStudentDataToGrade(listTests.SelectedItem.ToString());
+                studentData = StudentData.GetStudentDataToGrade(listTests.SelectedItem.ToString(),
+                    ddCampus.SelectedValue.ToString());
 
-                dtResultsDataTable = StudentStatsIF.generateStudentStatsRepTable(ds1.Tables[0],
-                    listTests.SelectedItem.ToString());
-                int r = StudentStatsIF.writeStudentStatsResultsToDb(dtResultsDataTable);
+                resultsData = StGradesRepHelper.generateStudentStatsRepTable(studentData, listTests.SelectedItem.ToString());
 
                 this.repvwCampusReport1.Visible = false;
                 this.repvwCampusReport2.Visible = true;
 
-                // setup the report
-                ObjectDataSource ods = new ObjectDataSource();
-                ReportDataSource rds = new ReportDataSource();
-
-                // setup parameters for query
-                Parameter paramTestID = new Parameter("parmTestId", DbType.String, listTests.SelectedItem.ToString());
-
-                ods.SelectMethod = "GetDataByUseFilter";
-
-                ods.FilterExpression = "TEST_ID = \'{0}\'";
-                ods.FilterParameters.Add(paramTestID);
-
-                ods.TypeName = "Benchmark_Instant_Reports_2.DataSetStudentStatsTableAdapters.TEMP_RESULTS_STUDENTSTATSTableAdapter";
-
-                rds = new ReportDataSource("DataSetStudentStatsC", ods);
+                ReportDataSource rds = new ReportDataSource(repvwCampusReport2.LocalReport.GetDataSourceNames()[0],
+                    resultsData.GetItems());
                 this.repvwCampusReport2.LocalReport.DataSources.Clear();
                 this.repvwCampusReport2.LocalReport.DataSources.Add(rds);
                 this.repvwCampusReport2.ShowPrintButton = true;
@@ -121,15 +109,15 @@ namespace Benchmark_Instant_Reports_2
             }
             else
             {   // Show One Campus
-                ds1 = birIF.getStudentDataToGrade(listTests.SelectedItem.ToString(), ddCampus.SelectedValue.ToString());
+                studentData = StudentData.GetStudentDataToGrade(listTests.SelectedItem.ToString(),
+                    ddCampus.SelectedValue.ToString());
 
-                dtResultsDataTable = StudentStatsIF.generateStudentStatsRepTable(ds1.Tables[0],
-                    listTests.SelectedItem.ToString());
-
+                resultsData = StGradesRepHelper.generateStudentStatsRepTable(studentData, listTests.SelectedItem.ToString());
                 this.repvwCampusReport1.Visible = true;
                 this.repvwCampusReport2.Visible = false;
 
-                ReportDataSource rds = new ReportDataSource(repvwCampusReport1.LocalReport.GetDataSourceNames()[0], dtResultsDataTable);
+                ReportDataSource rds = new ReportDataSource(repvwCampusReport1.LocalReport.GetDataSourceNames()[0],
+                    resultsData.GetItems());
                 this.repvwCampusReport1.LocalReport.DataSources.Clear();
                 this.repvwCampusReport1.LocalReport.DataSources.Add(rds);
                 this.repvwCampusReport1.ShowPrintButton = true;

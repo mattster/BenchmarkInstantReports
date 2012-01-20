@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data;
 using System.Linq;
+using System.Collections.Generic;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Benchmark_Instant_Reports_2.Helpers;
@@ -8,6 +9,9 @@ using Benchmark_Instant_Reports_2.Infrastructure;
 using Microsoft.Reporting.WebForms;
 using Benchmark_Instant_Reports_2.References;
 using Benchmark_Instant_Reports_2.Interfaces;
+using Benchmark_Instant_Reports_2.Interfaces.DBDataStruct;
+using Benchmark_Instant_Reports_2.Grading;
+using Benchmark_Instant_Reports_2.Helpers.Reports;
 
 namespace Benchmark_Instant_Reports_2
 {
@@ -24,11 +28,7 @@ namespace Benchmark_Instant_Reports_2
             set { _thisTestFilterState = value; }
         }
 
-        private static DataSet studentListQueryData = new DataSet();        // holds results of the custom query
-        private static DataView studentListDataByTeacher = new DataView();  // custom query filtered by teacher
-        private static DataView studentListDataByTeacherPeriod = new DataView();    // custom query filtered by teacher, period
-        private static DataSet dsStudentListData = new DataSet();           // the filtered list of students
-        private static DataSet dsStudentDataToGrade = new DataSet();        // student data to grade
+        private static List<StudentListItem> studentDataToGrade = new List<StudentListItem>();
 
         #endregion
 
@@ -93,14 +93,14 @@ namespace Benchmark_Instant_Reports_2
             lblNoScanData.Visible = false;
             birUtilities.savedSelectedTestID(Response, listTests.SelectedItem.ToString());
 
-            dsStudentDataToGrade = birIF.getStudentDataToGrade(listTests.SelectedItem.ToString(),
+            studentDataToGrade = StudentData.GetStudentDataToGrade(listTests.SelectedItem.ToString(),
                 ddCampus.SelectedValue.ToString());
 
-            // get a list of teachers applicable for this query
-            string[] listOfTeachers = birUtilities.getUniqueTableColumnStringValues(dsStudentDataToGrade.Tables[0],
-                    Constants.TeacherNameFieldName);
-            Array.Sort(listOfTeachers);
 
+            // get a list of teachers applicable for this query
+            string[] listOfTeachers = studentDataToGrade.Select(t => t.TeacherName).Distinct().ToArray();
+            Array.Sort(listOfTeachers);
+            
 
             // if there are no students taking this test at this campus, deal with it
             if (listOfTeachers.Count() == 0)
@@ -137,24 +137,20 @@ namespace Benchmark_Instant_Reports_2
         protected void btnGenReport_Click(object sender, EventArgs e)
         {
             //** User clicked the Generate Report button ***//
-            //
+            if (studentDataToGrade.Count == 0)
+                studentDataToGrade = StudentData.GetStudentDataToGrade(listTests.SelectedItem.ToString(),
+                    ddCampus.SelectedValue.ToString(), ddTeacher.SelectedItem.ToString());
 
-            if (dsStudentDataToGrade.Tables.Count == 0)
-                dsStudentDataToGrade = birIF.getStudentDataToGrade(listTests.SelectedItem.ToString(),
-                    ddCampus.SelectedValue.ToString());
-
-            string selectFilter = "TEACHER_NAME = \'" + ddTeacher.SelectedItem.ToString().Replace("'", "''") + "\'";
-            DataTable dtMatchingStudents = birUtilities.getFilteredTable(dsStudentDataToGrade.Tables[0], selectFilter);
-            DataTable ssResultsDataTable = StudentStatsIF.generateStudentStatsRepTable(dtMatchingStudents,
+            StGradeReportData gradedData = StGradesRepHelper.generateStudentStatsRepTable(studentDataToGrade,
                 listTests.SelectedItem.ToString());
 
             // add in the individual student answer data
-            StudentSummaryIF.addStudentAnswerData(ssResultsDataTable, listTests.SelectedItem.ToString(), ddCampus.SelectedValue.ToString());
+            GradeTests.addStudentAnswerData(gradedData, listTests.SelectedItem.ToString(), ddCampus.SelectedValue.ToString());
 
             repvwStudentSummary.Visible = true;
             lblAlignmentNote.Visible = true;
 
-            ReportDataSource rds = new ReportDataSource(repvwStudentSummary.LocalReport.GetDataSourceNames()[0], ssResultsDataTable);
+            ReportDataSource rds = new ReportDataSource(repvwStudentSummary.LocalReport.GetDataSourceNames()[0], gradedData.GetItems());
             repvwStudentSummary.LocalReport.DataSources.Clear();
             repvwStudentSummary.LocalReport.DataSources.Add(rds);
             repvwStudentSummary.ShowPrintButton = true;

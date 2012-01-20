@@ -26,7 +26,7 @@ namespace Benchmark_Instant_Reports_2.Helpers.Reports
             k = 0;
         }
 
-        public void UpdateFromResultsTableItem(ResultsTableItem item)
+        public void UpdateFromResultsTableItem(IAReportItem item)
         {
             a = item.NumA;
             b = item.NumB;
@@ -42,7 +42,7 @@ namespace Benchmark_Instant_Reports_2.Helpers.Reports
             return;
         }
 
-        public void UpdateToResultsTableItem(ResultsTableItem item)
+        public void UpdateToResultsTableItem(IAReportItem item)
         {
             item.NumA = a;
             item.NumB = b;

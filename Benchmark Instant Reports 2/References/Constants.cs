@@ -42,6 +42,11 @@ namespace Benchmark_Instant_Reports_2.References
         public static string SchoolCriteriaInCustomQ5 = "AND SCHOOL_ABBR = @school";
         public static string SchoolCriteriaInCustomQ6 = "and school_abbr = @school";
 
+        // for Student Summary report formatting
+        public static int maxFormattedAnsGroups = 7;
+        public static int numColumnsInFormattedLine = 75;
+
+
 
         public static string UsernameAllCampuses = "ALL";
         public static bool LookupStudentNamesFromRoster = true;

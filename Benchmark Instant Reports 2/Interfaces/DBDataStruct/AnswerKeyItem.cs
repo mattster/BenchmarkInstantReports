@@ -2,18 +2,26 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using Benchmark_Instant_Reports_2.Infrastructure;
 
 namespace Benchmark_Instant_Reports_2.Interfaces.DBDataStruct
 {
+    /// <summary>
+    /// Answer Key data item;
+    /// inherit from IComparable in order to implement CompareTo, for easy sorting
+    /// </summary>
     public class AnswerKeyItem : IComparable<AnswerKeyItem>
     {
-        public string TestID { get; set; }
-        public int ItemNum { get; set; }
+        public string TestID { get; set; }      // key
+        public int ItemNum { get; set; }        // key
         public string Answer { get; set; }
         public int Category { get; set; }
         public string TEKS { get; set; }
-        public int Weight { get; set; }
+        public decimal Weight { get; set; }
 
+        /// <summary>
+        /// default constructor - empty / blank / zero items
+        /// </summary>
         public AnswerKeyItem()
         {
             TestID = "";
@@ -25,6 +33,13 @@ namespace Benchmark_Instant_Reports_2.Interfaces.DBDataStruct
         }
 
         // implement IComparable.CompareTo in order to Sort a list
+        /// <summary>
+        /// implements IComparable.CompareTo in order to Sort on ItemNum
+        /// </summary>
+        /// <param name="other">an AnserKeyItem to compare against this one</param>
+        /// <returns>less than zero if this ItemNum is less that the compared ItemNum
+        ///          0 if the ItemNum of this and the compared items are equal
+        ///          greater than zero if this ItemNum is greater than the compared ItemNum</returns>
         public int CompareTo(AnswerKeyItem other)
         {
             if (other == null) return 1;
@@ -32,5 +47,32 @@ namespace Benchmark_Instant_Reports_2.Interfaces.DBDataStruct
             return ItemNum.CompareTo(other.ItemNum);
         }
     }
+
+
+    /// <summary>
+    /// the multi-part key to be used in a hashtable
+    /// </summary>
+    public class AnswerKeyItemKey : ClassKey<AnswerKeyItem>
+    {
+        /// <summary>
+        /// create a hash key based on an instance of AnswerKeyItem
+        /// </summary>
+        /// <param name="ClassReference">instance of an AnswerKeyItem</param>
+        public AnswerKeyItemKey(AnswerKeyItem ClassReference) : base(ClassReference) { }
+
+        /// <summary>
+        /// return the list of values in the key
+        /// </summary>
+        /// <returns>an array of objects that contain the values of the actual fields used in the key</returns>
+        public override object[] GetKeyValues()
+        {
+            return new object[] 
+            {
+                ClassReference.TestID,
+                ClassReference.ItemNum
+            };
+        }
+    }
+
 
 }
