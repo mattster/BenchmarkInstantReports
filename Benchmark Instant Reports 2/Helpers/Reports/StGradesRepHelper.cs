@@ -12,7 +12,7 @@ namespace Benchmark_Instant_Reports_2.Helpers.Reports
 {
     public class StGradesRepHelper
     {
-        public static StGradeReportData generateStudentStatsRepTable(List<StudentListItem> studentData, string curTest)
+        public static StGradeReportData GenerateStudentStatsReportData(List<StudentListItem> studentData, string curTest)
         {
             string curId;
             StGradeReportData finalData = new StGradeReportData();

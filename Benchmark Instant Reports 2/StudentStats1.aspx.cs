@@ -147,14 +147,14 @@ namespace Benchmark_Instant_Reports_2
                 studentDataToGrade = StudentData.GetStudentDataToGrade(listTests.SelectedItem.ToString(),
                     ddCampus.SelectedValue.ToString(), ddTeacher.SelectedItem.ToString());
 
-            StGradeReportData gradedData = StGradesRepHelper.generateStudentStatsRepTable(studentDataToGrade,
+            StGradeReportData gradedData = StGradesRepHelper.GenerateStudentStatsReportData(studentDataToGrade,
                 listTests.SelectedItem.ToString());
 
             if (TestHelper.UsesWeightedAnswers(listTests.SelectedItem.ToString()))
             {
                 //test with weighted items
                 ReportDataSource rds = new ReportDataSource(repvwStudentStats2b.LocalReport.GetDataSourceNames()[0],
-                    gradedData.GetItems());
+                    gradedData.GetItemsWhere(i => i.Teacher == ddTeacher.SelectedItem.ToString()));
                 repvwStudentStats2b.Visible = true;
                 repvwStudentStats2a.Visible = false;
 
@@ -166,7 +166,7 @@ namespace Benchmark_Instant_Reports_2
             else
             {
                 ReportDataSource rds = new ReportDataSource(repvwStudentStats2a.LocalReport.GetDataSourceNames()[0],
-                    gradedData.GetItems());
+                    gradedData.GetItemsWhere(i => i.Teacher == ddTeacher.SelectedItem.ToString()));
                 repvwStudentStats2a.Visible = true;
                 repvwStudentStats2b.Visible = false;
 

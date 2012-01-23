@@ -94,7 +94,7 @@ namespace Benchmark_Instant_Reports_2
                 studentData = StudentData.GetStudentDataToGrade(listTests.SelectedItem.ToString(),
                     ddCampus.SelectedValue.ToString());
 
-                resultsData = StGradesRepHelper.generateStudentStatsRepTable(studentData, listTests.SelectedItem.ToString());
+                resultsData = StGradesRepHelper.GenerateStudentStatsReportData(studentData, listTests.SelectedItem.ToString());
 
                 this.repvwCampusReport1.Visible = false;
                 this.repvwCampusReport2.Visible = true;
@@ -112,7 +112,7 @@ namespace Benchmark_Instant_Reports_2
                 studentData = StudentData.GetStudentDataToGrade(listTests.SelectedItem.ToString(),
                     ddCampus.SelectedValue.ToString());
 
-                resultsData = StGradesRepHelper.generateStudentStatsRepTable(studentData, listTests.SelectedItem.ToString());
+                resultsData = StGradesRepHelper.GenerateStudentStatsReportData(studentData, listTests.SelectedItem.ToString());
                 this.repvwCampusReport1.Visible = true;
                 this.repvwCampusReport2.Visible = false;
 

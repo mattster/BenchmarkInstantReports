@@ -141,7 +141,7 @@ namespace Benchmark_Instant_Reports_2
                 studentDataToGrade = StudentData.GetStudentDataToGrade(listTests.SelectedItem.ToString(),
                     ddCampus.SelectedValue.ToString(), ddTeacher.SelectedItem.ToString());
 
-            StGradeReportData gradedData = StGradesRepHelper.generateStudentStatsRepTable(studentDataToGrade,
+            StGradeReportData gradedData = StGradesRepHelper.GenerateStudentStatsReportData(studentDataToGrade,
                 listTests.SelectedItem.ToString());
 
             // add in the individual student answer data
@@ -150,7 +150,8 @@ namespace Benchmark_Instant_Reports_2
             repvwStudentSummary.Visible = true;
             lblAlignmentNote.Visible = true;
 
-            ReportDataSource rds = new ReportDataSource(repvwStudentSummary.LocalReport.GetDataSourceNames()[0], gradedData.GetItems());
+            ReportDataSource rds = new ReportDataSource(repvwStudentSummary.LocalReport.GetDataSourceNames()[0],
+                gradedData.GetItemsWhere(i => i.Teacher == ddTeacher.SelectedItem.ToString()));
             repvwStudentSummary.LocalReport.DataSources.Clear();
             repvwStudentSummary.LocalReport.DataSources.Add(rds);
             repvwStudentSummary.ShowPrintButton = true;
