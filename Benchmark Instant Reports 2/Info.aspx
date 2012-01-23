@@ -35,4 +35,9 @@
             <img src="content/images/pdficon_large.gif" alt="Adobe PDF" /></a> <span class="info-item-text">
                 <a href="content/files/Benchmark%20Instant%20Reports%20reference.pdf">Reports Reference Guide</a></span>
     </div>
+    <div class="info-item">
+        <a href="content/files/LxmCleanGlassP1.avi">
+            <img src="content/images/Movies-75x75.png" alt="Windows AVI file" /></a> <span class="info-item-text">
+            <a href="content/files/LxmCleanGlassP1.avi">How To Clean The Scanner Glass</a></span>
+    </div>
 </asp:Content>
