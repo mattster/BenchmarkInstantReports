@@ -195,7 +195,15 @@
     <Compile Include="Infrastructure\ClassKey.cs" />
     <Compile Include="Infrastructure\DataEntityItem.cs" />
     <Compile Include="Infrastructure\DataItemCollection.cs" />
+    <Compile Include="Infrastructure\Entities\AnswerKey.cs" />
+    <Compile Include="Infrastructure\Entities\AnswerKeyCampus.cs" />
+    <Compile Include="Infrastructure\Entities\Benchmark.cs" />
+    <Compile Include="Infrastructure\Entities\Roster.cs" />
+    <Compile Include="Infrastructure\Entities\School.cs" />
+    <Compile Include="Infrastructure\Entities\TestDefinition.cs" />
     <Compile Include="Infrastructure\Extensions.cs" />
+    <Compile Include="Infrastructure\IRepositories\IRepository.cs" />
+    <Compile Include="Infrastructure\IRepositories\ISchoolRepository.cs" />
     <Compile Include="Interfaces\DBDataStruct\AnswerKeyItem.cs" />
     <Compile Include="Grading\GradeTests.cs" />
     <Compile Include="Grading\StudentData.cs" />
@@ -351,6 +359,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Infrastructure\Repositories\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Account\Web.config" />
