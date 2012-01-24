@@ -40,6 +40,9 @@
     <Reference Include="AntiXSSLibrary">
       <HintPath>..\packages\AjaxControlToolkit.4.1.51116\lib\40\SanitizerProviders\AntiXSSLibrary.dll</HintPath>
     </Reference>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.4.2.0.0\lib\net40\EntityFramework.dll</HintPath>
+    </Reference>
     <Reference Include="HtmlSanitizationLibrary">
       <HintPath>..\packages\AjaxControlToolkit.4.1.51116\lib\40\SanitizerProviders\HtmlSanitizationLibrary.dll</HintPath>
     </Reference>
@@ -52,7 +55,11 @@
     <Reference Include="SanitizerProviders">
       <HintPath>..\packages\AjaxControlToolkit.4.1.51116\lib\40\SanitizerProviders\SanitizerProviders.dll</HintPath>
     </Reference>
+    <Reference Include="StructureMap">
+      <HintPath>..\packages\structuremap.2.6.3\lib\StructureMap.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Data.Entity" />
@@ -173,7 +180,6 @@
     <Compile Include="Dapper\SqlMapper.cs" />
     <Compile Include="DataSetBenchmarkStats2.cs">
       <DependentUpon>DataSetBenchmarkStats2.xsd</DependentUpon>
-      <SubType>Component</SubType>
     </Compile>
     <Compile Include="DataSetBenchmarkStats2.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -202,8 +208,10 @@
     <Compile Include="Infrastructure\Entities\School.cs" />
     <Compile Include="Infrastructure\Entities\TestDefinition.cs" />
     <Compile Include="Infrastructure\Extensions.cs" />
+    <Compile Include="Infrastructure\IoC\StructureMapConfig.cs" />
     <Compile Include="Infrastructure\IRepositories\IRepository.cs" />
     <Compile Include="Infrastructure\IRepositories\ISchoolRepository.cs" />
+    <Compile Include="Infrastructure\Repositories\SchoolRepositoryODA.cs" />
     <Compile Include="Interfaces\DBDataStruct\AnswerKeyItem.cs" />
     <Compile Include="Grading\GradeTests.cs" />
     <Compile Include="Grading\StudentData.cs" />
@@ -359,7 +367,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Infrastructure\Repositories\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Account\Web.config" />

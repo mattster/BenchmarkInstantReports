@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Security;
 using System.Web.SessionState;
 using System.Web.Routing;
+using System.Web.UI;
 
 
 
@@ -19,6 +20,22 @@ namespace Benchmark_Instant_Reports_2
     public class Global : System.Web.HttpApplication
     {
 
+
+        protected void Application_PreRequestHandlerExecute(object sender, EventArgs e)
+        {
+            // StructureMap Setter Injection for repositories for each web page
+            //var application = (HttpApplication)sender;
+            //var page = application.Context.CurrentHandler as Page;
+            //if (page == null) return;
+            //ObjectFactory.BuildUp(page);
+        }
+
+
+        protected void Application_EndRequest(object sender, EventArgs e)
+        {
+            // StructureMap disposing of repositories at the end of a web session
+
+        }
 
         void Application_Start(object sender, EventArgs e)
         {
