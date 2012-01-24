@@ -127,9 +127,9 @@ namespace Benchmark_Instant_Reports_2.Grading
                         numCorrect++;
                         numPoints += itemAnswerKey.Weight;
                     }
-
-                    numTotalPoints += itemAnswerKey.Weight;
                 }
+
+                numTotalPoints += itemAnswerKey.Weight;
             }
 
             //calculate stuff
@@ -253,7 +253,13 @@ namespace Benchmark_Instant_Reports_2.Grading
 
         private static char CalcLetterGrade(decimal pointsfor, int passnum)
         {
-            if (pointsfor >= passnum)
+            if (pointsfor >= (decimal)passnum)
+                return 'P';
+
+                // if the pointsfor number will round up to the (int)passnum to the nearest tenth,
+                //   i.e. if the difference is less than or equal to 0.05,
+                //   then call this a Pass since it will display the points as such
+            else if ((decimal)passnum - pointsfor <= (decimal)0.5)
                 return 'P';
 
             return 'F';

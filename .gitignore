@@ -9,6 +9,7 @@
 bin/
 obj/
 *.orig
+*.avi
 
 #ignore thumbnails created by windows
 Thumbs.db
