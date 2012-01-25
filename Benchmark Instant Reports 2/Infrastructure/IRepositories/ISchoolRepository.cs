@@ -14,5 +14,7 @@ namespace Benchmark_Instant_Reports_2.Infrastructure.IRepositories
         IQueryable<School> FindHSCampuses();
         IQueryable<School> FindJHCampuses();
         IQueryable<School> FindELCampuses();
+
+
     }
 }

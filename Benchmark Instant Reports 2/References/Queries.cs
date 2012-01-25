@@ -43,9 +43,17 @@ namespace Benchmark_Instant_Reports_2.References
                 "select schoolid from " + DatabaseDefn.DBSchool + " " +
                 "where school_abbr = \'@schoolAbbr\'";
 
-        public static string GetSchoolByID = 
+        public static string GetSchoolByID =
                 "select * from " + DatabaseDefn.DBSchool + " " +
-                "where 
+                "where schoolid = @id";
+
+        public static string GetSchoolByAbbr =
+                "select * from " + DatabaseDefn.DBSchool + " " +
+                "where school_abbr = \'@abbr\'";
+
+        public static string GetAllSchools =
+                "select * from " + DatabaseDefn.DBSchool + " ";
+
 
         #endregion
 
