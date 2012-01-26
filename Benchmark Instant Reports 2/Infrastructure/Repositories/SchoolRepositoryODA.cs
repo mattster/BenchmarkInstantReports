@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using Benchmark_Instant_Reports_2.Infrastructure.IRepositories;
-using Benchmark_Instant_Reports_2.References;
 using System.Data;
-using Benchmark_Instant_Reports_2.Interfaces;
+using System.Linq;
 using Benchmark_Instant_Reports_2.Infrastructure.Entities;
+using Benchmark_Instant_Reports_2.Infrastructure.IRepositories;
+using Benchmark_Instant_Reports_2.Interfaces;
+using Benchmark_Instant_Reports_2.References;
 
 namespace Benchmark_Instant_Reports_2.Infrastructure.Repositories
 {
@@ -75,8 +74,11 @@ namespace Benchmark_Instant_Reports_2.Infrastructure.Repositories
 
         public IQueryable<Entities.School> FindWhere(Func<Entities.School, bool> predicate)
         {
-            throw new NotImplementedException();
+            return FindAll().Where(predicate).AsQueryable();
         }
+
+
+
 
         public void Add(Entities.School newentity)
         {
@@ -95,16 +97,17 @@ namespace Benchmark_Instant_Reports_2.Infrastructure.Repositories
         private static School ConvertRowToSchool(DataRow row)
         {
             School retSchool = new School();
-            retSchool.ID = (int)(decimal)row["SCHOOLID"];
+            retSchool.ID = (row["SCHOOLID"].ToString() != "") ? Convert.ToInt32(row["SCHOOLID"].ToString()) : 0;
             retSchool.Name = row["SCHOOLNAME"].ToString();
             retSchool.Password = row["SCHOOLPASSWORD"].ToString();
             retSchool.Principal = row["PRINCIPAL"].ToString();
             retSchool.Area = row["AREA"].ToString();
-            retSchool.Loc = (int)(decimal)row["LOC"];
+            retSchool.Loc = (row["LOC"].ToString() != "") ? Convert.ToInt32(row["LOC"].ToString()) : 0;
             retSchool.Phone = row["PHONE"].ToString();
             retSchool.Username = row["USERNAME"].ToString();
             retSchool.Abbr = row["SCHOOL_ABBR"].ToString();
-            retSchool.Cluster = (int)(decimal)      row["CLUSTERNUM"].ToString();
+            var mythis = row["CLUSTERNUM"].ToString();
+            retSchool.Cluster = (row["CLUSTERNUM"].ToString() != "") ? Convert.ToInt32(row["CLUSTERNUM"].ToString()) : 0;
 
             return retSchool;
         }

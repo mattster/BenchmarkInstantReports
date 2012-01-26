@@ -98,7 +98,14 @@ namespace Benchmark_Instant_Reports_2.References
         // ***** get test info
         #region get_test_info
 
-        public static string GetNumTestQuestions = 
+        public static string GetTestInfoForTest =
+                "select * from " + DatabaseDefn.DBTestDefn + " " +
+                "where test_id = \'@testId\'";
+
+        public static string GetTestInfoForAll =
+                "select * from " + DatabaseDefn.DBTestDefn;
+
+        public static string GetNumTestQuestions =
                 "select max(item_num) from " + DatabaseDefn.DBTestDefn + " " +
                 "where test_id = \'@testId\'";
 
@@ -143,6 +150,15 @@ namespace Benchmark_Instant_Reports_2.References
                 "and item_num >= @itemNumStart " +
                 "and item_num <= @itemNumEnd " +
                 "order by item_num asc";
+
+        public static string GetAllDistrictAnswerKeys =
+                "select * from " + DatabaseDefn.DBAnswerKey + " " +
+                "order by test_id, item_num";
+
+        public static string GetAllCampusAnswerKeys =
+                "select * from " + DatabaseDefn.DBAnswerKeyCampus + " " +
+                "order by test_id, school_abbr, item_num";
+
         #endregion
 
 

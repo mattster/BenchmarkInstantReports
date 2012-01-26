@@ -35,9 +35,10 @@ namespace Benchmark_Instant_Reports_2
 
         protected void Application_EndRequest(object sender, EventArgs e)
         {
-            // StructureMap disposing of repositories at the end of a web session
+            // StructureMap - dispose of HTTP-scoped objects
             //var disposable = ObjectFactory.GetInstance<IRepoService>() as IDisposable;
             //if (disposable != null) disposable.Dispose();
+            ObjectFactory.ReleaseAndDisposeAllHttpScopedObjects();
         }
 
         void Application_Start(object sender, EventArgs e)

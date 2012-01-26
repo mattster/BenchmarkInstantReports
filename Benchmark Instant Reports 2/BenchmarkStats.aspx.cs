@@ -12,6 +12,7 @@ using Benchmark_Instant_Reports_2.Interfaces;
 using Benchmark_Instant_Reports_2.Interfaces.DBDataStruct;
 using Benchmark_Instant_Reports_2.Grading;
 using Benchmark_Instant_Reports_2.Helpers.Reports;
+using Benchmark_Instant_Reports_2.Account;
 
 namespace Benchmark_Instant_Reports_2
 {
@@ -309,9 +310,9 @@ namespace Benchmark_Instant_Reports_2
             lblNoScanData.Visible = false;
 
             // load list of campuses in Campus dropdown
-            ddCampus.DataSource = birUtilities.getAuthorizedCampusList(Context.User.Identity.Name);
-            ddCampus.DataTextField = "SCHOOLNAME";
-            ddCampus.DataValueField = "SCHOOL_ABBR";
+            ddCampus.DataSource = Authorize.getAuthorizedCampusList(Context.User.Identity.Name, DataService);
+            ddCampus.DataTextField = "Name";
+            ddCampus.DataValueField = "Abbr";
             ddCampus.DataBind();
 
             int cidx = birUtilities.getIndexOfDDItem(birUtilities.savedSelectedCampus(Request), ddCampus);

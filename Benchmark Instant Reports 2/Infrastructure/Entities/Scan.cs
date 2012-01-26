@@ -5,7 +5,7 @@ using System.Web;
 
 namespace Benchmark_Instant_Reports_2.Infrastructure.Entities
 {
-    public class Benchmark
+    public class Scan
     {
         public DateTime DateScanned { get; set; }
         public int ScanSequence { get; set; }

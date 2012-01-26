@@ -154,9 +154,6 @@ namespace Benchmark_Instant_Reports_2
             repvwScanReport2.Visible = false;
 
             // load list of campuses in Campus dropdown
-            //ddCampus.DataSource = birUtilities.getAuthorizedCampusList(Context.User.Identity.Name);
-            //ddCampus.DataTextField = "SCHOOLNAME";
-            //ddCampus.DataValueField = "SCHOOL_ABBR";
             ddCampus.DataSource = Authorize.getAuthorizedCampusList(Context.User.Identity.Name, DataService);
             ddCampus.DataTextField = "Name";
             ddCampus.DataValueField = "Abbr";

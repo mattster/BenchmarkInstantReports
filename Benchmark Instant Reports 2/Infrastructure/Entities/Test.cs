@@ -5,7 +5,7 @@ using System.Web;
 
 namespace Benchmark_Instant_Reports_2.Infrastructure.Entities
 {
-    public class TestDefinition
+    public class Test
     {
         public string TestID { get; set; }
         public int TestYear { get; set; }
