@@ -16,6 +16,8 @@ namespace Benchmark_Instant_Reports_2.Helpers
             if (campus == "ALL Elementary")
             {
                 return DBIOWorkaround.ReturnElemAbbrList().ConvertListForQuery();
+                //var campuses = DataService.SchoolRepo.FindELCampuses().Select(s => s.Abbr).ToArray<string>();
+                //return campuses.ConvertListForQuery();
             }
 
             // if "ALL SECONDARY", get a list of all secondary schools

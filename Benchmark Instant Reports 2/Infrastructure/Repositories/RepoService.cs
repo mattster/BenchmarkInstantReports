@@ -8,10 +8,11 @@ namespace Benchmark_Instant_Reports_2.Infrastructure.Repositories
 {
     public class RepoService : IRepoService
     {
-        public ISchoolRepository SchoolRepo
+        public ISchoolRepository SchoolRepo { get; set; }
+
+        public RepoService(ISchoolRepository schoolrepo)
         {
-            get;
-            set;
+            SchoolRepo = schoolrepo;
         }
     }
 }

@@ -7,8 +7,6 @@ namespace Benchmark_Instant_Reports_2.Infrastructure.IRepositories
 {
     public interface IRepoService
     {
-        public ISchoolRepository SchoolRepo { get; set; }
-
-
+        ISchoolRepository SchoolRepo { get; set; }
     }
 }

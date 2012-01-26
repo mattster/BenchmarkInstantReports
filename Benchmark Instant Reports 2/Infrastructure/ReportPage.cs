@@ -1,11 +1,17 @@
 ﻿using System;
 using System.Web.UI.WebControls;
 using Benchmark_Instant_Reports_2.Helpers;
+using Benchmark_Instant_Reports_2.Infrastructure;
+using Benchmark_Instant_Reports_2.Infrastructure.IRepositories;
 
 namespace Benchmark_Instant_Reports_2.Infrastructure
 {
     public abstract class ReportPage<T> : System.Web.UI.Page where T : ListControl
     {
+        // will be injected by StructureMap setter injection
+        public IRepoService DataService { get; set; }
+
+
         public virtual TestFilterState thisTestFilterState { get; set; }
 
         public DropDownList ddTFCur = new DropDownList();

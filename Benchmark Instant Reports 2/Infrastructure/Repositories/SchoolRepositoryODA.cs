@@ -95,16 +95,16 @@ namespace Benchmark_Instant_Reports_2.Infrastructure.Repositories
         private static School ConvertRowToSchool(DataRow row)
         {
             School retSchool = new School();
-            retSchool.ID = (int)row["SCHOOLID"];
+            retSchool.ID = (int)(decimal)row["SCHOOLID"];
             retSchool.Name = row["SCHOOLNAME"].ToString();
             retSchool.Password = row["SCHOOLPASSWORD"].ToString();
             retSchool.Principal = row["PRINCIPAL"].ToString();
             retSchool.Area = row["AREA"].ToString();
-            retSchool.Loc = (int)row["LOC"];
+            retSchool.Loc = (int)(decimal)row["LOC"];
             retSchool.Phone = row["PHONE"].ToString();
             retSchool.Username = row["USERNAME"].ToString();
             retSchool.Abbr = row["SCHOOL_ABBR"].ToString();
-            retSchool.Cluster = (int)row["CLUSTERNUM"];
+            retSchool.Cluster = (int)(decimal)      row["CLUSTERNUM"].ToString();
 
             return retSchool;
         }
