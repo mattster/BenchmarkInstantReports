@@ -2917,7 +2917,7 @@ Iif(Fields!LetterGrade.Value = "P","Pass",
         <Top>1.05709in</Top>
         <Left>0.21168in</Left>
         <Height>1.03125in</Height>
-        <Width>7.59011in</Width>
+        <Width>7.5901in</Width>
         <Style>
           <Border>
             <Style>None</Style>
@@ -3826,7 +3826,7 @@ Iif(Fields!LetterGrade.Value = "P","Pass",
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>=Fields!PassNum.Value &amp; " / " &amp; Round(Fields!NumTotalPoints.Value, 0) &amp; " (" &amp; 100 * Round(Fields!PassNum.Value / Fields!NumTotalPoints.Value, 1) &amp; "%)"</Value>
+                              <Value>=Fields!PassNum.Value &amp; " / " &amp; Round(Fields!NumTotalPoints.Value, 0) &amp; " (" &amp; Round(100 * Fields!PassNum.Value / Round(Fields!NumTotalPoints.Value,0) , 1) &amp; "%)"</Value>
                               <Style>
                                 <FontWeight>Bold</FontWeight>
                               </Style>
@@ -3850,6 +3850,7 @@ Iif(Fields!LetterGrade.Value = "P","Pass",
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
                     </Textbox>
+                    <rd:Selected>true</rd:Selected>
                   </CellContents>
                 </TablixCell>
               </TablixCells>

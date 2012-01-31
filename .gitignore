@@ -9,6 +9,7 @@
 bin/
 obj/
 *.orig
+*.avi
 
 *.avi
 

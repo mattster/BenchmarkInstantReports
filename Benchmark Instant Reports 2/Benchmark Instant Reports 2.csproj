@@ -84,6 +84,9 @@
     <Content Include="About.aspx" />
     <Content Include="CampusReport.aspx" />
     <Content Include="CascadingDropDown1.asmx" />
+    <Content Include="content\files\LxmCleanGlassP1.avi">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="content\images\ajax-loader1.gif" />
     <Content Include="content\images\ajax-loader2.gif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -95,6 +98,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="content\images\icon_close_window.gif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="content\images\Movies-75x75.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="content\images\pdficon_large.gif">
@@ -347,6 +353,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Account\" />
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>

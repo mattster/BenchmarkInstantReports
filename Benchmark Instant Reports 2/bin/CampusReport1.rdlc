@@ -1447,7 +1447,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>=Fields!PassNum.Value &amp; " / " &amp; Round(Fields!NumTotalPoints.Value, 0) &amp; " (" &amp; Round(100 * Fields!PassNum.Value / Fields!NumTotalPoints.Value, 1) &amp; "%)"</Value>
+                              <Value>=Fields!PassNum.Value &amp; " / " &amp; Round(Fields!NumTotalPoints.Value, 0) &amp; " (" &amp; Round(100 * Fields!PassNum.Value / Round(Fields!NumTotalPoints.Value,0) , 1) &amp; "%)"</Value>
                               <Style>
                                 <FontWeight>Bold</FontWeight>
                               </Style>
