@@ -46,7 +46,14 @@ namespace Benchmark_Instant_Reports_2.Exceptions
             
             // Math CUTs Spring 2012
             new GridNonExactMatch("2012-02 SM Geometry PreAP CUT 70-11", new int[] { 61, 62, 63 }),
-            new GridNonExactMatch("2012-02 SM Grade 9 Geometry CUT 79-11", new int[] { 61, 62, 63 })
+            new GridNonExactMatch("2012-02 SM Grade 9 Geometry CUT 79-11", new int[] { 61, 62, 63 }),
+
+
+            // Elementary Math and Science SIMs Spring 2012
+            new GridNonExactMatch("2012-01 EC Grade 5 Science TC 19-66", 25),
+            new GridNonExactMatch("2012-01 EM Grade 5 Math SIM 21-67", new int[] { 47, 48, 49, 50}),
+            new GridNonExactMatch("2012-01 EM Grade 5 Math-M SIM 21-68", 40),
+
         };
 
     }
