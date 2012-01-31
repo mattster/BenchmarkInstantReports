@@ -54,12 +54,18 @@ namespace Benchmark_Instant_Reports_2.Infrastructure.Repositories
         private static AnswerKey ConvertRowToAK(DataRow row)
         {
             AnswerKey retAK = new AnswerKey();
-            retAK.TestID = row["TEST_ID"].ToString();
-            retAK.ItemNum = (row["ITEM_NUM"].ToString() != "") ? Convert.ToInt32(row["ITEM_NUM"].ToString()) : 0;
-            retAK.Answer = row["ANSWER"].ToString();
-            retAK.Objective = (row["OBJECTIVE"].ToString() != "") ? Convert.ToInt32(row["OBJECTIVE"].ToString()) : 0;
-            retAK.TEKS = row["TEKS"].ToString();
-            retAK.Weight = (row["WEIGHT"].ToString() != "") ? Convert.ToDouble(row["WEIGHT"].ToString()) : 1.0;
+            retAK.TestID = ODAHelper.GetTableValueSafely(row, "TEST_ID").ToString();
+            retAK.ItemNum = (ODAHelper.GetTableValueSafely(row, "ITEM_NUM").ToString() != "") 
+                ? Convert.ToInt32(ODAHelper.GetTableValueSafely(row, "ITEM_NUM").ToString()) 
+                : 0;
+            retAK.Answer = ODAHelper.GetTableValueSafely(row, "ANSWER").ToString();
+            retAK.Objective = (ODAHelper.GetTableValueSafely(row, "OBJECTIVE").ToString() != "") 
+                ? Convert.ToInt32(ODAHelper.GetTableValueSafely(row, "OBJECTIVE").ToString()) 
+                : 0;
+            retAK.TEKS = ODAHelper.GetTableValueSafely(row, "TEKS").ToString();
+            retAK.Weight = (ODAHelper.GetTableValueSafely(row, "WEIGHT").ToString() != "") 
+                ? Convert.ToDouble(ODAHelper.GetTableValueSafely(row, "WEIGHT").ToString()) 
+                : 1.0;
 
             return retAK;
         }

@@ -106,7 +106,7 @@ namespace Benchmark_Instant_Reports_2
             }
             else
             {   // Show One Campus
-                studentData = StudentData.GetStudentDataToGrade(listTests.SelectedItem.ToString(),
+                studentData = StudentData.GetStudentDataToGrade(DataService, listTests.SelectedItem.ToString(),
                     ddCampus.SelectedValue.ToString());
 
                 resultsData = StGradesRepHelper.GenerateStudentStatsReportData(studentData, listTests.SelectedItem.ToString());

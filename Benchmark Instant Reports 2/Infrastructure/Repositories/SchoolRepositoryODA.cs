@@ -125,17 +125,22 @@ namespace Benchmark_Instant_Reports_2.Infrastructure.Repositories
         private static School ConvertRowToSchool(DataRow row)
         {
             School retSchool = new School();
-            retSchool.ID = (row["SCHOOLID"].ToString() != "") ? Convert.ToInt32(row["SCHOOLID"].ToString()) : 0;
-            retSchool.Name = row["SCHOOLNAME"].ToString();
-            retSchool.Password = row["SCHOOLPASSWORD"].ToString();
-            retSchool.Principal = row["PRINCIPAL"].ToString();
-            retSchool.Area = row["AREA"].ToString();
-            retSchool.Loc = (row["LOC"].ToString() != "") ? Convert.ToInt32(row["LOC"].ToString()) : 0;
-            retSchool.Phone = row["PHONE"].ToString();
-            retSchool.Username = row["USERNAME"].ToString();
-            retSchool.Abbr = row["SCHOOL_ABBR"].ToString();
-            var mythis = row["CLUSTERNUM"].ToString();
-            retSchool.Cluster = (row["CLUSTERNUM"].ToString() != "") ? Convert.ToInt32(row["CLUSTERNUM"].ToString()) : 0;
+            retSchool.ID = (ODAHelper.GetTableValueSafely(row, "SCHOOLID").ToString() != "") 
+                ? Convert.ToInt32(ODAHelper.GetTableValueSafely(row, "SCHOOLID").ToString()) 
+                : 0;
+            retSchool.Name = ODAHelper.GetTableValueSafely(row, "SCHOOLNAME").ToString();
+            retSchool.Password = ODAHelper.GetTableValueSafely(row, "SCHOOLPASSWORD").ToString();
+            retSchool.Principal = ODAHelper.GetTableValueSafely(row, "PRINCIPAL").ToString();
+            retSchool.Area = ODAHelper.GetTableValueSafely(row, "AREA").ToString();
+            retSchool.Loc = (ODAHelper.GetTableValueSafely(row, "LOC").ToString() != "") 
+                ? Convert.ToInt32(ODAHelper.GetTableValueSafely(row, "LOC").ToString()) 
+                : 0;
+            retSchool.Phone = ODAHelper.GetTableValueSafely(row, "PHONE").ToString();
+            retSchool.Username = ODAHelper.GetTableValueSafely(row, "USERNAME").ToString();
+            retSchool.Abbr = ODAHelper.GetTableValueSafely(row, "SCHOOL_ABBR").ToString();
+            retSchool.Cluster = (ODAHelper.GetTableValueSafely(row, "CLUSTERNUM").ToString() != "") 
+                ? Convert.ToInt32(ODAHelper.GetTableValueSafely(row, "CLUSTERNUM").ToString()) 
+                : 0;
 
             return retSchool;
         }

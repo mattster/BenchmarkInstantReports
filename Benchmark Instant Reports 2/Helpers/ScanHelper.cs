@@ -28,7 +28,8 @@ namespace Benchmark_Instant_Reports_2.Helpers
             schoolCustomQuery = schoolCustomQuery.Replace(Constants.TeacherNameNumFieldName, Constants.TeacherNameFieldNameR);
 
             // run the query
-            return DBIOWorkaround.ReturnExecutedCustomQuery(schoolCustomQuery);
+            var rosterstudents = dataservice.RosterRepo.ExecuteTestQuery(schoolCustomQuery);
+            //return DBIOWorkaround.ReturnExecutedCustomQuery(schoolCustomQuery);
         }
 
         public static List<StudentListItem> GetStudentScanListData(string testid, string campus,

@@ -195,6 +195,7 @@
     <Compile Include="Infrastructure\IRepositories\ITestRepository.cs" />
     <Compile Include="Infrastructure\Repositories\AnswerKeyCampusRepositoryODA.cs" />
     <Compile Include="Infrastructure\Repositories\AnswerKeyRepositoryODA.cs" />
+    <Compile Include="Infrastructure\Repositories\ODAHelper.cs" />
     <Compile Include="Infrastructure\Repositories\RepoService.cs" />
     <Compile Include="Infrastructure\Repositories\RosterRepositoryODA.cs" />
     <Compile Include="Infrastructure\Repositories\ScanRepositoryODA.cs" />

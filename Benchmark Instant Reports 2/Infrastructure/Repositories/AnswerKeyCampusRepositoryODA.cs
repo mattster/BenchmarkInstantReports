@@ -59,13 +59,19 @@ namespace Benchmark_Instant_Reports_2.Infrastructure.Repositories
         private static AnswerKeyCampus ConvertRowToAKC(DataRow row)
         {
             AnswerKeyCampus retAKC = new AnswerKeyCampus();
-            retAKC.TestID = row["TEST_ID"].ToString();
-            retAKC.SchoolAbbr = row["SCHOOL_ABBR"].ToString();
-            retAKC.ItemNum = (row["ITEM_NUM"].ToString() != "") ? Convert.ToInt32(row["ITEM_NUM"].ToString()) : 0;
-            retAKC.Answer = row["ANSWER"].ToString();
-            retAKC.Objective = (row["OBJECTIVE"].ToString() != "") ? Convert.ToInt32(row["OBJECTIVE"].ToString()) : 0;
-            retAKC.TEKS = row["TEKS"].ToString();
-            retAKC.Weight = (row["WEIGHT"].ToString() != "") ? Convert.ToDouble(row["WEIGHT"].ToString()) : 1.0;
+            retAKC.TestID = ODAHelper.GetTableValueSafely(row, "TEST_ID").ToString();
+            retAKC.SchoolAbbr = ODAHelper.GetTableValueSafely(row, "SCHOOL_ABBR").ToString();
+            retAKC.ItemNum = (ODAHelper.GetTableValueSafely(row, "ITEM_NUM").ToString() != "")
+                ? Convert.ToInt32(ODAHelper.GetTableValueSafely(row, "ITEM_NUM").ToString()) 
+                : 0;
+            retAKC.Answer = ODAHelper.GetTableValueSafely(row, "ANSWER").ToString();
+            retAKC.Objective = (ODAHelper.GetTableValueSafely(row, "OBJECTIVE").ToString() != "") 
+                ? Convert.ToInt32(ODAHelper.GetTableValueSafely(row, "OBJECTIVE").ToString()) 
+                : 0;
+            retAKC.TEKS = ODAHelper.GetTableValueSafely(row, "TEKS").ToString();
+            retAKC.Weight = (ODAHelper.GetTableValueSafely(row, "WEIGHT").ToString() != "") 
+                ? Convert.ToDouble(ODAHelper.GetTableValueSafely(row, "WEIGHT").ToString()) 
+                : 1.0;
 
             return retAKC;
         }

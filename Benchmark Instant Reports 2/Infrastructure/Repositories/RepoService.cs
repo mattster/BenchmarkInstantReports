@@ -4,6 +4,8 @@ using System.Linq;
 using System.Web;
 using Benchmark_Instant_Reports_2.Infrastructure.IRepositories;
 using Benchmark_Instant_Reports_2.References;
+using Benchmark_Instant_Reports_2.Infrastructure.Entities;
+using Benchmark_Instant_Reports_2.Helpers;
 
 namespace Benchmark_Instant_Reports_2.Infrastructure.Repositories
 {
@@ -28,7 +30,11 @@ namespace Benchmark_Instant_Reports_2.Infrastructure.Repositories
             TestRepo = testrepo;
         }
 
-
+        /// <summary>
+        /// return a list of TestIDs that are applicable to a specific school
+        /// </summary>
+        /// <param name="abbr">school abbreviation of the school to use</param>
+        /// <returns>List-string- of Test IDs</returns>
         public IList<string> GetTestIDsForSchool(string abbr)
         {
             if (abbr == Constants.DispAllElementary)
@@ -67,5 +73,7 @@ namespace Benchmark_Instant_Reports_2.Infrastructure.Repositories
             else
                 return TestRepo.FindActiveTests().Select(t => t.TestID).ToList();
         }
+
+
     }
 }

@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
-using System.Web;
 using Benchmark_Instant_Reports_2.Infrastructure.Entities;
 using Benchmark_Instant_Reports_2.Infrastructure.IRepositories;
 using Benchmark_Instant_Reports_2.Interfaces;
 using Benchmark_Instant_Reports_2.References;
-using System.Data;
 
 namespace Benchmark_Instant_Reports_2.Infrastructure.Repositories
 {
@@ -72,45 +71,65 @@ namespace Benchmark_Instant_Reports_2.Infrastructure.Repositories
         private static Test ConvertRowToTest(DataRow row)
         {
             Test retTest = new Test();
-            retTest.TestID = row["TEST_ID"].ToString();
-            retTest.TestYear = (row["TEST_YEAR"].ToString() != "") ? Convert.ToInt32(row["TEST_YEAR"].ToString()) : 0;
-            retTest.TestMonth = (row["TEST_MONTH"].ToString() != "") ? Convert.ToInt32(row["TEST_MONTH"].ToString()) : 0;
-            retTest.StartDate = (row["START_DATETIME"].ToString() != "") 
-                ? DateTime.Parse(row["START_DATETIME"].ToString()) 
+            retTest.TestID = ODAHelper.GetTableValueSafely(row, "TEST_ID").ToString();
+            retTest.TestYear = (ODAHelper.GetTableValueSafely(row, "TEST_YEAR").ToString() != "") 
+                ? Convert.ToInt32(ODAHelper.GetTableValueSafely(row, "TEST_YEAR").ToString()) 
+                : 0;
+            retTest.TestMonth = (ODAHelper.GetTableValueSafely(row, "TEST_MONTH").ToString() != "") 
+                ? Convert.ToInt32(ODAHelper.GetTableValueSafely(row, "TEST_MONTH").ToString()) 
+                : 0;
+            retTest.StartDate = (ODAHelper.GetTableValueSafely(row, "START_DATETIME").ToString() != "") 
+                ? DateTime.Parse(ODAHelper.GetTableValueSafely(row, "START_DATETIME").ToString()) 
                 : DateTime.Parse("1/1/1990"); 
-            retTest.EndDate = (row["END_DATETIME"].ToString() != "")
-                ? DateTime.Parse(row["END_DATETIME"].ToString()) 
+            retTest.EndDate = (ODAHelper.GetTableValueSafely(row, "END_DATETIME").ToString() != "")
+                ? DateTime.Parse(ODAHelper.GetTableValueSafely(row, "END_DATETIME").ToString()) 
                 : DateTime.Parse("1/1/1990"); 
-            retTest.Language = row["LANGUAGE_VERSION"].ToString();
-            retTest.Subject = row["TEST_SUBJECT"].ToString();
-            retTest.Title = row["TEST_TITLE"].ToString();
-            retTest.Grade = (row["TEST_GRADE"].ToString() != "") ? Convert.ToInt32(row["TEST_GRADE"].ToString()) : 0;
-            retTest.NumItems = (row["NUM_ITEMS"].ToString() != "") ? Convert.ToInt32(row["NUM_ITEMS"].ToString()) : 0;
-            retTest.NumPoints = (row["NUM_POINTS"].ToString() != "") ? Convert.ToInt32(row["NUM_POINTS"].ToString()) : 0;
-            retTest.PassNum = (row["PASS_NUM"].ToString() != "") ? Convert.ToInt32(row["PASS_NUM"].ToString()) : 0;
-            retTest.CommendedNum = (row["COMMENDED_NUM"].ToString() != "") ? Convert.ToInt32(row["COMMENDED_NUM"].ToString()) : 0;
-            retTest.CompScore = (row["COMP_SCORE"].ToString() != "") ? Convert.ToInt32(row["COMP_SCORE"].ToString()) : 0;
-            retTest.Projection = (row["PROJECTION"].ToString() != "") ? Convert.ToInt32(row["PROJECTION"].ToString()) : 0;
-            retTest.TestTemplate = row["TEST_TEMPLATE"].ToString();
-            retTest.CustomQueryOrig = row["CUSTOM_QUERY_ORIG"].ToString();
-            retTest.TestIDNum = (row["TEST_ID_NBR"].ToString() != "") ? Convert.ToInt32(row["TEST_ID_NBR"].ToString()) : 0;
-            retTest.ActualStartDate = (row["ACTUAL_START_DATE"].ToString() != "")
-                ? DateTime.Parse(row["ACTUAL_START_DATE"].ToString())
+            retTest.Language = ODAHelper.GetTableValueSafely(row, "LANGUAGE_VERSION").ToString();
+            retTest.Subject = ODAHelper.GetTableValueSafely(row, "TEST_SUBJECT").ToString();
+            retTest.Title = ODAHelper.GetTableValueSafely(row, "TEST_TITLE").ToString();
+            retTest.Grade = (ODAHelper.GetTableValueSafely(row, "TEST_GRADE").ToString() != "") 
+                ? Convert.ToInt32(ODAHelper.GetTableValueSafely(row, "TEST_GRADE").ToString()) 
+                : 0;
+            retTest.NumItems = (ODAHelper.GetTableValueSafely(row, "NUM_ITEMS").ToString() != "") 
+                ? Convert.ToInt32(ODAHelper.GetTableValueSafely(row, "NUM_ITEMS").ToString()) 
+                : 0;
+            retTest.NumPoints = (ODAHelper.GetTableValueSafely(row, "NUM_POINTS").ToString() != "") 
+                ? Convert.ToInt32(ODAHelper.GetTableValueSafely(row, "NUM_POINTS").ToString()) 
+                : 0;
+            retTest.PassNum = (ODAHelper.GetTableValueSafely(row, "PASS_NUM").ToString() != "") 
+                ? Convert.ToInt32(ODAHelper.GetTableValueSafely(row, "PASS_NUM").ToString()) 
+                : 0;
+            retTest.CommendedNum = (ODAHelper.GetTableValueSafely(row, "COMMENDED_NUM").ToString() != "") 
+                ? Convert.ToInt32(ODAHelper.GetTableValueSafely(row, "COMMENDED_NUM").ToString()) 
+                : 0;
+            retTest.CompScore = (ODAHelper.GetTableValueSafely(row, "COMP_SCORE").ToString() != "") 
+                ? Convert.ToInt32(ODAHelper.GetTableValueSafely(row, "COMP_SCORE").ToString()) 
+                : 0;
+            retTest.Projection = (ODAHelper.GetTableValueSafely(row, "PROJECTION").ToString() != "") 
+                ? Convert.ToInt32(ODAHelper.GetTableValueSafely(row, "PROJECTION").ToString()) 
+                : 0;
+            retTest.TestTemplate = ODAHelper.GetTableValueSafely(row, "TEST_TEMPLATE").ToString();
+            retTest.CustomQueryOrig = ODAHelper.GetTableValueSafely(row, "CUSTOM_QUERY_ORIG").ToString();
+            retTest.TestIDNum = (ODAHelper.GetTableValueSafely(row, "TEST_ID_NBR").ToString() != "") 
+                ? Convert.ToInt32(ODAHelper.GetTableValueSafely(row, "TEST_ID_NBR").ToString()) 
+                : 0;
+            retTest.ActualStartDate = (ODAHelper.GetTableValueSafely(row, "ACTUAL_START_DATE").ToString() != "")
+                ? DateTime.Parse(ODAHelper.GetTableValueSafely(row, "ACTUAL_START_DATE").ToString())
                 : DateTime.Parse("1/1/1990");
-            retTest.ActualEndDate = (row["ACTUAL_END_DATE"].ToString() != "")
-                ? DateTime.Parse(row["ACTUAL_END_DATE"].ToString())
+            retTest.ActualEndDate = (ODAHelper.GetTableValueSafely(row, "ACTUAL_END_DATE").ToString() != "")
+                ? DateTime.Parse(ODAHelper.GetTableValueSafely(row, "ACTUAL_END_DATE").ToString())
                 : DateTime.Parse("1/1/1990");
 
-            string schType = row["SCHOOL_TYPE"].ToString();
+            string schType = ODAHelper.GetTableValueSafely(row, "SCHOOL_TYPE").ToString();
             if (schType == "E")
                 retTest.SchoolType = Constants.SchoolType.Elementary;
             else if (schType == "S")
                 retTest.SchoolType = Constants.SchoolType.AllSecondary;
             else retTest.SchoolType = Constants.SchoolType.All;
             
-            retTest.CustomQuery = row["CUSTOM_QUERY"].ToString();
+            retTest.CustomQuery = ODAHelper.GetTableValueSafely(row, "CUSTOM_QUERY").ToString();
 
-            string secSchType = row["SEC_SCHOOL_TYPE"].ToString();
+            string secSchType = ODAHelper.GetTableValueSafely(row, "SEC_SCHOOL_TYPE").ToString();
             if (secSchType == "J")
                 retTest.SecSchoolType = Constants.SchoolType.JuniorHigh;
             else if (secSchType == "H")

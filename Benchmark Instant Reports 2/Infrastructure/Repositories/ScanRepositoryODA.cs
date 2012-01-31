@@ -38,18 +38,20 @@ namespace Benchmark_Instant_Reports_2.Infrastructure.Repositories
         private static Scan ConvertRowToScan(DataRow row)
         {
             Scan retScan = new Scan();
-            retScan.DateScanned = DateTime.Parse(row["DATE_SCANNED"].ToString());
-            retScan.ScanSequence = (row["SCANNED_SEQUENCE"].ToString() != "") 
-                ? Convert.ToInt32(row["SCANNED_SEQUENCE"].ToString()) 
+            retScan.DateScanned = DateTime.Parse(ODAHelper.GetTableValueSafely(row, "DATE_SCANNED").ToString());
+            retScan.ScanSequence = (ODAHelper.GetTableValueSafely(row, "SCANNED_SEQUENCE").ToString() != "") 
+                ? Convert.ToInt32(ODAHelper.GetTableValueSafely(row, "SCANNED_SEQUENCE").ToString()) 
                 : 0;
-            retScan.Imagepath = row["IMAGEPATH"].ToString();
-            retScan.StudentName = row["NAME"].ToString();
-            retScan.StudentID = (row["STUDENT_ID"].ToString() != "") ? Convert.ToInt32(row["STUDENT_ID"].ToString()) : 0;
-            retScan.TestID = row["TEST_ID"].ToString();
-            retScan.Language = row["LANGUAGE_VERSION"].ToString();
-            retScan.Exempt = row["EXEMPT"].ToString();
-            retScan.Preslugged = row["PRESLUGGED"].ToString();
-            retScan.AnswerString = row["ANSWERS"].ToString();
+            retScan.Imagepath = ODAHelper.GetTableValueSafely(row, "IMAGEPATH").ToString();
+            retScan.StudentName = ODAHelper.GetTableValueSafely(row, "NAME").ToString();
+            retScan.StudentID = (ODAHelper.GetTableValueSafely(row, "STUDENT_ID").ToString() != "") 
+                ? Convert.ToInt32(ODAHelper.GetTableValueSafely(row, "STUDENT_ID").ToString()) 
+                : 0;
+            retScan.TestID = ODAHelper.GetTableValueSafely(row, "TEST_ID").ToString();
+            retScan.Language = ODAHelper.GetTableValueSafely(row, "LANGUAGE_VERSION").ToString();
+            retScan.Exempt = ODAHelper.GetTableValueSafely(row, "EXEMPT").ToString();
+            retScan.Preslugged = ODAHelper.GetTableValueSafely(row, "PRESLUGGED").ToString();
+            retScan.AnswerString = ODAHelper.GetTableValueSafely(row, "ANSWERS").ToString();
 
             return retScan;
         }
