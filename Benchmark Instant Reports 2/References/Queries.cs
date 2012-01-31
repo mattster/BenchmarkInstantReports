@@ -13,12 +13,16 @@ namespace Benchmark_Instant_Reports_2.References
         "cast('" + Constants.DropDownSeparatorString + "' as varchar2(50)) as schoolname from dual";
 
         public static string GetHSCampuses =
-            "select school_abbr, schoolname from " + DatabaseDefn.DBSchool + " " +
-            "where schoolid between 1 and 9 or schoolid = 52 order by schoolname";
+                "select * from " + DatabaseDefn.DBSchool + " " +
+                "where schoolid between 1 and 9 or schoolid = 52";
 
         public static string GetJHCampuses =
-                "select school_abbr, schoolname from " + DatabaseDefn.DBSchool + " " +
-                "where (schoolid between 10 and 99 and schoolid != 52) or schoolid = 6 order by schoolname";
+                "select * from " + DatabaseDefn.DBSchool + " " +
+                "where (schoolid between 10 and 99 and schoolid != 52) or schoolid = 6";
+
+        public static string GetSECCampuses =
+                "select * from " + DatabaseDefn.DBSchool + " " +
+                "where schoolid < 100";
 
         public static string GetELCampuses =
                 "select school_abbr, schoolname from " + DatabaseDefn.DBSchool + " " +

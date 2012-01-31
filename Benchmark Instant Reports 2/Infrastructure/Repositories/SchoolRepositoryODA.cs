@@ -51,6 +51,16 @@ namespace Benchmark_Instant_Reports_2.Infrastructure.Repositories
             return ConvertTableToSchools(ds.Tables[0]);
         }
 
+        public IQueryable<School> FindSECCampuses()
+        {
+            string qs = Queries.GetSECCampuses;
+            DataSet ds = dbIFOracle.getDataRows(qs);
+            if (ds.Tables.Count == 0)
+                return null;
+
+            return ConvertTableToSchools(ds.Tables[0]);
+        }
+
         public IQueryable<Entities.School> FindELCampuses()
         {
             string qs = Queries.GetELCampuses;

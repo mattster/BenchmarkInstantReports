@@ -33,16 +33,12 @@ namespace Benchmark_Instant_Reports_2
                 initPage();
             }
 
-            // anything else we need to do
-
             return;
         }
 
         protected void ddCampus_SelectedIndexChanged(object sender, EventArgs e)
         {
             theMasterPage = Page.Master as SiteMaster;
-
-            //*** User selected a campus ***//
 
             // return if it is the separator
             if (UIHelper.isDDSeparatorValue(ddCampus.SelectedValue.ToString()) || ddCampus.SelectedValue.ToString() == "")
@@ -76,25 +72,23 @@ namespace Benchmark_Instant_Reports_2
 
         protected void listTests_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //*** User selected a benchmark ***//
             RememberHelper.savedSelectedTestID(Response, listTests.SelectedItem.ToString());
 
             repvwCampusReport1.Visible = false;
             repvwCampusReport2.Visible = false;
             
-
             return;
         }
 
         protected void btnGenReport_Click(object sender, EventArgs e)
         {
-            //** User clicked the Generate Report button ***//          
             List<StudentListItem> studentData = new List<StudentListItem>();
 
             if (ddCampus.SelectedValue.ToString() == Constants.DispAllElementary || 
                 ddCampus.SelectedValue.ToString() == Constants.DispAllSecondary)
-            {   // Show All Campuses
-                studentData = StudentData.GetStudentDataToGrade(listTests.SelectedItem.ToString(),
+            {   
+                // Show All Campuses
+                studentData = StudentData.GetStudentDataToGrade(DataService, listTests.SelectedItem.ToString(),
                     ddCampus.SelectedValue.ToString());
 
                 resultsData = StGradesRepHelper.GenerateStudentStatsReportData(studentData, listTests.SelectedItem.ToString());
