@@ -11,6 +11,7 @@ using Benchmark_Instant_Reports_2.Interfaces.DBDataStruct;
 using Benchmark_Instant_Reports_2.Grading;
 using Benchmark_Instant_Reports_2.Helpers.Reports;
 using Benchmark_Instant_Reports_2.Account;
+using Benchmark_Instant_Reports_2.References;
 
 namespace Benchmark_Instant_Reports_2
 {
@@ -44,16 +45,16 @@ namespace Benchmark_Instant_Reports_2
             //*** User selected a campus ***//
 
             // return if it is the separator
-            if (birUtilities.isDDSeparatorValue(ddCampus.SelectedValue.ToString()) || ddCampus.SelectedValue.ToString() == "")
+            if (UIHelper.isDDSeparatorValue(ddCampus.SelectedValue.ToString()) || ddCampus.SelectedValue.ToString() == "")
             {
-                birUtilities.savedSelectedCampus(Response, "");
+                RememberHelper.savedSelectedCampus(Response, "");
                 return;
             }
 
             // setup stuff
-            birUtilities.savedSelectedCampus(Response, ddCampus.SelectedItem.ToString());
+            RememberHelper.savedSelectedCampus(Response, ddCampus.SelectedItem.ToString());
 
-            listTests.DataSource = birIF.getTestListForSchool(ddCampus.SelectedValue.ToString());
+            listTests.DataSource = DataService.GetTestIDsForSchool(ddCampus.SelectedValue.ToString());
             listTests.DataBind();
 
             setupTestFilters();
@@ -61,9 +62,9 @@ namespace Benchmark_Instant_Reports_2
             listTests.SelectedIndex = 0;
             repvwCampusReport1.Visible = false;
             repvwCampusReport2.Visible = false;
-            
 
-            int bidx = birUtilities.getIndexOfDDItem(birUtilities.savedSelectedTestID(Request), listTests);
+
+            int bidx = UIHelper.getIndexOfDDItem(RememberHelper.savedSelectedTestID(Request), listTests);
             if (bidx != -1)
             {
                 listTests.SelectedIndex = bidx;
@@ -76,7 +77,7 @@ namespace Benchmark_Instant_Reports_2
         protected void listTests_SelectedIndexChanged(object sender, EventArgs e)
         {
             //*** User selected a benchmark ***//
-            birUtilities.savedSelectedTestID(Response, listTests.SelectedItem.ToString());
+            RememberHelper.savedSelectedTestID(Response, listTests.SelectedItem.ToString());
 
             repvwCampusReport1.Visible = false;
             repvwCampusReport2.Visible = false;
@@ -90,7 +91,8 @@ namespace Benchmark_Instant_Reports_2
             //** User clicked the Generate Report button ***//          
             List<StudentListItem> studentData = new List<StudentListItem>();
 
-            if (ddCampus.SelectedValue.ToString() == "ALL Elementary" || ddCampus.SelectedValue.ToString() == "ALL Secondary")
+            if (ddCampus.SelectedValue.ToString() == Constants.DispAllElementary || 
+                ddCampus.SelectedValue.ToString() == Constants.DispAllSecondary)
             {   // Show All Campuses
                 studentData = StudentData.GetStudentDataToGrade(listTests.SelectedItem.ToString(),
                     ddCampus.SelectedValue.ToString());
@@ -140,11 +142,6 @@ namespace Benchmark_Instant_Reports_2
         //**
         private void initPage()
         {
-            //if (!Page.ClientScript.IsStartupScriptRegistered("hideLoading"))
-            //{
-            //    Page.ClientScript.RegisterStartupScript(this.GetType(), "onload", "hideLoading();", true);
-            //}
-
 
             theMasterPage = Page.Master as SiteMaster;
 
@@ -172,7 +169,7 @@ namespace Benchmark_Instant_Reports_2
             //    ddCampus.SelectedIndex = 0;
             //}
 
-            int cidx = birUtilities.getIndexOfDDItem(birUtilities.savedSelectedCampus(Request), ddCampus);
+            int cidx = UIHelper.getIndexOfDDItem(RememberHelper.savedSelectedCampus(Request), ddCampus);
             if (cidx != -1)
                 ddCampus.SelectedIndex = cidx;
             else
@@ -180,16 +177,16 @@ namespace Benchmark_Instant_Reports_2
 
             setupTestFilters();
 
-            listTests.DataSource = birIF.getTestListForSchool(ddCampus.SelectedValue.ToString());
+            listTests.DataSource = DataService.GetTestIDsForSchool(ddCampus.SelectedValue.ToString());
             listTests.DataBind();
 
-            int bidx = birUtilities.getIndexOfDDItem(birUtilities.savedSelectedTestID(Request), listTests);
+            int bidx = UIHelper.getIndexOfDDItem(RememberHelper.savedSelectedTestID(Request), listTests);
             if (bidx != -1)
             {
                 listTests.SelectedIndex = bidx;
+                listTests_SelectedIndexChanged(new object(), new EventArgs());
             }
-            listTests_SelectedIndexChanged(new object(), new EventArgs());
-
+            ddCampus_SelectedIndexChanged(new object(), new EventArgs());
             return;
         }
     }

@@ -70,7 +70,7 @@ namespace Benchmark_Instant_Reports_2.References
                 "order by test_id desc";
 
         public static string GetTestListAllTests =
-                "select test_id from " + DatabaseDefn.DBTestDefn + " " +
+                "select * from " + DatabaseDefn.DBTestDefn + " " +
                 "where to_date(start_datetime, 'MM/DD/YYYY') >= to_date('08/22/2011', 'MM/DD/YYYY') " +
                 "and to_date(start_datetime, 'MM/DD/YYYY') <= current_date " +
                 "and test_subject not in ('BALLOT','SAMPLE') " +

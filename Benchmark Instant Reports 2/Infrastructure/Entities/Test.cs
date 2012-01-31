@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using Benchmark_Instant_Reports_2.References;
 
 namespace Benchmark_Instant_Reports_2.Infrastructure.Entities
 {
@@ -27,8 +28,8 @@ namespace Benchmark_Instant_Reports_2.Infrastructure.Entities
         public int TestIDNum { get; set; }
         public DateTime ActualStartDate { get; set; }
         public DateTime ActualEndDate { get; set; }
-        public string SchoolType { get; set; }
+        public Constants.SchoolType SchoolType { get; set; }
         public string CustomQuery { get; set; }
-        public string SecSchoolType { get; set; }
+        public Constants.SchoolType SecSchoolType { get; set; }
     }
 }

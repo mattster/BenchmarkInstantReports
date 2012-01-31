@@ -12,9 +12,9 @@ namespace Benchmark_Instant_Reports_2.Interfaces
     public class birUtilities
     {
 
-        private static string savedSelectedTestIDCookieName = "selectedTestID";
-        private static string savedSelectedTestIDsCokieName = "selectedTestIDs";
-        private static string savedSelectedCampusCookieName = "selectedCampus";
+        //private static string savedSelectedTestIDCookieName = "selectedTestID";
+        //private static string savedSelectedTestIDsCokieName = "selectedTestIDs";
+        //private static string savedSelectedCampusCookieName = "selectedCampus";
 
         //**********************************************************************//
         //** returns an array of unique values in a column of the specified
@@ -170,18 +170,18 @@ namespace Benchmark_Instant_Reports_2.Interfaces
         //**********************************************************************//
         //** returns a string array of the values selected in a listbox
         //**
-        public static string[] getLBSelectionsAsArray(System.Web.UI.WebControls.ListBox lb)
-        {
-            string[] returnstring = new string[lb.GetSelectedIndices().Count()];
-            int[] indices = lb.GetSelectedIndices();
+        //public static string[] getLBSelectionsAsArray(System.Web.UI.WebControls.ListBox lb)
+        //{
+        //    string[] returnstring = new string[lb.GetSelectedIndices().Count()];
+        //    int[] indices = lb.GetSelectedIndices();
 
-            for (int i = 0; i < indices.Length; i++)
-            {
-                returnstring[i] = lb.Items[indices[i]].ToString();
-            }
+        //    for (int i = 0; i < indices.Length; i++)
+        //    {
+        //        returnstring[i] = lb.Items[indices[i]].ToString();
+        //    }
 
-            return returnstring;
-        }
+        //    return returnstring;
+        //}
 
 
         //**********************************************************************//
@@ -190,55 +190,55 @@ namespace Benchmark_Instant_Reports_2.Interfaces
         //** initial: if TRUE then set first row to blank
         //** initial: if FALSE then remove first blank row if there is one
         //**
-        public static void toggleDDLInitView(DropDownList ddl, bool initial)
-        {
-            if (ddl.Items.Count > 0)                    // make sure it has something in it
-            {
-                //
-                if (initial)                            // put in blank 1st row, select it
-                {
-                    if (ddl.Items[0].Value != "-1")     // there is not a blank first row
-                        ddl.Items.Insert(0, new ListItem(" ", "-1"));
-                    ddl.SelectedIndex = 0;
-                }
-                else                                    // remove blank 1st row if necessary
-                {
-                    if (ddl.Items[0].Value == "-1")     // there is a blank 1st row
-                        ddl.Items.RemoveAt(0);
-                }
-            }
-            return;
-        }
+        //public static void toggleDDLInitView(DropDownList ddl, bool initial)
+        //{
+        //    if (ddl.Items.Count > 0)                    // make sure it has something in it
+        //    {
+        //        //
+        //        if (initial)                            // put in blank 1st row, select it
+        //        {
+        //            if (ddl.Items[0].Value != "-1")     // there is not a blank first row
+        //                ddl.Items.Insert(0, new ListItem(" ", "-1"));
+        //            ddl.SelectedIndex = 0;
+        //        }
+        //        else                                    // remove blank 1st row if necessary
+        //        {
+        //            if (ddl.Items[0].Value == "-1")     // there is a blank 1st row
+        //                ddl.Items.RemoveAt(0);
+        //        }
+        //    }
+        //    return;
+        //}
 
 
         //**********************************************************************//
         //** selects all items in the specified ListBox
         //**
-        public static void selectAllInLB(ListBox lb)
-        {
-            if (lb.Items.Count > 0)
-            {
-                foreach (ListItem item in lb.Items)
-                {
-                    item.Selected = true;
-                }
-            }
+        //public static void selectAllInLB(ListBox lb)
+        //{
+        //    if (lb.Items.Count > 0)
+        //    {
+        //        foreach (ListItem item in lb.Items)
+        //        {
+        //            item.Selected = true;
+        //        }
+        //    }
 
-            return;
-        }
+        //    return;
+        //}
 
 
         //**********************************************************************//
         //** if this is a separator value from the campus dropdown,
         //** return true, else return false
         //**
-        public static bool isDDSeparatorValue(string selection)
-        {
-            if (selection == Constants.DropDownSeparatorString)
-                return true;
-            else
-                return false;
-        }
+        //public static bool isDDSeparatorValue(string selection)
+        //{
+        //    if (selection == Constants.DropDownSeparatorString)
+        //        return true;
+        //    else
+        //        return false;
+        //}
 
 
         //**********************************************************************//
@@ -247,11 +247,11 @@ namespace Benchmark_Instant_Reports_2.Interfaces
         //**
         public static string getSchoolTypeList(string schoolAbbr)
         {
-            if (schoolAbbr == "ALL Elementary")
+            if (schoolAbbr == Constants.DispAllElementary)
             {
                 return "\'E\'";
             }
-            else if (schoolAbbr == "ALL Secondary")
+            else if (schoolAbbr == Constants.DispAllSecondary)
             {
                 return "\'S\'";
             }
@@ -299,100 +299,100 @@ namespace Benchmark_Instant_Reports_2.Interfaces
         }
 
 
-        public static int getIndexOfDDItem(string itemName, DropDownList ddl)
-        {
-            for (int i = 0; i < ddl.Items.Count; i++)
-                if (ddl.Items[i].Text.Trim() == itemName)
-                    return i;
+        //public static int getIndexOfDDItem(string itemName, DropDownList ddl)
+        //{
+        //    for (int i = 0; i < ddl.Items.Count; i++)
+        //        if (ddl.Items[i].Text.Trim() == itemName)
+        //            return i;
 
-            return -1;
-        }
+        //    return -1;
+        //}
 
-        private static int[] getIndicesOfLBItems(string[] itemNames, ListBox lb)
-        {
-            List<int> indicesList = new List<int>();
-            for (int i = 0; i < lb.Items.Count; i++)
-                //if (isStringInStringArray(lb.Items[i].Text, itemNames))
-                if (itemNames.Contains<string>(lb.Items[i].Text))
-                    indicesList.Add(i);
+        //private static int[] getIndicesOfLBItems(string[] itemNames, ListBox lb)
+        //{
+        //    List<int> indicesList = new List<int>();
+        //    for (int i = 0; i < lb.Items.Count; i++)
+        //        //if (isStringInStringArray(lb.Items[i].Text, itemNames))
+        //        if (itemNames.Contains<string>(lb.Items[i].Text))
+        //            indicesList.Add(i);
 
-            if (indicesList.Count > 0)
-                return indicesList.ToArray();
-            else
-                return null;
-        }
+        //    if (indicesList.Count > 0)
+        //        return indicesList.ToArray();
+        //    else
+        //        return null;
+        //}
 
-        public static void selectItemsInLB(ListBox lb, string[] items)
-        {
-            int[] indices = getIndicesOfLBItems(items, lb);
-            if (indices != null)
-                selectItemsInLB(lb, indices);
+        //public static void selectItemsInLB(ListBox lb, string[] items)
+        //{
+        //    int[] indices = getIndicesOfLBItems(items, lb);
+        //    if (indices != null)
+        //        selectItemsInLB(lb, indices);
 
-            return;
-        }
+        //    return;
+        //}
 
-        private static void selectItemsInLB(ListBox lb, int[] indices)
-        {
-            for (int i = 0; i < indices.Length; i++)
-                lb.Items[indices[i]].Selected = true;
+        //private static void selectItemsInLB(ListBox lb, int[] indices)
+        //{
+        //    for (int i = 0; i < indices.Length; i++)
+        //        lb.Items[indices[i]].Selected = true;
 
-            return;
-        }
-
-
-        public static string savedSelectedTestID(HttpRequest req)
-        {
-            if (req.Cookies[savedSelectedTestIDCookieName] != null)
-                return req.Cookies[savedSelectedTestIDCookieName].Value;
-
-            return null;
-        }
-
-        public static void savedSelectedTestID(HttpResponse resp, string testID)
-        {
-            resp.Cookies[savedSelectedTestIDCookieName].Value = testID;
-            resp.Cookies[savedSelectedTestIDCookieName].Expires = DateTime.Now.AddDays(CampusSecurity.cookieDurationDays);
-            resp.Cookies[savedSelectedTestIDCookieName].Path = "/";
-
-            return;
-        }
+        //    return;
+        //}
 
 
+        //public static string savedSelectedTestID(HttpRequest req)
+        //{
+        //    if (req.Cookies[savedSelectedTestIDCookieName] != null)
+        //        return req.Cookies[savedSelectedTestIDCookieName].Value;
 
-        public static string savedSelectedCampus(HttpRequest req)
-        {
-            if (req.Cookies[savedSelectedCampusCookieName] != null)
-                return req.Cookies[savedSelectedCampusCookieName].Value;
+        //    return null;
+        //}
 
-            return null;
-        }
+        //public static void savedSelectedTestID(HttpResponse resp, string testID)
+        //{
+        //    resp.Cookies[savedSelectedTestIDCookieName].Value = testID;
+        //    resp.Cookies[savedSelectedTestIDCookieName].Expires = DateTime.Now.AddDays(CampusSecurity.cookieDurationDays);
+        //    resp.Cookies[savedSelectedTestIDCookieName].Path = "/";
 
-        public static void savedSelectedCampus(HttpResponse resp, string campus)
-        {
-            resp.Cookies[savedSelectedCampusCookieName].Value = campus;
-            resp.Cookies[savedSelectedCampusCookieName].Expires = DateTime.Now.AddDays(CampusSecurity.cookieDurationDays);
-            resp.Cookies[savedSelectedCampusCookieName].Path = "/";
-
-            return;
-        }
+        //    return;
+        //}
 
 
-        public static string[] savedSelectedTestIDs(HttpRequest req)
-        {
-            if (req.Cookies[savedSelectedTestIDsCokieName] != null)
-                return req.Cookies[savedSelectedTestIDsCokieName].Value.Split(',');
 
-            return null;
-        }
+        //public static string savedSelectedCampus(HttpRequest req)
+        //{
+        //    if (req.Cookies[savedSelectedCampusCookieName] != null)
+        //        return req.Cookies[savedSelectedCampusCookieName].Value;
 
-        public static void savedSelectedTestIDs(HttpResponse resp, string[] tests)
-        {
-            resp.Cookies[savedSelectedTestIDsCokieName].Value = string.Join(",", tests);
-            resp.Cookies[savedSelectedTestIDsCokieName].Expires = DateTime.Now.AddDays(CampusSecurity.cookieDurationDays);
-            resp.Cookies[savedSelectedTestIDsCokieName].Path = "/";
+        //    return null;
+        //}
 
-            return;
-        }
+        //public static void savedSelectedCampus(HttpResponse resp, string campus)
+        //{
+        //    resp.Cookies[savedSelectedCampusCookieName].Value = campus;
+        //    resp.Cookies[savedSelectedCampusCookieName].Expires = DateTime.Now.AddDays(CampusSecurity.cookieDurationDays);
+        //    resp.Cookies[savedSelectedCampusCookieName].Path = "/";
+
+        //    return;
+        //}
+
+
+        //public static string[] savedSelectedTestIDs(HttpRequest req)
+        //{
+        //    if (req.Cookies[savedSelectedTestIDsCokieName] != null)
+        //        return req.Cookies[savedSelectedTestIDsCokieName].Value.Split(',');
+
+        //    return null;
+        //}
+
+        //public static void savedSelectedTestIDs(HttpResponse resp, string[] tests)
+        //{
+        //    resp.Cookies[savedSelectedTestIDsCokieName].Value = string.Join(",", tests);
+        //    resp.Cookies[savedSelectedTestIDsCokieName].Expires = DateTime.Now.AddDays(CampusSecurity.cookieDurationDays);
+        //    resp.Cookies[savedSelectedTestIDsCokieName].Path = "/";
+
+        //    return;
+        //}
 
         public static bool isTeacherUnknown(string studentId)
         {

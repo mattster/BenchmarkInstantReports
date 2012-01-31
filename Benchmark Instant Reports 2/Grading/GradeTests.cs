@@ -200,8 +200,8 @@ namespace Benchmark_Instant_Reports_2.Grading
 
         private static string createStudentGradedAnsString(string rawAnsString, List<GradedItemDetail> gradeditems)
         {
-            string[] resultsString = new string[Constants.maxFormattedAnsGroups];
-            string[] titleString = new string[Constants.maxFormattedAnsGroups];
+            string[] resultsString = new string[Constants.MaxFormattedAnsGroups];
+            string[] titleString = new string[Constants.MaxFormattedAnsGroups];
             string formattedString = "";
             int rowIndex = 0;
             
@@ -225,7 +225,7 @@ namespace Benchmark_Instant_Reports_2.Grading
                 // check if the next one will fit on this row
                 if ((i + 1) < ansStringArray.Length)
                 {
-                    if ((Constants.numColumnsInFormattedLine - 
+                    if ((Constants.NumColumnsInFormattedLine - 
                         (resultsString[rowIndex].Length + gradeditems[i + 1].ItemNum.ToString().Length)) < 2)
                     {
                         // next item will not fit; delete extra space at end and go to next row

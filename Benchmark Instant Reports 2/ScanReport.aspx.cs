@@ -9,6 +9,7 @@ using Benchmark_Instant_Reports_2.Interfaces;
 using Benchmark_Instant_Reports_2.Interfaces.DBDataStruct;
 using Benchmark_Instant_Reports_2.Helpers.Reports;
 using Benchmark_Instant_Reports_2.Account;
+using Benchmark_Instant_Reports_2.References;
 
 namespace Benchmark_Instant_Reports_2
 {
@@ -46,16 +47,17 @@ namespace Benchmark_Instant_Reports_2
             //*** User selected a campus ***//
 
             // return if it is the separator
-            if (birUtilities.isDDSeparatorValue(ddCampus.SelectedValue.ToString()))
+            if (UIHelper.isDDSeparatorValue(ddCampus.SelectedValue.ToString()))
             {
-                birUtilities.savedSelectedCampus(Response, "");
+                RememberHelper.savedSelectedCampus(Response, "");
                 return;
             }
 
             // setup stuff
-            birUtilities.savedSelectedCampus(Response, ddCampus.SelectedItem.ToString());
+            RememberHelper.savedSelectedCampus(Response, ddCampus.SelectedItem.ToString());
 
-            lbListTests.DataSource = birIF.getTestListForSchool(ddCampus.SelectedValue.ToString());
+            //lbListTests.DataSource = birIF.getTestListForSchool(ddCampus.SelectedValue.ToString());
+            lbListTests.DataSource = DataService.GetTestIDsForSchool(ddCampus.SelectedValue.ToString());
             lbListTests.DataBind();
 
             setupTestFilters();
@@ -64,11 +66,11 @@ namespace Benchmark_Instant_Reports_2
             repvwScanReport1.Visible = false;
             repvwScanReport2.Visible = false;
 
-            string[] savedTests = birUtilities.savedSelectedTestIDs(Request);
+            string[] savedTests = RememberHelper.savedSelectedTestIDs(Request);
             if (savedTests != null)
             {
                 lbListTests.ClearSelection();
-                birUtilities.selectItemsInLB(lbListTests, savedTests);
+                UIHelper.selectItemsInLB(lbListTests, savedTests);
                 lbListTests_SelectedIndexChanged(new object(), new EventArgs());
             }
 
@@ -82,7 +84,7 @@ namespace Benchmark_Instant_Reports_2
             //if (lbListTests.GetSelectedIndices().Length > 0)
             if (lbListTests.SelectedIndex > -1)
             {
-                birUtilities.savedSelectedTestIDs(Response, birUtilities.getLBSelectionsAsArray(lbListTests));
+                RememberHelper.savedSelectedTestIDs(Response, UIHelper.getLBSelectionsAsArray(lbListTests));
 
                 repvwScanReport1.Visible = false;
                 repvwScanReport2.Visible = false;
@@ -101,9 +103,10 @@ namespace Benchmark_Instant_Reports_2
             //
 
             ScanReportData reportData = ScanRepHelper.generateScanRepTable(ddCampus.SelectedValue.ToString(),
-                birUtilities.getLBSelectionsAsArray(lbListTests));
+                UIHelper.getLBSelectionsAsArray(lbListTests));
 
-            if (ddCampus.SelectedValue == "ALL Elementary" || ddCampus.SelectedValue == "ALL Secondary")
+            if (ddCampus.SelectedValue == Constants.DispAllElementary || 
+                ddCampus.SelectedValue == Constants.DispAllSecondary)
             {
                 // setup the report
                 repvwScanReport2.Visible = true;
@@ -162,12 +165,12 @@ namespace Benchmark_Instant_Reports_2
             // add option for "ALL" if authorized as admin
             if (CampusSecurity.isAuthorizedAsAdmin(Context.User.Identity.Name))
             {
-                ddCampus.Items.Insert(0, new ListItem("ALL Secondary", "ALL Secondary"));
-                ddCampus.Items.Insert(0, new ListItem("ALL Elementary", "ALL Elementary"));
+                ddCampus.Items.Insert(0, new ListItem(Constants.DispAllSecondary, Constants.DispAllSecondary));
+                ddCampus.Items.Insert(0, new ListItem(Constants.DispAllElementary, Constants.DispAllElementary));
                 ddCampus.SelectedIndex = 0;
             }
 
-            int cidx = birUtilities.getIndexOfDDItem(birUtilities.savedSelectedCampus(Request), ddCampus);
+            int cidx = UIHelper.getIndexOfDDItem(RememberHelper.savedSelectedCampus(Request), ddCampus);
             if (cidx != -1)
                 ddCampus.SelectedIndex = cidx;
             else
@@ -176,14 +179,14 @@ namespace Benchmark_Instant_Reports_2
             setupTestFilters();
 
             // load list of benchmarks in Benchmark listbox
-            lbListTests.DataSource = birIF.getTestListForSchool(ddCampus.SelectedValue.ToString());
+            lbListTests.DataSource = DataService.GetTestIDsForSchool(ddCampus.SelectedValue.ToString());
             lbListTests.DataBind();
 
-            string[] savedTests = birUtilities.savedSelectedTestIDs(Request);
+            string[] savedTests = RememberHelper.savedSelectedTestIDs(Request);
             if (savedTests != null)
             {
                 lbListTests.ClearSelection();
-                birUtilities.selectItemsInLB(lbListTests, savedTests);
+                UIHelper.selectItemsInLB(lbListTests, savedTests);
                 lbListTests_SelectedIndexChanged(new object(), new EventArgs());
             }
 

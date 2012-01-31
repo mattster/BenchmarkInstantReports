@@ -21,7 +21,22 @@ namespace Benchmark_Instant_Reports_2.Infrastructure.Repositories
 
             return ConvertRowToTest(ds.Tables[0].Rows[0]);
         }
-        
+
+
+        public IQueryable<Test> FindActiveTests()
+        {
+            //return FindWhere(t => t.StartDate >= Constants.FirstDaySchoolYear &&
+            //                      t.StartDate <= DateTime.Today &&
+            //                      t.Subject != Constants.TestSubjectBallot &&
+            //                      t.Subject != Constants.TestSubjectSample);
+            string qs = Queries.GetTestListAllTests;
+            DataSet ds = dbIFOracle.getDataRows(qs);
+            if (ds.Tables.Count == 0)
+                return null;
+
+            return ConvertTableToTests(ds.Tables[0]);
+        }
+
 
         public IQueryable<Test> FindAll()
         {
@@ -30,7 +45,7 @@ namespace Benchmark_Instant_Reports_2.Infrastructure.Repositories
             if (ds.Tables.Count == 0)
                 return null;
 
-            return ConvertRowToTests(ds.Tables[0]);
+            return ConvertTableToTests(ds.Tables[0]);
         }
 
 
@@ -60,11 +75,11 @@ namespace Benchmark_Instant_Reports_2.Infrastructure.Repositories
             retTest.TestID = row["TEST_ID"].ToString();
             retTest.TestYear = (row["TEST_YEAR"].ToString() != "") ? Convert.ToInt32(row["TEST_YEAR"].ToString()) : 0;
             retTest.TestMonth = (row["TEST_MONTH"].ToString() != "") ? Convert.ToInt32(row["TEST_MONTH"].ToString()) : 0;
-            retTest.StartDate = (row["START_DATE"].ToString() != "") 
-                ? DateTime.Parse(row["START_DATE"].ToString()) 
+            retTest.StartDate = (row["START_DATETIME"].ToString() != "") 
+                ? DateTime.Parse(row["START_DATETIME"].ToString()) 
                 : DateTime.Parse("1/1/1990"); 
-            retTest.EndDate = (row["END_DATE"].ToString() != "")
-                ? DateTime.Parse(row["END_DATE"].ToString()) 
+            retTest.EndDate = (row["END_DATETIME"].ToString() != "")
+                ? DateTime.Parse(row["END_DATETIME"].ToString()) 
                 : DateTime.Parse("1/1/1990"); 
             retTest.Language = row["LANGUAGE_VERSION"].ToString();
             retTest.Subject = row["TEST_SUBJECT"].ToString();
@@ -84,16 +99,29 @@ namespace Benchmark_Instant_Reports_2.Infrastructure.Repositories
                 : DateTime.Parse("1/1/1990");
             retTest.ActualEndDate = (row["ACTUAL_END_DATE"].ToString() != "")
                 ? DateTime.Parse(row["ACTUAL_END_DATE"].ToString())
-                : DateTime.Parse("1/1/1990"); 
-            retTest.SchoolType = row["SCHOOL_TYPE"].ToString();
+                : DateTime.Parse("1/1/1990");
+
+            string schType = row["SCHOOL_TYPE"].ToString();
+            if (schType == "E")
+                retTest.SchoolType = Constants.SchoolType.Elementary;
+            else if (schType == "S")
+                retTest.SchoolType = Constants.SchoolType.AllSecondary;
+            else retTest.SchoolType = Constants.SchoolType.All;
+            
             retTest.CustomQuery = row["CUSTOM_QUERY"].ToString();
-            retTest.SecSchoolType = row["SEC_SCHOOL_TYPE"].ToString();
+
+            string secSchType = row["SEC_SCHOOL_TYPE"].ToString();
+            if (secSchType == "J")
+                retTest.SecSchoolType = Constants.SchoolType.JuniorHigh;
+            else if (secSchType == "H")
+                retTest.SecSchoolType = Constants.SchoolType.HighSchool;
+            else retTest.SecSchoolType = Constants.SchoolType.Unknown;
 
             return retTest;
         }
 
 
-        private static IQueryable<Test> ConvertRowToTests(DataTable table)
+        private static IQueryable<Test> ConvertTableToTests(DataTable table)
         {
             HashSet<Test> finaldata = new HashSet<Test>();
             foreach (DataRow row in table.Rows)

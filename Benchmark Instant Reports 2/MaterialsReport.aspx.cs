@@ -9,6 +9,7 @@ using Microsoft.Reporting.Common;
 using Microsoft.Reporting.WebForms;
 using Benchmark_Instant_Reports_2.References;
 using Benchmark_Instant_Reports_2.Interfaces;
+using Benchmark_Instant_Reports_2.Helpers;
 
 
 namespace Benchmark_Instant_Reports_2.Classes
@@ -45,15 +46,15 @@ namespace Benchmark_Instant_Reports_2.Classes
             //*** User selected a campus ***//
 
             // return if it is the separator
-            if (birUtilities.isDDSeparatorValue(ddCampus.SelectedValue.ToString()))
+            if (UIHelper.isDDSeparatorValue(ddCampus.SelectedValue.ToString()))
             {
-                birUtilities.savedSelectedCampus(Response, "");
+                RememberHelper.savedSelectedCampus(Response, "");
 
                 return;
             }
             
             // setup stuff
-            birUtilities.savedSelectedCampus(Response, ddCampus.SelectedItem.ToString());
+            RememberHelper.savedSelectedCampus(Response, ddCampus.SelectedItem.ToString());
 
             string schoolTypeList;
 
@@ -75,11 +76,11 @@ namespace Benchmark_Instant_Reports_2.Classes
             btnGenReport.Enabled = true;
             repvwMaterialsRep1.Visible = false;
 
-            string[] savedTests = birUtilities.savedSelectedTestIDs(Request);
+            string[] savedTests = RememberHelper.savedSelectedTestIDs(Request);
             if (savedTests != null)
             {
                 lbBenchmark.ClearSelection();
-                birUtilities.selectItemsInLB(lbBenchmark, savedTests);
+                UIHelper.selectItemsInLB(lbBenchmark, savedTests);
                 lbBenchmark_SelectedIndexChanged1(new object(), new EventArgs());
             }
 
@@ -90,7 +91,7 @@ namespace Benchmark_Instant_Reports_2.Classes
         protected void lbBenchmark_SelectedIndexChanged1(object sender, EventArgs e)
         {
             //*** User selected a set of benchmarks ***//
-            birUtilities.savedSelectedTestIDs(Response, birUtilities.getLBSelectionsAsArray(lbBenchmark));
+            RememberHelper.savedSelectedTestIDs(Response, UIHelper.getLBSelectionsAsArray(lbBenchmark));
 
             if (lbBenchmark.GetSelectedIndices().Length > 0)
             {
@@ -108,7 +109,7 @@ namespace Benchmark_Instant_Reports_2.Classes
         protected void btnGenReport_Click(object sender, EventArgs e)
         {
             DataTable queryRepResultsTable = ScanReportIF.generateQueryRepTable(ddCampus.SelectedValue.ToString(),
-                birUtilities.getLBSelectionsAsArray(lbBenchmark));
+                UIHelper.getLBSelectionsAsArray(lbBenchmark));
 
                 //setup the report
                 repvwMaterialsRep1.Visible = true;
@@ -153,7 +154,7 @@ namespace Benchmark_Instant_Reports_2.Classes
             ddCampus.DataValueField = "SCHOOL_ABBR";
             ddCampus.DataBind();
 
-            int cidx = birUtilities.getIndexOfDDItem(birUtilities.savedSelectedCampus(Request), ddCampus);
+            int cidx = UIHelper.getIndexOfDDItem(RememberHelper.savedSelectedCampus(Request), ddCampus);
             if (cidx != -1)
                 ddCampus.SelectedIndex = cidx;
             else
@@ -176,11 +177,11 @@ namespace Benchmark_Instant_Reports_2.Classes
             lbBenchmark.DataValueField = "TEST_ID";
             lbBenchmark.DataBind();
 
-            string[] savedTests = birUtilities.savedSelectedTestIDs(Request);
+            string[] savedTests = RememberHelper.savedSelectedTestIDs(Request);
             if (savedTests != null)
             {
                 lbBenchmark.ClearSelection();
-                birUtilities.selectItemsInLB(lbBenchmark, savedTests);
+                UIHelper.selectItemsInLB(lbBenchmark, savedTests);
                 lbBenchmark_SelectedIndexChanged1(new object(), new EventArgs());
             }
             else

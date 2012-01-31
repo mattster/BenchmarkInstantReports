@@ -168,11 +168,13 @@
     </Compile>
     <Compile Include="Grading\AnswerKey.cs" />
     <Compile Include="Helpers\QueryHelper.cs" />
+    <Compile Include="Helpers\RememberHelper.cs" />
     <Compile Include="Helpers\Reports\ScanRepHelper.cs" />
     <Compile Include="Helpers\Reports\StGradesRepHelper.cs" />
     <Compile Include="Helpers\ScanHelper.cs" />
     <Compile Include="Helpers\SchoolHelper.cs" />
     <Compile Include="Helpers\TestHelper.cs" />
+    <Compile Include="Helpers\UIHelper.cs" />
     <Compile Include="Infrastructure\ClassKey.cs" />
     <Compile Include="Infrastructure\DataEntityItem.cs" />
     <Compile Include="Infrastructure\DataItemCollection.cs" />
@@ -353,7 +355,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Account\" />
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>

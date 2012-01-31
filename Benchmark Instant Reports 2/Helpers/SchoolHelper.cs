@@ -13,7 +13,7 @@ namespace Benchmark_Instant_Reports_2.Helpers
         public static string ConvertCampusList(string campus)
         {
             // if "ALL ELEMENTARY", get a list of all elementaries
-            if (campus == "ALL Elementary")
+            if (campus == Constants.DispAllElementary)
             {
                 return DBIOWorkaround.ReturnElemAbbrList().ConvertListForQuery();
                 //var campuses = DataService.SchoolRepo.FindELCampuses().Select(s => s.Abbr).ToArray<string>();
@@ -21,7 +21,7 @@ namespace Benchmark_Instant_Reports_2.Helpers
             }
 
             // if "ALL SECONDARY", get a list of all secondary schools
-            else if (campus == "ALL Secondary")
+            else if (campus == Constants.DispAllSecondary)
             {
                 return DBIOWorkaround.ReturnSecAbbrList().ConvertListForQuery();
             }

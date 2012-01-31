@@ -47,7 +47,7 @@ namespace Benchmark_Instant_Reports_2.Helpers
         {
             string customQuery = TestHelper.ReturnRawCustomQuery(testid);
 
-            if (campus == "ALL Elementary" || campus == "ALL Secondary")
+            if (campus == Constants.DispAllElementary || campus == Constants.DispAllSecondary)
             {
                 customQuery = customQuery.Replace("AND R.SCHOOL2 = @school", " ");
                 customQuery = customQuery.Replace("AND SCHOOL2 = @school", " ");

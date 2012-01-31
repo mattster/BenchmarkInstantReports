@@ -61,7 +61,8 @@ namespace Benchmark_Instant_Reports_2.Interfaces
         //**
         public static DataSet getStudentScanListData(string benchmark, string campus)
         {
-            if (campus == "ALL Elementary" || campus == "ALL Secondary")
+            if (campus == Constants.DispAllElementary || 
+                campus == Constants.DispAllSecondary)
             {
                 string qs = Queries.GetStudentScansForCampusCourse.Replace("@testId", benchmark);
                 qs = qs.Replace("@testQuery", GetRawCustomQuery(benchmark));
@@ -974,13 +975,13 @@ namespace Benchmark_Instant_Reports_2.Interfaces
         internal static string convertCampusList(string campus)
         {
             // if "ALL ELEMENTARY", get a list of all elementaries
-            if (campus == "ALL Elementary")
+            if (campus == Constants.DispAllElementary)
             {
                 return birUtilities.convertStringArrayForQuery(getElemAbbrList());
             }
 
             // if "ALL SECONDARY", get a list of all secondary schools
-            else if (campus == "ALL Secondary")
+            else if (campus == Constants.DispAllSecondary)
             {
                 return birUtilities.convertStringArrayForQuery(getSecAbbrList());
             }
@@ -1003,71 +1004,71 @@ namespace Benchmark_Instant_Reports_2.Interfaces
             return false;
         }
 
-        public static string[] getTestListForSchool(string school)
-        {
-            DataSet ds = new DataSet();
+        //public static string[] getTestListForSchool(string school)
+        //{
+        //    DataSet ds = new DataSet();
 
-            string theSchoolType = getSchoolType(school);
+        //    string theSchoolType = getSchoolType(school);
 
-            if (theSchoolType == "A")
-                ds = dbIFOracle.getDataRows(Queries.GetTestListAllTests);
-            else if (theSchoolType == "S")
-            {
-                string qs = Queries.GetTestListBySchoolTypeSec.Replace("@schoolType", "J','H");
-                ds = dbIFOracle.getDataRows(qs);
-            }
-            else if (theSchoolType == "J" || theSchoolType == "H")
-            {
-                string qs = Queries.GetTestListBySchoolTypeSec.Replace("@schoolType", theSchoolType);
-                ds = dbIFOracle.getDataRows(qs);
-            }
-            else
-            {
-                string qs = Queries.GetTestListBySecSchoolType.Replace("@schoolType", theSchoolType);
-                ds = dbIFOracle.getDataRows(qs);
-            }
+        //    if (theSchoolType == "A")
+        //        ds = dbIFOracle.getDataRows(Queries.GetTestListAllTests);
+        //    else if (theSchoolType == "S")
+        //    {
+        //        string qs = Queries.GetTestListBySchoolTypeSec.Replace("@schoolType", "J','H");
+        //        ds = dbIFOracle.getDataRows(qs);
+        //    }
+        //    else if (theSchoolType == "J" || theSchoolType == "H")
+        //    {
+        //        string qs = Queries.GetTestListBySchoolTypeSec.Replace("@schoolType", theSchoolType);
+        //        ds = dbIFOracle.getDataRows(qs);
+        //    }
+        //    else
+        //    {
+        //        string qs = Queries.GetTestListBySecSchoolType.Replace("@schoolType", theSchoolType);
+        //        ds = dbIFOracle.getDataRows(qs);
+        //    }
 
-            List<string> testList = new List<string>();
-            for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
-            {
-                testList.Add(ds.Tables[0].Rows[i]["TEST_ID"].ToString());
-            }
+        //    List<string> testList = new List<string>();
+        //    for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
+        //    {
+        //        testList.Add(ds.Tables[0].Rows[i]["TEST_ID"].ToString());
+        //    }
 
-            return testList.ToArray();
-        }
+        //    return testList.ToArray();
+        //}
 
         /// <summary>
         /// returns a one character string indicating the school type
         /// </summary>
         /// <param name="school">school abbreviation code</param>
         /// <returns>A = both Elem & Sec; E = Elementary; S = Secondary; J = Sec. Jr. High; H = Sec. High School</returns>
-        public static string getSchoolType(string school)
-        {
-            if (school == "ALL Elementary")
-                return "E";
-            else if (school == "ALL Secondary")
-                return "S";
-            else if (school == "ALL")
-                return "A";
+        //public static string getSchoolType(string school)
+        //{
+        //    if (school == "ALL Elementary")
+        //        return "E";
+        //    else if (school == "ALL Secondary")
+        //        return "S";
+        //    else if (school == "ALL")
+        //        return "A";
 
-            string qs = Queries.GetSchoolID.Replace("@schoolAbbr", school);
-            DataSet ds = dbIFOracle.getDataRows(qs);
-            if (ds.Tables.Count == 0)
-                return "A";
-            decimal nd = (decimal)ds.Tables[0].Rows[0][0];
-            int sid = (int)nd;
+        //    string qs = Queries.GetSchoolID.Replace("@schoolAbbr", school);
+        //    DataSet ds = dbIFOracle.getDataRows(qs);
+        //    if (ds.Tables.Count == 0)
+        //        return "A";
+        //    decimal nd = (decimal)ds.Tables[0].Rows[0][0];
+        //    int sid = (int)nd;
 
-            if (sid == 6)                   // CMLC = All
-                return "A";
-            if (sid < 10 || sid == 52)      // High School
-                return "H";
-            if (sid >= 10 && sid < 100)     // Jr High
-                return "J";
-            if (sid >= 100)                 // Elementrary
-                return "E";
+        //    if (sid == 6)                   // CMLC = All
+        //        return "A";
+        //    if (sid < 10 || sid == 52)      // High School
+        //        return "H";
+        //    if (sid >= 10 && sid < 100)     // Jr High
+        //        return "J";
+        //    if (sid >= 100)                 // Elementrary
+        //        return "E";
 
-            return "A";
-        }
+        //    return "A";
+        //}
 
 
     }

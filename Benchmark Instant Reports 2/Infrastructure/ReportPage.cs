@@ -3,6 +3,7 @@ using System.Web.UI.WebControls;
 using Benchmark_Instant_Reports_2.Helpers;
 using Benchmark_Instant_Reports_2.Infrastructure;
 using Benchmark_Instant_Reports_2.Infrastructure.IRepositories;
+using Benchmark_Instant_Reports_2.References;
 
 namespace Benchmark_Instant_Reports_2.Infrastructure
 {
@@ -83,7 +84,17 @@ namespace Benchmark_Instant_Reports_2.Infrastructure
 
         protected void setupTestFilters()
         {
-            TestFilter.SetupTestFilterPopup(ddTFCur, ddTFSubj, ddTFTestType, ddTFTestVersion, ddCampus.SelectedValue.ToString());
+            Constants.SchoolType schType = new Constants.SchoolType();
+            if (ddCampus.SelectedValue.ToString() == Constants.DispAllElementary)
+                schType = Constants.SchoolType.Elementary;
+            else if (ddCampus.SelectedValue.ToString() == Constants.DispAllSecondary)
+                schType = Constants.SchoolType.AllSecondary;
+            else
+            {
+                var school = DataService.SchoolRepo.FindBySchoolAbbr(ddCampus.SelectedValue.ToString());
+                schType = DataService.SchoolRepo.GetSchoolType(school);
+            }
+            TestFilter.SetupTestFilterPopup(ddTFCur, ddTFSubj, ddTFTestType, ddTFTestVersion, schType);
 
             btnTFReset_Click(new object(), new EventArgs());
 
@@ -106,9 +117,11 @@ namespace Benchmark_Instant_Reports_2.Infrastructure
         private void runTestFilter()
         {
             if (typeof(T) == typeof(DropDownList))
-                TestFilter.FilterTests<T>(thisTestFilterState, ddCampus.SelectedValue.ToString(), listTests as T);
+                TestFilter.FilterTests<T>(thisTestFilterState, ddCampus.SelectedValue.ToString(), listTests as T,
+                    DataService);
             else
-                TestFilter.FilterTests<T>(thisTestFilterState, ddCampus.SelectedValue.ToString(), lbListTests as T);
+                TestFilter.FilterTests<T>(thisTestFilterState, ddCampus.SelectedValue.ToString(), lbListTests as T,
+                    DataService);
 
             return;
         }

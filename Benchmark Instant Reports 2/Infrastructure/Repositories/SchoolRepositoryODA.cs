@@ -78,6 +78,24 @@ namespace Benchmark_Instant_Reports_2.Infrastructure.Repositories
         }
 
 
+        /// <summary>
+        /// returns the type of the specified School
+        /// </summary>
+        /// <param name="school">School object</param>
+        /// <returns>Constants.SchoolType (Elem., JH., HS., All)</returns>
+        public Constants.SchoolType GetSchoolType(School school)
+        {
+            if (school.ID == 6)
+                return Constants.SchoolType.All;
+            else if (school.ID < 10 || school.ID == 52)
+                return Constants.SchoolType.HighSchool;
+            else if (school.ID >= 10 && school.ID < 100)
+                return Constants.SchoolType.JuniorHigh;
+            else if (school.ID >= 100)
+                return Constants.SchoolType.Elementary;
+
+            return Constants.SchoolType.All;
+        }
 
 
         public void Add(Entities.School newentity)

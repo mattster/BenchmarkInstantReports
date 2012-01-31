@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using Benchmark_Instant_Reports_2.Infrastructure.Entities;
+using Benchmark_Instant_Reports_2.References;
 
 namespace Benchmark_Instant_Reports_2.Infrastructure.IRepositories
 {
@@ -15,6 +16,7 @@ namespace Benchmark_Instant_Reports_2.Infrastructure.IRepositories
         IQueryable<School> FindJHCampuses();
         IQueryable<School> FindELCampuses();
 
+        Constants.SchoolType GetSchoolType(School school);
 
     }
 }

@@ -22,41 +22,41 @@ namespace Benchmark_Instant_Reports_2
     public class CascadingDropDown1 : System.Web.Services.WebService
     {
 
-        [WebMethod]
-        public string HelloWorld()
-        {
-            return "Hello World";
-        }
+        //[WebMethod]
+        //public string HelloWorld()
+        //{
+        //    return "Hello World";
+        //}
 
-        [WebMethod]
-        public CascadingDropDownNameValue[] GetCampusList(string knownCategoryValues, string category)
-        {
-            List<CascadingDropDownNameValue> returnList = new List<CascadingDropDownNameValue>();
-            DataSet ds = dbIFOracle.getDataRows(Queries.GetCampusList);
+        //[WebMethod]
+        //public CascadingDropDownNameValue[] GetCampusList(string knownCategoryValues, string category)
+        //{
+        //    List<CascadingDropDownNameValue> returnList = new List<CascadingDropDownNameValue>();
+        //    DataSet ds = dbIFOracle.getDataRows(Queries.GetCampusList);
 
-            foreach (DataRow row in ds.Tables[0].Rows)
-            {
-                returnList.Add(new CascadingDropDownNameValue(row["SCHOOLNAME"].ToString(), row["SCHOOL_ABBR"].ToString()));
-            }
+        //    foreach (DataRow row in ds.Tables[0].Rows)
+        //    {
+        //        returnList.Add(new CascadingDropDownNameValue(row["SCHOOLNAME"].ToString(), row["SCHOOL_ABBR"].ToString()));
+        //    }
 
-            return returnList.ToArray();
-        }
+        //    return returnList.ToArray();
+        //}
 
-        [WebMethod]
-        public CascadingDropDownNameValue[] GetTestsForCampus(string knownCategoryValues, string category)
-        {
-            StringDictionary campusValues = CascadingDropDown.ParseKnownCategoryValuesString(knownCategoryValues);
-            string campus = campusValues["Campus"].ToString();
+        //[WebMethod]
+        //public CascadingDropDownNameValue[] GetTestsForCampus(string knownCategoryValues, string category)
+        //{
+        //    StringDictionary campusValues = CascadingDropDown.ParseKnownCategoryValuesString(knownCategoryValues);
+        //    string campus = campusValues["Campus"].ToString();
 
-            string[] testlist = birIF.getTestListForSchool(campus);
+        //    string[] testlist = birIF.getTestListForSchool(campus);
 
-            List<CascadingDropDownNameValue> returnList = new List<CascadingDropDownNameValue>();
-            foreach (string test in testlist)
-            {
-                returnList.Add(new CascadingDropDownNameValue(test, test));
-            }
+        //    List<CascadingDropDownNameValue> returnList = new List<CascadingDropDownNameValue>();
+        //    foreach (string test in testlist)
+        //    {
+        //        returnList.Add(new CascadingDropDownNameValue(test, test));
+        //    }
 
-            return returnList.ToArray();
-        }
+        //    return returnList.ToArray();
+        //}
     }
 }

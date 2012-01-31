@@ -5,17 +5,20 @@ using System.Web.UI.WebControls;
 using Benchmark_Instant_Reports_2.Metadata;
 using Benchmark_Instant_Reports_2.References;
 using Benchmark_Instant_Reports_2.Interfaces;
+using Benchmark_Instant_Reports_2.Infrastructure.Entities;
+using Benchmark_Instant_Reports_2.Infrastructure.IRepositories;
 
 namespace Benchmark_Instant_Reports_2.Helpers
 {
     public static class TestFilter
     {
-        public static void SetupTestFilterPopup(DropDownList ddTFCur, DropDownList ddTFSubj, DropDownList ddTFTT, DropDownList ddTFTV, string campus)
+        public static void SetupTestFilterPopup(DropDownList ddTFCur, DropDownList ddTFSubj, DropDownList ddTFTT,
+            DropDownList ddTFTV, Constants.SchoolType schType)
         {
-            loadFilterListInDD<Curriculum>(ddTFCur, campus);
-            loadFilterListInDD<Subject>(ddTFSubj, campus);
-            loadFilterListInDD<TestType>(ddTFTT, campus);
-            loadFilterListInDD<TestVersion>(ddTFTV, campus);
+            loadFilterListInDD<Curriculum>(ddTFCur, schType);
+            loadFilterListInDD<Subject>(ddTFSubj, schType);
+            loadFilterListInDD<TestType>(ddTFTT, schType);
+            loadFilterListInDD<TestVersion>(ddTFTV, schType);
 
             return;
         }
@@ -46,16 +49,17 @@ namespace Benchmark_Instant_Reports_2.Helpers
         }
 
 
-        public static void FilterTests<T>(TestFilterState theTestFilterState, string campus, T testbox) where T : System.Web.UI.WebControls.ListControl
+        public static void FilterTests<T>(TestFilterState theTestFilterState, string campus, T testbox,
+            IRepoService dataservice) where T : System.Web.UI.WebControls.ListControl
         {
             List<string> resultList = new List<string>();
             List<List<string>> filteredTestsLists = new List<List<string>>();
 
             // find the tests for each filter criteria
-            filteredTestsLists.Add(filterTestsBy<Curriculum>(campus, theTestFilterState.Curric));
-            filteredTestsLists.Add(filterTestsBy<Subject>(campus, theTestFilterState.Subject));
-            filteredTestsLists.Add(filterTestsBy<TestType>(campus, theTestFilterState.TestType));
-            filteredTestsLists.Add(filterTestsBy<TestVersion>(campus, theTestFilterState.TestVersion));
+            filteredTestsLists.Add(filterTestsBy<Curriculum>(campus, theTestFilterState.Curric, dataservice));
+            filteredTestsLists.Add(filterTestsBy<Subject>(campus, theTestFilterState.Subject, dataservice));
+            filteredTestsLists.Add(filterTestsBy<TestType>(campus, theTestFilterState.TestType, dataservice));
+            filteredTestsLists.Add(filterTestsBy<TestVersion>(campus, theTestFilterState.TestVersion, dataservice));
 
             // final test list is a union of all the filtered lists
             resultList = filteredTestsLists[0];
@@ -76,20 +80,19 @@ namespace Benchmark_Instant_Reports_2.Helpers
         #region BehindTheCurtain
         // private methods that make it all work
 
-        private static string[] getTestMetadataList<T>(string campus) where T : TestMetadataItem
+        private static string[] getTestMetadataList<T>(Constants.SchoolType schType) where T : TestMetadataItem
         {
             List<string> thelist = new List<string>();
-            string schtype = birIF.getSchoolType(campus);
 
             // first add ALL choice
             thelist.Add(References.Constants.AllIndicator);
 
-            if (schtype == "A")                 // both Elem & Sec
+            if (schType == Constants.SchoolType.All)                 // both Elem & Sec
             {
                 foreach (T item in AllTestMetadata.All<T>())
                     thelist.Add(item.DispAbbr);
             }
-            else if (schtype == "E")            // Elementary
+            else if (schType == Constants.SchoolType.Elementary)            // Elementary
             {
                 foreach (T item in AllTestMetadata.All<T>())
                     if (item.ElemSec == "E" || item.ElemSec == "B")
@@ -106,18 +109,19 @@ namespace Benchmark_Instant_Reports_2.Helpers
         }
 
 
-        private static void loadFilterListInDD<T>(DropDownList ddl, string campus) where T : TestMetadataItem
+        private static void loadFilterListInDD<T>(DropDownList ddl, Constants.SchoolType schType) where T : TestMetadataItem
         {
-            ddl.DataSource = getTestMetadataList<T>(campus);
+            ddl.DataSource = getTestMetadataList<T>(schType);
             ddl.DataBind();
 
             return;
         }
 
 
-        private static List<string> filterTestsBy<T>(string campus, string filteredSelection) where T : TestMetadataItem
+        private static List<string> filterTestsBy<T>(string abbr, string filteredSelection,
+            IRepoService dataservice) where T : TestMetadataItem
         {
-            string[] alltests = birIF.getTestListForSchool(campus);
+            IList<string> alltests = dataservice.GetTestIDsForSchool(abbr);
             List<string> resultList = new List<string>();
             string pattern = getRegExPatternFor<T>(filteredSelection);
 
