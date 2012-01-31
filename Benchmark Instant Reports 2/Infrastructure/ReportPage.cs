@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Web.UI.WebControls;
 using Benchmark_Instant_Reports_2.Helpers;
-using Benchmark_Instant_Reports_2.Infrastructure;
 using Benchmark_Instant_Reports_2.Infrastructure.IRepositories;
 using Benchmark_Instant_Reports_2.References;
 

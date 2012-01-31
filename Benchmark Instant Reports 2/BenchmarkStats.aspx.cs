@@ -114,8 +114,11 @@ namespace Benchmark_Instant_Reports_2
             lblNoScanData.Visible = false;
             RememberHelper.savedSelectedTestID(Response, listTests.SelectedItem.ToString());
 
-            DataSet ds1 = birIF.getTeachersForTestCampus(listTests.SelectedItem.ToString(), ddCampus.SelectedValue.ToString());
-            string[] listOfTeachers = birUtilities.getUniqueTableColumnStringValues(ds1.Tables[0], Constants.TeacherNameFieldName);
+            //DataSet ds1 = birIF.getTeachersForTestCampus(listTests.SelectedItem.ToString(), ddCampus.SelectedValue.ToString());
+            //string[] listOfTeachers = birUtilities.getUniqueTableColumnStringValues(ds1.Tables[0], Constants.TeacherNameFieldName);
+            var studentDataToGrade = StudentData.GetStudentDataToGrade(listTests.SelectedItem.ToString(),
+                ddCampus.SelectedValue.ToString()); string[] listOfTeachers = studentDataToGrade.Select(t => t.TeacherName).Distinct().ToArray();
+            Array.Sort(listOfTeachers);
             ddTeacher.DataSource = listOfTeachers;
             ddTeacher.DataBind();
             UIHelper.toggleDDLInitView(ddTeacher, true);

@@ -1,15 +1,14 @@
 ﻿using System;
-using System.Data;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using Benchmark_Instant_Reports_2.Account;
 using Benchmark_Instant_Reports_2.Helpers;
+using Benchmark_Instant_Reports_2.Helpers.Reports;
 using Benchmark_Instant_Reports_2.Infrastructure;
-using Microsoft.Reporting.WebForms;
 using Benchmark_Instant_Reports_2.Interfaces;
 using Benchmark_Instant_Reports_2.Interfaces.DBDataStruct;
-using Benchmark_Instant_Reports_2.Helpers.Reports;
-using Benchmark_Instant_Reports_2.Account;
 using Benchmark_Instant_Reports_2.References;
+using Microsoft.Reporting.WebForms;
 
 namespace Benchmark_Instant_Reports_2
 {
@@ -26,14 +25,10 @@ namespace Benchmark_Instant_Reports_2
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            // activate only the Campus dropdown, deactivate the
-            // others until they are ready to be filled
-
             if (!IsPostBack)
             {
                 initPage();
             }
-
 
             // anything else we need to do
 
@@ -178,7 +173,7 @@ namespace Benchmark_Instant_Reports_2
 
             setupTestFilters();
 
-            // load list of benchmarks in Benchmark listbox
+            // load list of tests in Test listbox
             lbListTests.DataSource = DataService.GetTestIDsForSchool(ddCampus.SelectedValue.ToString());
             lbListTests.DataBind();
 

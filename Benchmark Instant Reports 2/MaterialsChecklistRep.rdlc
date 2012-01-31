@@ -1,53 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Report xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner" xmlns="http://schemas.microsoft.com/sqlserver/reporting/2008/01/reportdefinition">
   <DataSources>
-    <DataSource Name="DataSetScanReport">
+    <DataSource Name="Benchmark_Instant_Reports_2InterfacesDBDataStruct">
       <ConnectionProperties>
         <DataProvider>System.Data.DataSet</DataProvider>
         <ConnectString>/* Local Connection */</ConnectString>
       </ConnectionProperties>
-      <rd:DataSourceID>094fd699-5db9-44e1-94c8-ef161cefd69f</rd:DataSourceID>
+      <rd:DataSourceID>397ec3df-26c2-47a9-befe-a5e8de63128d</rd:DataSourceID>
     </DataSource>
   </DataSources>
   <DataSets>
-    <DataSet Name="DataSetScanReport">
+    <DataSet Name="TScanReportData">
       <Fields>
-        <Field Name="CAMPUS">
-          <DataField>CAMPUS</DataField>
+        <Field Name="Campus">
+          <DataField>Campus</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="TEST_ID">
-          <DataField>TEST_ID</DataField>
+        <Field Name="TestID">
+          <DataField>TestID</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="TEACHER">
-          <DataField>TEACHER</DataField>
+        <Field Name="Teacher">
+          <DataField>Teacher</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="PERIOD">
-          <DataField>PERIOD</DataField>
+        <Field Name="Period">
+          <DataField>Period</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="NUM_SCANNED">
-          <DataField>NUM_SCANNED</DataField>
-          <rd:TypeName>System.Decimal</rd:TypeName>
+        <Field Name="NumScanned">
+          <DataField>NumScanned</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
         </Field>
-        <Field Name="NUM_QUERIED">
-          <DataField>NUM_QUERIED</DataField>
-          <rd:TypeName>System.Decimal</rd:TypeName>
+        <Field Name="NumQueried">
+          <DataField>NumQueried</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
         </Field>
       </Fields>
       <Query>
-        <DataSourceName>DataSetScanReport</DataSourceName>
+        <DataSourceName>Benchmark_Instant_Reports_2InterfacesDBDataStruct</DataSourceName>
         <CommandText>/* Local Query */</CommandText>
       </Query>
       <rd:DataSetInfo>
-        <rd:DataSetName>DataSetScanReport</rd:DataSetName>
-        <rd:SchemaPath>C:\Documents and Settings\mholling\my documents\visual studio 2010\Projects\Benchmark Instant Reports 2\Benchmark Instant Reports 2\DataSetScanReport.xsd</rd:SchemaPath>
-        <rd:TableName>TEMP_RESULTS_SCANREPORT</rd:TableName>
-        <rd:TableAdapterFillMethod>Fill</rd:TableAdapterFillMethod>
-        <rd:TableAdapterGetDataMethod>GetData</rd:TableAdapterGetDataMethod>
-        <rd:TableAdapterName>TEMP_RESULTS_SCANREPORTTableAdapter</rd:TableAdapterName>
+        <rd:DataSetName>Benchmark_Instant_Reports_2.Interfaces.DBDataStruct</rd:DataSetName>
+        <rd:TableName>ScanReportData</rd:TableName>
+        <rd:ObjectDataSourceSelectMethod>GetItems</rd:ObjectDataSourceSelectMethod>
+        <rd:ObjectDataSourceType>Benchmark_Instant_Reports_2.Interfaces.DBDataStruct.ScanReportData, Benchmark Instant Reports 2, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</rd:ObjectDataSourceType>
       </rd:DataSetInfo>
     </DataSet>
   </DataSets>
@@ -150,7 +148,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>=Sum(Fields!NUM_QUERIED.Value)</Value>
+                              <Value>=Sum(Fields!NumQueried.Value)</Value>
                               <Style>
                                 <FontFamily>Tahoma</FontFamily>
                               </Style>
@@ -182,7 +180,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>=Sum(Fields!NUM_QUERIED.Value)</Value>
+                              <Value>=Sum(Fields!NumQueried.Value)</Value>
                               <Style>
                                 <FontFamily>Tahoma</FontFamily>
                                 <FontWeight>Bold</FontWeight>
@@ -221,7 +219,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>=Sum(Fields!NUM_QUERIED.Value)</Value>
+                              <Value>=Sum(Fields!NumQueried.Value)</Value>
                               <Style>
                                 <FontFamily>Tahoma</FontFamily>
                                 <FontWeight>Bold</FontWeight>
@@ -259,7 +257,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>=Sum(Fields!NUM_QUERIED.Value)</Value>
+                              <Value>=Sum(Fields!NumQueried.Value)</Value>
                               <Style>
                                 <FontFamily>Tahoma</FontFamily>
                                 <FontWeight>Bold</FontWeight>
@@ -302,7 +300,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>=Sum(Fields!NUM_QUERIED.Value)</Value>
+                              <Value>=Sum(Fields!NumQueried.Value)</Value>
                               <Style>
                                 <FontFamily>Tahoma</FontFamily>
                                 <FontWeight>Bold</FontWeight>
@@ -343,7 +341,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>=Sum(Fields!NUM_QUERIED.Value)</Value>
+                              <Value>=Sum(Fields!NumQueried.Value)</Value>
                               <Style>
                                 <FontFamily>Tahoma</FontFamily>
                                 <FontWeight>Bold</FontWeight>
@@ -381,12 +379,12 @@
             <TablixMember>
               <Group Name="PERIOD">
                 <GroupExpressions>
-                  <GroupExpression>=Fields!PERIOD.Value</GroupExpression>
+                  <GroupExpression>=Fields!Period.Value</GroupExpression>
                 </GroupExpressions>
               </Group>
               <SortExpressions>
                 <SortExpression>
-                  <Value>=Fields!PERIOD.Value</Value>
+                  <Value>=Fields!Period.Value</Value>
                 </SortExpression>
               </SortExpressions>
               <TablixHeader>
@@ -399,7 +397,7 @@
                       <Paragraph>
                         <TextRuns>
                           <TextRun>
-                            <Value>=Fields!PERIOD.Value</Value>
+                            <Value>=Fields!Period.Value</Value>
                             <Style>
                               <FontFamily>Tahoma</FontFamily>
                               <FontWeight>Bold</FontWeight>
@@ -474,25 +472,25 @@
             <TablixMember>
               <Group Name="TEST_ID">
                 <GroupExpressions>
-                  <GroupExpression>=Fields!TEST_ID.Value</GroupExpression>
+                  <GroupExpression>=Fields!TestID.Value</GroupExpression>
                 </GroupExpressions>
               </Group>
               <SortExpressions>
                 <SortExpression>
-                  <Value>=Fields!TEST_ID.Value</Value>
+                  <Value>=Fields!TestID.Value</Value>
                 </SortExpression>
               </SortExpressions>
               <TablixHeader>
                 <Size>1.85388in</Size>
                 <CellContents>
-                  <Textbox Name="TEST_ID">
+                  <Textbox Name="TestID">
                     <CanGrow>true</CanGrow>
                     <KeepTogether>true</KeepTogether>
                     <Paragraphs>
                       <Paragraph>
                         <TextRuns>
                           <TextRun>
-                            <Value>=Fields!TEST_ID.Value</Value>
+                            <Value>=Fields!TestID.Value</Value>
                             <Style>
                               <FontFamily>Tahoma</FontFamily>
                               <FontWeight>Bold</FontWeight>
@@ -503,7 +501,7 @@
                         <Style />
                       </Paragraph>
                     </Paragraphs>
-                    <rd:DefaultName>TEST_ID</rd:DefaultName>
+                    <rd:DefaultName>TestID</rd:DefaultName>
                     <Style>
                       <Border>
                         <Color>LightGrey</Color>
@@ -525,25 +523,25 @@
                 <TablixMember>
                   <Group Name="Group1">
                     <GroupExpressions>
-                      <GroupExpression>=Fields!TEACHER.Value</GroupExpression>
+                      <GroupExpression>=Fields!Teacher.Value</GroupExpression>
                     </GroupExpressions>
                   </Group>
                   <SortExpressions>
                     <SortExpression>
-                      <Value>=Fields!TEACHER.Value</Value>
+                      <Value>=Fields!Teacher.Value</Value>
                     </SortExpression>
                   </SortExpressions>
                   <TablixHeader>
                     <Size>1.91667in</Size>
                     <CellContents>
-                      <Textbox Name="Group1">
+                      <Textbox Name="Teacher">
                         <CanGrow>true</CanGrow>
                         <KeepTogether>true</KeepTogether>
                         <Paragraphs>
                           <Paragraph>
                             <TextRuns>
                               <TextRun>
-                                <Value>=Fields!TEACHER.Value</Value>
+                                <Value>=Fields!Teacher.Value</Value>
                                 <Style>
                                   <FontFamily>Tahoma</FontFamily>
                                 </Style>
@@ -552,7 +550,7 @@
                             <Style />
                           </Paragraph>
                         </Paragraphs>
-                        <rd:DefaultName>Group1</rd:DefaultName>
+                        <rd:DefaultName>Teacher</rd:DefaultName>
                         <Style>
                           <Border>
                             <Color>LightGrey</Color>
@@ -625,7 +623,7 @@
                       <Paragraph>
                         <TextRuns>
                           <TextRun>
-                            <Value>= "   Total for " &amp; Fields!CAMPUS.Value</Value>
+                            <Value>= "   Total for " &amp; Fields!Campus.Value</Value>
                             <Style>
                               <FontFamily>Tahoma</FontFamily>
                               <FontWeight>Bold</FontWeight>
@@ -663,7 +661,7 @@
         <FixedColumnHeaders>true</FixedColumnHeaders>
         <FixedRowHeaders>true</FixedRowHeaders>
         <KeepTogether>true</KeepTogether>
-        <DataSetName>DataSetScanReport</DataSetName>
+        <DataSetName>TScanReportData</DataSetName>
         <Top>0.06944in</Top>
         <Left>0.16479in</Left>
         <Height>0.98958in</Height>
@@ -696,7 +694,7 @@
             <Paragraph>
               <TextRuns>
                 <TextRun>
-                  <Value>=Fields!CAMPUS.Value</Value>
+                  <Value>=First(Fields!Campus.Value, "TScanReportData")</Value>
                   <Style>
                     <FontSize>14pt</FontSize>
                     <FontWeight>Bold</FontWeight>

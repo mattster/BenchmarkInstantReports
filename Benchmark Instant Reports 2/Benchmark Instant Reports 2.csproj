@@ -176,7 +176,6 @@
     <Compile Include="Helpers\TestHelper.cs" />
     <Compile Include="Helpers\UIHelper.cs" />
     <Compile Include="Infrastructure\ClassKey.cs" />
-    <Compile Include="Infrastructure\DataEntityItem.cs" />
     <Compile Include="Infrastructure\DataItemCollection.cs" />
     <Compile Include="Infrastructure\Entities\AnswerKey.cs" />
     <Compile Include="Infrastructure\Entities\AnswerKeyCampus.cs" />
@@ -206,7 +205,6 @@
     <Compile Include="Grading\StudentData.cs" />
     <Compile Include="Helpers\Reports\AnswerCounter.cs" />
     <Compile Include="Helpers\Reports\IARepHelper.cs" />
-    <Compile Include="Interfaces\BenchmarkStatsIF.cs" />
     <Compile Include="Interfaces\birUtilities.cs" />
     <Compile Include="Interfaces\birIF.cs" />
     <Compile Include="Exceptions\AlternateAnswer.cs" />
@@ -249,7 +247,6 @@
     <Compile Include="Interfaces\DBDataStruct\StudentListItem.cs" />
     <Compile Include="Metadata\AllTestMetadata.cs" />
     <Compile Include="Metadata\Curriculum.cs" />
-    <Compile Include="Interfaces\ScanReportIF.cs" />
     <Compile Include="Interfaces\dbIFOracle.cs" />
     <Compile Include="Interfaces\CampusSecurity.cs" />
     <Compile Include="Metadata\Subject.cs" />

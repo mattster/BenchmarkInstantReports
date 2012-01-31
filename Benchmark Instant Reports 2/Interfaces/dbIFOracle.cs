@@ -34,53 +34,6 @@ namespace Benchmark_Instant_Reports_2.Interfaces
         }
 
 
-        //**********************************************************************//
-        //** gets an OracleDataReader object for some strange reason - most
-        //** likely to read a data table's schema info
-        //**
-        public static OracleDataReader getOracleDataReader(string queryString, CommandBehavior cmdBehavior = CommandBehavior.KeyInfo)
-        {
-            string connectionString = ConfigurationManager.ConnectionStrings[databaseName].ConnectionString;
-            using (OracleConnection connection =
-                new OracleConnection(connectionString))
-            {
-                connection.Open();
-                OracleCommand cmd = connection.CreateCommand();
-                cmd.CommandText = queryString;
-                OracleDataReader odr = cmd.ExecuteReader(cmdBehavior);
-
-                odr.Close();
-                connection.Close();
-
-                return odr;
-            }
-        }
-
-
-        //**********************************************************************//
-        //** returns a data table with schema info for the specified table
-        //**
-        public static DataTable getTableSchemaInfo(string tableName)
-        {
-            string qs = "SELECT * FROM " + tableName;
-            DataTable returnTable = new DataTable();
-
-            string connectionString = ConfigurationManager.ConnectionStrings[databaseName].ConnectionString;
-            using (OracleConnection connection =
-                new OracleConnection(connectionString))
-            {
-                connection.Open();
-                OracleCommand cmd = connection.CreateCommand();
-                cmd.CommandText = qs;
-                OracleDataReader odr = cmd.ExecuteReader(CommandBehavior.KeyInfo);
-                returnTable = odr.GetSchemaTable();
-
-                odr.Close();
-                connection.Close();
-            }
-
-            return returnTable;
-        }
 
 
 
@@ -111,11 +64,5 @@ namespace Benchmark_Instant_Reports_2.Interfaces
 
             return null;
         }
-
-
-
-
-
-
     }
 }

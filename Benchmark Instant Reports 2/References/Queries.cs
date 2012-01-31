@@ -35,13 +35,13 @@ namespace Benchmark_Instant_Reports_2.References
                 "union all " +
                 "select * from (" + GetELCampuses + ") ";
 
-        public static string GetCampusInfoForCampus =
-                "select school_abbr, schoolname from " + DatabaseDefn.DBSchool + " " +
-                "where school_abbr = \'@schoolAbbr\' ";
+        //public static string GetCampusInfoForCampus =
+        //        "select school_abbr, schoolname from " + DatabaseDefn.DBSchool + " " +
+        //        "where school_abbr = \'@schoolAbbr\' ";
 
-        public static string GetSchoolID =
-                "select schoolid from " + DatabaseDefn.DBSchool + " " +
-                "where school_abbr = \'@schoolAbbr\'";
+        //public static string GetSchoolID =
+        //        "select schoolid from " + DatabaseDefn.DBSchool + " " +
+        //        "where school_abbr = \'@schoolAbbr\'";
 
         public static string GetSchoolByID =
                 "select * from " + DatabaseDefn.DBSchool + " " +
@@ -61,13 +61,13 @@ namespace Benchmark_Instant_Reports_2.References
         // ***** get tests
         #region get_tests
 
-        public static string GetTestListBySchoolTypes =
-                "select test_id from " + DatabaseDefn.DBTestDefn + " " +
-                "where school_type in (@schoolTypeList) " +
-                "and to_date(start_datetime, 'MM/DD/YYYY') >= to_date('08/22/2011', 'MM/DD/YYYY') " +
-                "and to_date(start_datetime, 'MM/DD/YYYY') <= current_date " +
-                "and test_subject not in ('BALLOT','SAMPLE') " +
-                "order by test_id desc";
+        //public static string GetTestListBySchoolTypes =
+        //        "select test_id from " + DatabaseDefn.DBTestDefn + " " +
+        //        "where school_type in (@schoolTypeList) " +
+        //        "and to_date(start_datetime, 'MM/DD/YYYY') >= to_date('08/22/2011', 'MM/DD/YYYY') " +
+        //        "and to_date(start_datetime, 'MM/DD/YYYY') <= current_date " +
+        //        "and test_subject not in ('BALLOT','SAMPLE') " +
+        //        "order by test_id desc";
 
         public static string GetTestListAllTests =
                 "select * from " + DatabaseDefn.DBTestDefn + " " +
@@ -76,21 +76,21 @@ namespace Benchmark_Instant_Reports_2.References
                 "and test_subject not in ('BALLOT','SAMPLE') " +
                 "order by test_id desc";
 
-        public static string GetTestListBySecSchoolType =
-                "select test_id from " + DatabaseDefn.DBTestDefn + " " +
-                "where sec_school_type = \'@schoolType\' " +
-                "and to_date(start_datetime, 'MM/DD/YYYY') >= to_date('08/22/2011', 'MM/DD/YYYY') " +
-                "and to_date(start_datetime, 'MM/DD/YYYY') <= current_date " +
-                "and test_subject not in ('BALLOT','SAMPLE') " +
-                "order by test_id desc";
+        //public static string GetTestListBySecSchoolType =
+        //        "select test_id from " + DatabaseDefn.DBTestDefn + " " +
+        //        "where sec_school_type = \'@schoolType\' " +
+        //        "and to_date(start_datetime, 'MM/DD/YYYY') >= to_date('08/22/2011', 'MM/DD/YYYY') " +
+        //        "and to_date(start_datetime, 'MM/DD/YYYY') <= current_date " +
+        //        "and test_subject not in ('BALLOT','SAMPLE') " +
+        //        "order by test_id desc";
 
-        public static string GetTestListBySchoolTypeSec =
-                "select test_id from " + DatabaseDefn.DBTestDefn + " " +
-                "where sec_school_type in(\'@schoolType\','S') " +
-                "and to_date(start_datetime, 'MM/DD/YYYY') >= to_date('08/22/2011', 'MM/DD/YYYY') " +
-                "and to_date(start_datetime, 'MM/DD/YYYY') <= current_date " +
-                "and test_subject not in ('BALLOT','SAMPLE') " +
-                "order by test_id desc";
+        //public static string GetTestListBySchoolTypeSec =
+        //        "select test_id from " + DatabaseDefn.DBTestDefn + " " +
+        //        "where sec_school_type in(\'@schoolType\','S') " +
+        //        "and to_date(start_datetime, 'MM/DD/YYYY') >= to_date('08/22/2011', 'MM/DD/YYYY') " +
+        //        "and to_date(start_datetime, 'MM/DD/YYYY') <= current_date " +
+        //        "and test_subject not in ('BALLOT','SAMPLE') " +
+        //        "order by test_id desc";
         
         #endregion
 
@@ -105,13 +105,13 @@ namespace Benchmark_Instant_Reports_2.References
         public static string GetTestInfoForAll =
                 "select * from " + DatabaseDefn.DBTestDefn;
 
-        public static string GetNumTestQuestions =
-                "select max(item_num) from " + DatabaseDefn.DBTestDefn + " " +
-                "where test_id = \'@testId\'";
+        //public static string GetNumTestQuestions =
+        //        "select max(item_num) from " + DatabaseDefn.DBTestDefn + " " +
+        //        "where test_id = \'@testId\'";
 
-        public static string GetTestType =
-                "select school_type from " + DatabaseDefn.DBTestDefn + " " +
-                "where test_id = \'@testId\' ";
+        //public static string GetTestType =
+        //        "select school_type from " + DatabaseDefn.DBTestDefn + " " +
+        //        "where test_id = \'@testId\' ";
 
         public static string GetCustomQuery =
                 "select custom_query from " + DatabaseDefn.DBTestDefn + " " +
@@ -171,29 +171,29 @@ namespace Benchmark_Instant_Reports_2.References
                 "order by to_date(date_scanned, 'MM/DD/YYYY HH:MI:SS AM') DESC ) " +
                 "where rownum = 1";
 
-        public static string GetAllScansForTest =
-                "SELECT * FROM " + DatabaseDefn.DBScans + " " +
-                "WHERE TEST_ID IN (@testIdList) " +
-                "ORDER BY STUDENT_ID ASC";
+        //public static string GetAllScansForTest =
+        //        "SELECT * FROM " + DatabaseDefn.DBScans + " " +
+        //        "WHERE TEST_ID IN (@testIdList) " +
+        //        "ORDER BY STUDENT_ID ASC";
 
-        public static string GetScansForCampus =
-                "select unique student_id, test_id  " +
-                "from " + DatabaseDefn.DBScans + " b " +
-                "join " + DatabaseDefn.DBStudentRoster + " r " +
-                "on student_id = local_student_id " +
-                "where test_id = nvl(\'@testId\',uid) " +
-                "and school2 = \'@campus\' " +
-                "order by student_id asc";
+        //public static string GetScansForCampus =
+        //        "select unique student_id, test_id  " +
+        //        "from " + DatabaseDefn.DBScans + " b " +
+        //        "join " + DatabaseDefn.DBStudentRoster + " r " +
+        //        "on student_id = local_student_id " +
+        //        "where test_id = nvl(\'@testId\',uid) " +
+        //        "and school2 = \'@campus\' " +
+        //        "order by student_id asc";
 
-        public static string GetStudentScansForCampusCourse =
-                "select local_student_id, student_name, " +
-                Constants.TeacherNameFieldName + ", " +
-                "period, local_course_id, school2, test_id " +
-                "from ( " +
-                "select STUDENT_ID, TEST_ID from " + DatabaseDefn.DBScans + " " +
-                "where test_id = \'@testId\' ) " +
-                "join ( @testQuery ) " +
-                "on student_id = local_student_id ";
+        //public static string GetStudentScansForCampusCourse =
+        //        "select local_student_id, student_name, " +
+        //        Constants.TeacherNameFieldName + ", " +
+        //        "period, local_course_id, school2, test_id " +
+        //        "from ( " +
+        //        "select STUDENT_ID, TEST_ID from " + DatabaseDefn.DBScans + " " +
+        //        "where test_id = \'@testId\' ) " +
+        //        "join ( @testQuery ) " +
+        //        "on student_id = local_student_id ";
 
         public static string GetStudentScansFromTestQuery =
                 "select local_student_id, student_name, " +
@@ -249,11 +249,11 @@ namespace Benchmark_Instant_Reports_2.References
                 "and " + Constants.TeacherNameFieldName + " in (@teacherList) " +
                 "order by " + Constants.TeacherNameFieldName + ", period";
 
-        public static string GetTeachersForTest =
-                "select unique " + Constants.TeacherNameFieldName + ", period " +
-                "from ( @query ) " +
-                "group by " + Constants.TeacherNameFieldName + ", period " +
-                "order by " + Constants.TeacherNameFieldName + ", period ";
+        //public static string GetTeachersForTest =
+        //        "select unique " + Constants.TeacherNameFieldName + ", period " +
+        //        "from ( @query ) " +
+        //        "group by " + Constants.TeacherNameFieldName + ", period " +
+        //        "order by " + Constants.TeacherNameFieldName + ", period ";
 
 
         #endregion
