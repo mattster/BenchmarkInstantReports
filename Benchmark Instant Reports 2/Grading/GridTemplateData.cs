@@ -21,7 +21,10 @@ namespace Benchmark_Instant_Reports_2.Grading
             new TestTemplate("38-AE-FK-2GRID-G68", 2, 38, 39, TestTemplate.TestTemplatetype.Grade68Grids),
             new TestTemplate("60-AE-FK-3GRID-EOC", 3, 60, 62, TestTemplate.TestTemplatetype.EOCGrids),
             new TestTemplate("60-AE-FK-3GRID-G68", 3, 60, 62, TestTemplate.TestTemplatetype.Grade68Grids),
-            new TestTemplate("60-AE-3GRID-EOC", 3, 60, 62, TestTemplate.TestTemplatetype.EOCGrids)
+            new TestTemplate("60-AE-3GRID-EOC", 3, 60, 62, TestTemplate.TestTemplatetype.EOCGrids),
+            new TestTemplate("60-AE-3GRID-G68", 3, 60, 62, TestTemplate.TestTemplatetype.Grade68Grids),
+            new TestTemplate("46-AE-FK-4GRID-G45", 4, 46, 49, TestTemplate.TestTemplatetype.Grade45Grids),
+            new TestTemplate("39-AE-FK-1GRID-G45", 1, 39, 39, TestTemplate.TestTemplatetype.Grade45Grids),
         };
     }
 }

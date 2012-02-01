@@ -56,11 +56,6 @@ namespace Benchmark_Instant_Reports_2
                 initPage();
             }
 
-
-            // anything else we need to do
-
-            // setup stuff if authorized as an administrator
-
             return;
 
 
@@ -93,9 +88,9 @@ namespace Benchmark_Instant_Reports_2
             makeRepsVisible(repsNone, repsNone);
             reportDataParmsHaveChanged = true;
 
-                ddRepType.DataSource = reportTypesList;
-                ddRepType.DataBind();
-                ddRepType.SelectedIndex = 0;
+            ddRepType.DataSource = reportTypesList;
+            ddRepType.DataBind();
+            ddRepType.SelectedIndex = 0;
 
             int bidx = UIHelper.getIndexOfDDItem(RememberHelper.savedSelectedTestID(Request), listTests);
             if (bidx != -1)
@@ -106,7 +101,7 @@ namespace Benchmark_Instant_Reports_2
 
             return;
         }
-        
+
 
         protected void listTests_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -232,21 +227,12 @@ namespace Benchmark_Instant_Reports_2
         {
             //** User clicked the Generate Report button ***//
             List<StudentListItem> studentData = new List<StudentListItem>();
-            
+
             // generate results for the given criteria on the page if we need to
             if (reportDataParmsHaveChanged)
             {
-                // do a new query by school
-                if (ddTeacher.SelectedIndex != 0)
-                {
-                    studentData = StudentData.GetStudentDataToGrade(listTests.SelectedItem.ToString(),
-                        ddCampus.SelectedValue.ToString(), ddTeacher.SelectedValue.ToString());
-                }
-                else
-                {
-                    studentData = StudentData.GetStudentDataToGrade(listTests.SelectedItem.ToString(),
-                        ddCampus.SelectedValue.ToString());
-                }
+                studentData = StudentData.GetStudentDataToGrade(listTests.SelectedItem.ToString(),
+                    ddCampus.SelectedValue.ToString());
                 resultsData = IARepHelper.GenerateBenchmarkStatsRepTable(studentData,
                     listTests.SelectedItem.ToString(), ddCampus.SelectedValue.ToString());
 
@@ -358,7 +344,7 @@ namespace Benchmark_Instant_Reports_2
         private void setupReportPctCorrectAllTeachers(string groupBySelection)
         {
             makeRepsVisible(repTypePctCorrectAllTeachers, groupBySelection);
-            
+
             if (groupBySelection == groupByQ)
             {
                 ReportDataSource rds = new ReportDataSource(repvwBenchmarkStats1a.LocalReport.GetDataSourceNames()[0], resultsData.GetItems());
@@ -397,7 +383,7 @@ namespace Benchmark_Instant_Reports_2
 
             if (groupBySelection == groupByQ)
             {
-                ReportDataSource rds = new ReportDataSource(repvwBenchmarkStats2a.LocalReport.GetDataSourceNames()[0], 
+                ReportDataSource rds = new ReportDataSource(repvwBenchmarkStats2a.LocalReport.GetDataSourceNames()[0],
                     resultsData.GetItemsWhere(d => d.Teacher == ddTeacher.SelectedItem.ToString().Replace("'", "''")));
                 repvwBenchmarkStats2a.LocalReport.DataSources.Clear();
                 repvwBenchmarkStats2a.LocalReport.DataSources.Add(rds);
@@ -436,7 +422,7 @@ namespace Benchmark_Instant_Reports_2
 
             if (groupBySelection == groupByQ)
             {
-                ReportDataSource rds = new ReportDataSource(repvwBenchmarkStats3a.LocalReport.GetDataSourceNames()[0], 
+                ReportDataSource rds = new ReportDataSource(repvwBenchmarkStats3a.LocalReport.GetDataSourceNames()[0],
                     resultsData.GetItemsWhere(d => d.Teacher == ddTeacher.SelectedItem.ToString().Replace("'", "''")));
                 repvwBenchmarkStats3a.LocalReport.DataSources.Clear();
                 repvwBenchmarkStats3a.LocalReport.DataSources.Add(rds);
@@ -454,7 +440,7 @@ namespace Benchmark_Instant_Reports_2
             }
             else if (groupBySelection == groupByTEKS)
             {
-                ReportDataSource rds = new ReportDataSource(repvwBenchmarkStats3c.LocalReport.GetDataSourceNames()[0], 
+                ReportDataSource rds = new ReportDataSource(repvwBenchmarkStats3c.LocalReport.GetDataSourceNames()[0],
                     resultsData.GetItemsWhere(d => d.Teacher == ddTeacher.SelectedItem.ToString().Replace("'", "''")));
                 repvwBenchmarkStats3c.LocalReport.DataSources.Clear();
                 repvwBenchmarkStats3c.LocalReport.DataSources.Add(rds);
