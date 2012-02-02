@@ -14,5 +14,20 @@ namespace Benchmark_Instant_Reports_2.Interfaces.DBDataStruct
         public string CourseID { get; set; }
         public string Campus { get; set; }
         public string TestID { get; set; }
+
+
+        public StudentListItem(string studentid, string studentname, string teachername,
+            string period, string courseid, string campus, string testid)
+        {
+            StudentID = studentid;
+            StudentName = studentname;
+            TeacherName = teachername;
+            Period = period;
+            CourseID = courseid;
+            Campus = campus;
+            TestID = testid;
+        }
     }
+
+
 }

@@ -180,14 +180,17 @@ namespace Benchmark_Instant_Reports_2.References
         //        "WHERE TEST_ID IN (@testIdList) " +
         //        "ORDER BY STUDENT_ID ASC";
 
-        //public static string GetScansForCampus =
-        //        "select unique student_id, test_id  " +
-        //        "from " + DatabaseDefn.DBScans + " b " +
-        //        "join " + DatabaseDefn.DBStudentRoster + " r " +
-        //        "on student_id = local_student_id " +
-        //        "where test_id = nvl(\'@testId\',uid) " +
-        //        "and school2 = \'@campus\' " +
-        //        "order by student_id asc";
+        public static string GetScansForTestCampus =
+                "select * from " + DatabaseDefn.DBScans + " " +
+                "where student_id in " + 
+                "( select unique(student_id)  " +
+                "from " + DatabaseDefn.DBScans + " " +
+                "join " + DatabaseDefn.DBStudentRoster + " " +
+                "on student_id = local_student_id " +
+                "where test_id = nvl(\'@testId\',uid) " +
+                "and school2 = \'@campus\' ) " +
+                "and test_id = nvl(\'@testId\',uid) " +
+                "order by student_id";
 
         //public static string GetStudentScansForCampusCourse =
         //        "select local_student_id, student_name, " +
@@ -223,6 +226,8 @@ namespace Benchmark_Instant_Reports_2.References
                 " @query) ) " +
                 " and b.student_id = r1.local_student_id " +
                 "order by student_id asc";
+
+        //public static string GetScanDataForTestCampus
 
         #endregion
 

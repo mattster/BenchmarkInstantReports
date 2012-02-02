@@ -9,6 +9,7 @@ using Benchmark_Instant_Reports_2.References;
 using Benchmark_Instant_Reports_2.Helpers.Reports;
 using Benchmark_Instant_Reports_2.Helpers;
 using Benchmark_Instant_Reports_2.Infrastructure.IRepositories;
+using Benchmark_Instant_Reports_2.Infrastructure.Entities;
 
 namespace Benchmark_Instant_Reports_2.Grading
 {
@@ -18,25 +19,30 @@ namespace Benchmark_Instant_Reports_2.Grading
             string teacher = "",
             string periodList = "'00','01','02','03','04','05','06','07','08','09','10','11','12','13','14'")
         {
-            List<string> studIdList1 = new List<string>();
+            //List<string> studIdList1 = new List<string>();
+
+            List<StudentListItem> finalData = new List<StudentListItem>();
 
             //// get a set of the student scans for this test and campus
             
-            // get a set of students who meet the criteria for this test
-
-
+            // get a set of students who meet the criteria for this test -- preslugged data
             PreslugData preslugged = ScanHelper.ReturnPreslugData(dataservice, testID, campus);
             string[] teacherList = preslugged.GetItems().Select(p => p.TeacherName).Distinct().ToArray();
             Array.Sort(teacherList);
 
+            // get a list of all scans for this test and campus
+            IQueryable<Scan> studentsWithScans = dataservice.ScanRepo.FindScansForTestCampus(testID, campus);
+            
 
             // get student data for students who have scans and meet the test criteria
-            List<StudentListItem> PresluggedStudentsWithScans = new List<StudentListItem>();
-            if (teacher == "")
-                PresluggedStudentsWithScans = ScanHelper.GetStudentScanListData(testID, campus);
-            else
-                PresluggedStudentsWithScans = ScanHelper.GetStudentScanListData(testID, campus, teacher, periodList);
-            List<StudentListItem> returnData = PresluggedStudentsWithScans;
+            //List<StudentListItem> PresluggedStudentsWithScans = new List<StudentListItem>();
+            //if (teacher == "")
+            //    PresluggedStudentsWithScans = ScanHelper.GetStudentScanListData(testID, campus);
+            //else
+            //    PresluggedStudentsWithScans = ScanHelper.GetStudentScanListData(testID, campus, teacher, periodList);
+            //List<StudentListItem> returnData = PresluggedStudentsWithScans;
+            
+
 
             // get student ID's for students who have scans but do not meet the test criteria
             List<string> studentIDsWithScansNotInTestCriteria = DBIOWorkaround.ReturnStudentIDsWScansNotPreslugged(testID, campus);

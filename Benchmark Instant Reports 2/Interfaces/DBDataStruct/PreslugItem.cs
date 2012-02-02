@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using Benchmark_Instant_Reports_2.Infrastructure;
+using Benchmark_Instant_Reports_2.Infrastructure.Entities;
 
 namespace Benchmark_Instant_Reports_2.Interfaces.DBDataStruct
 {
@@ -51,6 +52,24 @@ namespace Benchmark_Instant_Reports_2.Interfaces.DBDataStruct
         {
             StudentID = studentid;
             CourseID = courseid;
+        }
+
+
+        /// <summary>
+        /// constructor that takes a Roster entity item and converts it to a PreslugItem
+        /// </summary>
+        /// <param name="rosterItem">Roster item</param>
+        public PreslugItem(Roster rosterItem)
+        {
+            StudentName = rosterItem.StudentName;
+            StudentID = rosterItem.StudentID;
+            StateSchoolID = rosterItem.SchoolID;
+            Campus = rosterItem.CourseCampus;
+            CourseTitle = rosterItem.CourseTitle;
+            CourseID = rosterItem.CourseID;
+            Grade = rosterItem.Grade;
+            TeacherName = rosterItem.TeacherName;
+            Period = rosterItem.Period;
         }
     }
 

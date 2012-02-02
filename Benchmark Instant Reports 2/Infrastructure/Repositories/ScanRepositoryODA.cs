@@ -12,6 +12,21 @@ namespace Benchmark_Instant_Reports_2.Infrastructure.Repositories
 {
     public class ScanRepositoryODA : IScanRepository
     {
+        public IQueryable<Scan> FindScansForTestCampus(string testid, string abbr)
+        {
+            string qs = Queries.GetScansForTestCampus;
+            qs = qs.Replace("@testId", testid);
+            qs = qs.Replace("@campus", abbr);
+            DataSet ds = ODAHelper.getDataRows(qs);
+
+            if (ds.Tables.Count == 0)
+                return null;
+
+            return ConvertTableToScans(ds.Tables[0]);
+        }
+        
+        
+        
         public IQueryable<Scan> FindAll()
         {
             throw new NotImplementedException();
@@ -57,7 +72,7 @@ namespace Benchmark_Instant_Reports_2.Infrastructure.Repositories
         }
 
 
-        private static IQueryable<Scan> ConvertRowToScans(DataTable table)
+        private static IQueryable<Scan> ConvertTableToScans(DataTable table)
         {
             HashSet<Scan> finaldata = new HashSet<Scan>();
             foreach (DataRow row in table.Rows)

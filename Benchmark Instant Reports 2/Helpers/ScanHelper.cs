@@ -30,7 +30,15 @@ namespace Benchmark_Instant_Reports_2.Helpers
             // run the query
             var rosterstudents = dataservice.RosterRepo.ExecuteTestQuery(schoolCustomQuery);
             //return DBIOWorkaround.ReturnExecutedCustomQuery(schoolCustomQuery);
+
+            foreach (var student in rosterstudents)
+                finalData.Add(new PreslugItem(student));
+
+            return finalData;
         }
+
+
+
 
         public static List<StudentListItem> GetStudentScanListData(string testid, string campus,
                                                                    string teacher, string periodList)
