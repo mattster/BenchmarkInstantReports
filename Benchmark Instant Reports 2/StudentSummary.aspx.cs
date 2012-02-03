@@ -29,7 +29,7 @@ namespace Benchmark_Instant_Reports_2
             set { _thisTestFilterState = value; }
         }
 
-        private static List<StudentListItem> studentDataToGrade = new List<StudentListItem>();
+        private static List<DataToGradeItem> studentDataToGrade = new List<DataToGradeItem>();
 
         #endregion
 
@@ -142,7 +142,7 @@ namespace Benchmark_Instant_Reports_2
                 studentDataToGrade = StudentData.GetStudentDataToGrade(listTests.SelectedItem.ToString(),
                     ddCampus.SelectedValue.ToString(), ddTeacher.SelectedItem.ToString());
 
-            StGradeReportData gradedData = StGradesRepHelper.GenerateStudentStatsReportData(studentDataToGrade,
+            StGradeReportData gradedData = StGradesRepHelper.GenerateStudentGradesReportData(studentDataToGrade,
                 listTests.SelectedItem.ToString());
 
             // add in the individual student answer data

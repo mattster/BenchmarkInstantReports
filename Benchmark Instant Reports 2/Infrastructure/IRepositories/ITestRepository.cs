@@ -12,6 +12,5 @@ namespace Benchmark_Instant_Reports_2.Infrastructure.IRepositories
     {
         Test FindByTestID(string testid);
         IQueryable<Test> FindActiveTests();
-        //IQueryable<Test> FindActiveTestsForSchoolType(Constants.SchoolType schType);
     }
 }

@@ -226,7 +226,7 @@ namespace Benchmark_Instant_Reports_2
         protected void btnGenReport_Click(object sender, EventArgs e)
         {
             //** User clicked the Generate Report button ***//
-            List<StudentListItem> studentData = new List<StudentListItem>();
+            List<DataToGradeItem> studentData = new List<DataToGradeItem>();
 
             // generate results for the given criteria on the page if we need to
             if (reportDataParmsHaveChanged)

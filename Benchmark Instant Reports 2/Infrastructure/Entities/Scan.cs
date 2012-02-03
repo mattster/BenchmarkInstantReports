@@ -17,5 +17,21 @@ namespace Benchmark_Instant_Reports_2.Infrastructure.Entities
         public string Exempt { get; set; }
         public string Preslugged { get; set; }
         public string AnswerString { get; set; }
+
+        public Scan()
+        {
+            DateScanned = DateTime.Parse("1/1/1990");
+            ScanSequence = 0;
+            Imagepath = "";
+            StudentName = "";
+            StudentID = 1;
+            TestID = "";
+            Language = "E";
+            Exempt = "N";
+            Preslugged = "N";
+            AnswerString = "";
+        }
     }
+
+
 }

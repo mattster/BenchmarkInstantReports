@@ -9,7 +9,7 @@ namespace Benchmark_Instant_Reports_2.Helpers.Reports
 {
     public class IARepHelper
     {
-        public static IAReportData GenerateBenchmarkStatsRepTable(List<StudentListItem> studentData, string curTest, string curCampus)
+        public static IAReportData GenerateBenchmarkStatsRepTable(List<DataToGradeItem> studentData, string curTest, string curCampus)
         {
             string curId;
             IAReportData finalData = new IAReportData();

@@ -245,7 +245,7 @@
     <Compile Include="Interfaces\DBDataStruct\ScanReportItem.cs" />
     <Compile Include="Interfaces\DBDataStruct\StGradeReportData.cs" />
     <Compile Include="Interfaces\DBDataStruct\StGradeReportItem.cs" />
-    <Compile Include="Interfaces\DBDataStruct\StudentListItem.cs" />
+    <Compile Include="Interfaces\DBDataStruct\DataToGradeItem.cs" />
     <Compile Include="Metadata\AllTestMetadata.cs" />
     <Compile Include="Metadata\Curriculum.cs" />
     <Compile Include="Interfaces\dbIFOracle.cs" />
@@ -430,7 +430,7 @@
       <DependentUpon>DataSetStudentStats.xsd</DependentUpon>
     </None>
     <Content Include="packages.config" />
-    <Compile Include="Interfaces\DBDataStruct\StudentListItemData.cs" />
+    <Compile Include="Interfaces\DBDataStruct\DataToGradeItemCollection.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="ScanReportRep1.rdlc">

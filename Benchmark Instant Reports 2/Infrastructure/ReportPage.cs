@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Web.UI.WebControls;
 using Benchmark_Instant_Reports_2.Helpers;
+using Benchmark_Instant_Reports_2.Infrastructure.Entities;
 using Benchmark_Instant_Reports_2.Infrastructure.IRepositories;
 using Benchmark_Instant_Reports_2.References;
 
@@ -98,6 +101,63 @@ namespace Benchmark_Instant_Reports_2.Infrastructure
             btnTFReset_Click(new object(), new EventArgs());
 
             return;
+        }
+
+
+        /// <summary>
+        /// returns a list of Test objects based on the current Test ID(s)
+        /// that are selected on the page
+        /// </summary>
+        /// <returns>IQueryable-Test- list of Test objects representing what is selected</returns>
+        protected List<Test> GetSelectedTests()
+        {
+            HashSet<Test> finalData = new Hashset<Test>();
+            
+            if (typeof(T) == typeof(DropDownList))
+            {
+                Test test = DataService.TestRepo.FindByTestID(listTests.SelectedItem.ToString());
+                finalData.Add(test);
+            }
+            else
+            {
+                foreach (string testid in UIHelper.getLBSelectionsAsArray(lbListTests))
+                {
+                    Test test = DataService.TestRepo.FindByTestID(testid);
+                    finalData.Add(test);
+                }
+            }
+
+            return finalData.AsQueryable();
+        }
+
+
+        /// <summary>
+        /// returns an IQueryable list of School objects based on the current Campus
+        /// selection, including All Elementary or All Secondary
+        /// </summary>
+        /// <returns>IQueryable-School- list of School objects representing the campus(es) selected</returns>
+        protected IQueryable<School> GetSelectedSchools()
+        {
+            HashSet<School> finalData = new HashSet<School>();
+            if (ddCampus.SelectedValue.ToString() == Constants.DispAllElementary)
+            {
+                var schools = DataService.SchoolRepo.FindELCampuses();
+                foreach (var school in schools)
+                    finalData.Add(school);
+            }
+            else if (ddCampus.SelectedValue.ToString() == Constants.DispAllSecondary)
+            {
+                var schools = DataService.SchoolRepo.FindSECCampuses();
+                foreach (var school in schools)
+                    finalData.Add(school);
+            }
+            else
+            {
+                var school = DataService.SchoolRepo.FindBySchoolAbbr(ddCampus.SelectedValue.ToString());
+                finalData.Add(school);
+            }
+
+            return finalData.AsQueryable();
         }
 
 

@@ -7,6 +7,7 @@ using Benchmark_Instant_Reports_2.Exceptions;
 using Benchmark_Instant_Reports_2.Interfaces;
 using Benchmark_Instant_Reports_2.Grading;
 using Benchmark_Instant_Reports_2.References;
+using Benchmark_Instant_Reports_2.Infrastructure.Entities;
 
 namespace Benchmark_Instant_Reports_2.Grading
 {
@@ -77,7 +78,7 @@ namespace Benchmark_Instant_Reports_2.Grading
         }
 
 
-        public static GradedTestData GradeTest(string testID, string studentAnswerString, string curCampus, int ansKeyIncAmt, 
+        public static GradedTestData GradeTest(Test test, string studentAnswerString, string curCampus, int ansKeyIncAmt, 
                                                          string teacher, string period)
         {
             int numCorrect, numTotal = new int();
@@ -87,20 +88,20 @@ namespace Benchmark_Instant_Reports_2.Grading
             char letterGrade = new char();
 
             //get pass and commended numbers for this test
-            int passNum = birIF.getTestPassingNum(testID);
-            int commendedNum = birIF.getTestCommendedNum(testID);
+            //int passNum = birIF.getTestPassingNum(testID);
+            //int commendedNum = birIF.getTestCommendedNum(testID);
 
             //convert answer string to an array
             string[] studentAnswerStringArray = studentAnswerString.Split(',');
 
             // do special processing for special template types
-            if (GridHandler.isGriddable(testID))
-                GridHandler.ProcessAnswerStringWithGrids(studentAnswerStringArray, testID, curCampus);
+            if (GridHandler.isGriddable(test.TestID))
+                GridHandler.ProcessAnswerStringWithGrids(studentAnswerStringArray, test.TestID, curCampus);
 
-            if (MultiAnswerTemplateHandler.IsMultiAnswerTemplate(testID))
-                MultiAnswerTemplateHandler.ProcessAnswerStringWithMultiAnswers(studentAnswerStringArray, testID, curCampus);
+            if (MultiAnswerTemplateHandler.IsMultiAnswerTemplate(test.TestID))
+                MultiAnswerTemplateHandler.ProcessAnswerStringWithMultiAnswers(studentAnswerStringArray, test.TestID, curCampus);
 
-            List<AnswerKeyItem> theAnswerKey = AnswerKey.getTestAnswerKey(testID, curCampus, ansKeyIncAmt, teacher, period);
+            List<AnswerKeyItem> theAnswerKey = AnswerKey.getTestAnswerKey(test.TestID, curCampus, ansKeyIncAmt, teacher, period);
 
             //grade each item on the test
             numCorrect = 0;
@@ -121,7 +122,7 @@ namespace Benchmark_Instant_Reports_2.Grading
                         numCorrect++;
                         numPoints += itemAnswerKey.Weight;
                     }
-                    else if (studentAnswerStringArray[curItemNum - 1] == ExceptionHandler.getAlternateAnswer(testID, curItemNum, curCampus))
+                    else if (studentAnswerStringArray[curItemNum - 1] == ExceptionHandler.getAlternateAnswer(test.TestID, curItemNum, curCampus))
                     {
                         // student's answer is correct as the alternate answer
                         numCorrect++;
@@ -134,7 +135,7 @@ namespace Benchmark_Instant_Reports_2.Grading
 
             //calculate stuff
             pctCorrect = numPoints / numTotalPoints;
-            letterGrade = CalcLetterGrade(numPoints, passNum);
+            letterGrade = CalcLetterGrade(numPoints, test.PassNum);
 
             //return the results
             GradedTestData newItem = new GradedTestData();
@@ -144,8 +145,8 @@ namespace Benchmark_Instant_Reports_2.Grading
             newItem.NumPoints = numPoints;
             newItem.NumTotalPoints = numTotalPoints;
             newItem.PctCorrect = pctCorrect;
-            newItem.PassNum = passNum;
-            newItem.CommendedNum = commendedNum;
+            newItem.PassNum = test.PassNum;
+            newItem.CommendedNum = test.CommendedNum;
 
             //return table;
             return newItem;

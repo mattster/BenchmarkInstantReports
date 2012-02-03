@@ -43,9 +43,9 @@ namespace Benchmark_Instant_Reports_2.Helpers.Reports
                 }
 
                 // add in all the scanned data
-                List<StudentListItem> studentScans = ScanHelper.GetStudentScanListData(test, campus);
+                List<DataToGradeItem> studentScans = ScanHelper.GetStudentScanListData(test, campus);
 
-                foreach (StudentListItem scanneditem in studentScans)
+                foreach (DataToGradeItem scanneditem in studentScans)
                 {
                     ScanReportItem newItem = new ScanReportItem();
                     newItem.Campus = scanneditem.Campus;

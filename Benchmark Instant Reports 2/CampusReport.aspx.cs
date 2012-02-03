@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -18,6 +19,7 @@ namespace Benchmark_Instant_Reports_2
     public partial class CampusReport : ReportPage<DropDownList>
     {
         public SiteMaster theMasterPage;
+        private static DataToGradeItemCollection studentDataToGrade = new DataToGradeItemCollection();
         private static StGradeReportData resultsData = new StGradeReportData();
         private static TestFilterState _thisTestFilterState = new TestFilterState();
         public override TestFilterState thisTestFilterState
@@ -25,6 +27,7 @@ namespace Benchmark_Instant_Reports_2
             get { return _thisTestFilterState; }
             set { _thisTestFilterState = value; }
         }
+
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -47,7 +50,6 @@ namespace Benchmark_Instant_Reports_2
                 return;
             }
 
-            // setup stuff
             RememberHelper.savedSelectedCampus(Response, ddCampus.SelectedItem.ToString());
 
             listTests.DataSource = DataService.GetTestIDsForSchool(ddCampus.SelectedValue.ToString());
@@ -82,16 +84,16 @@ namespace Benchmark_Instant_Reports_2
 
         protected void btnGenReport_Click(object sender, EventArgs e)
         {
-            List<StudentListItem> studentData = new List<StudentListItem>();
-
-            if (ddCampus.SelectedValue.ToString() == Constants.DispAllElementary || 
-                ddCampus.SelectedValue.ToString() == Constants.DispAllSecondary)
+            var schools = GetSelectedSchools();
+            var tests = GetSelectedTests();
+            //if (ddCampus.SelectedValue.ToString() == Constants.DispAllElementary || 
+            //    ddCampus.SelectedValue.ToString() == Constants.DispAllSecondary)
+            if (schools. > 1)
             {   
                 // Show All Campuses
-                studentData = StudentData.GetStudentDataToGrade(DataService, listTests.SelectedItem.ToString(),
-                    ddCampus.SelectedValue.ToString());
+                studentDataToGrade = StudentData.GetStudentDataToGrade(DataService, tests, schools);
 
-                resultsData = StGradesRepHelper.GenerateStudentStatsReportData(studentData, listTests.SelectedItem.ToString());
+                resultsData = StGradesRepHelper.GenerateStudentGradesReportData(studentDataToGrade, tests);
 
                 this.repvwCampusReport1.Visible = false;
                 this.repvwCampusReport2.Visible = true;
@@ -106,10 +108,9 @@ namespace Benchmark_Instant_Reports_2
             }
             else
             {   // Show One Campus
-                studentData = StudentData.GetStudentDataToGrade(DataService, listTests.SelectedItem.ToString(),
-                    ddCampus.SelectedValue.ToString());
+                studentDataToGrade = StudentData.GetStudentDataToGrade(DataService, tests, schools);
 
-                resultsData = StGradesRepHelper.GenerateStudentStatsReportData(studentData, listTests.SelectedItem.ToString());
+                resultsData = StGradesRepHelper.GenerateStudentGradesReportData(studentDataToGrade, tests);
                 this.repvwCampusReport1.Visible = true;
                 this.repvwCampusReport2.Visible = false;
 

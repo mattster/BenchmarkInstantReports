@@ -5,6 +5,7 @@ using System.Linq;
 using Benchmark_Instant_Reports_2.Infrastructure.Entities;
 using Benchmark_Instant_Reports_2.Infrastructure.IRepositories;
 using Benchmark_Instant_Reports_2.Interfaces;
+using Benchmark_Instant_Reports_2.References;
 
 namespace Benchmark_Instant_Reports_2.Infrastructure.Repositories
 {
@@ -19,6 +20,17 @@ namespace Benchmark_Instant_Reports_2.Infrastructure.Repositories
             return ConvertTableToRosters(ds.Tables[0]);
         }
 
+
+        public IQueryable<Roster> FindByStudentID(string id)
+        {
+            id = string.Format("{0,6:D6}", id);
+            string qs = Queries.GetRosterDataForID.Replace("@studentId", id);
+            DataSet ds = dbIFOracle.getDataRows(qs);
+            if (ds.Tables.Count == 0)
+                return null;
+
+            return ConvertTableToRosters(ds.Tables[0]);
+        }
 
 
 

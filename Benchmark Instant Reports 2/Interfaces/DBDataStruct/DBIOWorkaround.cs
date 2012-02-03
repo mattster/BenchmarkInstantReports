@@ -10,14 +10,14 @@ namespace Benchmark_Instant_Reports_2.Interfaces.DBDataStruct
 {
     public class DBIOWorkaround
     {
-        public static List<StudentListItem> ReturnStudentScanDataItemsFromQ(string qs)
+        public static List<DataToGradeItem> ReturnStudentScanDataItemsFromQ(string qs)
         {
             DataSet ds = birIF.makeUniqueDataSet(dbIFOracle.getDataRows(qs));
-            List<StudentListItem> returnList = new List<StudentListItem>();
+            List<DataToGradeItem> returnList = new List<DataToGradeItem>();
 
             foreach (DataRow row in ds.Tables[0].Rows)
             {
-                StudentListItem newitem = new StudentListItem();
+                DataToGradeItem newitem = new DataToGradeItem();
                 newitem.StudentID = row["LOCAL_STUDENT_ID"].ToString();
                 newitem.StudentName = row["STUDENT_NAME"].ToString();
                 newitem.TeacherName = row[Constants.TeacherNameFieldName].ToString();

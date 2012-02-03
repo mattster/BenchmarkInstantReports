@@ -1,18 +1,15 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using Benchmark_Instant_Reports_2.Exceptions;
+﻿using Benchmark_Instant_Reports_2.Exceptions;
 using Benchmark_Instant_Reports_2.Grading;
-using Benchmark_Instant_Reports_2.Interfaces;
+using Benchmark_Instant_Reports_2.Infrastructure.Entities;
 using Benchmark_Instant_Reports_2.Interfaces.DBDataStruct;
+using System.Linq;
 
 
 namespace Benchmark_Instant_Reports_2.Helpers.Reports
 {
     public class StGradesRepHelper
     {
-        public static StGradeReportData GenerateStudentStatsReportData(List<StudentListItem> studentData, string curTest)
+        public static StGradeReportData GenerateStudentGradesReportData(DataToGradeItemCollection studentData, IQueryable<Test> tests)
         {
             string curId;
             StGradeReportData finalData = new StGradeReportData();
@@ -20,24 +17,24 @@ namespace Benchmark_Instant_Reports_2.Helpers.Reports
 
             // grade each student's test and add it to the DataSet
             int numNull = 0;
-            foreach (StudentListItem item in studentData)
+            foreach (DataToGradeItem item in studentData.GetItems())
             {
                 curId = item.StudentID;
                 string curCampus = item.Campus;
-                ScanItem curScanDataItem = birIF.getLatestScanDataRowq(curId, curTest);
-                if (curScanDataItem != null)
+                
+                if (item.ScanItem.AnswerString != null)
                 {
-                    ansKeyVersionIncrement = ExceptionHandler.campusAnswerKeyVersionIncrement(curTest, curCampus,
+                    ansKeyVersionIncrement = ExceptionHandler.campusAnswerKeyVersionIncrement(item.TestID, curCampus,
                         item.TeacherName, item.Period);
 
-                    GradedTestData gradedData = GradeTests.GradeTest(curTest, curScanDataItem.Answers, curCampus, ansKeyVersionIncrement,
+                    GradedTestData gradedData = GradeTests.GradeTest(test, item.ScanItem.AnswerString, curCampus, ansKeyVersionIncrement,
                         item.TeacherName, item.Period);
 
                     StGradeReportItem newItem = new StGradeReportItem();
                     newItem.StudentID = item.StudentID;
                     newItem.StudentName = item.StudentName;
                     newItem.TestID = item.TestID;
-                    newItem.ScanDate = DateTime.Parse(curScanDataItem.DateScannedStr);
+                    newItem.ScanDate = item.ScanItem.DateScanned;
                     newItem.Campus = item.Campus;
                     newItem.Teacher = item.TeacherName;
                     newItem.Period = item.Period;

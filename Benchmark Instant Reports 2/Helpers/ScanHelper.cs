@@ -10,37 +10,8 @@ namespace Benchmark_Instant_Reports_2.Helpers
 {
     public class ScanHelper
     {
-        public static PreslugData ReturnPreslugData(IRepoService dataservice, string testid, string campus)
-        {
-            PreslugData finalData = new PreslugData();
 
-            // get the CUSTOM_QUERY defined in the database
-            //string rawCustomQuery = TestHelper.ReturnRawCustomQuery(testid);
-            var test = dataservice.TestRepo.FindByTestID(testid);
-            string rawCustomQuery = test.CustomQuery;
-
-            // put the correct school in the query
-            string curSchoolAbbrevList = SchoolHelper.ConvertCampusList(dataservice, campus);
-            string tempschoolCustomQuery = rawCustomQuery.Replace(" = @school", " in (" + curSchoolAbbrevList + ")");
-            string schoolCustomQuery = tempschoolCustomQuery.Replace("\n", " ");
-
-            // change the teacher name-number part: we only need the name
-            schoolCustomQuery = schoolCustomQuery.Replace(Constants.TeacherNameNumFieldName, Constants.TeacherNameFieldNameR);
-
-            // run the query
-            var rosterstudents = dataservice.RosterRepo.ExecuteTestQuery(schoolCustomQuery);
-            //return DBIOWorkaround.ReturnExecutedCustomQuery(schoolCustomQuery);
-
-            foreach (var student in rosterstudents)
-                finalData.Add(new PreslugItem(student));
-
-            return finalData;
-        }
-
-
-
-
-        public static List<StudentListItem> GetStudentScanListData(string testid, string campus,
+        public static List<DataToGradeItem> GetStudentScanListData(string testid, string campus,
                                                                    string teacher, string periodList)
         {
             string customQuery = TestHelper.ReturnRawCustomQuery(testid);
@@ -55,7 +26,7 @@ namespace Benchmark_Instant_Reports_2.Helpers
             return DBIOWorkaround.ReturnStudentScanDataItemsFromQ(qs);
         }
 
-        public static List<StudentListItem> GetStudentScanListData(string testid, string campus)
+        public static List<DataToGradeItem> GetStudentScanListData(string testid, string campus)
         {
             string customQuery = TestHelper.ReturnRawCustomQuery(testid);
 

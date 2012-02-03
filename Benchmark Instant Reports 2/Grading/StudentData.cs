@@ -1,155 +1,187 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
-using Benchmark_Instant_Reports_2.Interfaces;
-using Benchmark_Instant_Reports_2.Interfaces.DBDataStruct;
-using System.Data;
-using Benchmark_Instant_Reports_2.References;
-using Benchmark_Instant_Reports_2.Helpers.Reports;
 using Benchmark_Instant_Reports_2.Helpers;
-using Benchmark_Instant_Reports_2.Infrastructure.IRepositories;
 using Benchmark_Instant_Reports_2.Infrastructure.Entities;
+using Benchmark_Instant_Reports_2.Infrastructure.IRepositories;
+using Benchmark_Instant_Reports_2.Interfaces.DBDataStruct;
+using Benchmark_Instant_Reports_2.References;
 
 namespace Benchmark_Instant_Reports_2.Grading
 {
     public class StudentData
     {
-        public static List<StudentListItem> GetStudentDataToGrade(IRepoService dataservice, string testID, string campus, 
-            string teacher = "",
-            string periodList = "'00','01','02','03','04','05','06','07','08','09','10','11','12','13','14'")
+        /// <summary>
+        /// returns a set of data ready for grading and processing for reports
+        /// includes student roster data and student scan data
+        /// </summary>
+        /// <param name="dataservice">IRepoService access to data</param>
+        /// <param name="tests">collection of Test items to use</param>
+        /// <param name="schools">colelction of School items to use</param>
+        /// <returns>DataToGradeItemCollection structure of a collection of DataToGradeItem's</returns>
+        public static DataToGradeItemCollection GetStudentDataToGrade(IRepoService dataservice, 
+            IQueryable<Test> tests, IQueryable<School> schools)
         {
-            //List<string> studIdList1 = new List<string>();
+            DataToGradeItemCollection finalData = new DataToGradeItemCollection();
 
-            List<StudentListItem> finalData = new List<StudentListItem>();
-
-            //// get a set of the student scans for this test and campus
-            
-            // get a set of students who meet the criteria for this test -- preslugged data
-            PreslugData preslugged = ScanHelper.ReturnPreslugData(dataservice, testID, campus);
-            string[] teacherList = preslugged.GetItems().Select(p => p.TeacherName).Distinct().ToArray();
-            Array.Sort(teacherList);
-
-            // get a list of all scans for this test and campus
-            IQueryable<Scan> studentsWithScans = dataservice.ScanRepo.FindScansForTestCampus(testID, campus);
-            
-
-            // get student data for students who have scans and meet the test criteria
-            //List<StudentListItem> PresluggedStudentsWithScans = new List<StudentListItem>();
-            //if (teacher == "")
-            //    PresluggedStudentsWithScans = ScanHelper.GetStudentScanListData(testID, campus);
-            //else
-            //    PresluggedStudentsWithScans = ScanHelper.GetStudentScanListData(testID, campus, teacher, periodList);
-            //List<StudentListItem> returnData = PresluggedStudentsWithScans;
-            
-
-
-            // get student ID's for students who have scans but do not meet the test criteria
-            List<string> studentIDsWithScansNotInTestCriteria = DBIOWorkaround.ReturnStudentIDsWScansNotPreslugged(testID, campus);
-
-            // for any students who do not match test criteria, try to match them up somehow
-            if (studentIDsWithScansNotInTestCriteria.Count > 0)
+            foreach (Test curTest in tests)
             {
-                foreach (string curstudentid in studentIDsWithScansNotInTestCriteria)
+                foreach (School curSchool in schools)
                 {
-                    string studentId = curstudentid;
-                    if (studentId.Length == 5)              // add a leading 0 if necessary - makes things better
-                        studentId = "0" + studentId;
+                    // get a set of the student scans for this test & campus
+                    IQueryable<Scan> scannedItems1 = dataservice.ScanRepo.FindScansForTestCampus(curTest.TestID, curSchool.Abbr);
+                    IQueryable<Scan> scannedItems = GetLatestScans(scannedItems1);
 
-                    if (birUtilities.isTeacherUnknown(studentId))
-                    {
-                        StudentListItem newItem = new StudentListItem();
-                        newItem.StudentID = studentId;
-                        newItem.StudentName = "";
-                        newItem.TeacherName = Constants.UnknownTeacherName;
-                        newItem.Period = "01";
-                        newItem.CourseID = "00000";
-                        newItem.Campus = campus;
-                        newItem.TestID = testID;
-                        returnData.Add(newItem);
-                    }
-                    else
-                    {
+                    // get a set of the preslugged data for this test & campus
+                    PreslugData preslugged = GetPreslugData(dataservice, curTest, curSchool);
 
-                        // try to match them to teachers in the test query
-                        string qs = Queries.MatchStudentToTeacherList.Replace("@testId", testID);
-                        qs = qs.Replace("@studentId", studentId);
-                        qs = qs.Replace("@teacherList", birUtilities.convertStringArrayForQuery(teacherList));
-                        List<StudentListItem> StudentMatches = DBIOWorkaround.ReturnStudentScanDataItemsFromQ(qs);
-                        if (StudentMatches.Count > 0)
+                    // find data that is both preslugged and scanned
+                    var scannedItemsNotPreslugged = new HashSet<Scan>();
+                    foreach (Scan scan in scannedItems)
+                    {
+                        var foundPreslugs = preslugged.GetItemsWhere(i => Int32.Parse(i.StudentID) == scan.StudentID);
+                        if (foundPreslugs.Count() > 0)
                         {
-                            StudentListItem newItem = new StudentListItem();
-                            newItem = StudentMatches[0];
-                            returnData.Add(newItem);
+                            DataToGradeItem newDataToGradeItem = new DataToGradeItem();
+                            newDataToGradeItem.StudentID = scan.StudentID.ToString();
+                            newDataToGradeItem.StudentName = foundPreslugs.First().StudentName;
+                            newDataToGradeItem.TeacherName = foundPreslugs.First().TeacherName;
+                            newDataToGradeItem.Period = foundPreslugs.First().Period;
+                            newDataToGradeItem.CourseID = foundPreslugs.First().CourseID;
+                            newDataToGradeItem.Campus = foundPreslugs.First().Campus;
+                            newDataToGradeItem.TestID = scan.TestID;
+                            newDataToGradeItem.ScanItem = scan;
+                            finalData.Add(newDataToGradeItem);
                         }
-
                         else
                         {
-                            // try to match them up to teachers when removing the BENCHMARK_MOD criteria
-                            string customQuery = DBIOWorkaround.ReturnRawCustomQuery(testID);
-                            string customQueryNoMod = customQuery.Replace("AND BENCHMARK_MOD LIKE \'____1\'", " ");
-                            customQueryNoMod = customQueryNoMod.Replace("AND BENCHMARK_MOD LIKE \'___1_\'", " ");
-                            customQueryNoMod = customQueryNoMod.Replace("AND BENCHMARK_MOD LIKE \'__1__\'", " ");
-                            customQueryNoMod = customQueryNoMod.Replace("AND BENCHMARK_MOD LIKE \'_1___\'", " ");
-                            customQueryNoMod = customQueryNoMod.Replace("AND BENCHMARK_MOD LIKE \'1____\'", " ");
-                            List<StudentListItem> StudentMatches2 = DBIOWorkaround.ReturnStudentScanDataItemsFromQ(customQueryNoMod);
-                            if (StudentMatches2.Count > 0)
+                            scannedItemsNotPreslugged.Add(scan);
+                        }
+                    }
+
+
+                    // match the students with scans that are not preslugged to a teacher/period/course
+                    if (scannedItemsNotPreslugged.Count > 0)
+                    {
+                        foreach (Scan scan in scannedItemsNotPreslugged)
+                        {
+                            // does this student match a teacher who already has preslugged data?
+                            var thisStudentsRoster = dataservice.RosterRepo.FindByStudentID(scan.StudentID.ToString());
+                            foreach (var rosterItem in thisStudentsRoster)
                             {
-                                string selectStudentFilter = "LOCAL_STUDENT_ID = \'" + studentId + "\'";
-                                List<StudentListItem> matchingData =
-                                    StudentMatches2.FindAll(delegate(StudentListItem item)
-                                    {
-                                        return item.StudentID == studentId;
-                                    });
-                                int c = matchingData.Count();
-                                if (matchingData.Count() > 0)
+                                var foundPreslugged = preslugged.GetItemsWhere(p => p.TeacherName == rosterItem.TeacherName &&
+                                    p.Period == rosterItem.Period);
+                                if (foundPreslugged.Count() > 0)
                                 {
-                                    StudentListItem newItem = new StudentListItem();
-                                    newItem.StudentID = matchingData[0].StudentID;
-                                    newItem.StudentName = matchingData[0].StudentName;
-                                    newItem.TeacherName = matchingData[0].TeacherName;
-                                    newItem.Period = matchingData[0].Period;
-                                    newItem.CourseID = matchingData[0].CourseID;
-                                    newItem.Campus = matchingData[0].Campus;
-                                    newItem.TestID = testID;
-                                    returnData.Add(newItem);
+                                    // found a match
+                                    DataToGradeItem newItem = new DataToGradeItem();
+                                    newItem.StudentID = scan.StudentID.ToString();
+                                    newItem.StudentName = rosterItem.StudentName;
+                                    newItem.TeacherName = rosterItem.TeacherName;
+                                    newItem.Period = rosterItem.Period;
+                                    newItem.CourseID = rosterItem.CourseID;
+                                    newItem.Campus = rosterItem.CourseCampus;
+                                    newItem.TestID = scan.TestID;
+                                    newItem.ScanItem = scan;
+                                    finalData.Add(newItem);
                                 }
 
+                                // if all else fails, put as Unknown Teacher
                                 else
                                 {
-                                    // no matching teacher found in query removing BENCHMARK_MOD criteria, put "UNKNOWN"
-                                    StudentListItem newItem = new StudentListItem();
-                                    newItem.StudentID = studentId;
-                                    newItem.TeacherName = Constants.UnknownTeacherName;
-                                    newItem.Period = "01";
-                                    newItem.CourseID = "00000";
-                                    newItem.Campus = campus;
-                                    newItem.TestID = testID;
-                                    returnData.Add(newItem);
-                                }
-                            }
+                                    var rosterData = dataservice.RosterRepo.FindByStudentID(scan.StudentID.ToString()).First();
 
-                            else
-                            {
-                                // no rows found when removing BENCHMARK_MOD criteria, put "UNKNOWN"
-                                StudentListItem newItem = new StudentListItem();
-                                newItem.StudentID = studentId;
-                                newItem.TeacherName = Constants.UnknownTeacherName;
-                                newItem.Period = "01";
-                                newItem.CourseID = "00000";
-                                newItem.Campus = campus;
-                                newItem.TestID = testID;
-                                returnData.Add(newItem);
+                                    DataToGradeItem newItem = new DataToGradeItem();
+                                    newItem.StudentID = scan.StudentID.ToString();
+                                    newItem.StudentName = rosterData.StudentName;
+                                    newItem.TeacherName = Constants.UnknownTeacherName;
+                                    newItem.Period = Constants.UnknownPeriod;
+                                    newItem.CourseID = Constants.UnknownCourseID;
+                                    newItem.Campus = rosterData.HomeCampus;
+                                    newItem.TestID = scan.TestID;
+                                    newItem.ScanItem = scan;
+                                    finalData.Add(newItem);
+                                }
                             }
                         }
                     }
                 }
             }
 
-            return returnData;
+            return finalData;
         }
 
-    
-    
+
+        /// <summary>
+        /// returns "Preslugged" data for a specific test and campus
+        /// data includes the fields that are used in setting up a test on the 
+        /// Lexmark system
+        /// </summary>
+        /// <param name="dataservice">IRepoService access to data</param>
+        /// <param name="test">Test object to use</param>
+        /// <param name="school">School object to use</param>
+        /// <returns>PreslugData structure of a collection of preslug data items</returns>
+        public static PreslugData GetPreslugData(IRepoService dataservice, Test test, School school)
+        {
+            PreslugData finalData = new PreslugData();
+
+            // get the CUSTOM_QUERY defined in the database
+            string rawCustomQuery = test.CustomQuery;
+
+            // put the correct school in the query
+            //string curSchoolAbbrevList = SchoolHelper.ConvertCampusList(dataservice, campus);
+            //string tempschoolCustomQuery = rawCustomQuery.Replace(" = @school", " in (" + curSchoolAbbrevList + ")");
+            string tempschoolCustomQuery = rawCustomQuery.Replace("@school", school.Abbr);
+            string schoolCustomQuery = tempschoolCustomQuery.Replace("\n", " ");
+
+            // change the teacher name-number part: we only need the name
+            schoolCustomQuery = schoolCustomQuery.Replace(Constants.TeacherNameNumFieldName, Constants.TeacherNameFieldNameR);
+
+            // run the query
+            var rosterstudents = dataservice.RosterRepo.ExecuteTestQuery(schoolCustomQuery);
+
+            foreach (var student in rosterstudents)
+                finalData.Add(new PreslugItem(student));
+
+            return finalData;
+        }
+
+
+
+
+
+        /// <summary>
+        /// return only the most recent scans from the list of all scans, assuming one common TestID
+        /// </summary>
+        /// <param name="allScannedItems">IQueryable-scan- set of scanned items, including duplicates</param>
+        /// <returns>IQueryable-scan- set of only the most recent scans in the set</returns>
+        private static IQueryable<Scan> GetLatestScans(IQueryable<Scan> allScannedItems)
+        {
+            HashSet<Scan> finalData = new HashSet<Scan>();
+
+            foreach (int thisStudentID in allScannedItems.Select(s => s.StudentID).Distinct())
+            {
+                var scans = allScannedItems.Where(i => i.StudentID == thisStudentID);
+                if (scans.Count() > 1)
+                {
+                    Scan latestScan = new Scan();
+                    foreach (Scan scan in scans)
+                    {
+                        if (scan.DateScanned > latestScan.DateScanned)
+                            latestScan = scan;
+                    }
+                    finalData.Add(latestScan);
+                }
+                else
+                {
+                    finalData.Add(scans.First());
+                }
+            }
+
+            return finalData.AsQueryable();
+        }
+
+
+
     }
 }

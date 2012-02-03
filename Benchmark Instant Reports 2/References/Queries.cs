@@ -192,6 +192,20 @@ namespace Benchmark_Instant_Reports_2.References
                 "and test_id = nvl(\'@testId\',uid) " +
                 "order by student_id";
 
+        //public static string GetLatestScansForTest =
+        //        "select x.date_scanned, y.scanned_sequence, y.imagepath, y.name, " +
+        //        "  x.student_id, x.test_id, y.language_version, y.exempt, " +
+        //        "  y.preslugged, y.answers " +
+        //        "from ( " +
+        //        "      select max(to_date(date_scanned, \'MM/DD/YYYY HH:MI:SS AM\')) as date_scanned, " +
+        //        "        test_id, student_id " +
+        //        "      from " + DatabaseDefn.DBScans + " " +
+        //        "      where test_id = \'@testId\' " +
+        //        "      group by test_id, student_id) x " +
+        //        "join " + DatabaseDefn.DBScans + " y " +
+        //        "  on x.date_scanned = to_date(y.date_scanned, \'MM/DD/YYYY HH:MI:SS AM\') " +
+        //        "    and x.test_id = y.test_id and x.student_id = y.student_id";
+
         //public static string GetStudentScansForCampusCourse =
         //        "select local_student_id, student_name, " +
         //        Constants.TeacherNameFieldName + ", " +
@@ -228,6 +242,15 @@ namespace Benchmark_Instant_Reports_2.References
                 "order by student_id asc";
 
         //public static string GetScanDataForTestCampus
+
+        #endregion
+
+
+        // ***** get Roster data
+        #region get_roster_data
+        public static string GetRosterDataForID =
+                "select * from " + DatabaseDefn.DBStudentRoster + " " +
+                "where local_student_id = \'@studentId\'";
 
         #endregion
 

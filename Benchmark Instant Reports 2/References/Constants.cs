@@ -88,9 +88,29 @@ namespace Benchmark_Instant_Reports_2.References
         public static string UsernameAllCampuses = "ALL";
         public static bool LookupStudentNamesFromRoster = true;
         public static string UnknownTeacherName = "zUNKNOWN TEACHER";
+        public static string UnknownPeriod = "00";
+        public static string UnknownCourseID = "0000";
         public static DateTime FirstDaySchoolYear = DateTime.Parse("08/22/2012");
         public static string TestSubjectBallot = "BALLOT";
         public static string TestSubjectSample = "SAMPLE";
+#endregion
+
+
+        #region TestIDs
+        private static string TestID_Yr_RegEx1 = @"(\d{4})";
+        private static string TestID_Month_RegEx2 = @"(\d{2})";
+        private static string TestID_ElemSec_RegEx3 = @"([ES])";
+        private static string TestID_Subj_RegEx4 = @"([A-Z]+)";
+        private static string TestID_Name_RegEx5 = @"(.*)";
+        private static string TestID_Window_RegEx6 = @"(\d{1,2})";
+        private static string TestID_Key_RegEx7 = @"(\d{2})";
+
+        public static string TestIDRegEx =
+            @"^" + TestID_Yr_RegEx1 + "-" + TestID_Month_RegEx2 + 
+            @"\s" + TestID_ElemSec_RegEx3 + TestID_Subj_RegEx4 +
+            @"\s" + TestID_Name_RegEx5 + 
+            @"\s" + TestID_Window_RegEx6 + "-" + TestID_Key_RegEx7 + 
+            @"$";
         #endregion
     }
 }
