@@ -1,13 +1,23 @@
 ﻿using System;
+using System;
+using System.Web.UI;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Web.UI.WebControls;
 using Benchmark_Instant_Reports_2.Account;
+using Benchmark_Instant_Reports_2.Account;
+using Benchmark_Instant_Reports_2.Grading;
+using Benchmark_Instant_Reports_2.Helpers;
 using Benchmark_Instant_Reports_2.Helpers;
 using Benchmark_Instant_Reports_2.Helpers.Reports;
+using Benchmark_Instant_Reports_2.Helpers.Reports;
+using Benchmark_Instant_Reports_2.Infrastructure;
 using Benchmark_Instant_Reports_2.Infrastructure;
 using Benchmark_Instant_Reports_2.Interfaces;
 using Benchmark_Instant_Reports_2.Interfaces.DBDataStruct;
+using Benchmark_Instant_Reports_2.Interfaces.DBDataStruct;
 using Benchmark_Instant_Reports_2.References;
+using Microsoft.Reporting.WebForms;
 using Microsoft.Reporting.WebForms;
 
 namespace Benchmark_Instant_Reports_2
@@ -15,6 +25,8 @@ namespace Benchmark_Instant_Reports_2
     public partial class ScanReport : ReportPage<ListBox>
     {
         public SiteMaster theMasterPage;
+        private static DataToGradeItemCollection studentDataToGrade = new DataToGradeItemCollection();
+        private static ScanReportData reportData = new ScanReportData();
         private static TestFilterState _thisTestFilterState = new TestFilterState();
         public override TestFilterState thisTestFilterState
         {
@@ -30,16 +42,12 @@ namespace Benchmark_Instant_Reports_2
                 initPage();
             }
 
-            // anything else we need to do
-
             return;
         }
 
         protected void ddCampus_SelectedIndexChanged(object sender, EventArgs e)
         {
             theMasterPage = Page.Master as SiteMaster;
-
-            //*** User selected a campus ***//
 
             // return if it is the separator
             if (UIHelper.isDDSeparatorValue(ddCampus.SelectedValue.ToString()))
@@ -48,10 +56,8 @@ namespace Benchmark_Instant_Reports_2
                 return;
             }
 
-            // setup stuff
             RememberHelper.savedSelectedCampus(Response, ddCampus.SelectedItem.ToString());
 
-            //lbListTests.DataSource = birIF.getTestListForSchool(ddCampus.SelectedValue.ToString());
             lbListTests.DataSource = DataService.GetTestIDsForSchool(ddCampus.SelectedValue.ToString());
             lbListTests.DataBind();
 
@@ -74,36 +80,23 @@ namespace Benchmark_Instant_Reports_2
 
         protected void lbListTests_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //*** User selected a set of benchmarks ***//
-
-            //if (lbListTests.GetSelectedIndices().Length > 0)
             if (lbListTests.SelectedIndex > -1)
-            {
                 RememberHelper.savedSelectedTestIDs(Response, UIHelper.getLBSelectionsAsArray(lbListTests));
 
-                repvwScanReport1.Visible = false;
-                repvwScanReport2.Visible = false;
-            }
-            else
-            {
-                repvwScanReport1.Visible = false;
-                repvwScanReport2.Visible = false;
-            }
+            repvwScanReport1.Visible = false;
+            repvwScanReport2.Visible = false;
+
             return;
         }
 
         protected void btnGenReport_Click(object sender, EventArgs e)
         {
-            //** User clicked the Generate Report button ***//
-            //
+            var selectedSchools = GetSelectedSchools();
+            reportData = ScanRepHelper.GenerateScanReportData(DataService, selectedSchools, GetSelectedTests());
 
-            ScanReportData reportData = ScanRepHelper.generateScanRepTable(ddCampus.SelectedValue.ToString(),
-                UIHelper.getLBSelectionsAsArray(lbListTests));
-
-            if (ddCampus.SelectedValue == Constants.DispAllElementary || 
-                ddCampus.SelectedValue == Constants.DispAllSecondary)
+            if (selectedSchools.Count > 1)
             {
-                // setup the report
+                // setup the report for multiple schools
                 repvwScanReport2.Visible = true;
                 repvwScanReport1.Visible = false;
                 ReportDataSource rds = new ReportDataSource(repvwScanReport2.LocalReport.GetDataSourceNames()[0], reportData.GetItems());
@@ -115,7 +108,7 @@ namespace Benchmark_Instant_Reports_2
 
             else
             {
-                //setup the report
+                //setup the report for a single school
                 repvwScanReport1.Visible = true;
                 repvwScanReport2.Visible = false;
                 ReportDataSource rds = new ReportDataSource(repvwScanReport1.LocalReport.GetDataSourceNames()[0], reportData.GetItems());

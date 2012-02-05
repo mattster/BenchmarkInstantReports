@@ -16,11 +16,11 @@ namespace Benchmark_Instant_Reports_2.Grading
         /// includes student roster data and student scan data
         /// </summary>
         /// <param name="dataservice">IRepoService access to data</param>
-        /// <param name="tests">collection of Test items to use</param>
-        /// <param name="schools">colelction of School items to use</param>
+        /// <param name="tests">list of Test items to use</param>
+        /// <param name="schools">list of School items to use</param>
         /// <returns>DataToGradeItemCollection structure of a collection of DataToGradeItem's</returns>
-        public static DataToGradeItemCollection GetStudentDataToGrade(IRepoService dataservice, 
-            IQueryable<Test> tests, IQueryable<School> schools)
+        public static DataToGradeItemCollection GetStudentDataToGrade(IRepoService dataservice,
+            List<Test> tests, List<School> schools)
         {
             DataToGradeItemCollection finalData = new DataToGradeItemCollection();
 
@@ -29,8 +29,7 @@ namespace Benchmark_Instant_Reports_2.Grading
                 foreach (School curSchool in schools)
                 {
                     // get a set of the student scans for this test & campus
-                    IQueryable<Scan> scannedItems1 = dataservice.ScanRepo.FindScansForTestCampus(curTest.TestID, curSchool.Abbr);
-                    IQueryable<Scan> scannedItems = GetLatestScans(scannedItems1);
+                    IQueryable<Scan> scannedItems = GetScannedData(dataservice, curTest, curSchool);
 
                     // get a set of the preslugged data for this test & campus
                     PreslugData preslugged = GetPreslugData(dataservice, curTest, curSchool);
@@ -147,7 +146,20 @@ namespace Benchmark_Instant_Reports_2.Grading
         }
 
 
+        /// <summary>
+        /// return a set of the latest scanned items for a given test and school
+        /// </summary>
+        /// <param name="dataservice">IRepoService access to data</param>
+        /// <param name="test">Test to use</param>
+        /// <param name="school">School to use</param>
+        /// <returns></returns>
+        public static IQueryable<Scan> GetScannedData(IRepoService dataservice, Test test, School school)
+        {
+            IQueryable<Scan> scannedItemsAll = dataservice.ScanRepo.FindScansForTestCampus(test.TestID, school.Abbr);
+            IQueryable<Scan> scannedItems = GetLatestScans(scannedItemsAll);
 
+            return scannedItems;
+        }
 
 
         /// <summary>

@@ -18,7 +18,15 @@ namespace Benchmark_Instant_Reports_2.Exceptions
             return false;
         }
 
-
+        /// <summary>
+        /// returns an answer key multiplier to find the appropriate answer key for
+        /// the specified Test, Campus, Teacher and Period
+        /// </summary>
+        /// <param name="testID">TestID to look up</param>
+        /// <param name="campus">School abbreviation of the campus to look up</param>
+        /// <param name="teacher">Teacher name to look up</param>
+        /// <param name="period">Period to look up</param>
+        /// <returns>an integer multiplier for the answer key numbers</returns>
         public static int campusAnswerKeyVersionIncrement(string testID, string campus, string teacher, string period)
         {
             foreach (AnswerKeyIncrement curAdditionalAnswerKey in ExceptionData.additionalAnswerKeys)

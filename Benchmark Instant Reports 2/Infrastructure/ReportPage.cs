@@ -108,10 +108,10 @@ namespace Benchmark_Instant_Reports_2.Infrastructure
         /// returns a list of Test objects based on the current Test ID(s)
         /// that are selected on the page
         /// </summary>
-        /// <returns>IQueryable-Test- list of Test objects representing what is selected</returns>
+        /// <returns>List-Test- list of Test objects representing what is selected</returns>
         protected List<Test> GetSelectedTests()
         {
-            HashSet<Test> finalData = new Hashset<Test>();
+            List<Test> finalData = new List<Test>();
             
             if (typeof(T) == typeof(DropDownList))
             {
@@ -127,18 +127,18 @@ namespace Benchmark_Instant_Reports_2.Infrastructure
                 }
             }
 
-            return finalData.AsQueryable();
+            return finalData;
         }
 
 
         /// <summary>
-        /// returns an IQueryable list of School objects based on the current Campus
+        /// returns a list of School objects based on the current Campus
         /// selection, including All Elementary or All Secondary
         /// </summary>
-        /// <returns>IQueryable-School- list of School objects representing the campus(es) selected</returns>
-        protected IQueryable<School> GetSelectedSchools()
+        /// <returns>List-School- list of School objects representing the campus(es) selected</returns>
+        protected List<School> GetSelectedSchools()
         {
-            HashSet<School> finalData = new HashSet<School>();
+            List<School> finalData = new List<School>();
             if (ddCampus.SelectedValue.ToString() == Constants.DispAllElementary)
             {
                 var schools = DataService.SchoolRepo.FindELCampuses();
@@ -157,7 +157,7 @@ namespace Benchmark_Instant_Reports_2.Infrastructure
                 finalData.Add(school);
             }
 
-            return finalData.AsQueryable();
+            return finalData;
         }
 
 

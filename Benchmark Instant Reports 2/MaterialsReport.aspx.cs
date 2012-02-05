@@ -92,7 +92,7 @@ namespace Benchmark_Instant_Reports_2
 
         protected void btnGenReport_Click(object sender, EventArgs e)
         {
-            ScanReportData reportData = ScanRepHelper.generateScanRepTable(ddCampus.SelectedValue.ToString(),
+            ScanReportData reportData = ScanRepHelper.GenerateScanReportData(ddCampus.SelectedValue.ToString(),
                 UIHelper.getLBSelectionsAsArray(lbListTests));
 
             //setup the report

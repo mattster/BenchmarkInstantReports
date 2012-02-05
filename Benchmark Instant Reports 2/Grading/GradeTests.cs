@@ -79,17 +79,13 @@ namespace Benchmark_Instant_Reports_2.Grading
 
 
         public static GradedTestData GradeTest(Test test, string studentAnswerString, string curCampus, int ansKeyIncAmt, 
-                                                         string teacher, string period)
+            string teacher, string period)
         {
             int numCorrect, numTotal = new int();
             decimal numPoints, numTotalPoints = new decimal();
             int curItemNum = new int();
             decimal pctCorrect = new decimal();
             char letterGrade = new char();
-
-            //get pass and commended numbers for this test
-            //int passNum = birIF.getTestPassingNum(testID);
-            //int commendedNum = birIF.getTestCommendedNum(testID);
 
             //convert answer string to an array
             string[] studentAnswerStringArray = studentAnswerString.Split(',');
@@ -109,7 +105,6 @@ namespace Benchmark_Instant_Reports_2.Grading
             numTotalPoints = 0;
             numTotal = theAnswerKey.Count;
 
-            //for (int i = 0; i < numTotal; i++)
             foreach (AnswerKeyItem itemAnswerKey in theAnswerKey)
             {
                 curItemNum = itemAnswerKey.ItemNum;
@@ -148,7 +143,6 @@ namespace Benchmark_Instant_Reports_2.Grading
             newItem.PassNum = test.PassNum;
             newItem.CommendedNum = test.CommendedNum;
 
-            //return table;
             return newItem;
         }
 

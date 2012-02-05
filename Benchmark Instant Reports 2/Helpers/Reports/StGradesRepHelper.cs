@@ -3,15 +3,21 @@ using Benchmark_Instant_Reports_2.Grading;
 using Benchmark_Instant_Reports_2.Infrastructure.Entities;
 using Benchmark_Instant_Reports_2.Interfaces.DBDataStruct;
 using System.Linq;
+using System.Collections.Generic;
 
 
 namespace Benchmark_Instant_Reports_2.Helpers.Reports
 {
     public class StGradesRepHelper
     {
-        public static StGradeReportData GenerateStudentGradesReportData(DataToGradeItemCollection studentData, IQueryable<Test> tests)
+        /// <summary>
+        /// Generate data for the Student Grades Report
+        /// </summary>
+        /// <param name="studentData">student data to grade</param>
+        /// <param name="tests">list of Test objects that are included in studentData</param>
+        /// <returns>DataToGradeItemCollection containing data ready to display in the report</returns>
+        public static StGradeReportData GenerateStudentGradesReportData(DataToGradeItemCollection studentData, List<Test> tests)
         {
-            string curId;
             StGradeReportData finalData = new StGradeReportData();
             int ansKeyVersionIncrement = new int();
 
@@ -19,16 +25,16 @@ namespace Benchmark_Instant_Reports_2.Helpers.Reports
             int numNull = 0;
             foreach (DataToGradeItem item in studentData.GetItems())
             {
-                curId = item.StudentID;
-                string curCampus = item.Campus;
+                Test curTest = tests.Find(t => t.TestID == item.TestID);
+                string curCampusAbbr = item.Campus;
                 
                 if (item.ScanItem.AnswerString != null)
                 {
-                    ansKeyVersionIncrement = ExceptionHandler.campusAnswerKeyVersionIncrement(item.TestID, curCampus,
+                    ansKeyVersionIncrement = ExceptionHandler.campusAnswerKeyVersionIncrement(curTest.TestID, curCampusAbbr,
                         item.TeacherName, item.Period);
 
-                    GradedTestData gradedData = GradeTests.GradeTest(test, item.ScanItem.AnswerString, curCampus, ansKeyVersionIncrement,
-                        item.TeacherName, item.Period);
+                    GradedTestData gradedData = GradeTests.GradeTest(curTest, item.ScanItem.AnswerString, curCampusAbbr, 
+                        ansKeyVersionIncrement, item.TeacherName, item.Period);
 
                     StGradeReportItem newItem = new StGradeReportItem();
                     newItem.StudentID = item.StudentID;

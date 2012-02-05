@@ -33,7 +33,7 @@ namespace Benchmark_Instant_Reports_2.Infrastructure.Repositories
         /// <summary>
         /// return a list of TestIDs that are applicable to a specific school
         /// </summary>
-        /// <param name="abbr">school abbreviation of the school to use</param>
+        /// <param name="abbr">abbreviation of school to use</param>
         /// <returns>List-string- of Test IDs</returns>
         public IList<string> GetTestIDsForSchool(string abbr)
         {

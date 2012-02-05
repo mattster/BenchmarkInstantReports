@@ -1,18 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Data;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using Benchmark_Instant_Reports_2.Helpers;
-using Microsoft.Reporting.WebForms;
-using Benchmark_Instant_Reports_2.Infrastructure;
-using Benchmark_Instant_Reports_2.Interfaces;
-using System.Collections.Generic;
-using Benchmark_Instant_Reports_2.Interfaces.DBDataStruct;
-using Benchmark_Instant_Reports_2.Grading;
-using Benchmark_Instant_Reports_2.Helpers.Reports;
 using Benchmark_Instant_Reports_2.Account;
-using Benchmark_Instant_Reports_2.References;
+using Benchmark_Instant_Reports_2.Grading;
+using Benchmark_Instant_Reports_2.Helpers;
+using Benchmark_Instant_Reports_2.Helpers.Reports;
+using Benchmark_Instant_Reports_2.Infrastructure;
+using Benchmark_Instant_Reports_2.Interfaces.DBDataStruct;
+using Microsoft.Reporting.WebForms;
 
 namespace Benchmark_Instant_Reports_2
 {
@@ -20,7 +15,7 @@ namespace Benchmark_Instant_Reports_2
     {
         public SiteMaster theMasterPage;
         private static DataToGradeItemCollection studentDataToGrade = new DataToGradeItemCollection();
-        private static StGradeReportData resultsData = new StGradeReportData();
+        private static StGradeReportData reportData = new StGradeReportData();
         private static TestFilterState _thisTestFilterState = new TestFilterState();
         public override TestFilterState thisTestFilterState
         {
@@ -88,18 +83,18 @@ namespace Benchmark_Instant_Reports_2
             var tests = GetSelectedTests();
             //if (ddCampus.SelectedValue.ToString() == Constants.DispAllElementary || 
             //    ddCampus.SelectedValue.ToString() == Constants.DispAllSecondary)
-            if (schools. > 1)
+            if (schools.Count > 1)
             {   
                 // Show All Campuses
                 studentDataToGrade = StudentData.GetStudentDataToGrade(DataService, tests, schools);
 
-                resultsData = StGradesRepHelper.GenerateStudentGradesReportData(studentDataToGrade, tests);
+                reportData = StGradesRepHelper.GenerateStudentGradesReportData(studentDataToGrade, tests);
 
                 this.repvwCampusReport1.Visible = false;
                 this.repvwCampusReport2.Visible = true;
 
                 ReportDataSource rds = new ReportDataSource(repvwCampusReport2.LocalReport.GetDataSourceNames()[0],
-                    resultsData.GetItems());
+                    reportData.GetItems());
                 this.repvwCampusReport2.LocalReport.DataSources.Clear();
                 this.repvwCampusReport2.LocalReport.DataSources.Add(rds);
                 this.repvwCampusReport2.ShowPrintButton = true;
@@ -110,12 +105,12 @@ namespace Benchmark_Instant_Reports_2
             {   // Show One Campus
                 studentDataToGrade = StudentData.GetStudentDataToGrade(DataService, tests, schools);
 
-                resultsData = StGradesRepHelper.GenerateStudentGradesReportData(studentDataToGrade, tests);
+                reportData = StGradesRepHelper.GenerateStudentGradesReportData(studentDataToGrade, tests);
                 this.repvwCampusReport1.Visible = true;
                 this.repvwCampusReport2.Visible = false;
 
                 ReportDataSource rds = new ReportDataSource(repvwCampusReport1.LocalReport.GetDataSourceNames()[0],
-                    resultsData.GetItems());
+                    reportData.GetItems());
                 this.repvwCampusReport1.LocalReport.DataSources.Clear();
                 this.repvwCampusReport1.LocalReport.DataSources.Add(rds);
                 this.repvwCampusReport1.ShowPrintButton = true;
@@ -137,7 +132,6 @@ namespace Benchmark_Instant_Reports_2
         //**
         private void initPage()
         {
-
             theMasterPage = Page.Master as SiteMaster;
 
             // disable all dialog boxes & stuff except campus
