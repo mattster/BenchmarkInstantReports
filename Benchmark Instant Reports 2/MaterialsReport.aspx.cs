@@ -9,6 +9,17 @@ using Benchmark_Instant_Reports_2.Interfaces;
 using Microsoft.Reporting.WebForms;
 using Benchmark_Instant_Reports_2.Interfaces.DBDataStruct;
 using Benchmark_Instant_Reports_2.Helpers.Reports;
+using System;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using Benchmark_Instant_Reports_2.Account;
+using Benchmark_Instant_Reports_2.Helpers;
+using Benchmark_Instant_Reports_2.Helpers.Reports;
+using Benchmark_Instant_Reports_2.Infrastructure;
+using Benchmark_Instant_Reports_2.Interfaces;
+using Benchmark_Instant_Reports_2.Interfaces.DBDataStruct;
+using Benchmark_Instant_Reports_2.References;
+using Microsoft.Reporting.WebForms;
 
 
 namespace Benchmark_Instant_Reports_2
@@ -16,12 +27,14 @@ namespace Benchmark_Instant_Reports_2
     public partial class MaterialsReport : ReportPage<ListBox>
     {
         public SiteMaster theMasterPage;
+        private static ScanReportData reportData = new ScanReportData();
         private static TestFilterState _thisTestFilterState = new TestFilterState();
         public override TestFilterState thisTestFilterState
         {
             get { return _thisTestFilterState; }
             set { _thisTestFilterState = value; }
         }
+
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -30,16 +43,12 @@ namespace Benchmark_Instant_Reports_2
                 initPage();
             }
 
-            // anything else we need to do
-
             return;
         }
 
         protected void ddCampus_SelectedIndexChanged(object sender, EventArgs e)
         {
             theMasterPage = Page.Master as SiteMaster;
-
-            //*** User selected a campus ***//
 
             // return if it is the separator
             if (UIHelper.isDDSeparatorValue(ddCampus.SelectedValue.ToString()))
@@ -48,16 +57,14 @@ namespace Benchmark_Instant_Reports_2
                 return;
             }
 
-            // setup stuff
             RememberHelper.savedSelectedCampus(Response, ddCampus.SelectedItem.ToString());
+
             lbListTests.DataSource = DataService.GetTestIDsForSchool(ddCampus.SelectedValue.ToString());
             lbListTests.DataBind();
 
             setupTestFilters();
             lbListTests.Enabled = true;
             lbListTests.SelectedIndex = 0;
-            repvwMaterialsRep1.Visible = false;
-            btnGenReport.Enabled = true;
             repvwMaterialsRep1.Visible = false;
 
             string[] savedTests = RememberHelper.savedSelectedTestIDs(Request);
@@ -74,8 +81,8 @@ namespace Benchmark_Instant_Reports_2
 
         protected void lbListTests_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //*** User selected a set of benchmarks ***//
-            RememberHelper.savedSelectedTestIDs(Response, UIHelper.getLBSelectionsAsArray(lbListTests));
+            if (lbListTests.SelectedIndex > -1)
+                RememberHelper.savedSelectedTestIDs(Response, UIHelper.getLBSelectionsAsArray(lbListTests));
 
             if (lbListTests.GetSelectedIndices().Length > 0)
             {
@@ -92,19 +99,14 @@ namespace Benchmark_Instant_Reports_2
 
         protected void btnGenReport_Click(object sender, EventArgs e)
         {
-            ScanReportData reportData = ScanRepHelper.GenerateScanReportData(ddCampus.SelectedValue.ToString(),
-                UIHelper.getLBSelectionsAsArray(lbListTests));
+            var selectedSchools = GetSelectedSchools();
+            reportData = ScanRepHelper.GenerateScanReportData(DataService, selectedSchools, GetSelectedTests());
 
-            //setup the report
             repvwMaterialsRep1.Visible = true;
-            ObjectDataSource ods = new ObjectDataSource();
-            ReportDataSource rds = new ReportDataSource();
-
-            rds = new ReportDataSource(repvwMaterialsRep1.LocalReport.GetDataSourceNames()[0], reportData.GetItems());
+            ReportDataSource rds = new ReportDataSource(repvwMaterialsRep1.LocalReport.GetDataSourceNames()[0], reportData.GetItems());
             repvwMaterialsRep1.LocalReport.DataSources.Clear();
             repvwMaterialsRep1.LocalReport.DataSources.Add(rds);
             repvwMaterialsRep1.ShowPrintButton = true;
-
             repvwMaterialsRep1.LocalReport.Refresh();
 
             return;
@@ -125,7 +127,7 @@ namespace Benchmark_Instant_Reports_2
             ddCampus.AutoPostBack = true;
             lbListTests.Enabled = true;
             lbListTests.AutoPostBack = true;
-            btnGenReport.Enabled = false;
+            btnGenReport.Enabled = true;
             repvwMaterialsRep1.Visible = false;
 
             // load list of campuses in Campus dropdown
@@ -140,6 +142,7 @@ namespace Benchmark_Instant_Reports_2
             else
                 ddCampus.SelectedIndex = 0;
 
+            setupTestFilters();
 
             // load list of tests in Test listbox
             lbListTests.DataSource = DataService.GetTestIDsForSchool(ddCampus.SelectedValue.ToString());

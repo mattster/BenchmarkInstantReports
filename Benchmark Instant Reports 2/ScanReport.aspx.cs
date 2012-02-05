@@ -1,23 +1,13 @@
 ﻿using System;
-using System;
-using System.Web.UI;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using System.Web.UI.WebControls;
 using Benchmark_Instant_Reports_2.Account;
-using Benchmark_Instant_Reports_2.Account;
-using Benchmark_Instant_Reports_2.Grading;
-using Benchmark_Instant_Reports_2.Helpers;
 using Benchmark_Instant_Reports_2.Helpers;
 using Benchmark_Instant_Reports_2.Helpers.Reports;
-using Benchmark_Instant_Reports_2.Helpers.Reports;
-using Benchmark_Instant_Reports_2.Infrastructure;
 using Benchmark_Instant_Reports_2.Infrastructure;
 using Benchmark_Instant_Reports_2.Interfaces;
 using Benchmark_Instant_Reports_2.Interfaces.DBDataStruct;
-using Benchmark_Instant_Reports_2.Interfaces.DBDataStruct;
 using Benchmark_Instant_Reports_2.References;
-using Microsoft.Reporting.WebForms;
 using Microsoft.Reporting.WebForms;
 
 namespace Benchmark_Instant_Reports_2
@@ -25,7 +15,6 @@ namespace Benchmark_Instant_Reports_2
     public partial class ScanReport : ReportPage<ListBox>
     {
         public SiteMaster theMasterPage;
-        private static DataToGradeItemCollection studentDataToGrade = new DataToGradeItemCollection();
         private static ScanReportData reportData = new ScanReportData();
         private static TestFilterState _thisTestFilterState = new TestFilterState();
         public override TestFilterState thisTestFilterState
@@ -122,10 +111,6 @@ namespace Benchmark_Instant_Reports_2
         }
 
 
-
-        //************************************************************************************************
-        //** some stuff
-        //************************************************************************************************
 
 
         //**********************************************************************//
