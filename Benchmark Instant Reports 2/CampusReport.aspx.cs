@@ -40,7 +40,8 @@ namespace Benchmark_Instant_Reports_2
             theMasterPage = Page.Master as SiteMaster;
 
             // return if it is the separator
-            if (UIHelper.isDDSeparatorValue(ddCampus.SelectedValue.ToString()) || ddCampus.SelectedValue.ToString() == "")
+            if (UIHelper.isDDSeparatorValue(ddCampus.SelectedValue.ToString()) || 
+                ddCampus.SelectedValue.ToString() == "")
             {
                 RememberHelper.savedSelectedCampus(Response, "");
                 return;
@@ -82,15 +83,12 @@ namespace Benchmark_Instant_Reports_2
         {
             var schools = GetSelectedSchools();
             var tests = GetSelectedTests();
-            //if (ddCampus.SelectedValue.ToString() == Constants.DispAllElementary || 
-            //    ddCampus.SelectedValue.ToString() == Constants.DispAllSecondary)
+            studentDataToGrade = StudentData.GetStudentDataToGrade(DataService, tests, schools);
+            reportData = StGradesRepHelper.GenerateStudentGradesReportData(DataService, studentDataToGrade, tests);
+
             if (schools.Count > 1)
             {   
                 // Show All Campuses
-                studentDataToGrade = StudentData.GetStudentDataToGrade(DataService, tests, schools);
-
-                reportData = StGradesRepHelper.GenerateStudentGradesReportData(studentDataToGrade, tests);
-
                 this.repvwCampusReport1.Visible = false;
                 this.repvwCampusReport2.Visible = true;
 
@@ -103,10 +101,8 @@ namespace Benchmark_Instant_Reports_2
                 
             }
             else
-            {   // Show One Campus
-                studentDataToGrade = StudentData.GetStudentDataToGrade(DataService, tests, schools);
-
-                reportData = StGradesRepHelper.GenerateStudentGradesReportData(studentDataToGrade, tests);
+            {   
+                // Show One Campus
                 this.repvwCampusReport1.Visible = true;
                 this.repvwCampusReport2.Visible = false;
 

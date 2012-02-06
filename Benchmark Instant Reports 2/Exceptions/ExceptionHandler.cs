@@ -7,11 +7,11 @@ namespace Benchmark_Instant_Reports_2.Exceptions
         private static string noAltAnswerValue = "XXXXXXXXXXXXXXXXXXNOALTANSWERXXXXXXXXXXXXXXXXXX";
 
 
-        public static bool isGriddableNonExactMatch(string testID, string campus, int itemNum)
+        public static bool isGriddableNonExactMatch(string testID, int itemNum, string schoolAbbr = "")
         {
             foreach (GridNonExactMatch curNonExactMatch in ExceptionData.gridNonExactMatches)
             {
-                if (curNonExactMatch.Equals(testID, campus, itemNum))
+                if (curNonExactMatch.Equals(testID, schoolAbbr, itemNum))
                     return true;
             }
 

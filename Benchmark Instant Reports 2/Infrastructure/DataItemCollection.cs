@@ -56,6 +56,11 @@ namespace Benchmark_Instant_Reports_2.Infrastructure
             }
         }
 
+        public void Sort(Func<T, object> predicate)
+        {
+            _items.OrderBy(predicate);
+        }
+
         public void Add(T item)
         {
             _items.Add(item);

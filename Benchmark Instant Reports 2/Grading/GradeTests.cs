@@ -13,117 +13,132 @@ namespace Benchmark_Instant_Reports_2.Grading
 {
     public class GradeTests
     {
-        public static List<GradedItemDetail> GradeTestItemsInDetail(string testID, string studentAnswerString, string curCampus, 
-                                                                     int ansKeyIncAmt, string teacher, string period)
-        {
-            int itemObjective = new int();
-            int curItemNum = new int();
+        //public static List<GradedItemDetail> GradeTestItemsInDetail(string testID, string studentAnswerString, string curCampus, 
+        //                                                             int ansKeyIncAmt, string teacher, string period)
+        //{
+        //    int itemObjective = new int();
+        //    int curItemNum = new int();
 
-            //convert answer string to an array
-            string[] studentAnswerStringArray = studentAnswerString.Split(',');
+        //    //convert answer string to an array
+        //    string[] studentAnswerStringArray = studentAnswerString.Split(',');
 
-            // do special processing for special template types
-            if (GridHandler.isGriddable(testID))
-                GridHandler.ProcessAnswerStringWithGrids(studentAnswerStringArray, testID, curCampus);
+        //    // do special processing for special template types
+        //    if (GridHandler.isGriddable(testID))
+        //        GridHandler.ProcessAnswerStringWithGrids(studentAnswerStringArray, testID, curCampus);
 
-            if (MultiAnswerTemplateHandler.IsMultiAnswerTemplate(testID))
-                MultiAnswerTemplateHandler.ProcessAnswerStringWithMultiAnswers(studentAnswerStringArray, testID, curCampus);
+        //    if (MultiAnswerTemplateHandler.IsMultiAnswerTemplate(testID))
+        //        MultiAnswerTemplateHandler.ProcessAnswerStringWithMultiAnswers(studentAnswerStringArray, testID, curCampus);
 
-            List<AnswerKeyItem> theAnswerKey = AnswerKey.getTestAnswerKey(testID, curCampus, ansKeyIncAmt, teacher, period);
+        //    List<AnswerKeyItem> theAnswerKey = AnswerKeyHelper.getTestAnswerKey(testID, curCampus, ansKeyIncAmt, teacher, period);
 
-            List<GradedItemDetail> finalData = new List<GradedItemDetail>();
+        //    List<GradedItemDetail> finalData = new List<GradedItemDetail>();
 
-            //grade each item on the test
-            int numTotal = theAnswerKey.Count;
-            for (int i = 0; i < numTotal; i++)
-            {
-                string correctAnswer = theAnswerKey[i].Answer;
-                itemObjective = theAnswerKey[i].Category;
-                string itemTEKS = theAnswerKey[i].TEKS;
-                curItemNum = theAnswerKey[i].ItemNum;
+        //    //grade each item on the test
+        //    int numTotal = theAnswerKey.Count;
+        //    for (int i = 0; i < numTotal; i++)
+        //    {
+        //        string correctAnswer = theAnswerKey[i].Answer;
+        //        itemObjective = theAnswerKey[i].Category;
+        //        string itemTEKS = theAnswerKey[i].TEKS;
+        //        curItemNum = theAnswerKey[i].ItemNum;
 
-                GradedItemDetail newItem = new GradedItemDetail();
-                newItem.ItemNum = curItemNum;
-                newItem.CorrectAnswer = correctAnswer;
-                newItem.Category = itemObjective;
-                newItem.TEKS = itemTEKS;
+        //        GradedItemDetail newItem = new GradedItemDetail();
+        //        newItem.ItemNum = curItemNum;
+        //        newItem.CorrectAnswer = correctAnswer;
+        //        newItem.Category = itemObjective;
+        //        newItem.TEKS = itemTEKS;
 
-                if (studentAnswerStringArray.Length >= curItemNum)
-                {                                                       // a student answer exists
-                    string studentAnswer = studentAnswerStringArray[curItemNum - 1];
-                    studentAnswer = (studentAnswer.Trim() == "") ? "-" : studentAnswer;
-                    newItem.StudentAnswer = studentAnswer;
+        //        if (studentAnswerStringArray.Length >= curItemNum)
+        //        {                                                       // a student answer exists
+        //            string studentAnswer = studentAnswerStringArray[curItemNum - 1];
+        //            studentAnswer = (studentAnswer.Trim() == "") ? "-" : studentAnswer;
+        //            newItem.StudentAnswer = studentAnswer;
                     
-                    if (studentAnswer == correctAnswer)
-                    {                                                   // correct answer
-                        newItem.Correct = true;
-                    }
-                    else if (studentAnswer == ExceptionHandler.getAlternateAnswer(testID, curItemNum, curCampus))
-                    {
-                        newItem.Correct = true;
-                    }
-                    else
-                    {                                                   // incorrect answer
-                        newItem.Correct = false;
-                    }
-                }
-                else
-                {                                                       // no student answer
-                    newItem.Correct = false;
-                }
-                finalData.Add(newItem);
-            }
+        //            if (studentAnswer == correctAnswer)
+        //            {                                                   // correct answer
+        //                newItem.Correct = true;
+        //            }
+        //            else if (studentAnswer == ExceptionHandler.getAlternateAnswer(testID, curItemNum, curCampus))
+        //            {
+        //                newItem.Correct = true;
+        //            }
+        //            else
+        //            {                                                   // incorrect answer
+        //                newItem.Correct = false;
+        //            }
+        //        }
+        //        else
+        //        {                                                       // no student answer
+        //            newItem.Correct = false;
+        //        }
+        //        finalData.Add(newItem);
+        //    }
 
-            return finalData;
-        }
+        //    return finalData;
+        //}
 
 
-        public static GradedTestData GradeTest(Test test, string studentAnswerString, string curCampus, int ansKeyIncAmt, 
-            string teacher, string period)
+        /// <summary>
+        /// scores a student's answers for a specified test against the specified answer key
+        /// </summary>
+        /// <param name="test">Test object of the test to grade</param>
+        /// <param name="studentAnswerString">student's answers in a raw string</param>
+        /// <param name="ansKey">AnswerKeyItemData answer key</param>
+        /// <returns>GradedTestData collection of graded items</returns>
+        public static GradedTestData GradeStudentAnswers(Test test, string studentAnswerString, AnswerKeyItemData ansKey)
         {
             int numCorrect, numTotal = new int();
-            decimal numPoints, numTotalPoints = new decimal();
+            double numPoints, numTotalPoints = new double();
             int curItemNum = new int();
-            decimal pctCorrect = new decimal();
+            double pctCorrect = new double();
             char letterGrade = new char();
 
-            //convert answer string to an array
+            // convert answer string to an array
             string[] studentAnswerStringArray = studentAnswerString.Split(',');
 
             // do special processing for special template types
             if (GridHandler.isGriddable(test.TestID))
-                GridHandler.ProcessAnswerStringWithGrids(studentAnswerStringArray, test.TestID, curCampus);
+                GridHandler.ProcessAnswerStringWithGrids(studentAnswerStringArray, test.TestID);
 
             if (MultiAnswerTemplateHandler.IsMultiAnswerTemplate(test.TestID))
-                MultiAnswerTemplateHandler.ProcessAnswerStringWithMultiAnswers(studentAnswerStringArray, test.TestID, curCampus);
+                MultiAnswerTemplateHandler.ProcessAnswerStringWithMultiAnswers(studentAnswerStringArray, test.TestID);
 
-            List<AnswerKeyItem> theAnswerKey = AnswerKey.getTestAnswerKey(test.TestID, curCampus, ansKeyIncAmt, teacher, period);
-
-            //grade each item on the test
+            // grade each item on the test
             numCorrect = 0;
             numPoints = 0;
             numTotalPoints = 0;
-            numTotal = theAnswerKey.Count;
+            numTotal = ansKey.Count;
+            string curGradedAnsString = "";
 
-            foreach (AnswerKeyItem itemAnswerKey in theAnswerKey)
+            foreach (AnswerKeyItem itemAnswerKey in ansKey.GetItems())
             {
                 curItemNum = itemAnswerKey.ItemNum;
+                string studentAnswer = studentAnswerStringArray[curItemNum - 1];
 
                 if (studentAnswerStringArray.Length >= curItemNum)       // a student answer exists
                 {
-                    if (studentAnswerStringArray[curItemNum - 1] == itemAnswerKey.Answer)
+                    if (studentAnswer == itemAnswerKey.Answer)
                     {
                         // student's answer is correct
                         numCorrect++;
                         numPoints += itemAnswerKey.Weight;
+                        curGradedAnsString = curGradedAnsString + "*,";
                     }
-                    else if (studentAnswerStringArray[curItemNum - 1] == ExceptionHandler.getAlternateAnswer(test.TestID, curItemNum, curCampus))
+                    else if (studentAnswer ==
+                        ExceptionHandler.getAlternateAnswer(test.TestID, curItemNum, itemAnswerKey.Campus))
                     {
                         // student's answer is correct as the alternate answer
                         numCorrect++;
                         numPoints += itemAnswerKey.Weight;
+                        curGradedAnsString = curGradedAnsString + "*,";
+                    }
+                    else
+                    {
+                        // student's answer is incorrect
+                        curGradedAnsString = curGradedAnsString + studentAnswer + ",";
                     }
                 }
+                curGradedAnsString = curGradedAnsString.Substring(0, curGradedAnsString.Length - 1);
 
                 numTotalPoints += itemAnswerKey.Weight;
             }
@@ -131,6 +146,7 @@ namespace Benchmark_Instant_Reports_2.Grading
             //calculate stuff
             pctCorrect = numPoints / numTotalPoints;
             letterGrade = CalcLetterGrade(numPoints, test.PassNum);
+            string formattedAnsString = createStudentGradedAnsString(curGradedAnsString, ansKey);
 
             //return the results
             GradedTestData newItem = new GradedTestData();
@@ -142,86 +158,91 @@ namespace Benchmark_Instant_Reports_2.Grading
             newItem.PctCorrect = pctCorrect;
             newItem.PassNum = test.PassNum;
             newItem.CommendedNum = test.CommendedNum;
+            newItem.GradedAnswers = curGradedAnsString;
+            newItem.GradedAnswersFormatted = formattedAnsString;
 
             return newItem;
         }
 
 
-        public static void addStudentAnswerData(StGradeReportData gradeddata, string testid, string curCampus)
-        {
-            int ansKeyVersionIncrement = new int();
+        //public static void addStudentAnswerData(StGradeReportData gradeddata, string testid, string curCampus)
+        //{
+        //    int ansKeyVersionIncrement = new int();
 
-            // go through each student and create the answer strings we need
-            for (int i = 0; i < gradeddata.Count; i++)
-            {
-                ScanItem curScanDataItem = birIF.getLatestScanDataRowq(gradeddata.Idx(i).StudentID, gradeddata.Idx(i).TestID);
-                if (curScanDataItem != null)
-                {
-                    ansKeyVersionIncrement = ExceptionHandler.campusAnswerKeyVersionIncrement(gradeddata.Idx(i).TestID, 
-                        gradeddata.Idx(i).Campus, gradeddata.Idx(i).Teacher, gradeddata.Idx(i).Period);
-                    List<GradedItemDetail> gradeditemsdetails = GradeTestItemsInDetail(testid, curScanDataItem.Answers,
-                        curCampus, ansKeyVersionIncrement, gradeddata.Idx(i).Teacher, gradeddata.Idx(i).Period);
+        //    // go through each student and create the answer strings we need
+        //    //for (int i = 0; i < gradeddata.Count; i++)
+        //    foreach (StGradeReportItem item in gradeddata)
+        //    {
+        //        //ScanItem curScanDataItem = birIF.getLatestScanDataRowq(gradeddata.Idx(i).StudentID, gradeddata.Idx(i).TestID);
+        //        if (item != null)
+        //        {
+        //            ansKeyVersionIncrement = ExceptionHandler.campusAnswerKeyVersionIncrement(gradeddata.Idx(i).TestID, 
+        //                gradeddata.Idx(i).Campus, gradeddata.Idx(i).Teacher, gradeddata.Idx(i).Period);
+        //            List<GradedItemDetail> gradeditemsdetails = GradeTestItemsInDetail(testid, curScanDataItem.Answers,
+        //                curCampus, ansKeyVersionIncrement, gradeddata.Idx(i).Teacher, gradeddata.Idx(i).Period);
 
-                    // go through each answer and create the strings we need
-                    string curGradedAnsString = "";
-                    foreach (GradedItemDetail curgradeditem in gradeditemsdetails)
-                    {
-                        if (curgradeditem.Correct)
-                            curGradedAnsString = curGradedAnsString + "*,";
-                        else
-                            // ****** put either the student's answer here, or the actual correct answer ******
-                            curGradedAnsString = curGradedAnsString + curgradeditem.StudentAnswer + ",";
-                    }
-                    curGradedAnsString = curGradedAnsString.Substring(0, curGradedAnsString.Length - 1);
+        //            // go through each answer and create the strings we need
+        //            string curGradedAnsString = "";
+        //            foreach (GradedItemDetail curgradeditem in gradeditemsdetails)
+        //            {
+        //                if (curgradeditem.Correct)
+        //                    curGradedAnsString = curGradedAnsString + "*,";
+        //                else
+        //                    // ****** put either the student's answer here, or the actual correct answer ******
+        //                    curGradedAnsString = curGradedAnsString + curgradeditem.StudentAnswer + ",";
+        //            }
+        //            curGradedAnsString = curGradedAnsString.Substring(0, curGradedAnsString.Length - 1);
 
-                    // make the fancy shmancy string for the report
-                    string formattedAnsString = createStudentGradedAnsString(curGradedAnsString, gradeditemsdetails);
+        //            // make the fancy shmancy string for the report
+        //            string formattedAnsString = createStudentGradedAnsString(curGradedAnsString, gradeditemsdetails);
 
-                    //update gradeddata 
-                    StGradeReportItem curReportItem = gradeddata.Idx(i);
-                    curReportItem.GradedAnswers = curGradedAnsString;
-                    curReportItem.GradedAnswersFormatted = formattedAnsString;
-                    gradeddata.UpdateItemAtIndexWith(i, curReportItem);
-                }
-            }
+        //            //update gradeddata 
+        //            StGradeReportItem curReportItem = gradeddata.Idx(i);
+        //            curReportItem.GradedAnswers = curGradedAnsString;
+        //            curReportItem.GradedAnswersFormatted = formattedAnsString;
+        //            gradeddata.UpdateItemAtIndexWith(i, curReportItem);
+        //        }
+        //    }
 
-            return;
-        }
-
-
-
+        //    return;
+        //}
 
 
 
-        private static string createStudentGradedAnsString(string rawAnsString, List<GradedItemDetail> gradeditems)
+
+
+
+        private static string createStudentGradedAnsString(string gradedAnsString, AnswerKeyItemData ansKey)
         {
             string[] resultsString = new string[Constants.MaxFormattedAnsGroups];
             string[] titleString = new string[Constants.MaxFormattedAnsGroups];
             string formattedString = "";
             int rowIndex = 0;
             
-            string[] ansStringArray = rawAnsString.Split(',');
+            string[] gradedAnsStringArray = gradedAnsString.Split(',');
+            int[] itemNums = ansKey.GetItems().Select(ak => ak.ItemNum).ToArray();
+            Array.Sort(itemNums);
 
-            for (int i = 0; i < ansStringArray.Length; i++)
+            for (int i = 0; i < gradedAnsStringArray.Length; i++)
             {
                 // write this one
                 if ((i + 1).ToString().Length <= 2)
                 {
-                    titleString[rowIndex] = titleString[rowIndex] + string.Format("{0,2} ", gradeditems[i].ItemNum); 
-                    resultsString[rowIndex] = resultsString[rowIndex] + string.Format("{0,2} ", ansStringArray[i]);
+                    titleString[rowIndex] = titleString[rowIndex] + string.Format("{0,2} ", itemNums[i]); 
+                    resultsString[rowIndex] = resultsString[rowIndex] + string.Format("{0,2} ", gradedAnsStringArray[i]);
                 }
                 else
                 {
-                    titleString[rowIndex] = titleString[rowIndex] + string.Format("{0,3} ", gradeditems[i].ItemNum);
-                    resultsString[rowIndex] = resultsString[rowIndex] + string.Format("{0,3} ", ansStringArray[i]);
+                    titleString[rowIndex] = titleString[rowIndex] + string.Format("{0,3} ", itemNums[i]);
+                    resultsString[rowIndex] = resultsString[rowIndex] + string.Format("{0,3} ", gradedAnsStringArray[i]);
                 }
 
 
                 // check if the next one will fit on this row
-                if ((i + 1) < ansStringArray.Length)
+                if ((i + 1) < gradedAnsStringArray.Length)
                 {
                     if ((Constants.NumColumnsInFormattedLine - 
-                        (resultsString[rowIndex].Length + gradeditems[i + 1].ItemNum.ToString().Length)) < 2)
+                        (resultsString[rowIndex].Length + itemNums[i + 1].ToString().Length)) < 2)
                     {
                         // next item will not fit; delete extra space at end and go to next row
                         titleString[rowIndex] = titleString[rowIndex].Substring(0, titleString[rowIndex].Length - 1);
@@ -246,15 +267,15 @@ namespace Benchmark_Instant_Reports_2.Grading
 
 
 
-        private static char CalcLetterGrade(decimal pointsfor, int passnum)
+        private static char CalcLetterGrade(double pointsfor, int passnum)
         {
-            if (pointsfor >= (decimal)passnum)
+            if (pointsfor >= (double)passnum)
                 return 'P';
 
                 // if the pointsfor number will round up to the (int)passnum to the nearest tenth,
                 //   i.e. if the difference is less than or equal to 0.05,
                 //   then call this a Pass since it will display the points as such
-            else if ((decimal)passnum - pointsfor <= (decimal)0.5)
+            else if ((double)passnum - pointsfor <= (double)0.5)
                 return 'P';
 
             return 'F';

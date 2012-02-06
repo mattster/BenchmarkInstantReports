@@ -26,7 +26,7 @@ namespace Benchmark_Instant_Reports_2.Grading
         }
 
 
-        public static void ProcessAnswerStringWithGrids(string[] ansStringArray, string testid, string campus)
+        public static void ProcessAnswerStringWithGrids(string[] ansStringArray, string testid, string campus="")
         {
             TestTemplate template = TestTemplateHandler.getTestTemplate(testid);
 
@@ -43,7 +43,7 @@ namespace Benchmark_Instant_Reports_2.Grading
             // if grid is identified as a non-exact match, remove trailing stuff
             for (int i = template.GridIndexFirst; i <= template.GridIndexLast && i < ansStringArray.Length; i++)
             {
-                if (ExceptionHandler.isGriddableNonExactMatch(testid, campus, i + 1))
+                if (ExceptionHandler.isGriddableNonExactMatch(testid, i + 1, campus))
                 {
                     while (ansStringArray[i].Contains(".") && ansStringArray[i].EndsWith("0"))
                         ansStringArray[i] = ansStringArray[i].Substring(0, ansStringArray[i].Length - 1);
@@ -53,7 +53,7 @@ namespace Benchmark_Instant_Reports_2.Grading
             // if grid is identified as a non-exact match, remove trailing decimals
             for (int i = template.GridIndexFirst; i <= template.GridIndexLast && i < ansStringArray.Length; i++)
             {
-                if (ExceptionHandler.isGriddableNonExactMatch(testid, campus, i + 1))
+                if (ExceptionHandler.isGriddableNonExactMatch(testid, i + 1, campus))
                 {
                     while (ansStringArray[i].EndsWith("."))
                         ansStringArray[i] = ansStringArray[i].Substring(0, ansStringArray[i].Length - 1);

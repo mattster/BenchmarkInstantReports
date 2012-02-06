@@ -166,7 +166,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DataSetStudentStats2.xsd</DependentUpon>
     </Compile>
-    <Compile Include="Grading\AnswerKey.cs" />
+    <Compile Include="Helpers\AnswerKeyHelper.cs" />
     <Compile Include="Helpers\QueryHelper.cs" />
     <Compile Include="Helpers\RememberHelper.cs" />
     <Compile Include="Helpers\Reports\ScanRepHelper.cs" />

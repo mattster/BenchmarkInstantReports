@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using Benchmark_Instant_Reports_2.Infrastructure;
+using Benchmark_Instant_Reports_2.Infrastructure.Entities;
 
 namespace Benchmark_Instant_Reports_2.Interfaces.DBDataStruct
 {
@@ -14,10 +15,11 @@ namespace Benchmark_Instant_Reports_2.Interfaces.DBDataStruct
     {
         public string TestID { get; set; }      // key
         public int ItemNum { get; set; }        // key
+        public string Campus { get; set; }
         public string Answer { get; set; }
         public int Category { get; set; }
         public string TEKS { get; set; }
-        public decimal Weight { get; set; }
+        public double Weight { get; set; }
 
         /// <summary>
         /// default constructor - empty / blank / zero items
@@ -30,6 +32,34 @@ namespace Benchmark_Instant_Reports_2.Interfaces.DBDataStruct
             Category = 0;
             TEKS = "";
             Weight = 1;
+        }
+
+        /// <summary>
+        /// constructor to create a new AnswerKeyItem from an AnswerKey object
+        /// </summary>
+        /// <param name="districtAnsKey">AnswerKey object, e.g. a district key item</param>
+        public AnswerKeyItem(AnswerKey districtAnsKey)
+        {
+            TestID = districtAnsKey.TestID;
+            ItemNum = districtAnsKey.ItemNum;
+            Answer = districtAnsKey.Answer;
+            Category = districtAnsKey.Objective;
+            TEKS = districtAnsKey.TEKS;
+            Weight = districtAnsKey.Weight;
+        }
+
+        /// <summary>
+        /// constructor to create a new AnswerKeyCampus Item from an AnswerKeyCampus object
+        /// </summary>
+        /// <param name="campusAnsKey">AnswerKeyCampus object, e.g. a campus key item</param>
+        public AnswerKeyItem(AnswerKeyCampus campusAnsKey)
+        {
+            TestID = campusAnsKey.TestID;
+            ItemNum = campusAnsKey.ItemNum;
+            Answer = campusAnsKey.Answer;
+            Category = campusAnsKey.Objective;
+            TEKS = campusAnsKey.TEKS;
+            Weight = campusAnsKey.Weight;
         }
 
         // implement IComparable.CompareTo in order to Sort a list

@@ -18,9 +18,9 @@ namespace Benchmark_Instant_Reports_2.Interfaces.DBDataStruct
         public string LetterGrade { get; set; }
         public int NumCorrect { get; set; }
         public int NumTotal { get; set; }
-        public decimal NumPoints { get; set; }
-        public decimal NumTotalPoints { get; set; }
-        public decimal PctCorrect { get; set; }
+        public double NumPoints { get; set; }
+        public double NumTotalPoints { get; set; }
+        public double PctCorrect { get; set; }
         public int PassNum { get; set; }
         public int CommendedNum { get; set; }
         public string Campus { get; set; }

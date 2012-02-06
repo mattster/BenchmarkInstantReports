@@ -1,17 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using Benchmark_Instant_Reports_2.Account;
 using Benchmark_Instant_Reports_2.Grading;
 using Benchmark_Instant_Reports_2.Helpers;
 using Benchmark_Instant_Reports_2.Helpers.Reports;
 using Benchmark_Instant_Reports_2.Infrastructure;
-using Benchmark_Instant_Reports_2.Interfaces;
 using Benchmark_Instant_Reports_2.Interfaces.DBDataStruct;
 using Microsoft.Reporting.WebForms;
-using Benchmark_Instant_Reports_2.Account;
-
 
 
 namespace Benchmark_Instant_Reports_2
@@ -21,6 +18,8 @@ namespace Benchmark_Instant_Reports_2
         #region globals
 
         public SiteMaster theMasterPage;
+        private static DataToGradeItemCollection studentDataToGrade = new DataToGradeItemCollection();
+        private static StGradeReportData reportData = new StGradeReportData();
         private static TestFilterState _thisTestFilterState = new TestFilterState();
         public override TestFilterState thisTestFilterState
         {
@@ -28,26 +27,17 @@ namespace Benchmark_Instant_Reports_2
             set { _thisTestFilterState = value; }
         }
 
-        private static List<DataToGradeItem> studentDataToGrade = new List<DataToGradeItem>();
-
         #endregion
 
 
         protected void Page_Load(object sender, EventArgs e)
         {
-
-            // activate only the Campus dropdown, deactivate the
-            // others until they are ready to be filled
-
             if (!IsPostBack)
             {
                 initPage();
             }
 
-            // anything else we need to do
-
             return;
-
         }
 
 
@@ -58,13 +48,13 @@ namespace Benchmark_Instant_Reports_2
             //*** User selected a campus ***//
 
             // return if it is the separator
-            if (UIHelper.isDDSeparatorValue(ddCampus.SelectedValue.ToString()))
+            if (UIHelper.isDDSeparatorValue(ddCampus.SelectedValue.ToString()) ||
+                ddCampus.SelectedValue.ToString() == "")
             {
                 RememberHelper.savedSelectedCampus(Response, "");
                 return;
             }
 
-            // setup stuff
             RememberHelper.savedSelectedCampus(Response, ddCampus.SelectedItem.ToString());
 
             listTests.DataSource = DataService.GetTestIDsForSchool(ddCampus.SelectedValue.ToString());
@@ -72,7 +62,8 @@ namespace Benchmark_Instant_Reports_2
 
             setupTestFilters();
             listTests.Enabled = true;
-            btnGenReport.Enabled = true;
+            UIHelper.toggleDDLInitView(listTests, true);
+            btnGenReport.Enabled = false;
             repvwStudentStats2a.Visible = false;
             repvwStudentStats2b.Visible = false;
 
@@ -89,30 +80,25 @@ namespace Benchmark_Instant_Reports_2
 
         protected void listTests_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //*** User selected a test ***//
             lblNoScanData.Visible = false;
             RememberHelper.savedSelectedTestID(Response, listTests.SelectedItem.ToString());
 
-            studentDataToGrade = StudentData.GetStudentDataToGrade(listTests.SelectedItem.ToString(),
-                ddCampus.SelectedValue.ToString());
-
+            studentDataToGrade = StudentData.GetStudentDataToGrade(DataService, GetSelectedTests(), GetSelectedSchools());
+            
             // get a list of teachers applicable for this query
-            string[] listOfTeachers = studentDataToGrade.Select(t => t.TeacherName).Distinct().ToArray();
+            string[] listOfTeachers = studentDataToGrade.GetItems().Select(d => d.TeacherName).Distinct().ToArray();
             Array.Sort(listOfTeachers);
 
-
             // if there are no students taking this test at this campus (based on the number of teachers applicable), deal with it
-            if (listOfTeachers.Count() == 0)
+            if (listOfTeachers.Length == 0)
             {
                 repvwStudentStats2a.Visible = false;
                 repvwStudentStats2b.Visible = false;
                 lblNoScanData.Visible = true;
-
                 return;
             }
 
             lblNoScanData.Visible = false;
-
 
             // activate the Teacher dropdown and populate with the list of teachers
             UIHelper.toggleDDLInitView(listTests, false);
@@ -132,9 +118,9 @@ namespace Benchmark_Instant_Reports_2
 
         protected void ddTeacher_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //*** User selected a teacher ***//
             repvwStudentStats2a.Visible = false;
             repvwStudentStats2b.Visible = false;
+            btnGenReport.Enabled = true;
 
             return;
         }
@@ -142,18 +128,21 @@ namespace Benchmark_Instant_Reports_2
 
         protected void btnGenReport_Click(object sender, EventArgs e)
         {
+            var schools = GetSelectedSchools();
+            var tests = GetSelectedTests();
+
             if (studentDataToGrade.Count == 0)
-                studentDataToGrade = StudentData.GetStudentDataToGrade(listTests.SelectedItem.ToString(),
-                    ddCampus.SelectedValue.ToString(), ddTeacher.SelectedItem.ToString());
+                studentDataToGrade = StudentData.GetStudentDataToGrade(DataService, tests, schools);
 
-            StGradeReportData gradedData = StGradesRepHelper.GenerateStudentGradesReportData(studentDataToGrade,
-                listTests.SelectedItem.ToString());
+            reportData = StGradesRepHelper.GenerateStudentGradesReportData(DataService,
+                studentDataToGrade, tests);
 
-            if (TestHelper.UsesWeightedAnswers(listTests.SelectedItem.ToString()))
+
+            if (TestHelper.UsesWeightedAnswers(DataService, GetSelectedTests().First()))
             {
                 //test with weighted items
                 ReportDataSource rds = new ReportDataSource(repvwStudentStats2b.LocalReport.GetDataSourceNames()[0],
-                    gradedData.GetItemsWhere(i => i.Teacher == ddTeacher.SelectedItem.ToString()));
+                    reportData.GetItemsWhere(i => i.Teacher == ddTeacher.SelectedItem.ToString()));
                 repvwStudentStats2b.Visible = true;
                 repvwStudentStats2a.Visible = false;
 
@@ -165,7 +154,7 @@ namespace Benchmark_Instant_Reports_2
             else
             {
                 ReportDataSource rds = new ReportDataSource(repvwStudentStats2a.LocalReport.GetDataSourceNames()[0],
-                    gradedData.GetItemsWhere(i => i.Teacher == ddTeacher.SelectedItem.ToString()));
+                    reportData.GetItemsWhere(i => i.Teacher == ddTeacher.SelectedItem.ToString()));
                 repvwStudentStats2a.Visible = true;
                 repvwStudentStats2b.Visible = false;
 
@@ -182,11 +171,6 @@ namespace Benchmark_Instant_Reports_2
 
 
 
-        //************************************************************************************************
-        //** some stuff
-        //************************************************************************************************
-
-
         //**********************************************************************//
         //** initialize the page
         //**
@@ -201,7 +185,7 @@ namespace Benchmark_Instant_Reports_2
             listTests.AutoPostBack = true;
             ddTeacher.Enabled = true;
             ddTeacher.AutoPostBack = true;
-            btnGenReport.Enabled = true;
+            btnGenReport.Enabled = false;
             repvwStudentStats2a.Visible = false;
             repvwStudentStats2b.Visible = false;
             lblNoScanData.Visible = false;
