@@ -13,6 +13,19 @@ using Benchmark_Instant_Reports_2.Interfaces.DBDataStruct;
 using Benchmark_Instant_Reports_2.Grading;
 using Benchmark_Instant_Reports_2.Helpers.Reports;
 using Benchmark_Instant_Reports_2.Account;
+using System;
+using System.Linq;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using Benchmark_Instant_Reports_2.Account;
+using Benchmark_Instant_Reports_2.Grading;
+using Benchmark_Instant_Reports_2.Helpers;
+using Benchmark_Instant_Reports_2.Helpers.Reports;
+using Benchmark_Instant_Reports_2.Infrastructure;
+using Benchmark_Instant_Reports_2.Interfaces.DBDataStruct;
+using Microsoft.Reporting.WebForms;
+
+
 
 namespace Benchmark_Instant_Reports_2
 {
@@ -21,6 +34,8 @@ namespace Benchmark_Instant_Reports_2
         #region globals
 
         public SiteMaster theMasterPage;
+        private static DataToGradeItemCollection studentDataToGrade = new DataToGradeItemCollection();
+        private static IAReportData reportData = new IAReportData();
         private static TestFilterState _thisTestFilterState = new TestFilterState();
         public override TestFilterState thisTestFilterState
         {
@@ -48,25 +63,18 @@ namespace Benchmark_Instant_Reports_2
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            // activate only the Campus dropdown, deactivate the
-            // others until they are ready to be filled
-
             if (!IsPostBack)
             {
                 initPage();
             }
 
             return;
-
-
         }
 
 
         protected void ddCampus_SelectedIndexChanged(object sender, EventArgs e)
         {
             theMasterPage = Page.Master as SiteMaster;
-
-            //*** User selected a campus ***//
 
             // return if it is the separator
             if (UIHelper.isDDSeparatorValue(ddCampus.SelectedValue.ToString()))
@@ -105,22 +113,20 @@ namespace Benchmark_Instant_Reports_2
 
         protected void listTests_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //*** User selected a test ***//
             lblNoScanData.Visible = false;
             RememberHelper.savedSelectedTestID(Response, listTests.SelectedItem.ToString());
 
-            //DataSet ds1 = birIF.getTeachersForTestCampus(listTests.SelectedItem.ToString(), ddCampus.SelectedValue.ToString());
-            //string[] listOfTeachers = birUtilities.getUniqueTableColumnStringValues(ds1.Tables[0], Constants.TeacherNameFieldName);
-            var studentDataToGrade = StudentData.GetStudentDataToGrade(listTests.SelectedItem.ToString(),
-                ddCampus.SelectedValue.ToString()); string[] listOfTeachers = studentDataToGrade.Select(t => t.TeacherName).Distinct().ToArray();
+            studentDataToGrade = StudentData.GetStudentDataToGrade(DataService, GetSelectedTests(), GetSelectedSchools());
+            
+            // get a list of teachers
+            string[] listOfTeachers = studentDataToGrade.GetItems().Select(d => d.TeacherName).Distinct().ToArray();
             Array.Sort(listOfTeachers);
             ddTeacher.DataSource = listOfTeachers;
             ddTeacher.DataBind();
             UIHelper.toggleDDLInitView(ddTeacher, true);
 
-
             // if there are no students taking this test at this campus, deal with it
-            if (listOfTeachers.Count() == 0)
+            if (listOfTeachers.Length == 0)
             {
                 ddTeacher.Visible = false;
                 lblSelectTeacher.Visible = false;
@@ -141,8 +147,6 @@ namespace Benchmark_Instant_Reports_2
 
         protected void ddRepType_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //** User changed the report type **//
-
             if (ddRepType.SelectedItem.ToString() == repTypePctCorrectAllTeachers)
             {
                 lblSelectTeacher.Visible = false;
@@ -156,7 +160,7 @@ namespace Benchmark_Instant_Reports_2
             {
                 lblSelectTeacher.Visible = true;
                 ddTeacher.Visible = true;
-                btnGenReport.Enabled = true; // was false
+                btnGenReport.Enabled = true;
                 makeRepsVisible(repsNone, repsNone);
                 if (!reportDataParmsHaveChanged && ddTeacher.SelectedIndex >= 0)
                     setupReportPctCorrectOneTeacher(ddGroupBy.SelectedItem.ToString());
@@ -165,7 +169,7 @@ namespace Benchmark_Instant_Reports_2
             {
                 lblSelectTeacher.Visible = true;
                 ddTeacher.Visible = true;
-                btnGenReport.Enabled = true; // was false
+                btnGenReport.Enabled = true;
                 makeRepsVisible(repsNone, repsNone);
                 if (!reportDataParmsHaveChanged && ddTeacher.SelectedIndex >= 0)
                     setupReportAnsChoiceOneTeacher(ddGroupBy.SelectedItem.ToString());
@@ -186,8 +190,6 @@ namespace Benchmark_Instant_Reports_2
 
         protected void ddTeacher_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //** User selected a teacher
-
             UIHelper.toggleDDLInitView(ddTeacher, false);
             btnGenReport.Enabled = true;
             makeRepsVisible(repsNone, repsNone);
@@ -204,11 +206,6 @@ namespace Benchmark_Instant_Reports_2
 
         protected void ddGroupBy_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //** User selected a Group-By method
-            //** don't need to check anything here because an active
-            //** report will automatically change with AutoPostBack set
-            //** to true
-
             if (!reportDataParmsHaveChanged)
                 if (ddRepType.SelectedItem.ToString() == repTypePctCorrectAllTeachers)
                     setupReportPctCorrectAllTeachers(ddGroupBy.SelectedItem.ToString());
@@ -225,15 +222,11 @@ namespace Benchmark_Instant_Reports_2
 
         protected void btnGenReport_Click(object sender, EventArgs e)
         {
-            //** User clicked the Generate Report button ***//
-            List<DataToGradeItem> studentData = new List<DataToGradeItem>();
-
             // generate results for the given criteria on the page if we need to
             if (reportDataParmsHaveChanged)
             {
-                studentData = StudentData.GetStudentDataToGrade(listTests.SelectedItem.ToString(),
-                    ddCampus.SelectedValue.ToString());
-                resultsData = IARepHelper.GenerateBenchmarkStatsRepTable(studentData,
+                studentDataToGrade = StudentData.GetStudentDataToGrade(DataService, GetSelectedTests(), GetSelectedSchools());
+                resultsData = IARepHelper.GenerateBenchmarkStatsRepTable(studentDataToGrade,
                     listTests.SelectedItem.ToString(), ddCampus.SelectedValue.ToString());
 
                 reportDataParmsHaveChanged = false;

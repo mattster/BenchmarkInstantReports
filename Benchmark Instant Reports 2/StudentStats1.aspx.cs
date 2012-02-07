@@ -85,7 +85,7 @@ namespace Benchmark_Instant_Reports_2
 
             studentDataToGrade = StudentData.GetStudentDataToGrade(DataService, GetSelectedTests(), GetSelectedSchools());
             
-            // get a list of teachers applicable for this query
+            // get a list of teachers
             string[] listOfTeachers = studentDataToGrade.GetItems().Select(d => d.TeacherName).Distinct().ToArray();
             Array.Sort(listOfTeachers);
 
