@@ -58,6 +58,7 @@ namespace Benchmark_Instant_Reports_2.References
         // for Student Summary report formatting
         public static int MaxFormattedAnsGroups = 7;
         public static int NumColumnsInFormattedLine = 75;
+        public static string CorrectAnswerIndicator = "*";
         #endregion
 
 

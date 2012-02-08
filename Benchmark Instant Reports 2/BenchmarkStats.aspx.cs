@@ -225,36 +225,24 @@ namespace Benchmark_Instant_Reports_2
             // generate results for the given criteria on the page if we need to
             if (reportDataParmsHaveChanged)
             {
-                studentDataToGrade = StudentData.GetStudentDataToGrade(DataService, GetSelectedTests(), GetSelectedSchools());
-                resultsData = IARepHelper.GenerateBenchmarkStatsRepTable(studentDataToGrade,
-                    listTests.SelectedItem.ToString(), ddCampus.SelectedValue.ToString());
+                studentDataToGrade = StudentData.GetStudentDataToGrade(DataService, GetSelectedTests(), 
+                    GetSelectedSchools());
+                resultsData = IARepHelper.GenerateBenchmarkStatsRepTable(DataService, studentDataToGrade, 
+                    GetSelectedTests());
 
                 reportDataParmsHaveChanged = false;
             }
 
             if (ddRepType.SelectedItem.ToString() == repTypePctCorrectAllTeachers)
-            {
                 setupReportPctCorrectAllTeachers(ddGroupBy.SelectedItem.ToString());
-                return;
-            }
             else if (ddRepType.SelectedItem.ToString() == repTypePctCorrectOneTeacher)
-            {
                 setupReportPctCorrectOneTeacher(ddGroupBy.SelectedItem.ToString());
-
-                return;
-            }
             else if (ddRepType.SelectedItem.ToString() == repTypeAnsChoiceOneTeacher)
-            {
                 setupReportAnsChoiceOneTeacher(ddGroupBy.SelectedItem.ToString());
-
-                return;
-            }
             else if (ddRepType.SelectedItem.ToString() == repTypeAnsChoiceAllTeachers)
-            {
                 setupReportAnsChoiceAllTeachers(ddGroupBy.SelectedItem.ToString());
 
-                return;
-            }
+            return;
         }
 
 
@@ -310,7 +298,6 @@ namespace Benchmark_Instant_Reports_2
             listTests.DataBind();
 
             // load list of report types in Reports dropdown
-            //ddRepType.DataSource = reportTypesListTeacherOnly;
             ddRepType.DataSource = reportTypesList;
             ddRepType.DataBind();
             ddRepType.SelectedIndex = 0;

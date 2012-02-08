@@ -15,6 +15,8 @@ namespace Benchmark_Instant_Reports_2.Interfaces.DBDataStruct
         public double PctCorrect { get; set; }
         public int PassNum { get; set; }
         public int CommendedNum { get; set; }
+        public string[] Responses { get; set; }
+        public bool[] ResponsesCorrect { get; set; }
         public string GradedAnswers { get; set; }
         public string GradedAnswersFormatted { get; set; }
 
@@ -29,6 +31,8 @@ namespace Benchmark_Instant_Reports_2.Interfaces.DBDataStruct
             PctCorrect = 0;
             PassNum = 0;
             CommendedNum = 0;
+            Responses = new string[] { "" };
+            ResponsesCorrect = new bool[] { };
             GradedAnswers = "";
             GradedAnswersFormatted = "";
         }

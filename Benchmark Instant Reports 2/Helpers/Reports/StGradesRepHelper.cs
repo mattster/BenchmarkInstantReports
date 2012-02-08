@@ -14,9 +14,10 @@ namespace Benchmark_Instant_Reports_2.Helpers.Reports
         /// <summary>
         /// Generate data for the Student Grades Report
         /// </summary>
+        /// <param name="dataservice">IRepoService access to data</param>
         /// <param name="studentData">student data to grade</param>
         /// <param name="tests">list of Test objects that are included in studentData</param>
-        /// <returns>DataToGradeItemCollection containing data ready to display in the report</returns>
+        /// <returns>StGradeReportData object containing data ready to display in the report</returns>
         public static StGradeReportData GenerateStudentGradesReportData(IRepoService dataservice,
             DataToGradeItemCollection studentData, List<Test> tests)
         {
