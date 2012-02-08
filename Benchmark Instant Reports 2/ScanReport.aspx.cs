@@ -39,13 +39,13 @@ namespace Benchmark_Instant_Reports_2
             theMasterPage = Page.Master as SiteMaster;
 
             // return if it is the separator
-            if (UIHelper.isDDSeparatorValue(ddCampus.SelectedValue.ToString()))
+            if (UIHelper.IsDDSeparatorValue(ddCampus.SelectedValue.ToString()))
             {
-                RememberHelper.savedSelectedCampus(Response, "");
+                RememberHelper.SaveSelectedCampus(Response, "");
                 return;
             }
 
-            RememberHelper.savedSelectedCampus(Response, ddCampus.SelectedItem.ToString());
+            RememberHelper.SaveSelectedCampus(Response, ddCampus.SelectedItem.ToString());
 
             lbListTests.DataSource = DataService.GetTestIDsForSchool(ddCampus.SelectedValue.ToString());
             lbListTests.DataBind();
@@ -56,11 +56,11 @@ namespace Benchmark_Instant_Reports_2
             repvwScanReport1.Visible = false;
             repvwScanReport2.Visible = false;
 
-            string[] savedTests = RememberHelper.savedSelectedTestIDs(Request);
+            string[] savedTests = RememberHelper.SavedSelectedTestIDs(Request);
             if (savedTests != null)
             {
                 lbListTests.ClearSelection();
-                UIHelper.selectItemsInLB(lbListTests, savedTests);
+                UIHelper.SelectItemsInLB(lbListTests, savedTests);
                 lbListTests_SelectedIndexChanged(new object(), new EventArgs());
             }
 
@@ -70,7 +70,7 @@ namespace Benchmark_Instant_Reports_2
         protected void lbListTests_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (lbListTests.SelectedIndex > -1)
-                RememberHelper.savedSelectedTestIDs(Response, UIHelper.getLBSelectionsAsArray(lbListTests));
+                RememberHelper.SavedSelectedTestIDs(Response, UIHelper.GetLBSelectionsAsArray(lbListTests));
 
             repvwScanReport1.Visible = false;
             repvwScanReport2.Visible = false;
@@ -130,20 +130,20 @@ namespace Benchmark_Instant_Reports_2
             repvwScanReport2.Visible = false;
 
             // load list of campuses in Campus dropdown
-            ddCampus.DataSource = Authorize.getAuthorizedCampusList(Context.User.Identity.Name, DataService);
+            ddCampus.DataSource = Authorize.GetAuthorizedSchools(Context.User.Identity.Name, DataService);
             ddCampus.DataTextField = "Name";
             ddCampus.DataValueField = "Abbr";
             ddCampus.DataBind();
 
             // add option for "ALL" if authorized as admin
-            if (CampusSecurity.isAuthorizedAsAdmin(Context.User.Identity.Name))
+            if (Authorize.IsAuthorizedForAllCampuses(Context.User.Identity.Name))
             {
                 ddCampus.Items.Insert(0, new ListItem(Constants.DispAllSecondary, Constants.DispAllSecondary));
                 ddCampus.Items.Insert(0, new ListItem(Constants.DispAllElementary, Constants.DispAllElementary));
                 ddCampus.SelectedIndex = 0;
             }
 
-            int cidx = UIHelper.getIndexOfDDItem(RememberHelper.savedSelectedCampus(Request), ddCampus);
+            int cidx = UIHelper.GetIndexOfItemInDD(RememberHelper.SavedSelectedCampus(Request), ddCampus);
             if (cidx != -1)
                 ddCampus.SelectedIndex = cidx;
             else
@@ -155,11 +155,11 @@ namespace Benchmark_Instant_Reports_2
             lbListTests.DataSource = DataService.GetTestIDsForSchool(ddCampus.SelectedValue.ToString());
             lbListTests.DataBind();
 
-            string[] savedTests = RememberHelper.savedSelectedTestIDs(Request);
+            string[] savedTests = RememberHelper.SavedSelectedTestIDs(Request);
             if (savedTests != null)
             {
                 lbListTests.ClearSelection();
-                UIHelper.selectItemsInLB(lbListTests, savedTests);
+                UIHelper.SelectItemsInLB(lbListTests, savedTests);
                 lbListTests_SelectedIndexChanged(new object(), new EventArgs());
             }
 

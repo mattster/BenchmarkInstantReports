@@ -4,16 +4,23 @@ using System.Data;
 using System.Linq;
 using Benchmark_Instant_Reports_2.Infrastructure.Entities;
 using Benchmark_Instant_Reports_2.Infrastructure.IRepositories;
-using Benchmark_Instant_Reports_2.Interfaces;
 using Benchmark_Instant_Reports_2.References;
 
 namespace Benchmark_Instant_Reports_2.Infrastructure.Repositories
 {
+    /// <summary>
+    /// implementation of the Roster repository using Oracle Data Access
+    /// </summary>
     public class RosterRepositoryODA : IRosterRepository
     {
+        /// <summary>
+        /// performs a query and returns the results from the Roster
+        /// </summary>
+        /// <param name="qs">query string of the query to perform</param>
+        /// <returns>IQueryable-Roster- data</returns>
         public IQueryable<Roster> ExecuteTestQuery(string qs)
         {
-            DataSet ds = dbIFOracle.getDataRows(qs);
+            DataSet ds = ODAHelper.getDataRows(qs);
             if (ds.Tables.Count == 0)
                 return null;
 
@@ -21,19 +28,24 @@ namespace Benchmark_Instant_Reports_2.Infrastructure.Repositories
         }
 
 
+        /// <summary>
+        /// find Roster items for a specific student by Student ID
+        /// </summary>
+        /// <param name="id">student ID in a string</param>
+        /// <returns>IQueryable-Roster- data</returns>
         public IQueryable<Roster> FindByStudentID(string id)
         {
+            // convert id to a 6-digit string with leading zero(es) if needed
             id = string.Format("{0,6:D6}", id);
             string qs = Queries.GetRosterDataForID.Replace("@studentId", id);
-            DataSet ds = dbIFOracle.getDataRows(qs);
+            DataSet ds = ODAHelper.getDataRows(qs);
             if (ds.Tables.Count == 0)
                 return null;
 
             return ConvertTableToRosters(ds.Tables[0]);
         }
 
-
-
+        
 
         public IQueryable<Roster> FindAll()
         {
@@ -57,7 +69,11 @@ namespace Benchmark_Instant_Reports_2.Infrastructure.Repositories
 
 
 
-
+        /// <summary>
+        /// converts a row read in from the database to a Roster object
+        /// </summary>
+        /// <param name="row">DataRow read in from the database</param>
+        /// <returns>a Roster object with the data</returns>
         private static Roster ConvertRowToRoster(DataRow row)
         {
             Roster retRoster = new Roster();
@@ -84,6 +100,12 @@ namespace Benchmark_Instant_Reports_2.Infrastructure.Repositories
         }
 
 
+        /// <summary>
+        /// converts a table of data read in from the database to an 
+        /// IQueryable-Roster- list of objects
+        /// </summary>
+        /// <param name="table">DataTable read in from the database</param>
+        /// <returns>IQueryable-Roster- list of data objects</returns>
         private static IQueryable<Roster> ConvertTableToRosters(DataTable table)
         {
             HashSet<Roster> finaldata = new HashSet<Roster>();

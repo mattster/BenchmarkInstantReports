@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using Benchmark_Instant_Reports_2.References;
+﻿using Benchmark_Instant_Reports_2.References;
 
 namespace Benchmark_Instant_Reports_2.Helpers
 {
+    /// <summary>
+    /// object used to track the current filter state and selections
+    /// </summary>
     public class TestFilterState
     {
         public string Curric { get; set; }
@@ -37,7 +36,10 @@ namespace Benchmark_Instant_Reports_2.Helpers
             get { return CurricFiltered || SubjectFiltered || TestTypeFiltered || TestVersionFiltered; }
         }
 
-        // default constructor
+        
+        /// <summary>
+        /// Default constructor - no filters applied
+        /// </summary>
         public TestFilterState()
         {
             Curric = Constants.AllIndicator;
@@ -46,7 +48,14 @@ namespace Benchmark_Instant_Reports_2.Helpers
             TestVersion = Constants.AllIndicator;
         }
 
-        // constructor with specific values
+
+        /// <summary>
+        /// Constructor with specific filter values applied
+        /// </summary>
+        /// <param name="curric">selected filter for Curriculum</param>
+        /// <param name="subject">selected filter for Subject</param>
+        /// <param name="testtype">selected filter for Test Type</param>
+        /// <param name="testversion">selected filter for Test Version</param>
         public TestFilterState(string curric, string subject, string testtype, string testversion)
         {
             Curric = curric;
@@ -55,7 +64,10 @@ namespace Benchmark_Instant_Reports_2.Helpers
             TestVersion = testversion;
         }
 
-        // reset all filters
+        
+        /// <summary>
+        /// reset all filters to an unfiltered state
+        /// </summary>
         public void Reset()
         {
             Curric = Constants.AllIndicator;

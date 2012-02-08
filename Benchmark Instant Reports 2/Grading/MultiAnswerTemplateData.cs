@@ -1,12 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 
 namespace Benchmark_Instant_Reports_2.Grading
 {
     public static partial class TestDefinitionData
     {
+        /// <summary>
+        /// a list of TestTemplate objects representing all the defined templates
+        /// that have items with multiple letter responses
+        /// </summary>
         public static List<TestTemplate> MultiAnswerTemplates = new List<TestTemplate>
         {
             new TestTemplate("25-MULT-75-AE", 1, 25, 101, 125, TestTemplate.TestTemplatetype.Special25MULT75AE),

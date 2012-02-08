@@ -1,12 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 
 namespace Benchmark_Instant_Reports_2.Grading
 {
     public static partial class TestDefinitionData
     {
+        /// <summary>
+        /// a list of TestTemplate objects representing all the defined templates
+        /// that have True/False items
+        /// </summary>
         public static List<TestTemplate> TFTemplates = new List<TestTemplate>
         {
             new TestTemplate("70-AE-10-TF", 71, 80, TestTemplate.TestTemplatetype.Special70AE10TF),

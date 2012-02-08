@@ -106,7 +106,6 @@
     <Content Include="content\images\pdficon_large.gif">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="db\CCDDControls.asmx" />
     <Content Include="Login.aspx" />
     <Content Include="MaterialsReport.aspx" />
     <Content Include="Info.aspx" />
@@ -141,6 +140,7 @@
       <DependentUpon>About.aspx</DependentUpon>
     </Compile>
     <Compile Include="Account\Authorize.cs" />
+    <Compile Include="Account\Security.cs" />
     <Compile Include="CampusReport.aspx.cs">
       <DependentUpon>CampusReport.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -167,15 +167,15 @@
       <DependentUpon>DataSetStudentStats2.xsd</DependentUpon>
     </Compile>
     <Compile Include="Helpers\AnswerKeyHelper.cs" />
-    <Compile Include="Helpers\QueryHelper.cs" />
     <Compile Include="Helpers\RememberHelper.cs" />
     <Compile Include="Helpers\Reports\ScanRepHelper.cs" />
     <Compile Include="Helpers\Reports\StGradesRepHelper.cs" />
-    <Compile Include="Helpers\ScanHelper.cs" />
-    <Compile Include="Helpers\SchoolHelper.cs" />
     <Compile Include="Helpers\TestHelper.cs" />
     <Compile Include="Helpers\UIHelper.cs" />
     <Compile Include="Infrastructure\ClassKey.cs" />
+    <Compile Include="Infrastructure\DataEnabledPage.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="Infrastructure\DataItemCollection.cs" />
     <Compile Include="Infrastructure\Entities\AnswerKey.cs" />
     <Compile Include="Infrastructure\Entities\AnswerKeyCampus.cs" />
@@ -206,8 +206,6 @@
     <Compile Include="Grading\StudentData.cs" />
     <Compile Include="Helpers\Reports\AnswerCounter.cs" />
     <Compile Include="Helpers\Reports\IARepHelper.cs" />
-    <Compile Include="Interfaces\birUtilities.cs" />
-    <Compile Include="Interfaces\birIF.cs" />
     <Compile Include="Exceptions\AlternateAnswer.cs" />
     <Compile Include="Exceptions\ExceptionData\AlternateAnswerData.cs" />
     <Compile Include="Exceptions\AnswerKeyIncrement.cs" />
@@ -232,7 +230,6 @@
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Interfaces\DBDataStruct\AnswerKeyItemData.cs" />
-    <Compile Include="Interfaces\DBDataStruct\DBIOWorkaround.cs" />
     <Compile Include="Interfaces\DBDataStruct\GradedTestData.cs" />
     <Compile Include="Interfaces\DBDataStruct\GradedItemDetail.cs" />
     <Compile Include="Interfaces\DBDataStruct\IAReportData.cs" />
@@ -248,15 +245,9 @@
     <Compile Include="Interfaces\DBDataStruct\DataToGradeItem.cs" />
     <Compile Include="Metadata\AllTestMetadata.cs" />
     <Compile Include="Metadata\Curriculum.cs" />
-    <Compile Include="Interfaces\dbIFOracle.cs" />
-    <Compile Include="Interfaces\CampusSecurity.cs" />
     <Compile Include="Metadata\Subject.cs" />
     <Compile Include="Metadata\TestMetadataItem.cs" />
     <Compile Include="Metadata\TestType.cs" />
-    <Compile Include="db\CCDDControls.asmx.cs">
-      <DependentUpon>CCDDControls.asmx</DependentUpon>
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="Login.aspx.cs">
       <DependentUpon>Login.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -354,6 +345,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="db\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Site.Master" />

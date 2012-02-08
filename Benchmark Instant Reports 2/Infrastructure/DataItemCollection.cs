@@ -6,9 +6,8 @@ namespace Benchmark_Instant_Reports_2.Infrastructure
 {
     /// <summary>
     /// base class for my classes that will represent a collection of
-    /// my data entities - e.g. a list of ScanItem's
-    /// wrapping the list in this class for simplicity and
-    /// usability in code
+    /// in-memory data objects;
+    /// wrapping the list in this class for simplicity and usability in code
     /// </summary>
     /// <typeparam name="T">a class that represents an item to be used in this collection</typeparam>
     public class DataItemCollection<T> where T : class
@@ -17,20 +16,24 @@ namespace Benchmark_Instant_Reports_2.Infrastructure
 
         public int Count { get { return _items.Count; } }
 
+
         public DataItemCollection()
         {
             _items = new List<T>();
         }
+
 
         public DataItemCollection(List<T> items)
         {
             _items = items;
         }
 
+
         public DataItemCollection(IEnumerable<T> items)
         {
             _items = items.ToList<T>();
         }
+
 
         public T Idx(int i)
         {
@@ -44,6 +47,7 @@ namespace Benchmark_Instant_Reports_2.Infrastructure
             }
         }
 
+
         public T First()
         {
             try
@@ -56,15 +60,18 @@ namespace Benchmark_Instant_Reports_2.Infrastructure
             }
         }
 
+
         public void Sort(Func<T, object> predicate)
         {
             _items.OrderBy(predicate);
         }
 
+
         public void Add(T item)
         {
             _items.Add(item);
         }
+
 
         public void Add(List<T> items)
         {
@@ -74,25 +81,30 @@ namespace Benchmark_Instant_Reports_2.Infrastructure
             }
         }
 
+
         public void Remove(T item)
         {
             _items.Remove(item);
         }
+
 
         public T GetItemWhere(Func<T, bool> predicate)
         {
             return _items.Where(predicate).FirstOrDefault();
         }
 
+
         public IEnumerable<T> GetItems()
         {
             return _items;
         }
 
+
         public IEnumerable<T> GetItemsWhere(Func<T, bool> predicate)
         {
             return _items.Where(predicate);
         }
+
 
         public void UpdateItemAtIndexWith(int index, T newitem)
         {

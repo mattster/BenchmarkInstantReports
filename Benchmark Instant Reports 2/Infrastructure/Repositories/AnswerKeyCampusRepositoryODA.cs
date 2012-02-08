@@ -4,30 +4,42 @@ using System.Data;
 using System.Linq;
 using Benchmark_Instant_Reports_2.Infrastructure.Entities;
 using Benchmark_Instant_Reports_2.Infrastructure.IRepositories;
-using Benchmark_Instant_Reports_2.Interfaces;
 using Benchmark_Instant_Reports_2.References;
 
 
 namespace Benchmark_Instant_Reports_2.Infrastructure.Repositories
 {
+    /// <summary>
+    /// implementation of the AnswerKeyCampus repository using Oracle Data Access
+    /// </summary>
     public class AnswerKeyCampusRepositoryODA : IAnswerKeyCampusRepository
     {
-
-        public IQueryable<AnswerKeyCampus> FindKeyForTest(string testid, string campusabbr)
+        /// <summary>
+        /// returns an answer key for a specific test and school
+        /// </summary>
+        /// <param name="testid">TestID to use</param>
+        /// <param name="schoolAbbr">School abbreviation of the school to use</param>
+        /// <returns>IQueryable-AnswerKeyCampus- collection of AnswerKeyCampus data</returns>
+        public IQueryable<AnswerKeyCampus> FindKeyForTest(string testid, string schoolAbbr)
         {
             string qs = Queries.GetCampusTestAnswerKey.Replace("@testId", testid);
-            qs = qs.Replace("@schoolAbbr", campusabbr);
-            DataSet ds = dbIFOracle.getDataRows(qs);
+            qs = qs.Replace("@schoolAbbr", schoolAbbr);
+            DataSet ds = ODAHelper.getDataRows(qs);
             if (ds.Tables.Count == 0)
                 return null;
 
             return ConvertRowToAKCs(ds.Tables[0]);
         }
 
-        public System.Linq.IQueryable<AnswerKeyCampus> FindAll()
+
+        /// <summary>
+        /// retuns all data
+        /// </summary>
+        /// <returns>IQueryable-AnswerKeyCampus- collection of AnswerKeyCampus data</returns>
+        public IQueryable<AnswerKeyCampus> FindAll()
         {
             string qs = Queries.GetAllCampusAnswerKeys;
-            DataSet ds = dbIFOracle.getDataRows(qs);
+            DataSet ds = ODAHelper.getDataRows(qs);
             if (ds.Tables.Count == 0)
                 return null;
 
@@ -36,8 +48,7 @@ namespace Benchmark_Instant_Reports_2.Infrastructure.Repositories
 
 
 
-
-        public System.Linq.IQueryable<AnswerKeyCampus> FindWhere(Func<AnswerKeyCampus, bool> predicate)
+        public IQueryable<AnswerKeyCampus> FindWhere(Func<AnswerKeyCampus, bool> predicate)
         {
             throw new NotImplementedException();
         }
@@ -55,7 +66,11 @@ namespace Benchmark_Instant_Reports_2.Infrastructure.Repositories
 
 
 
-
+        /// <summary>
+        /// converts a row read in from the database to an AnswerKeyCampus object
+        /// </summary>
+        /// <param name="row">DataRow read in from the database</param>
+        /// <returns>an AnswerKeyCampus object with the data</returns>
         private static AnswerKeyCampus ConvertRowToAKC(DataRow row)
         {
             AnswerKeyCampus retAKC = new AnswerKeyCampus();
@@ -76,7 +91,12 @@ namespace Benchmark_Instant_Reports_2.Infrastructure.Repositories
             return retAKC;
         }
 
-
+        /// <summary>
+        /// converts a table of data read in from the database to an 
+        /// IQueryable-AnswerKeyCampus list of objects
+        /// </summary>
+        /// <param name="table">DataTable read in from the database</param>
+        /// <returns>IQueryable-AnswerKeyCampus- list of data objects</returns>
         private static IQueryable<AnswerKeyCampus> ConvertRowToAKCs(DataTable table)
         {
             HashSet<AnswerKeyCampus> finaldata = new HashSet<AnswerKeyCampus>();

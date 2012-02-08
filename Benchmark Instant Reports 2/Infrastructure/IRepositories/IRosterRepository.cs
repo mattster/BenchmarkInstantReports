@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using Benchmark_Instant_Reports_2.Infrastructure.IRepositories;
+﻿using System.Linq;
 using Benchmark_Instant_Reports_2.Infrastructure.Entities;
 
 namespace Benchmark_Instant_Reports_2.Infrastructure.IRepositories
 {
+    /// <summary>
+    /// interface definition for the Roster repository
+    /// </summary>
     public interface IRosterRepository : IRepository<Roster>
     {
         IQueryable<Roster> ExecuteTestQuery(string qs);

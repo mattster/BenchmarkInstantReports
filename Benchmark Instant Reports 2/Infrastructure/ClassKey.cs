@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Text;
-
+﻿
 //
 // adapted from :
 // http://www.codeproject.com/KB/recipes/ClassKey.aspx
@@ -22,6 +17,7 @@ namespace Benchmark_Instant_Reports_2.Infrastructure
     {
         private T _CollectionItem = null;
 
+
         /// <summary>
         /// The collection item referenced by this key
         /// </summary>
@@ -31,10 +27,12 @@ namespace Benchmark_Instant_Reports_2.Infrastructure
             set { _CollectionItem = value; }
         }
 
+
         /// <summary>
         /// Init empty if needed
         /// </summary>
         public ClassKey() { }
+
 
         /// <summary>
         /// Init with specific collection item
@@ -45,11 +43,12 @@ namespace Benchmark_Instant_Reports_2.Infrastructure
             this.ClassReference = CollectionItem;
         }
 
+
         /// <summary>
         /// Compare based on hash code
         /// </summary>
-        /// <param name="obj"></param>
-        /// <returns></returns>
+        /// <param name="obj">object (hopefully another key) to compare to</param>
+        /// <returns>true if equal, false otherwise</returns>
         public override bool Equals(object obj)
         {
             if (obj is ClassKey<T>)
@@ -59,6 +58,7 @@ namespace Benchmark_Instant_Reports_2.Infrastructure
             else
                 return false; //definitely not equal
         }
+
 
         public static bool operator ==(ClassKey<T> p1, ClassKey<T> p2)
         {
@@ -72,13 +72,16 @@ namespace Benchmark_Instant_Reports_2.Infrastructure
             return (p1.Equals(p2));
         }
 
+
         public static bool operator !=(ClassKey<T> p1, ClassKey<T> p2)
         {
             return !(p1 == p2);
         }
 
+
         //must override to get list of key values
         public abstract object[] GetKeyValues();
+
 
         /// <summary>
         /// Implement hash code function to specify which columns will be used for the key without using reflection which may be a bit slow.
@@ -88,7 +91,8 @@ namespace Benchmark_Instant_Reports_2.Infrastructure
         {
             object[] keyValues = GetKeyValues();
 
-            //use co-prime numbers to salt the hashcode so same values in different order will not return as equal - see TestClassKeyXOROrderProblem to reproduce problem 
+            //use co-prime numbers to salt the hashcode so same values in different order will not return as equal - 
+            //see TestClassKeyXOROrderProblem to reproduce problem 
             //http://www.msnewsgroups.net/group/microsoft.public.dotnet.languages.csharp/topic36405.aspx
             //http://directxinfo.blogspot.com/2007/06/gethashcode-in-net.html
             int FinalHashCode = 17; //first co-prime number

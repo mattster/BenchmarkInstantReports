@@ -1,16 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using StructureMap;
-using Benchmark_Instant_Reports_2.Infrastructure.IRepositories;
+﻿using Benchmark_Instant_Reports_2.Infrastructure.IRepositories;
 using Benchmark_Instant_Reports_2.Infrastructure.Repositories;
+using StructureMap;
 using StructureMap.Pipeline;
 
 namespace Benchmark_Instant_Reports_2.Infrastructure.IoC
 {
     public class StructureMapConfig
     {
+        /// <summary>
+        /// configure the StructureMap IoC container setup; 
+        /// map each Interface to a concrete type to be injected by StructureMap
+        /// </summary>
         public static void Configure()
         {
             ObjectFactory.Initialize(x =>

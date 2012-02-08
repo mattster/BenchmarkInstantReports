@@ -1,17 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using Benchmark_Instant_Reports_2.Interfaces.DBDataStruct;
+﻿using Benchmark_Instant_Reports_2.Interfaces.DBDataStruct;
 
 namespace Benchmark_Instant_Reports_2.Helpers.Reports
 {
+    /// <summary>
+    /// used to tabulate data for the Item Analysis report
+    /// </summary>
     public class AnswerCounter
     {
         public int a, b, c, d, e, f, g, h, j, k;
 
 
-        // default constructor
+        /// <summary>
+        /// default Constructor
+        /// </summary>
         public AnswerCounter()
         {
             a = 0;
@@ -26,7 +27,12 @@ namespace Benchmark_Instant_Reports_2.Helpers.Reports
             k = 0;
         }
 
-        public void UpdateFromResultsTableItem(IAReportItem item)
+
+        /// <summary>
+        /// update the counters based on an existing report data item
+        /// </summary>
+        /// <param name="item">IAReportItem object</param>
+        public void UpdateFromReportItem(IAReportItem item)
         {
             a = item.NumA;
             b = item.NumB;
@@ -42,7 +48,12 @@ namespace Benchmark_Instant_Reports_2.Helpers.Reports
             return;
         }
 
-        public void UpdateToResultsTableItem(IAReportItem item)
+
+        /// <summary>
+        /// update a report data item with the current counters
+        /// </summary>
+        /// <param name="item">IAReportItem to update</param>
+        public void UpdateToReportItem(IAReportItem item)
         {
             item.NumA = a;
             item.NumB = b;
@@ -58,6 +69,11 @@ namespace Benchmark_Instant_Reports_2.Helpers.Reports
             return;
         }
 
+
+        /// <summary>
+        /// increment the appropriate counter
+        /// </summary>
+        /// <param name="x">answer representing the counter to increment</param>
         public void Increment(string x)
         {
             if (x.ToUpper() == "A")
@@ -84,6 +100,10 @@ namespace Benchmark_Instant_Reports_2.Helpers.Reports
             return;
         }
 
+
+        /// <summary>
+        /// reset counters to 0
+        /// </summary>
         public void Reset()
         {
             a = 0;
@@ -99,8 +119,6 @@ namespace Benchmark_Instant_Reports_2.Helpers.Reports
 
             return;
         }
-
-
 
     }
 }

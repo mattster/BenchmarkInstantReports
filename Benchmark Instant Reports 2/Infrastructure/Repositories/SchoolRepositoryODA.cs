@@ -4,84 +4,127 @@ using System.Data;
 using System.Linq;
 using Benchmark_Instant_Reports_2.Infrastructure.Entities;
 using Benchmark_Instant_Reports_2.Infrastructure.IRepositories;
-using Benchmark_Instant_Reports_2.Interfaces;
 using Benchmark_Instant_Reports_2.References;
 
 namespace Benchmark_Instant_Reports_2.Infrastructure.Repositories
 {
+    /// <summary>
+    /// implementation of the School repository using Oracle Data Access
+    /// </summary>
     public class SchoolRepositoryODA : ISchoolRepository
     {
+        /// <summary>
+        /// finds a School by its numeric ID
+        /// </summary>
+        /// <param name="id">integer ID of the school to find</param>
+        /// <returns>School object of the found School</returns>
         public School FindBySchoolID(int id)
         {
             string qs = Queries.GetSchoolByID.Replace("@id", id.ToString());
-            DataSet ds = dbIFOracle.getDataRows(qs);
+            DataSet ds = ODAHelper.getDataRows(qs);
             if (ds.Tables.Count == 0)
                 return null;
 
             return ConvertRowToSchool(ds.Tables[0].Rows[0]);
         }
 
+
+        /// <summary>
+        /// finds a School by its abbreviation
+        /// </summary>
+        /// <param name="abbr">string abbreviation of the school to find</param>
+        /// <returns>School object of the found School</returns>
         public School FindBySchoolAbbr(string abbr)
         {
             string qs = Queries.GetSchoolByAbbr.Replace("@abbr", abbr);
-            DataSet ds = dbIFOracle.getDataRows(qs);
+            DataSet ds = ODAHelper.getDataRows(qs);
             if (ds.Tables.Count == 0)
                 return null;
 
             return ConvertRowToSchool(ds.Tables[0].Rows[0]);
         }
 
+
+        /// <summary>
+        /// finds all High Schools
+        /// </summary>
+        /// <returns>IQueryable-School- collection of data objects</returns>
         public IQueryable<School> FindHSCampuses()
         {
             string qs = Queries.GetHSCampuses;
-            DataSet ds = dbIFOracle.getDataRows(qs);
+            DataSet ds = ODAHelper.getDataRows(qs);
             if (ds.Tables.Count == 0)
                 return null;
 
             return ConvertTableToSchools(ds.Tables[0]);
         }
 
+
+        /// <summary>
+        /// finds all Junior High Schools
+        /// </summary>
+        /// <returns>IQueryable-School- collection of data objects</returns>
         public IQueryable<School> FindJHCampuses()
         {
             string qs = Queries.GetJHCampuses;
-            DataSet ds = dbIFOracle.getDataRows(qs);
+            DataSet ds = ODAHelper.getDataRows(qs);
             if (ds.Tables.Count == 0)
                 return null;
 
             return ConvertTableToSchools(ds.Tables[0]);
         }
 
+
+        /// <summary>
+        /// finds all Secondary (High School + Junior High) Schools
+        /// </summary>
+        /// <returns>IQueryable-School- collection of data objects</returns>
         public IQueryable<School> FindSECCampuses()
         {
             string qs = Queries.GetSECCampuses;
-            DataSet ds = dbIFOracle.getDataRows(qs);
+            DataSet ds = ODAHelper.getDataRows(qs);
             if (ds.Tables.Count == 0)
                 return null;
 
             return ConvertTableToSchools(ds.Tables[0]);
         }
 
+
+        /// <summary>
+        /// finds all Elementary Schools
+        /// </summary>
+        /// <returns>IQueryable-School- collection of data objects</returns>
         public IQueryable<Entities.School> FindELCampuses()
         {
             string qs = Queries.GetELCampuses;
-            DataSet ds = dbIFOracle.getDataRows(qs);
+            DataSet ds = ODAHelper.getDataRows(qs);
             if (ds.Tables.Count == 0)
                 return null;
 
             return ConvertTableToSchools(ds.Tables[0]);
         }
 
+
+        /// <summary>
+        /// finds all Schools
+        /// </summary>
+        /// <returns>IQueryable-School- collection of data objects</returns>
         public IQueryable<Entities.School> FindAll()
         {
             string qs = Queries.GetAllSchools;
-            DataSet ds = dbIFOracle.getDataRows(qs);
+            DataSet ds = ODAHelper.getDataRows(qs);
             if (ds.Tables.Count == 0)
                 return null;
 
             return ConvertTableToSchools(ds.Tables[0]);
-            throw new NotImplementedException();
         }
 
+
+        /// <summary>
+        /// finds Schools based on a predicate Linq query
+        /// </summary>
+        /// <param name="predicate">Linq query</param>
+        /// <returns>IQueryable-School- collection of data objects</returns>
         public IQueryable<Entities.School> FindWhere(Func<Entities.School, bool> predicate)
         {
             return FindAll().Where(predicate).AsQueryable();
@@ -108,6 +151,8 @@ namespace Benchmark_Instant_Reports_2.Infrastructure.Repositories
         }
 
 
+
+
         public void Add(Entities.School newentity)
         {
             throw new NotImplementedException();
@@ -121,7 +166,11 @@ namespace Benchmark_Instant_Reports_2.Infrastructure.Repositories
 
 
 
-
+        /// <summary>
+        /// converts a row read in from the database to a School object
+        /// </summary>
+        /// <param name="row">DataRow read in from the database</param>
+        /// <returns>a School object with the data</returns>
         private static School ConvertRowToSchool(DataRow row)
         {
             School retSchool = new School();
@@ -146,6 +195,12 @@ namespace Benchmark_Instant_Reports_2.Infrastructure.Repositories
         }
 
 
+        /// <summary>
+        /// converts a table of data read in from the database to an 
+        /// IQueryable-School- list of objects
+        /// </summary>
+        /// <param name="table">DataTable read in from the database</param>
+        /// <returns>IQueryable-School- list of collection of data objects</returns>
         private static IQueryable<School> ConvertTableToSchools(DataTable table)
         {
             HashSet<School> finaldata = new HashSet<School>();

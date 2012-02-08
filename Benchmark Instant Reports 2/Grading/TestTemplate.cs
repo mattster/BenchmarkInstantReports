@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
+﻿
 namespace Benchmark_Instant_Reports_2.Grading
 {
+    /// <summary>
+    /// data structure containing information about a Test Template
+    /// </summary>
     public class TestTemplate
     {
         public string Name { get; set; }
@@ -36,7 +35,12 @@ namespace Benchmark_Instant_Reports_2.Grading
             Other
         }
 
-        // standard template
+        
+        /// <summary>
+        /// Constructor for a standard test template
+        /// </summary>
+        /// <param name="name">name of the template</param>
+        /// <param name="templatetype">TestTemplatetype type of the template</param>
         public TestTemplate(string name, TestTemplatetype templatetype)
         {
             Name = name;
@@ -53,7 +57,15 @@ namespace Benchmark_Instant_Reports_2.Grading
             GridIndexLast = 0;
         }
 
-        // tempaltes with grids
+
+        /// <summary>
+        /// Contructor for a test template with grids
+        /// </summary>
+        /// <param name="name">name of the template</param>
+        /// <param name="numgrids">number of griddable items on the template</param>
+        /// <param name="gridindexfirst">index (0-based) of the first griddable answer</param>
+        /// <param name="gridindexlast">index (0-based) of the last griddable answer</param>
+        /// <param name="templatetype">TestTemplatetype of the template</param>
         public TestTemplate(string name, int numgrids, int gridindexfirst, int gridindexlast, TestTemplatetype templatetype)
         {
             Name = name;
@@ -70,7 +82,14 @@ namespace Benchmark_Instant_Reports_2.Grading
             MULTPartBLast = 0;
         }
 
-        // templates with a section of true / false items
+
+        /// <summary>
+        /// Constructor for a test template with True/False type items
+        /// </summary>
+        /// <param name="name">name of the template</param>
+        /// <param name="tffirst">index (0-based) of the first T/F item</param>
+        /// <param name="tflast">index (0-based) of the last T/F item</param>
+        /// <param name="templatetype">TestTemplatetype of the template</param>
         public TestTemplate(string name, int tffirst, int tflast, TestTemplatetype templatetype)
         {
             Name = name;
@@ -87,7 +106,16 @@ namespace Benchmark_Instant_Reports_2.Grading
             MULTPartBLast = 0;
         }
 
-        // tempaltes with a section of multiple responses
+
+        /// <summary>
+        /// Constructor for a test template with multiple-letter items
+        /// </summary>
+        /// <param name="name">name of the template</param>
+        /// <param name="multpartafirst">index (0-based) of the first item of the first part of a multiple-letter item</param>
+        /// <param name="multpartalast">index (0-based) of the last item of the first part of a multiple-letter item</param>
+        /// <param name="multpartbfirst">index (0-based) of the first item of the second part of a multiple-letter item</param>
+        /// <param name="multpartblast">index (0-based) of the last item of the second part of a multiple-letter item</param>
+        /// <param name="templatetype">TestTemplatetype of the template</param>
         public TestTemplate(string name, int multpartafirst, int multpartalast, int multpartbfirst, int multpartblast, TestTemplatetype templatetype)
         {
             Name = name;

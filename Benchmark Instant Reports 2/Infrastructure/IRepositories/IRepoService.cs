@@ -1,11 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using Benchmark_Instant_Reports_2.Infrastructure.Entities;
+﻿using System.Collections.Generic;
 
 namespace Benchmark_Instant_Reports_2.Infrastructure.IRepositories
 {
+    /// <summary>
+    /// interface definition for the repository service that will access
+    /// all the other repositories
+    /// </summary>
     public interface IRepoService
     {
         IAnswerKeyCampusRepository AnswerKeyCampusRepo { get; set; }

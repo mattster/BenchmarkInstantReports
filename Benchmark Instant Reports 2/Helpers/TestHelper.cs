@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Web;
-using Benchmark_Instant_Reports_2.Interfaces.DBDataStruct;
-using Benchmark_Instant_Reports_2.Grading;
-using Benchmark_Instant_Reports_2.Infrastructure.IRepositories;
 using Benchmark_Instant_Reports_2.Infrastructure.Entities;
-using System.Text.RegularExpressions;
-using Benchmark_Instant_Reports_2.References;
+using Benchmark_Instant_Reports_2.Infrastructure.IRepositories;
+using Benchmark_Instant_Reports_2.Interfaces.DBDataStruct;
 
 namespace Benchmark_Instant_Reports_2.Helpers
 {

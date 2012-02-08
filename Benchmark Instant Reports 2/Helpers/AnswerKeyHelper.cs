@@ -35,11 +35,11 @@ namespace Benchmark_Instant_Reports_2.Helpers
             finalData.Sort(d => d.ItemNum);
 
             // convert answer key items if necessary
-            if (TFTemplateHandler.IsTFTemplate(test.TestID))
-                finalData = TFTemplateHandler.ProcessAnswerKeyWithTFQ(finalData, test.TestID);
+            if (TFTemplateHandler.IsTFTemplate(test))
+                finalData = TFTemplateHandler.ProcessAnswerKeyWithTFQ(finalData, test);
 
-            if (MultiAnswerTemplateHandler.IsMultiAnswerTemplate(test.TestID))
-                finalData = MultiAnswerTemplateHandler.ProcessAnswerKeyWithMultiAnswersQ(finalData, test.TestID);
+            if (MultiAnswerTemplateHandler.IsMultiAnswerTemplate(test))
+                finalData = MultiAnswerTemplateHandler.ProcessAnswerKeyWithMultiAnswers(finalData, test);
 
             return finalData;
         }
@@ -76,7 +76,8 @@ namespace Benchmark_Instant_Reports_2.Helpers
                     {
                         if (curItemNum == distDropList[j])
                         {
-                            answerKeyList.Remove(answerKeyList.Find(delegate(AnswerKey ak) { return ak.ItemNum == curItemNum; }));
+                            //answerKeyList.Remove(answerKeyList.Find(delegate(AnswerKey ak) { return ak.ItemNum == curItemNum; }));
+                            answerKeyList.Remove(answerKeyList.Find(ak => ak.ItemNum == curItemNum));
                             break;
                         }
                     }
@@ -138,8 +139,9 @@ namespace Benchmark_Instant_Reports_2.Helpers
                     {
                         if (curitemnum == campusdroplist[j])
                         {
-                            finalAnswerKeyList.Remove(finalAnswerKeyList.Find(delegate(AnswerKeyCampus akc)
-                                { return akc.ItemNum == curitemnum; }));
+                            //finalAnswerKeyList.Remove(finalAnswerKeyList.Find(delegate(AnswerKeyCampus akc)
+                            //    { return akc.ItemNum == curitemnum; }));
+                            finalAnswerKeyList.Remove(finalAnswerKeyList.Find(akc => akc.ItemNum == curitemnum));
                             break;
                         }
                     }

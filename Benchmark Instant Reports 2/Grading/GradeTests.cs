@@ -1,82 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
-using Benchmark_Instant_Reports_2.Interfaces.DBDataStruct;
 using Benchmark_Instant_Reports_2.Exceptions;
-using Benchmark_Instant_Reports_2.Interfaces;
-using Benchmark_Instant_Reports_2.Grading;
-using Benchmark_Instant_Reports_2.References;
 using Benchmark_Instant_Reports_2.Infrastructure.Entities;
+using Benchmark_Instant_Reports_2.Interfaces.DBDataStruct;
+using Benchmark_Instant_Reports_2.References;
 
 namespace Benchmark_Instant_Reports_2.Grading
 {
     public class GradeTests
     {
-        //public static List<GradedItemDetail> GradeTestItemsInDetail(string testID, string studentAnswerString, string curCampus, 
-        //                                                             int ansKeyIncAmt, string teacher, string period)
-        //{
-        //    int itemObjective = new int();
-        //    int curItemNum = new int();
-
-        //    //convert answer string to an array
-        //    string[] studentAnswerStringArray = studentAnswerString.Split(',');
-
-        //    // do special processing for special template types
-        //    if (GridHandler.isGriddable(testID))
-        //        GridHandler.ProcessAnswerStringWithGrids(studentAnswerStringArray, testID, curCampus);
-
-        //    if (MultiAnswerTemplateHandler.IsMultiAnswerTemplate(testID))
-        //        MultiAnswerTemplateHandler.ProcessAnswerStringWithMultiAnswers(studentAnswerStringArray, testID, curCampus);
-
-        //    List<AnswerKeyItem> theAnswerKey = AnswerKeyHelper.getTestAnswerKey(testID, curCampus, ansKeyIncAmt, teacher, period);
-
-        //    List<GradedItemDetail> finalData = new List<GradedItemDetail>();
-
-        //    //grade each item on the test
-        //    int numTotal = theAnswerKey.Count;
-        //    for (int i = 0; i < numTotal; i++)
-        //    {
-        //        string correctAnswer = theAnswerKey[i].Answer;
-        //        itemObjective = theAnswerKey[i].Category;
-        //        string itemTEKS = theAnswerKey[i].TEKS;
-        //        curItemNum = theAnswerKey[i].ItemNum;
-
-        //        GradedItemDetail newItem = new GradedItemDetail();
-        //        newItem.ItemNum = curItemNum;
-        //        newItem.CorrectAnswer = correctAnswer;
-        //        newItem.Category = itemObjective;
-        //        newItem.TEKS = itemTEKS;
-
-        //        if (studentAnswerStringArray.Length >= curItemNum)
-        //        {                                                       // a student answer exists
-        //            string studentAnswer = studentAnswerStringArray[curItemNum - 1];
-        //            studentAnswer = (studentAnswer.Trim() == "") ? "-" : studentAnswer;
-        //            newItem.StudentAnswer = studentAnswer;
-                    
-        //            if (studentAnswer == correctAnswer)
-        //            {                                                   // correct answer
-        //                newItem.Correct = true;
-        //            }
-        //            else if (studentAnswer == ExceptionHandler.getAlternateAnswer(testID, curItemNum, curCampus))
-        //            {
-        //                newItem.Correct = true;
-        //            }
-        //            else
-        //            {                                                   // incorrect answer
-        //                newItem.Correct = false;
-        //            }
-        //        }
-        //        else
-        //        {                                                       // no student answer
-        //            newItem.Correct = false;
-        //        }
-        //        finalData.Add(newItem);
-        //    }
-
-        //    return finalData;
-        //}
-
 
         /// <summary>
         /// scores a student's answers for a specified test against the specified answer key
@@ -97,11 +29,11 @@ namespace Benchmark_Instant_Reports_2.Grading
             string[] studentAnswerStringArray = studentAnswerString.Split(',');
 
             // do special processing for special template types
-            if (GridHandler.isGriddable(test.TestID))
-                GridHandler.ProcessAnswerStringWithGrids(studentAnswerStringArray, test.TestID);
+            if (GridHandler.isGriddable(test))
+                GridHandler.ProcessAnswerStringWithGrids(studentAnswerStringArray, test);
 
-            if (MultiAnswerTemplateHandler.IsMultiAnswerTemplate(test.TestID))
-                MultiAnswerTemplateHandler.ProcessAnswerStringWithMultiAnswers(studentAnswerStringArray, test.TestID);
+            if (MultiAnswerTemplateHandler.IsMultiAnswerTemplate(test))
+                MultiAnswerTemplateHandler.ProcessAnswerStringWithMultiAnswers(studentAnswerStringArray, test);
 
             // grade each item on the test
             numCorrect = 0;
@@ -175,7 +107,14 @@ namespace Benchmark_Instant_Reports_2.Grading
 
 
 
-
+        /// <summary>
+        /// creates a formatted answer string containing item numbers and student responses
+        /// for use in the Student Summary report
+        /// </summary>
+        /// <param name="gradedAnsString">a comma-separated string of just student responses:
+        /// CorrectAnswerIndicator if student's response was correct, the actual response otherwise</param>
+        /// <param name="ansKey">the answer key for this test</param>
+        /// <returns>a formatted string with newlines for displaying in the Student Summary report</returns>
         private static string createStudentGradedAnsString(string gradedAnsString, AnswerKeyItemData ansKey)
         {
             string[] resultsString = new string[Constants.MaxFormattedAnsGroups];
@@ -230,7 +169,12 @@ namespace Benchmark_Instant_Reports_2.Grading
 
 
 
-
+        /// <summary>
+        /// calculates a letter grade for a student based on the current number of points
+        /// </summary>
+        /// <param name="pointsfor">number of points the student earned</param>
+        /// <param name="passnum">number of points for the passing cutoff</param>
+        /// <returns>'P' if the student passed, 'F' otherwise</returns>
         private static char CalcLetterGrade(double pointsfor, int passnum)
         {
             if (pointsfor >= (double)passnum)

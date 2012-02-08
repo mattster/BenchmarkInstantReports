@@ -1,24 +1,35 @@
 ﻿using Benchmark_Instant_Reports_2.Interfaces.DBDataStruct;
+using Benchmark_Instant_Reports_2.Infrastructure.Entities;
 
 namespace Benchmark_Instant_Reports_2.Grading
 {
     public class MultiAnswerTemplateHandler
     {
-        public static bool IsMultiAnswerTemplate(string testid)
+        /// <summary>
+        /// determines whether a test has multiple-letter response items
+        /// </summary>
+        /// <param name="test">Test object of the test to check</param>
+        /// <returns>true if multiple-letter responses are included in this test, false otherwise</returns>
+        public static bool IsMultiAnswerTemplate(Test test)
         {
-            TestTemplate.TestTemplatetype templatetype = TestTemplateHandler.getTestTemplateType(testid);
+            TestTemplate template = TestTemplateHandler.getTestTemplate(test);
 
-            // is test template in the defined MultiAnswer templates?
             foreach (TestTemplate curTestTemplate in TestDefinitionData.MultiAnswerTemplates)
-                if (curTestTemplate.TemplateType == templatetype)
+                if (curTestTemplate.TemplateType == template.TemplateType)
                     return true;
 
             return false;
         }
 
-        public static void ProcessAnswerStringWithMultiAnswers(string[] ansStringArray, string testid)
+
+        /// <summary>
+        /// converts a raw answer string bsed on the special setup used for multiple-letter items
+        /// </summary>
+        /// <param name="ansStringArray">the raw answer string array</param>
+        /// <param name="testid">TestID of the test for this answer string</param>
+        public static void ProcessAnswerStringWithMultiAnswers(string[] ansStringArray, Test test)
         {
-            TestTemplate template = TestTemplateHandler.getTestTemplate(testid);
+            TestTemplate template = TestTemplateHandler.getTestTemplate(test);
 
             // combine the answer in Part B with the answer in Part A
             for (int i = 0; i < (template.MULTPartALast - template.MULTPartAFirst); i++)
@@ -29,9 +40,15 @@ namespace Benchmark_Instant_Reports_2.Grading
         }
 
 
-        public static AnswerKeyItemData ProcessAnswerKeyWithMultiAnswersQ(AnswerKeyItemData theAnswerKey, string testid)
+        /// <summary>
+        /// combine data for multiple-letter responses for the Answer Key
+        /// </summary>
+        /// <param name="theAnswerKey">the Answer Key as defined in the database</param>
+        /// <param name="test">Test object of this answer key</param>
+        /// <returns>a new AnswerKeyItemData collection with the converted answer key</returns>
+        public static AnswerKeyItemData ProcessAnswerKeyWithMultiAnswers(AnswerKeyItemData theAnswerKey, Test test)
         {
-            TestTemplate template = TestTemplateHandler.getTestTemplate(testid);
+            TestTemplate template = TestTemplateHandler.getTestTemplate(test);
             AnswerKeyItemData finalData = new AnswerKeyItemData();
 
             // combine the multi-part answers

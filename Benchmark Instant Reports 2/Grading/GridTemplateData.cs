@@ -1,12 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 
 namespace Benchmark_Instant_Reports_2.Grading
 {
     public static partial class TestDefinitionData
     {
+        /// <summary>
+        /// a list of TestTemplate objects representing all the defined templates
+        /// that have grids
+        /// </summary>
         public static List<TestTemplate> GridTemplates = new List<TestTemplate>
         {
             new TestTemplate("18-AE-FK-2GRID-EOC", 2, 18, 19, TestTemplate.TestTemplatetype.EOCGrids),
@@ -19,12 +20,12 @@ namespace Benchmark_Instant_Reports_2.Grading
             new TestTemplate("34-AE-FK-2GRID-G45", 2, 34, 35, TestTemplate.TestTemplatetype.Grade45Grids),
             new TestTemplate("36-AE-FK-2GRID-G45", 2, 36, 37, TestTemplate.TestTemplatetype.Grade45Grids),
             new TestTemplate("38-AE-FK-2GRID-G68", 2, 38, 39, TestTemplate.TestTemplatetype.Grade68Grids),
+            new TestTemplate("39-AE-FK-1GRID-G45", 1, 39, 39, TestTemplate.TestTemplatetype.Grade45Grids),
+            new TestTemplate("46-AE-FK-4GRID-G45", 4, 46, 49, TestTemplate.TestTemplatetype.Grade45Grids),
             new TestTemplate("60-AE-FK-3GRID-EOC", 3, 60, 62, TestTemplate.TestTemplatetype.EOCGrids),
             new TestTemplate("60-AE-FK-3GRID-G68", 3, 60, 62, TestTemplate.TestTemplatetype.Grade68Grids),
             new TestTemplate("60-AE-3GRID-EOC", 3, 60, 62, TestTemplate.TestTemplatetype.EOCGrids),
             new TestTemplate("60-AE-3GRID-G68", 3, 60, 62, TestTemplate.TestTemplatetype.Grade68Grids),
-            new TestTemplate("46-AE-FK-4GRID-G45", 4, 46, 49, TestTemplate.TestTemplatetype.Grade45Grids),
-            new TestTemplate("39-AE-FK-1GRID-G45", 1, 39, 39, TestTemplate.TestTemplatetype.Grade45Grids),
         };
     }
 }

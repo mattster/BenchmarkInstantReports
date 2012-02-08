@@ -1,16 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
 using System.Web.Security;
+using Benchmark_Instant_Reports_2.Account;
+using Benchmark_Instant_Reports_2.Infrastructure;
 using Benchmark_Instant_Reports_2.References;
-using Benchmark_Instant_Reports_2.Interfaces;
 
 namespace Benchmark_Instant_Reports_2
 {
-    public partial class Login : System.Web.UI.Page
+    public partial class Login : DataEnabledPage
     {
         public SiteMaster theMasterPage;
 
@@ -20,9 +16,9 @@ namespace Benchmark_Instant_Reports_2
 
             if (!IsPostBack)
             {
-                ddLoginCampus.DataSource = dbIFOracle.getDataSource(Queries.GetCampusList);
-                ddLoginCampus.DataTextField = "SCHOOLNAME";
-                ddLoginCampus.DataValueField = "SCHOOL_ABBR";
+                ddLoginCampus.DataSource = DataService.ScanRepo.FindAll();
+                ddLoginCampus.DataTextField = "Name";
+                ddLoginCampus.DataValueField = "Abbr";
                 ddLoginCampus.DataBind();
             }
             return;
@@ -71,11 +67,9 @@ namespace Benchmark_Instant_Reports_2
                 return;
 
 
-            if (CampusSecurity.checkEnteredPassword(enteredpassword, ddLoginCampus.SelectedValue.ToString(), Response))
-            {                                                   
-                // authentication succeeded
+            if (Authorize.AuthorizeUser(DataService, ddLoginCampus.SelectedValue.ToString(), enteredpassword))
                 FormsAuthentication.RedirectFromLoginPage(username, true);
-            }
+
             else                                                
             {
                 // authentication failed        

@@ -1,13 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Configuration;
 using System.Data;
-using System.Configuration;
 using System.Data.OracleClient;
 
 namespace Benchmark_Instant_Reports_2.Infrastructure.Repositories
 {
+    /// <summary>
+    /// helper methods enabling access to the Oracle Database
+    /// </summary>
     public class ODAHelper
     {
         private static string databaseName = "SISPRODOracleDb";             // used in the Connection String

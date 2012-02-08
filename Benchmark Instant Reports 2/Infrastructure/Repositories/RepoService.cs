@@ -1,14 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using Benchmark_Instant_Reports_2.Infrastructure.IRepositories;
 using Benchmark_Instant_Reports_2.References;
-using Benchmark_Instant_Reports_2.Infrastructure.Entities;
-using Benchmark_Instant_Reports_2.Helpers;
 
 namespace Benchmark_Instant_Reports_2.Infrastructure.Repositories
 {
+    /// <summary>
+    /// implementation of the repository service that provides access 
+    /// to all repositories
+    /// </summary>
     public class RepoService : IRepoService
     {
         public IAnswerKeyCampusRepository AnswerKeyCampusRepo { get; set; }
@@ -18,6 +18,17 @@ namespace Benchmark_Instant_Reports_2.Infrastructure.Repositories
         public ISchoolRepository SchoolRepo { get; set; }
         public ITestRepository TestRepo { get; set; }
 
+
+        /// <summary>
+        /// Constructor that defines each repository; these will be set via
+        /// contructor injection from StructureMap
+        /// </summary>
+        /// <param name="answerkeycampusrepo">AnswerKeyCampus repository</param>
+        /// <param name="answerkeyrepo">AnswerKey repository</param>
+        /// <param name="rosterrepo">Roster repository</param>
+        /// <param name="scanrepo">Scan repository</param>
+        /// <param name="schoolrepo">School repository</param>
+        /// <param name="testrepo">Test repository</param>
         public RepoService(IAnswerKeyCampusRepository answerkeycampusrepo, IAnswerKeyRepository answerkeyrepo,
                            IRosterRepository rosterrepo, IScanRepository scanrepo, ISchoolRepository schoolrepo,
                            ITestRepository testrepo)
@@ -29,6 +40,8 @@ namespace Benchmark_Instant_Reports_2.Infrastructure.Repositories
             SchoolRepo = schoolrepo;
             TestRepo = testrepo;
         }
+
+
 
         /// <summary>
         /// return a list of TestIDs that are applicable to a specific school
@@ -73,7 +86,6 @@ namespace Benchmark_Instant_Reports_2.Infrastructure.Repositories
             else
                 return TestRepo.FindActiveTests().Select(t => t.TestID).ToList();
         }
-
 
     }
 }

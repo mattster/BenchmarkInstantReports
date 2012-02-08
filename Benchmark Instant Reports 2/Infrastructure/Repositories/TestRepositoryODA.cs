@@ -4,17 +4,24 @@ using System.Data;
 using System.Linq;
 using Benchmark_Instant_Reports_2.Infrastructure.Entities;
 using Benchmark_Instant_Reports_2.Infrastructure.IRepositories;
-using Benchmark_Instant_Reports_2.Interfaces;
 using Benchmark_Instant_Reports_2.References;
 
 namespace Benchmark_Instant_Reports_2.Infrastructure.Repositories
 {
+    /// <summary>
+    /// implementation of the Test repository using Oracle Data Access
+    /// </summary>
     public class TestRepositoryODA : ITestRepository
     {
+        /// <summary>
+        /// finds a Test by its TestID
+        /// </summary>
+        /// <param name="testid">TestID of the test to find</param>
+        /// <returns>Test object of the found Test</returns>
         public Test FindByTestID(string testid)
         {
             string qs = Queries.GetTestInfoForTest.Replace("@testId", testid);
-            DataSet ds = dbIFOracle.getDataRows(qs);
+            DataSet ds = ODAHelper.getDataRows(qs);
             if (ds.Tables.Count == 0)
                 return null;
 
@@ -22,14 +29,14 @@ namespace Benchmark_Instant_Reports_2.Infrastructure.Repositories
         }
 
 
+        /// <summary>
+        /// finds all Tests that are currently active
+        /// </summary>
+        /// <returns>IQueryable-Test- collection of data objects</returns>
         public IQueryable<Test> FindActiveTests()
         {
-            //return FindWhere(t => t.StartDate >= Constants.FirstDaySchoolYear &&
-            //                      t.StartDate <= DateTime.Today &&
-            //                      t.Subject != Constants.TestSubjectBallot &&
-            //                      t.Subject != Constants.TestSubjectSample);
             string qs = Queries.GetTestListAllTests;
-            DataSet ds = dbIFOracle.getDataRows(qs);
+            DataSet ds = ODAHelper.getDataRows(qs);
             if (ds.Tables.Count == 0)
                 return null;
 
@@ -37,10 +44,14 @@ namespace Benchmark_Instant_Reports_2.Infrastructure.Repositories
         }
 
 
+        /// <summary>
+        /// find all Tests
+        /// </summary>
+        /// <returns>IQueryable-Test- collection of data objects</returns>
         public IQueryable<Test> FindAll()
         {
             string qs = Queries.GetTestInfoForAll;
-            DataSet ds = dbIFOracle.getDataRows(qs);
+            DataSet ds = ODAHelper.getDataRows(qs);
             if (ds.Tables.Count == 0)
                 return null;
 
@@ -48,10 +59,16 @@ namespace Benchmark_Instant_Reports_2.Infrastructure.Repositories
         }
 
 
+        /// <summary>
+        /// finds Tests based on a predicate Linq query
+        /// </summary>
+        /// <param name="predicate">Linq query</param>
+        /// <returns>IQueryable-Test- collection of data objects</returns>
         public IQueryable<Test> FindWhere(Func<Test, bool> predicate)
         {
             return FindAll().Where(predicate).AsQueryable();
         }
+
 
 
 
@@ -68,6 +85,11 @@ namespace Benchmark_Instant_Reports_2.Infrastructure.Repositories
 
 
 
+        /// <summary>
+        /// converts a row read in from the database to a Test object
+        /// </summary>
+        /// <param name="row">DataRow read in from the database</param>
+        /// <returns>a Test object with the data</returns>
         private static Test ConvertRowToTest(DataRow row)
         {
             Test retTest = new Test();
@@ -140,6 +162,12 @@ namespace Benchmark_Instant_Reports_2.Infrastructure.Repositories
         }
 
 
+        /// <summary>
+        /// converts a table of data read in from the database to an 
+        /// IQueryable-Test- list of objects
+        /// </summary>
+        /// <param name="table">DataTable read in from the database</param>
+        /// <returns>IQueryable-Test- collection of data objects</returns>
         private static IQueryable<Test> ConvertTableToTests(DataTable table)
         {
             HashSet<Test> finaldata = new HashSet<Test>();

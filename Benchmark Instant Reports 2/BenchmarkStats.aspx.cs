@@ -77,14 +77,14 @@ namespace Benchmark_Instant_Reports_2
             theMasterPage = Page.Master as SiteMaster;
 
             // return if it is the separator
-            if (UIHelper.isDDSeparatorValue(ddCampus.SelectedValue.ToString()))
+            if (UIHelper.IsDDSeparatorValue(ddCampus.SelectedValue.ToString()))
             {
-                RememberHelper.savedSelectedCampus(Response, "");
+                RememberHelper.SaveSelectedCampus(Response, "");
                 return;
             }
 
             // setup stuff
-            RememberHelper.savedSelectedCampus(Response, ddCampus.SelectedItem.ToString());
+            RememberHelper.SaveSelectedCampus(Response, ddCampus.SelectedItem.ToString());
 
             listTests.DataSource = DataService.GetTestIDsForSchool(ddCampus.SelectedValue.ToString());
             listTests.DataBind();
@@ -100,7 +100,7 @@ namespace Benchmark_Instant_Reports_2
             ddRepType.DataBind();
             ddRepType.SelectedIndex = 0;
 
-            int bidx = UIHelper.getIndexOfDDItem(RememberHelper.savedSelectedTestID(Request), listTests);
+            int bidx = UIHelper.GetIndexOfItemInDD(RememberHelper.SavedSelectedTestID(Request), listTests);
             if (bidx != -1)
             {
                 listTests.SelectedIndex = bidx;
@@ -114,7 +114,7 @@ namespace Benchmark_Instant_Reports_2
         protected void listTests_SelectedIndexChanged(object sender, EventArgs e)
         {
             lblNoScanData.Visible = false;
-            RememberHelper.savedSelectedTestID(Response, listTests.SelectedItem.ToString());
+            RememberHelper.SaveSelectedTestID(Response, listTests.SelectedItem.ToString());
 
             studentDataToGrade = StudentData.GetStudentDataToGrade(DataService, GetSelectedTests(), GetSelectedSchools());
             
@@ -123,7 +123,7 @@ namespace Benchmark_Instant_Reports_2
             Array.Sort(listOfTeachers);
             ddTeacher.DataSource = listOfTeachers;
             ddTeacher.DataBind();
-            UIHelper.toggleDDLInitView(ddTeacher, true);
+            UIHelper.ToggleDDInitView(ddTeacher, true);
 
             // if there are no students taking this test at this campus, deal with it
             if (listOfTeachers.Length == 0)
@@ -190,7 +190,7 @@ namespace Benchmark_Instant_Reports_2
 
         protected void ddTeacher_SelectedIndexChanged(object sender, EventArgs e)
         {
-            UIHelper.toggleDDLInitView(ddTeacher, false);
+            UIHelper.ToggleDDInitView(ddTeacher, false);
             btnGenReport.Enabled = true;
             makeRepsVisible(repsNone, repsNone);
 
@@ -280,12 +280,12 @@ namespace Benchmark_Instant_Reports_2
             lblNoScanData.Visible = false;
 
             // load list of campuses in Campus dropdown
-            ddCampus.DataSource = Authorize.getAuthorizedCampusList(Context.User.Identity.Name, DataService);
+            ddCampus.DataSource = Authorize.GetAuthorizedSchools(Context.User.Identity.Name, DataService);
             ddCampus.DataTextField = "Name";
             ddCampus.DataValueField = "Abbr";
             ddCampus.DataBind();
 
-            int cidx = UIHelper.getIndexOfDDItem(RememberHelper.savedSelectedCampus(Request), ddCampus);
+            int cidx = UIHelper.GetIndexOfItemInDD(RememberHelper.SavedSelectedCampus(Request), ddCampus);
             if (cidx != -1)
                 ddCampus.SelectedIndex = cidx;
             else
@@ -307,7 +307,7 @@ namespace Benchmark_Instant_Reports_2
             ddGroupBy.DataBind();
             ddGroupBy.SelectedIndex = 0;
 
-            int bidx = UIHelper.getIndexOfDDItem(RememberHelper.savedSelectedTestID(Request), listTests);
+            int bidx = UIHelper.GetIndexOfItemInDD(RememberHelper.SavedSelectedTestID(Request), listTests);
             if (bidx != -1)
             {
                 listTests.SelectedIndex = bidx;

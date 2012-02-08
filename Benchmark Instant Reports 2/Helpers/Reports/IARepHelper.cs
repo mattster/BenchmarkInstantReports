@@ -73,7 +73,7 @@ namespace Benchmark_Instant_Reports_2.Helpers.Reports
                                             IAReportItem foundItem = finalDataH[findthiskey] as IAReportItem;
                                             curNumCorrect = foundItem.NumCorrect;
                                             curNumTotal = foundItem.NumTotal;
-                                            curAnsCount.UpdateFromResultsTableItem(foundItem);
+                                            curAnsCount.UpdateFromReportItem(foundItem);
 
                                             finalDataH.Remove(findthiskey);                            
                                         }
@@ -98,7 +98,7 @@ namespace Benchmark_Instant_Reports_2.Helpers.Reports
                                         newItem.NumCorrect = curNumCorrect;
                                         newItem.NumTotal = curNumTotal;
                                         newItem.PctCorrect = (decimal)curNumCorrect / (decimal)curNumTotal;
-                                        curAnsCount.UpdateToResultsTableItem(newItem);
+                                        curAnsCount.UpdateToReportItem(newItem);
                                         newItem.Answer = curAnswerKeyItem.Answer;
                                         newItem.Objective = curAnswerKeyItem.Category;
                                         newItem.TEKS = curAnswerKeyItem.TEKS;

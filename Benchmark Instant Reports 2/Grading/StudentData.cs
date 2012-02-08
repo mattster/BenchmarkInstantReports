@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Benchmark_Instant_Reports_2.Helpers;
 using Benchmark_Instant_Reports_2.Infrastructure.Entities;
 using Benchmark_Instant_Reports_2.Infrastructure.IRepositories;
 using Benchmark_Instant_Reports_2.Interfaces.DBDataStruct;
@@ -128,9 +127,7 @@ namespace Benchmark_Instant_Reports_2.Grading
             string rawCustomQuery = test.CustomQuery;
 
             // put the correct school in the query
-            //string curSchoolAbbrevList = SchoolHelper.ConvertCampusList(dataservice, campus);
-            //string tempschoolCustomQuery = rawCustomQuery.Replace(" = @school", " in (" + curSchoolAbbrevList + ")");
-            string tempschoolCustomQuery = rawCustomQuery.Replace("@school", school.Abbr);
+            string tempschoolCustomQuery = rawCustomQuery.Replace("@school", "'" + school.Abbr + "'");
             string schoolCustomQuery = tempschoolCustomQuery.Replace("\n", " ");
 
             // change the teacher name-number part: we only need the name
@@ -147,12 +144,12 @@ namespace Benchmark_Instant_Reports_2.Grading
 
 
         /// <summary>
-        /// return a set of the latest scanned items for a given test and school
+        /// return a set of the latest (most recent) scanned items for a given test and school
         /// </summary>
         /// <param name="dataservice">IRepoService access to data</param>
         /// <param name="test">Test to use</param>
         /// <param name="school">School to use</param>
-        /// <returns></returns>
+        /// <returns>IQueryable-Scan- set of Scan objects</returns>
         public static IQueryable<Scan> GetScannedData(IRepoService dataservice, Test test, School school)
         {
             IQueryable<Scan> scannedItemsAll = dataservice.ScanRepo.FindScansForTestCampus(test.TestID, school.Abbr);
@@ -160,6 +157,12 @@ namespace Benchmark_Instant_Reports_2.Grading
 
             return scannedItems;
         }
+
+
+
+
+
+
 
 
         /// <summary>
@@ -192,8 +195,6 @@ namespace Benchmark_Instant_Reports_2.Grading
 
             return finalData.AsQueryable();
         }
-
-
 
     }
 }

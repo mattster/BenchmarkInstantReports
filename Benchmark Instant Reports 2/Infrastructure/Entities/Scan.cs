@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace Benchmark_Instant_Reports_2.Infrastructure.Entities
 {
@@ -18,6 +15,10 @@ namespace Benchmark_Instant_Reports_2.Infrastructure.Entities
         public string Preslugged { get; set; }
         public string AnswerString { get; set; }
 
+
+        /// <summary>
+        /// Default constructor, sets DateScanned to 1/1/1990
+        /// </summary>
         public Scan()
         {
             DateScanned = DateTime.Parse("1/1/1990");

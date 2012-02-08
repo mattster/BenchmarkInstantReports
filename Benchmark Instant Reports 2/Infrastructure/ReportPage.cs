@@ -1,26 +1,27 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Web.UI.WebControls;
 using Benchmark_Instant_Reports_2.Helpers;
 using Benchmark_Instant_Reports_2.Infrastructure.Entities;
-using Benchmark_Instant_Reports_2.Infrastructure.IRepositories;
 using Benchmark_Instant_Reports_2.References;
 
 namespace Benchmark_Instant_Reports_2.Infrastructure
 {
-    public abstract class ReportPage<T> : System.Web.UI.Page where T : ListControl
+    /// <summary>
+    /// base class used by all report web pages; defines common
+    /// methods and members each report needs; inherits from
+    /// a base data repository enabled class that contains
+    /// the repository service injected by StructureMap
+    /// </summary>
+    /// <typeparam name="T">Type of control that holds the list of Tests - ListBox or DropDown</typeparam>
+    public abstract class ReportPage<T> : DataEnabledPage where T : ListControl
     {
-        // will be injected by StructureMap setter injection
-        public IRepoService DataService { get; set; }
-
-
         public virtual TestFilterState thisTestFilterState { get; set; }
 
         public DropDownList ddTFCur = new DropDownList();
-        public DropDownList ddTFSubj;// = new DropDownList();
-        public DropDownList ddTFTestType;// = new DropDownList();
-        public DropDownList ddTFTestVersion;// = new DropDownList();
+        public DropDownList ddTFSubj;
+        public DropDownList ddTFTestType;
+        public DropDownList ddTFTestVersion;
         public DropDownList ddCampus;
         public DropDownList listTests;
         public ListBox lbListTests;
@@ -28,6 +29,11 @@ namespace Benchmark_Instant_Reports_2.Infrastructure
         public Label lblTestsFiltered = new Label();
 
 
+        /// <summary>
+        /// TestFilter Curriculum DropDown selection has changed
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         protected void ddTFCur_SelectedIndexChanged(object sender, EventArgs e)
         {
             DropDownList dd = sender as DropDownList;
@@ -35,11 +41,17 @@ namespace Benchmark_Instant_Reports_2.Infrastructure
             runTestFilter();
             updateTestFilterDisplay(thisTestFilterState.AreAnyFiltersApplied);
 
-            TestFilter.SetSubjectFilters(ddTFSubj, thisTestFilterState, ddCampus.SelectedValue.ToString());
+            TestFilter.SetSubjectFilters(ddTFSubj, thisTestFilterState);
 
             return;
         }
 
+
+        /// <summary>
+        /// TestFilter Subject DropDown selection has changed
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         protected void ddTFSubj_SelectedIndexChanged(object sender, EventArgs e)
         {
             DropDownList dd = sender as DropDownList;
@@ -50,6 +62,12 @@ namespace Benchmark_Instant_Reports_2.Infrastructure
             return;
         }
 
+
+        /// <summary>
+        /// TestFilter TestType DropDown selection has changed
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         protected void ddTFTestType_SelectedIndexChanged(object sender, EventArgs e)
         {
             DropDownList dd = sender as DropDownList;
@@ -60,6 +78,12 @@ namespace Benchmark_Instant_Reports_2.Infrastructure
             return;
         }
 
+
+        /// <summary>
+        /// TestFilter TestVersion DropDown selection has changed
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         protected void ddTFTestVersion_SelectedIndexChanged(object sender, EventArgs e)
         {
             DropDownList dd = sender as DropDownList;
@@ -70,6 +94,12 @@ namespace Benchmark_Instant_Reports_2.Infrastructure
             return;
         }
 
+
+        /// <summary>
+        /// TestFilter Reset button clicked
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         protected void btnTFReset_Click(object sender, EventArgs e)
         {
             thisTestFilterState.Reset();
@@ -84,6 +114,10 @@ namespace Benchmark_Instant_Reports_2.Infrastructure
             return;
         }
 
+
+        /// <summary>
+        /// initialize the TestFilter items
+        /// </summary>
         protected void setupTestFilters()
         {
             Constants.SchoolType schType = new Constants.SchoolType();
@@ -120,7 +154,7 @@ namespace Benchmark_Instant_Reports_2.Infrastructure
             }
             else
             {
-                foreach (string testid in UIHelper.getLBSelectionsAsArray(lbListTests))
+                foreach (string testid in UIHelper.GetLBSelectionsAsArray(lbListTests))
                 {
                     Test test = DataService.TestRepo.FindByTestID(testid);
                     finalData.Add(test);
@@ -162,6 +196,11 @@ namespace Benchmark_Instant_Reports_2.Infrastructure
 
 
 
+
+        /// <summary>
+        /// update the test filter display items based on filter state
+        /// </summary>
+        /// <param name="filtersapplied">true if any filters are applied, false if none</param>
         private void updateTestFilterDisplay(bool filtersapplied)
         {
             // set filter button image
@@ -173,14 +212,18 @@ namespace Benchmark_Instant_Reports_2.Infrastructure
             return;
         }
 
+
+        /// <summary>
+        /// apply the filter criteria to the list of tests
+        /// </summary>
         private void runTestFilter()
         {
             if (typeof(T) == typeof(DropDownList))
-                TestFilter.FilterTests<T>(thisTestFilterState, ddCampus.SelectedValue.ToString(), listTests as T,
-                    DataService);
+                TestFilter.FilterTests<T>(DataService, thisTestFilterState, ddCampus.SelectedValue.ToString(), 
+                    listTests as T);
             else
-                TestFilter.FilterTests<T>(thisTestFilterState, ddCampus.SelectedValue.ToString(), lbListTests as T,
-                    DataService);
+                TestFilter.FilterTests<T>(DataService, thisTestFilterState, ddCampus.SelectedValue.ToString(), 
+                    lbListTests as T);
 
             return;
         }

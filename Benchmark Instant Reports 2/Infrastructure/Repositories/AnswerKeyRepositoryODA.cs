@@ -1,38 +1,49 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
-using System.Web;
 using Benchmark_Instant_Reports_2.Infrastructure.Entities;
 using Benchmark_Instant_Reports_2.Infrastructure.IRepositories;
-using Benchmark_Instant_Reports_2.Interfaces;
 using Benchmark_Instant_Reports_2.References;
-using System.Data;
 
 namespace Benchmark_Instant_Reports_2.Infrastructure.Repositories
 {
+    /// <summary>
+    /// implementation of the AnswerKey repository using Oracle Data Access
+    /// </summary>
     public class AnswerKeyRepositoryODA : IAnswerKeyRepository
     {
+        /// <summary>
+        /// returns an answer key for a specific test
+        /// </summary>
+        /// <param name="testid">TestID to use</param>
+        /// <returns>IQueryable-AnswerKey- collection of AnswerKey data</returns>
         public IQueryable<AnswerKey> FindKeyForTest(string testid)
         {
             string qs = Queries.GetDistrictTestAnswerKey.Replace("@testId", testid);
-            DataSet ds = dbIFOracle.getDataRows(qs);
+            DataSet ds = ODAHelper.getDataRows(qs);
             if (ds.Tables.Count == 0)
                 return null;
 
             return ConvertRowToAKs(ds.Tables[0]);
-
         }
 
+
+        /// <summary>
+        /// retuns all data
+        /// </summary>
+        /// <returns>IQueryable-AnswerKey- collection of AnswerKey data</returns>
         public IQueryable<AnswerKey> FindAll()
         {
             string qs = Queries.GetAllDistrictAnswerKeys;
-            DataSet ds = dbIFOracle.getDataRows(qs);
+            DataSet ds = ODAHelper.getDataRows(qs);
             if (ds.Tables.Count == 0)
                 return null;
 
             return ConvertRowToAKs(ds.Tables[0]);
-
         }
+
+
 
         public IQueryable<AnswerKey> FindWhere(Func<AnswerKey, bool> predicate)
         {
@@ -51,6 +62,11 @@ namespace Benchmark_Instant_Reports_2.Infrastructure.Repositories
 
 
 
+        /// <summary>
+        /// converts a row read in from the database to an AnswerKey object
+        /// </summary>
+        /// <param name="row">DataRow read in from the database</param>
+        /// <returns>an AnswerKey object with the data</returns>
         private static AnswerKey ConvertRowToAK(DataRow row)
         {
             AnswerKey retAK = new AnswerKey();
@@ -71,6 +87,12 @@ namespace Benchmark_Instant_Reports_2.Infrastructure.Repositories
         }
 
 
+        /// <summary>
+        /// converts a table of data read in from the database to an 
+        /// IQueryable-AnswerKey list of objects
+        /// </summary>
+        /// <param name="table">DataTable read in from the database</param>
+        /// <returns>IQueryable-AnswerKey- list of data objects</returns>
         private static IQueryable<AnswerKey> ConvertRowToAKs(DataTable table)
         {
             HashSet<AnswerKey> finaldata = new HashSet<AnswerKey>();

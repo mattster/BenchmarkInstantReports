@@ -51,13 +51,13 @@ namespace Benchmark_Instant_Reports_2
             theMasterPage = Page.Master as SiteMaster;
 
             // return if it is the separator
-            if (UIHelper.isDDSeparatorValue(ddCampus.SelectedValue.ToString()))
+            if (UIHelper.IsDDSeparatorValue(ddCampus.SelectedValue.ToString()))
             {
-                RememberHelper.savedSelectedCampus(Response, "");
+                RememberHelper.SaveSelectedCampus(Response, "");
                 return;
             }
 
-            RememberHelper.savedSelectedCampus(Response, ddCampus.SelectedItem.ToString());
+            RememberHelper.SaveSelectedCampus(Response, ddCampus.SelectedItem.ToString());
 
             lbListTests.DataSource = DataService.GetTestIDsForSchool(ddCampus.SelectedValue.ToString());
             lbListTests.DataBind();
@@ -67,11 +67,11 @@ namespace Benchmark_Instant_Reports_2
             lbListTests.SelectedIndex = 0;
             repvwMaterialsRep1.Visible = false;
 
-            string[] savedTests = RememberHelper.savedSelectedTestIDs(Request);
+            string[] savedTests = RememberHelper.SavedSelectedTestIDs(Request);
             if (savedTests != null)
             {
                 lbListTests.ClearSelection();
-                UIHelper.selectItemsInLB(lbListTests, savedTests);
+                UIHelper.SelectItemsInLB(lbListTests, savedTests);
                 lbListTests_SelectedIndexChanged(new object(), new EventArgs());
             }
 
@@ -82,7 +82,7 @@ namespace Benchmark_Instant_Reports_2
         protected void lbListTests_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (lbListTests.SelectedIndex > -1)
-                RememberHelper.savedSelectedTestIDs(Response, UIHelper.getLBSelectionsAsArray(lbListTests));
+                RememberHelper.SavedSelectedTestIDs(Response, UIHelper.GetLBSelectionsAsArray(lbListTests));
 
             if (lbListTests.GetSelectedIndices().Length > 0)
             {
@@ -131,12 +131,12 @@ namespace Benchmark_Instant_Reports_2
             repvwMaterialsRep1.Visible = false;
 
             // load list of campuses in Campus dropdown
-            ddCampus.DataSource = Authorize.getAuthorizedCampusList(Context.User.Identity.Name, DataService);
+            ddCampus.DataSource = Authorize.GetAuthorizedSchools(Context.User.Identity.Name, DataService);
             ddCampus.DataTextField = "Name";
             ddCampus.DataValueField = "Abbr";
             ddCampus.DataBind();
 
-            int cidx = UIHelper.getIndexOfDDItem(RememberHelper.savedSelectedCampus(Request), ddCampus);
+            int cidx = UIHelper.GetIndexOfItemInDD(RememberHelper.SavedSelectedCampus(Request), ddCampus);
             if (cidx != -1)
                 ddCampus.SelectedIndex = cidx;
             else
@@ -148,11 +148,11 @@ namespace Benchmark_Instant_Reports_2
             lbListTests.DataSource = DataService.GetTestIDsForSchool(ddCampus.SelectedValue.ToString());
             lbListTests.DataBind();
 
-            string[] savedTests = RememberHelper.savedSelectedTestIDs(Request);
+            string[] savedTests = RememberHelper.SavedSelectedTestIDs(Request);
             if (savedTests != null)
             {
                 lbListTests.ClearSelection();
-                UIHelper.selectItemsInLB(lbListTests, savedTests);
+                UIHelper.SelectItemsInLB(lbListTests, savedTests);
                 lbListTests_SelectedIndexChanged(new object(), new EventArgs());
             }
 
