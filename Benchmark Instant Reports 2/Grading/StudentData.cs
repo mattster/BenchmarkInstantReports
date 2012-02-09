@@ -37,7 +37,7 @@ namespace Benchmark_Instant_Reports_2.Grading
                     var scannedItemsNotPreslugged = new HashSet<Scan>();
                     foreach (Scan scan in scannedItems)
                     {
-                        var foundPreslugs = preslugged.GetItemsWhere(i => Int32.Parse(i.StudentID) == scan.StudentID);
+                        var foundPreslugs = preslugged.GetItemsWhere(i => i.StudentID == scan.StudentID.ToString());
                         if (foundPreslugs.Count() > 0)
                         {
                             DataToGradeItem newDataToGradeItem = new DataToGradeItem();

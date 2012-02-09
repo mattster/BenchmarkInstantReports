@@ -5,6 +5,7 @@ using Benchmark_Instant_Reports_2.Grading;
 using Benchmark_Instant_Reports_2.Infrastructure.Entities;
 using Benchmark_Instant_Reports_2.Infrastructure.IRepositories;
 using Benchmark_Instant_Reports_2.Interfaces.DBDataStruct;
+using System;
 
 namespace Benchmark_Instant_Reports_2.Helpers.Reports
 {
@@ -24,6 +25,7 @@ namespace Benchmark_Instant_Reports_2.Helpers.Reports
 
             foreach (School curSchool in schools)
             {
+                Console.Error.WriteLine(".{0}.", curSchool.Abbr);
                 foreach (Test curTest in tests)
                 {
                     // add in all the preslugged / queried data
@@ -83,7 +85,9 @@ namespace Benchmark_Instant_Reports_2.Helpers.Reports
                             finalDataH.Add(findthiskey, newItem);
                         }
                     }
+                    Console.Error.WriteLine("+{0}+", curTest.TestID);
                 }
+                Console.Error.WriteLine("-{0}-", curSchool.Abbr);
             }
 
             return new ScanReportData(finalDataH.Values.Cast<ScanReportItem>().ToList());
