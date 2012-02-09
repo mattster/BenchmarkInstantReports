@@ -64,6 +64,7 @@ namespace Benchmark_Instant_Reports_2.Helpers
             qs = qs.Replace("@query", customQuery);
             qs = qs.Replace("@teacherQuery", "1=1 ");
             qs = qs.Replace("@periodQuery", "1=1 ");
+            qs = qs.Replace("@school", "'" + campus + "'");
 
             return DBIOWorkaround.ReturnStudentScanDataItemsFromQ(qs);
         }
