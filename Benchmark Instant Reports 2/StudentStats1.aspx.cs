@@ -142,7 +142,7 @@ namespace Benchmark_Instant_Reports_2
             {
                 //test with weighted items
                 ReportDataSource rds = new ReportDataSource(repvwStudentStats2b.LocalReport.GetDataSourceNames()[0],
-                    reportData.GetItemsWhere(i => i.Teacher == ddTeacher.SelectedItem.ToString()));
+                    reportData.GetItemsWhere(i => i.Teacher == ddTeacher.SelectedItem.ToString(), i => i.StudentID));
                 repvwStudentStats2b.Visible = true;
                 repvwStudentStats2a.Visible = false;
 
@@ -154,7 +154,7 @@ namespace Benchmark_Instant_Reports_2
             else
             {
                 ReportDataSource rds = new ReportDataSource(repvwStudentStats2a.LocalReport.GetDataSourceNames()[0],
-                    reportData.GetItemsWhere(i => i.Teacher == ddTeacher.SelectedItem.ToString()));
+                    reportData.GetItemsWhere(i => i.Teacher == ddTeacher.SelectedItem.ToString(), i => i.StudentName));
                 repvwStudentStats2a.Visible = true;
                 repvwStudentStats2b.Visible = false;
 

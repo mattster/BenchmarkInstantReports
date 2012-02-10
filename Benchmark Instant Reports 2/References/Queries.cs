@@ -151,8 +151,8 @@ namespace Benchmark_Instant_Reports_2.References
                 "select * FROM " + DatabaseDefn.DBAnswerKeyCampus + " " +
                 "where test_id = \'@testId\' " +
                 "and school_abbr = \'@schoolAbbr\' " +
-                "and item_num >= @itemNumStart " +
-                "and item_num <= @itemNumEnd " +
+                //"and item_num >= @itemNumStart " +
+                //"and item_num <= @itemNumEnd " +
                 "order by item_num asc";
 
         public static string GetAllDistrictAnswerKeys =
@@ -169,16 +169,26 @@ namespace Benchmark_Instant_Reports_2.References
         // ***** get scans
         #region get_scans
 
-        public static string GetLatestScanForStudent = 
-                "select * from (select * from " + DatabaseDefn.DBScans + " " +
-                "where student_id = \'@studentId\' and test_id = \'@testId\' " +
-                "order by to_date(date_scanned, 'MM/DD/YYYY HH:MI:SS AM') DESC ) " +
-                "where rownum = 1";
+        //public static string GetLatestScanForStudent = 
+        //        "select * from (select * from " + DatabaseDefn.DBScans + " " +
+        //        "where student_id = \'@studentId\' and test_id = \'@testId\' " +
+        //        "order by to_date(date_scanned, 'MM/DD/YYYY HH:MI:SS AM') DESC ) " +
+        //        "where rownum = 1";
 
         //public static string GetAllScansForTest =
         //        "SELECT * FROM " + DatabaseDefn.DBScans + " " +
         //        "WHERE TEST_ID IN (@testIdList) " +
         //        "ORDER BY STUDENT_ID ASC";
+
+        public static string GetScansForTest =
+                "select * from " + DatabaseDefn.DBScans + " " +
+                "where test_id = \'@testId\'";
+
+        public static string GetScansForTestWithRosterInfo =
+                "select * from " + DatabaseDefn.DBScans + " " +
+                "join " + DatabaseDefn.DBStudentRoster + " " +
+                "on student_id = local_student_id " +
+                "where test_id = \'@testId\'";
 
         public static string GetScansForTestCampus =
                 "select * from " + DatabaseDefn.DBScans + " " +
@@ -216,30 +226,30 @@ namespace Benchmark_Instant_Reports_2.References
         //        "join ( @testQuery ) " +
         //        "on student_id = local_student_id ";
 
-        public static string GetStudentScansFromTestQuery =
-                "select local_student_id, student_name, " +
-                Constants.TeacherNameFieldName + ", " +
-                "period, local_course_id, school2, test_id " +
-                "from ( " +
-                "select STUDENT_ID, TEST_ID from " + DatabaseDefn.DBScans + " " +
-                "where test_id = \'@testId\' ) " +
-                "join ( @query ) " +
-                "on student_id = local_student_id " +
-                "where @teacherQuery " +
-                "and @periodQuery " +
-                "order by STATE_SCHOOL_ID, TEACHER_NAME, PERIOD, STUDENT_NAME ";
+        //public static string GetStudentScansFromTestQuery =
+        //        "select local_student_id, student_name, " +
+        //        Constants.TeacherNameFieldName + ", " +
+        //        "period, local_course_id, school2, test_id " +
+        //        "from ( " +
+        //        "select STUDENT_ID, TEST_ID from " + DatabaseDefn.DBScans + " " +
+        //        "where test_id = \'@testId\' ) " +
+        //        "join ( @query ) " +
+        //        "on student_id = local_student_id " +
+        //        "where @teacherQuery " +
+        //        "and @periodQuery " +
+        //        "order by STATE_SCHOOL_ID, TEACHER_NAME, PERIOD, STUDENT_NAME ";
 
-        // optimized query from Norma
-        public static string GetStudentsWithScansNotInTestCriteria =
-                "select /*+ no_cpu_costing */ unique student_id, test_id " +
-                "from " + DatabaseDefn.DBScans + " b, " + DatabaseDefn.DBStudentRoster + " r1 " +
-                "where test_id = nvl(\'@testId\',uid) " +
-                "and school2 = \'@campus\' " +
-                "and student_id not in ( " +
-                "select unique local_student_id from ( " +
-                " @query) ) " +
-                " and b.student_id = r1.local_student_id " +
-                "order by student_id asc";
+        //// optimized query from Norma
+        //public static string GetStudentsWithScansNotInTestCriteria =
+        //        "select /*+ no_cpu_costing */ unique student_id, test_id " +
+        //        "from " + DatabaseDefn.DBScans + " b, " + DatabaseDefn.DBStudentRoster + " r1 " +
+        //        "where test_id = nvl(\'@testId\',uid) " +
+        //        "and school2 = \'@campus\' " +
+        //        "and student_id not in ( " +
+        //        "select unique local_student_id from ( " +
+        //        " @query) ) " +
+        //        " and b.student_id = r1.local_student_id " +
+        //        "order by student_id asc";
 
         //public static string GetScanDataForTestCampus
 

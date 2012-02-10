@@ -8,6 +8,7 @@ namespace Benchmark_Instant_Reports_2.Infrastructure.IRepositories
     /// </summary>
     public interface IScanRepository : IRepository<Scan>
     {
+        IQueryable<Scan> FindScansForTest(string testid);
         IQueryable<Scan> FindScansForTestCampus(string testid, string abbr);
     }
 }

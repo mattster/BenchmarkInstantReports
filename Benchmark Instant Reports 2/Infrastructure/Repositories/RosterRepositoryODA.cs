@@ -36,8 +36,8 @@ namespace Benchmark_Instant_Reports_2.Infrastructure.Repositories
         public IQueryable<Roster> FindByStudentID(string id)
         {
             // convert id to a 6-digit string with leading zero(es) if needed
-            id = string.Format("{0,6:D6}", id);
-            string qs = Queries.GetRosterDataForID.Replace("@studentId", id);
+            string qs = Queries.GetRosterDataForID.Replace("@studentId", 
+                ODAHelper.StudentIDString(id));
             DataSet ds = ODAHelper.getDataRows(qs);
             if (ds.Tables.Count == 0)
                 return null;
@@ -78,7 +78,7 @@ namespace Benchmark_Instant_Reports_2.Infrastructure.Repositories
         {
             Roster retRoster = new Roster();
             retRoster.StudentName = ODAHelper.GetTableValueSafely(row, "STUDENT_NAME").ToString();
-            retRoster.StudentID = ODAHelper.GetTableValueSafely(row, "STUDENT_ID").ToString();
+            retRoster.StudentID = ODAHelper.GetTableValueSafely(row, "LOCAL_STUDENT_ID").ToString();
             retRoster.LEPCode = ODAHelper.GetTableValueSafely(row, "LEP_CODE").ToString();
             retRoster.SPEDFlag = ODAHelper.GetTableValueSafely(row, "SPECIAL_ED_FLAG").ToString();
             retRoster.Grade = ODAHelper.GetTableValueSafely(row, "GRADE_LEVEL").ToString();

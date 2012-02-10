@@ -14,6 +14,24 @@ namespace Benchmark_Instant_Reports_2.Infrastructure.Repositories
     public class ScanRepositoryODA : IScanRepository
     {
         /// <summary>
+        /// finds all the Scans for a specific test
+        /// </summary>
+        /// <param name="testid">TestID of the test to use</param>
+        /// <returns>IQueryable-Scan- list of data objects</returns>
+        public IQueryable<Scan> FindScansForTest(string testid)
+        {
+            string qs = Queries.GetScansForTest;
+            qs = qs.Replace("@testId", testid);
+            DataSet ds = ODAHelper.getDataRows(qs);
+
+            if (ds.Tables.Count == 0)
+                return null;
+
+            return ConvertTableToScans(ds.Tables[0]);
+        }
+
+
+        /// <summary>
         /// finds all the Scans for a specific test for students at
         /// a specified school
         /// </summary>

@@ -11,7 +11,7 @@ namespace Benchmark_Instant_Reports_2.Grading
     public class StudentData
     {
         /// <summary>
-        /// returns a set of data ready for grading and processing for reports
+        /// returns a set of data ready for grading and processing for reports;
         /// includes student roster data and student scan data
         /// </summary>
         /// <param name="dataservice">IRepoService access to data</param>
@@ -27,18 +27,21 @@ namespace Benchmark_Instant_Reports_2.Grading
             {
                 foreach (School curSchool in schools)
                 {
-                    // get a set of the student scans for this test & campus
-                    IQueryable<Scan> scannedItems = GetScannedData(dataservice, curTest, curSchool);
-
                     // get a set of the preslugged data for this test & campus
                     PreslugData preslugged = GetPreslugData(dataservice, curTest, curSchool);
+
+                    // get a set of the student scans for this test & campus
+                    List<TeacherPeriodItem> teachersperiods = GetTeacherPeriodList(preslugged);
+
+                    IQueryable<Scan> scannedItems = GetScannedData(dataservice, curTest, curSchool, teachersperiods);
 
                     // find data that is both preslugged and scanned
                     var scannedItemsNotPreslugged = new HashSet<Scan>();
                     foreach (Scan scan in scannedItems)
                     {
-                        var foundPreslugs = preslugged.GetItemsWhere(i => i.StudentID == scan.StudentID.ToString());
-                        if (foundPreslugs.Count() > 0)
+                        IEnumerable<PreslugItem> foundPreslugs = preslugged.GetItemsWhere(p => 
+                            p.StudentID == dataservice.StudentIDString(scan.StudentID));
+                        if (foundPreslugs.ToList().Count > 0)
                         {
                             DataToGradeItem newDataToGradeItem = new DataToGradeItem();
                             newDataToGradeItem.StudentID = scan.StudentID.ToString();
@@ -63,8 +66,11 @@ namespace Benchmark_Instant_Reports_2.Grading
                     {
                         foreach (Scan scan in scannedItemsNotPreslugged)
                         {
+                            var thisStudentsRoster = dataservice.RosterRepo.
+                                FindByStudentID(dataservice.StudentIDString(scan.StudentID));
+                            bool found = false;
+                            
                             // does this student match a teacher who already has preslugged data?
-                            var thisStudentsRoster = dataservice.RosterRepo.FindByStudentID(scan.StudentID.ToString());
                             foreach (var rosterItem in thisStudentsRoster)
                             {
                                 var foundPreslugged = preslugged.GetItemsWhere(p => p.TeacherName == rosterItem.TeacherName &&
@@ -78,33 +84,33 @@ namespace Benchmark_Instant_Reports_2.Grading
                                     newItem.TeacherName = rosterItem.TeacherName;
                                     newItem.Period = rosterItem.Period;
                                     newItem.CourseID = rosterItem.CourseID;
-                                    newItem.Campus = rosterItem.CourseCampus;
+                                    newItem.Campus = curSchool.Abbr;// rosterItem.CourseCampus;
                                     newItem.TestID = scan.TestID;
                                     newItem.ScanItem = scan;
                                     finalData.Add(newItem);
+                                    found = true;
                                 }
-
-                                // if all else fails, put as Unknown Teacher
-                                else
-                                {
-                                    var rosterData = dataservice.RosterRepo.FindByStudentID(scan.StudentID.ToString()).First();
-
-                                    DataToGradeItem newItem = new DataToGradeItem();
-                                    newItem.StudentID = scan.StudentID.ToString();
-                                    newItem.StudentName = rosterData.StudentName;
-                                    newItem.TeacherName = Constants.UnknownTeacherName;
-                                    newItem.Period = Constants.UnknownPeriod;
-                                    newItem.CourseID = Constants.UnknownCourseID;
-                                    newItem.Campus = rosterData.HomeCampus;
-                                    newItem.TestID = scan.TestID;
-                                    newItem.ScanItem = scan;
-                                    finalData.Add(newItem);
-                                }
+                                if (found) break;
                             }
-                        }
-                    }
-                }
-            }
+
+                            if (!found)
+                            {
+                                // if all else fails, put as Unknown Teacher
+                                DataToGradeItem newItem = new DataToGradeItem();
+                                newItem.StudentID = scan.StudentID.ToString();
+                                newItem.StudentName = thisStudentsRoster.First().StudentName;
+                                newItem.TeacherName = Constants.UnknownTeacherName;
+                                newItem.Period = Constants.UnknownPeriod;
+                                newItem.CourseID = Constants.UnknownCourseID;
+                                newItem.Campus = thisStudentsRoster.First().HomeCampus;
+                                newItem.TestID = scan.TestID;
+                                newItem.ScanItem = scan;
+                                finalData.Add(newItem);
+                            }
+                        } // end foreach Scan not preslugged
+                    } // end matching non-preslugged scans
+                } // end foreach School
+            } // end foreach Test
 
             return finalData;
         }
@@ -150,15 +156,18 @@ namespace Benchmark_Instant_Reports_2.Grading
         /// <param name="test">Test to use</param>
         /// <param name="school">School to use</param>
         /// <returns>IQueryable-Scan- set of Scan objects</returns>
-        public static IQueryable<Scan> GetScannedData(IRepoService dataservice, Test test, School school)
+        public static IQueryable<Scan> GetScannedData(IRepoService dataservice, Test test, School school,
+            List<TeacherPeriodItem> teacherperiodlist)
         {
-            IQueryable<Scan> scannedItemsAll = dataservice.ScanRepo.FindScansForTestCampus(test.TestID, school.Abbr);
+            IQueryable<Scan> scannedAll = dataservice.ScanRepo.FindScansForTest(test.TestID);
+            HashSet<Scan> scannedForSchool = new HashSet<Scan>();
+
+            
+            
             IQueryable<Scan> scannedItems = GetLatestScans(scannedItemsAll);
 
             return scannedItems;
         }
-
-
 
 
 
@@ -196,5 +205,35 @@ namespace Benchmark_Instant_Reports_2.Grading
             return finalData.AsQueryable();
         }
 
+
+        
+        private static List<TeacherPeriodItem> GetTeacherPeriodList(PreslugData preslugData)
+        {
+            List<TeacherPeriodItem> finalData = new List<TeacherPeriodItem>();
+            foreach (var teacher in preslugData.GetItems().Select(ps => ps.TeacherName).Distinct())
+            {
+                var preslugDataCurTch = preslugData.GetItemsWhere(ps => ps.TeacherName == teacher);
+                foreach (var period in preslugDataCurTch.Select(ps => ps.Period).Distinct())
+                {
+                    finalData.Add(new TeacherPeriodItem(teacher, period));
+                }
+            }
+
+            return finalData;
+        }
+
+
+
+        private class TeacherPeriodItem
+        {
+            public string Teacher { get; set; }
+            public string Period { get; set; }
+
+            public TeacherPeriodItem(string teacher, string period)
+            {
+                Teacher = teacher;
+                Period = period;
+            }
+        }
     }
 }

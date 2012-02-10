@@ -87,5 +87,37 @@ namespace Benchmark_Instant_Reports_2.Infrastructure.Repositories
                 return TestRepo.FindActiveTests().Select(t => t.TestID).ToList();
         }
 
+
+        /// <summary>
+        /// converts an integer student ID to a string with leading zeroes as needed
+        /// </summary>
+        /// <param name="id">student ID as an integer</param>
+        /// <returns>a string with leading zeroes as needed</returns>
+        public string StudentIDString(int id)
+        {
+            return ODAHelper.StudentIDString(id);
+        }
+
+
+        /// <summary>
+        /// properly formats a student ID string with leading zeroes as needed
+        /// </summary>
+        /// <param name="id">student ID as a string; may or may not have leading zeroes</param>
+        /// <returns>a string with leading zeroes as needed</returns>
+        public string StudentIDString(string id)
+        {
+            return ODAHelper.StudentIDString(id);
+        }
+
+
+        /// <summary>
+        /// converts a student ID in a string to an integer
+        /// </summary>
+        /// <param name="id">student ID as a string</param>
+        /// <returns>an integer representing the student ID</returns>
+        public int StudentIDInt(string id)
+        {
+            return ODAHelper.StudentIDInt(id);
+        }
     }
 }

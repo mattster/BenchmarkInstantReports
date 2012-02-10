@@ -14,5 +14,6 @@ namespace Benchmark_Instant_Reports_2.Interfaces.DBDataStruct
         public StGradeReportData() : base() { }
 
         public StGradeReportData(List<StGradeReportItem> items) : base(items) { }
+
     }
 }

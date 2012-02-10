@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Benchmark_Instant_Reports_2.Exceptions;
 using Benchmark_Instant_Reports_2.Infrastructure.Entities;
 using Benchmark_Instant_Reports_2.Interfaces.DBDataStruct;
 using Benchmark_Instant_Reports_2.References;
+using Benchmark_Instant_Reports_2.Infrastructure;
 
 namespace Benchmark_Instant_Reports_2.Grading
 {
@@ -41,13 +43,13 @@ namespace Benchmark_Instant_Reports_2.Grading
             numTotalPoints = 0;
             numTotal = ansKey.Count;
             string curGradedAnsString = "";
-            string[] responses = new string[] { "" };
-            bool[] responsescorrect = new bool[] { };
+            var responses = new List<ItemInfo<string>>();
+            var responsescorrect = new List<ItemInfo<bool>>();
             foreach (AnswerKeyItem itemAnswerKey in ansKey.GetItems())
             {
                 curItemNum = itemAnswerKey.ItemNum;
                 string studentAnswer = studentAnswerStringArray[curItemNum - 1];
-                responses[curItemNum - 1] = studentAnswer;
+                responses.Add(new ItemInfo<string>(curItemNum, studentAnswer));
 
                 if (studentAnswerStringArray.Length >= curItemNum)       // a student answer exists
                 {
@@ -56,7 +58,7 @@ namespace Benchmark_Instant_Reports_2.Grading
                         // student's answer is correct
                         numCorrect++;
                         numPoints += itemAnswerKey.Weight;
-                        responsescorrect[curItemNum - 1] = true;
+                        responsescorrect.Add(new ItemInfo<bool>(curItemNum, true));
                         curGradedAnsString = curGradedAnsString + Constants.CorrectAnswerIndicator + ",";
                     }
                     else if (studentAnswer ==
@@ -65,13 +67,13 @@ namespace Benchmark_Instant_Reports_2.Grading
                         // student's answer is correct as the alternate answer
                         numCorrect++;
                         numPoints += itemAnswerKey.Weight;
-                        responsescorrect[curItemNum - 1] = true;
+                        responsescorrect.Add(new ItemInfo<bool>(curItemNum, true));
                         curGradedAnsString = curGradedAnsString + Constants.CorrectAnswerIndicator + ",";
                     }
                     else
                     {
                         // student's answer is incorrect
-                        responsescorrect[curItemNum - 1] = false;
+                        responsescorrect.Add(new ItemInfo<bool>(curItemNum, false));
                         curGradedAnsString = curGradedAnsString + studentAnswer + ",";
                     }
                 }

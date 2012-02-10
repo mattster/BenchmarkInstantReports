@@ -100,11 +100,22 @@ namespace Benchmark_Instant_Reports_2.Infrastructure
         }
 
 
+        public IEnumerable<T> GetItems<TKey>(Func<T, TKey> keyselector)
+        {
+            return _items.OrderBy(keyselector);
+        }
+
+
         public IEnumerable<T> GetItemsWhere(Func<T, bool> predicate)
         {
             return _items.Where(predicate);
         }
 
+
+        public IEnumerable<T> GetItemsWhere<TKey>(Func<T, bool> predicate, Func<T, TKey> keyselector)
+        {
+            return GetItemsWhere(predicate).OrderBy(keyselector);
+        }
 
         public void UpdateItemAtIndexWith(int index, T newitem)
         {

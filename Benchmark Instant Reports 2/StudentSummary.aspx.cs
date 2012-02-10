@@ -135,7 +135,7 @@ namespace Benchmark_Instant_Reports_2
             lblAlignmentNote.Visible = true;
 
             ReportDataSource rds = new ReportDataSource(repvwStudentSummary.LocalReport.GetDataSourceNames()[0],
-                reportData.GetItemsWhere(i => i.Teacher == ddTeacher.SelectedItem.ToString()));
+                reportData.GetItemsWhere(i => i.Teacher == ddTeacher.SelectedItem.ToString(), i => i.StudentName));
             repvwStudentSummary.LocalReport.DataSources.Clear();
             repvwStudentSummary.LocalReport.DataSources.Add(rds);
             repvwStudentSummary.ShowPrintButton = true;

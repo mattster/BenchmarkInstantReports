@@ -91,9 +91,9 @@ namespace Benchmark_Instant_Reports_2.Helpers.Reports
                                         newItem.Teacher = curTeacher;
                                         newItem.Period = curPeriod;
                                         newItem.ItemNum = curItemNum;
-                                        if (gradedData.ResponsesCorrect[curItemNum - 1])
+                                        if (gradedData.ResponsesCorrect.Single(rc => rc.ItemNum == curItemNum).Info)
                                             curNumCorrect++;
-                                        curAnsCount.Increment(gradedData.Responses[curItemNum - 1]);
+                                        curAnsCount.Increment(gradedData.Responses.Single(r => r.ItemNum == curItemNum).Info);
                                         curNumTotal++;
                                         newItem.NumCorrect = curNumCorrect;
                                         newItem.NumTotal = curNumTotal;
