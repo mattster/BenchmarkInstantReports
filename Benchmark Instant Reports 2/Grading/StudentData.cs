@@ -38,7 +38,7 @@ namespace Benchmark_Instant_Reports_2.Grading
             List<string> studentIDsWithScansNotInTestCriteria = DBIOWorkaround.ReturnStudentIDsWScansNotPreslugged(testID, campus);
 
             // for any students who do not match test criteria, try to match them up somehow
-            if (studentIDsWithScansNotInTestCriteria.Count > 0)
+            if (studentIDsWithScansNotInTestCriteria != null && studentIDsWithScansNotInTestCriteria.Count > 0)
             {
                 foreach (string curstudentid in studentIDsWithScansNotInTestCriteria)
                 {
@@ -138,8 +138,5 @@ namespace Benchmark_Instant_Reports_2.Grading
 
             return returnData;
         }
-
-    
-    
     }
 }

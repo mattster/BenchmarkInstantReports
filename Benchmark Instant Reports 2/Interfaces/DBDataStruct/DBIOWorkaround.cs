@@ -180,6 +180,10 @@ namespace Benchmark_Instant_Reports_2.Interfaces.DBDataStruct
 
         public static List<string> ReturnStudentIDsWScansNotPreslugged(string testid, string campus)
         {
+            // temporary hack - I hate this
+            if (testid == "2012-02 SC Exit Level Science SIM 23-72")
+                return null;
+
             string qs4 = Queries.GetStudentsWithScansNotInTestCriteria.Replace("@testId", testid);
             qs4 = qs4.Replace("@campus", campus);
             string customQuery = birIF.GetRawCustomQuery(testid);
