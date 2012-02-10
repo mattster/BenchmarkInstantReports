@@ -3,6 +3,7 @@ using System.Linq;
 using Benchmark_Instant_Reports_2.Infrastructure.Entities;
 using Benchmark_Instant_Reports_2.Infrastructure.IRepositories;
 using Benchmark_Instant_Reports_2.Interfaces.DBDataStruct;
+using System.Text.RegularExpressions;
 
 namespace Benchmark_Instant_Reports_2.Helpers
 {
@@ -27,5 +28,18 @@ namespace Benchmark_Instant_Reports_2.Helpers
             return false;
         }
 
+
+        /// <summary>
+        /// returns the semester as a string applicable for a test
+        /// </summary>
+        /// <param name="test">Test to use</param>
+        /// <returns>semester for the test, as a string</returns>
+        public static string SemesterForTest(Test test)
+        {
+            if (test.TestMonth >= 1 && test.TestMonth <= 6)
+                return "02";
+
+            return "01";
+        }
     }
 }

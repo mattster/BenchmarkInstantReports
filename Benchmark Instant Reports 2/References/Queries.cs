@@ -181,7 +181,9 @@ namespace Benchmark_Instant_Reports_2.References
         //        "ORDER BY STUDENT_ID ASC";
 
         public static string GetScansForTest =
-                "select * from " + DatabaseDefn.DBScans + " " +
+                "select date_scanned, scanned_sequence, imagepath, name, student_id, " +
+                "test_id, language_version, exempt, preslugged, answers " +
+                "from " + DatabaseDefn.DBScans + " " +
                 "where test_id = \'@testId\'";
 
         public static string GetScansForTestWithRosterInfo =
@@ -261,6 +263,11 @@ namespace Benchmark_Instant_Reports_2.References
         public static string GetRosterDataForID =
                 "select * from " + DatabaseDefn.DBStudentRoster + " " +
                 "where local_student_id = \'@studentId\'";
+
+        public static string GetAbbreviatedRosterDataForSchool =
+                "select local_student_id, teacher_name, period, school2 " +
+                "from " + DatabaseDefn.DBStudentRoster + " " +
+                "where school2 = \'@school\' ";
 
         #endregion
 

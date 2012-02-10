@@ -45,6 +45,23 @@ namespace Benchmark_Instant_Reports_2.Infrastructure.Repositories
             return ConvertTableToRosters(ds.Tables[0]);
         }
 
+
+        /// <summary>
+        /// find all Roster items for a specific school
+        /// </summary>
+        /// <param name="schoolAbbr">School abbreviation of the School to use</param>
+        /// <returns>IQueryable-Roster- data</returns>
+        public IQueryable<Roster> FindBySchool(string schoolAbbr)
+        {
+            string qs = Queries.GetAbbreviatedRosterDataForSchool;
+            qs = qs.Replace("@school", schoolAbbr);
+            DataSet ds = ODAHelper.getDataRows(qs);
+            if (ds.Tables.Count == 0)
+                return null;
+
+            return ConvertTableToRosters(ds.Tables[0]);
+        }
+
         
 
         public IQueryable<Roster> FindAll()

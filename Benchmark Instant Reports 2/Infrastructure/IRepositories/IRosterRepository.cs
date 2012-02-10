@@ -10,5 +10,6 @@ namespace Benchmark_Instant_Reports_2.Infrastructure.IRepositories
     {
         IQueryable<Roster> ExecuteTestQuery(string qs);
         IQueryable<Roster> FindByStudentID(string id);
+        IQueryable<Roster> FindBySchool(string schoolAbbr);
     }
 }
