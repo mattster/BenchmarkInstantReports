@@ -37,9 +37,9 @@ namespace Benchmark_Instant_Reports_2.Helpers
         public static string SemesterForTest(Test test)
         {
             if (test.TestMonth >= 1 && test.TestMonth <= 6)
-                return "02";
+                return "2";
 
-            return "01";
+            return "1";
         }
     }
 }

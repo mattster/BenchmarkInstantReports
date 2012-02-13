@@ -28,16 +28,16 @@ namespace Benchmark_Instant_Reports_2.References
                 "select school_abbr, schoolname from " + DatabaseDefn.DBSchool + " " +
                 "where schoolid between 100 and 999 or schoolid = 6 order by schoolname";
 
-        public static string GetCampusList =
-                "select * from (" + GetHSCampuses + ") " +
-                "union all " +
-                "select * from (" + GetSeparator + ") " +
-                "union all " +
-                "select * from (" + GetJHCampuses + ") " +
-                "union all " +
-                "select * from (" + GetSeparator + ") " +
-                "union all " +
-                "select * from (" + GetELCampuses + ") ";
+        //public static string GetCampusList =
+        //        "select * from (" + GetHSCampuses + ") " +
+        //        "union all " +
+        //        "select * from (" + GetSeparator + ") " +
+        //        "union all " +
+        //        "select * from (" + GetJHCampuses + ") " +
+        //        "union all " +
+        //        "select * from (" + GetSeparator + ") " +
+        //        "union all " +
+        //        "select * from (" + GetELCampuses + ") ";
 
         //public static string GetCampusInfoForCampus =
         //        "select school_abbr, schoolname from " + DatabaseDefn.DBSchool + " " +
@@ -186,11 +186,11 @@ namespace Benchmark_Instant_Reports_2.References
                 "from " + DatabaseDefn.DBScans + " " +
                 "where test_id = \'@testId\'";
 
-        public static string GetScansForTestWithRosterInfo =
-                "select * from " + DatabaseDefn.DBScans + " " +
-                "join " + DatabaseDefn.DBStudentRoster + " " +
-                "on student_id = local_student_id " +
-                "where test_id = \'@testId\'";
+        //public static string GetScansForTestWithRosterInfo =
+        //        "select * from " + DatabaseDefn.DBScans + " " +
+        //        "join " + DatabaseDefn.DBStudentRoster + " " +
+        //        "on student_id = local_student_id " +
+        //        "where test_id = \'@testId\'";
 
         public static string GetScansForTestCampus =
                 "select * from " + DatabaseDefn.DBScans + " " +
@@ -265,7 +265,7 @@ namespace Benchmark_Instant_Reports_2.References
                 "where local_student_id = \'@studentId\'";
 
         public static string GetAbbreviatedRosterDataForSchool =
-                "select local_student_id, teacher_name, period, school2 " +
+                "select local_student_id, teacher_name, period, semester, school2 " +
                 "from " + DatabaseDefn.DBStudentRoster + " " +
                 "where school2 = \'@school\' ";
 

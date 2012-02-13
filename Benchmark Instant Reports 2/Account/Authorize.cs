@@ -19,13 +19,30 @@ namespace Benchmark_Instant_Reports_2.Account
         /// <returns>an IQueryable list of School objects</returns>
         public static IQueryable<School> GetAuthorizedSchools(string username, IRepoService dataservice)
         {
-            if (IsAuthorizedForAllCampuses(username))
-                return dataservice.SchoolRepo.FindAll();
-            
-            // else return just the school for which the user is authorized
-            var school = dataservice.SchoolRepo.FindBySchoolAbbr(username);
             var finalData = new HashSet<School>();
-            finalData.Add(school);
+
+            if (IsAuthorizedForAllCampuses(username))
+            {
+                //return dataservice.SchoolRepo.FindAll();
+                foreach (School school in dataservice.SchoolRepo.FindHSCampuses().OrderBy(s => s.Name))
+                    finalData.Add(school);
+                
+                finalData.Add(new School(Constants.DropDownSeparatorString, Constants.DropDownSeparatorString));
+
+                foreach (School school in dataservice.SchoolRepo.FindJHCampuses().OrderBy(s => s.Name))
+                    finalData.Add(school);
+                
+                finalData.Add(new School(Constants.DropDownSeparatorString, Constants.DropDownSeparatorString));
+
+                foreach (School school in dataservice.SchoolRepo.FindELCampuses().OrderBy(s => s.Name))
+                    finalData.Add(school);
+               
+                return finalData.AsQueryable();
+            }
+             
+            // else return just the school for which the user is authorized
+            var oneschool = dataservice.SchoolRepo.FindBySchoolAbbr(username);
+            finalData.Add(oneschool);
             return finalData.AsQueryable();
         }
 

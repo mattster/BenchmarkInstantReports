@@ -292,12 +292,9 @@ namespace Benchmark_Instant_Reports_2.Grading
                 var scans = allScannedItems.Where(i => i.StudentID == thisStudentID);
                 if (scans.Count() > 1)
                 {
-                    Scan latestScan = new Scan();
-                    foreach (Scan scan in scans)
-                    {
-                        if (scan.DateScanned > latestScan.DateScanned)
-                            latestScan = scan;
-                    }
+                    var latestScan = scans.Where(s => s.DateScanned == scans.Select(ss => ss.DateScanned)
+                                                                            .Max())
+                                          .First();
                     finalData.Add(latestScan);
                 }
                 else
@@ -323,24 +320,64 @@ namespace Benchmark_Instant_Reports_2.Grading
             IQueryable<Roster> rosterData, List<TeacherPeriodItem> teachersperiods)
         {
             HashSet<Scan> finalData = new HashSet<Scan>();
-            bool found = false;
-            foreach (Scan scan in scanDataCurTest)
+
+            #region A_enumerate_scans
+            //// get Scan data + Roster data for students that have scans
+            //var scanDataWithRosterData =
+            //    from scan in scanDataCurTest
+            //    join roster in rosterData on dataservice.StudentIDString(scan.StudentID) equals roster.StudentID
+            //        into scanRosterData
+            //    select new { Scandata = scan, RosterData = scanRosterData };
+
+            //// select just the scan data for students who have the applicable teachers, periods, semester
+            //bool found = false;
+            //foreach (var scanrosterdataItem in scanDataWithRosterData)
+            //{
+            //    found = false;
+            //    foreach (var rosterItem in scanrosterdataItem.RosterData)
+            //    {
+            //        if (teachersperiods.Where(tp => tp.Teacher == rosterItem.TeacherName &&
+            //                                        tp.Period == rosterItem.Period &&
+            //                                        (tp.Semester == rosterItem.Semester ||
+            //                                                        rosterItem.Semester == "4"))
+            //                           .Count() > 0)
+            //        {
+            //            finalData.Add(scanrosterdataItem.Scandata);
+            //            found = true;
+            //        }
+            //        if (found) break;
+            //    }
+            //}
+            #endregion
+
+            #region B_enumerate_teachersperiods
+            string semester = teachersperiods[0].Semester;
+            foreach (string curTeacher in teachersperiods.Select(tp => tp.Teacher).Distinct())
             {
-                found = false;
-                var rosterThisStudent = rosterData.Where(r => r.StudentID == dataservice.StudentIDString(scan.StudentID));
-                foreach (var rosterItem in rosterThisStudent)
+                var curPeriods = teachersperiods.Where(tp => tp.Teacher == curTeacher).Select(tp => tp.Period).Distinct();
+                foreach (string curPeriod in curPeriods)
                 {
-                    if (teachersperiods.Where(tp => tp.Teacher == rosterItem.TeacherName &&
-                                                    tp.Period == rosterItem.Period &&
-                                                    (tp.Semester == rosterItem.Semester || rosterItem.Semester == "04"))
-                                       .Count() > 0)
+                    // get scan + roster data for students who have this teacher and period and semester
+                    var rosterDataCurTchPer = rosterData.Where(rd => rd.TeacherName == curTeacher &&
+                                                              rd.Period == curPeriod &&
+                                                              (rd.Semester == semester ||
+                                                               rd.Semester == "4"));
+                    var scanDataMatchingTchPer =
+                        from roster in rosterDataCurTchPer
+                        join scan in scanDataCurTest
+                            on roster.StudentID equals dataservice.StudentIDString(scan.StudentID)
+                            into scanRosterData
+                        select new { Scans = scanRosterData };
+
+                    // we want each of these scan items
+                    foreach (var foundData in scanDataMatchingTchPer)
                     {
-                        finalData.Add(scan);
-                        found = true;
+                        foreach (Scan scan in foundData.Scans)
+                            finalData.Add(scan);
                     }
-                    if (found) break;
                 }
             }
+            #endregion
 
             return finalData.AsQueryable();
         }
@@ -351,6 +388,7 @@ namespace Benchmark_Instant_Reports_2.Grading
         private static List<TeacherPeriodItem> GetTeacherPeriodList(PreslugData preslugData, string semester)
         {
             List<TeacherPeriodItem> finalData = new List<TeacherPeriodItem>();
+            string schoolAbbr = preslugData.Idx(0).Campus;
             foreach (var teacher in preslugData.GetItems().Select(ps => ps.TeacherName).Distinct())
             {
                 var preslugDataCurTch = preslugData.GetItemsWhere(ps => ps.TeacherName == teacher);
