@@ -1,19 +1,4 @@
 ﻿using System;
-using System.Data;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using Benchmark_Instant_Reports_2.Helpers;
-using Benchmark_Instant_Reports_2.Infrastructure;
-using Microsoft.Reporting.WebForms;
-using Benchmark_Instant_Reports_2.References;
-using Benchmark_Instant_Reports_2.Interfaces;
-using Benchmark_Instant_Reports_2.Interfaces.DBDataStruct;
-using Benchmark_Instant_Reports_2.Grading;
-using Benchmark_Instant_Reports_2.Helpers.Reports;
-using Benchmark_Instant_Reports_2.Account;
-using System;
 using System.Linq;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -80,6 +65,7 @@ namespace Benchmark_Instant_Reports_2
             if (UIHelper.IsDDSeparatorValue(ddCampus.SelectedValue.ToString()))
             {
                 RememberHelper.SaveSelectedCampus(Response, "");
+                ddCampus.SelectedIndex = 0;
                 return;
             }
 

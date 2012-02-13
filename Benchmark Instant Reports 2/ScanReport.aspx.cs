@@ -42,6 +42,7 @@ namespace Benchmark_Instant_Reports_2
             if (UIHelper.IsDDSeparatorValue(ddCampus.SelectedValue.ToString()))
             {
                 RememberHelper.SaveSelectedCampus(Response, "");
+                ddCampus.SelectedIndex = 0;
                 return;
             }
 

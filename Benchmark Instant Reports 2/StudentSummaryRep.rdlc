@@ -248,6 +248,7 @@
                           <TextRuns>
                             <TextRun>
                               <Value>=Fields!GradedAnswersFormatted.Value</Value>
+                              <MarkupType>HTML</MarkupType>
                               <Style>
                                 <FontFamily>Courier New</FontFamily>
                                 <FontSize>8pt</FontSize>

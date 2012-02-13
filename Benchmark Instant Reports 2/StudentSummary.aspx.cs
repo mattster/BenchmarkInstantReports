@@ -51,6 +51,7 @@ namespace Benchmark_Instant_Reports_2
                 ddCampus.SelectedValue.ToString() == "")
             {
                 RememberHelper.SaveSelectedCampus(Response, "");
+                ddCampus.SelectedIndex = 0;
                 return;
             }
 

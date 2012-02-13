@@ -166,6 +166,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DataSetStudentStats2.xsd</DependentUpon>
     </Compile>
+    <Compile Include="Grading\GradeFormatting.cs" />
     <Compile Include="Infrastructure\ItemInfo.cs" />
     <Compile Include="Helpers\AnswerKeyHelper.cs" />
     <Compile Include="Helpers\RememberHelper.cs" />
@@ -517,7 +518,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>4932</DevelopmentServerPort>
+          <DevelopmentServerPort>4799</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>
           </IISUrl>

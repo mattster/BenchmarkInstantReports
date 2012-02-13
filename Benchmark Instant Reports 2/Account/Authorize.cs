@@ -23,7 +23,6 @@ namespace Benchmark_Instant_Reports_2.Account
 
             if (IsAuthorizedForAllCampuses(username))
             {
-                //return dataservice.SchoolRepo.FindAll();
                 foreach (School school in dataservice.SchoolRepo.FindHSCampuses().OrderBy(s => s.Name))
                     finalData.Add(school);
                 
