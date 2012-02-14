@@ -116,9 +116,10 @@ namespace Benchmark_Instant_Reports_2.Exceptions
 
 
                     // Misc CUTs
-                new AnswerKeyIncrement("2012-01 SC Physics Unit 3 T5-T6 CUT 91-61", "LHHS", 
-                    new string[] { "VINSON, REAGAN", "MICHAELIS, JILL", "TAYLOR, KENNETH" },
-                    2 * Constants.DfltAnsKeyIncrement),
+                //new AnswerKeyIncrement("2012-01 SC Physics Unit 3 T5-T6 CUT 91-61", "LHHS", 
+                //    new string[] { "VINSON, REAGAN", "MICHAELIS, JILL", "TAYLOR, KENNETH" },
+                //    new string[] { "00", "01", "02", "03", "04", "05", "06", "07", "08", "09" },
+                //    2 * Constants.DfltAnsKeyIncrement),
 
             };
     }
