@@ -3306,7 +3306,7 @@ Iif(Fields!LetterGrade.Value = "P","Pass",
     <Height>2.11459in</Height>
     <Style />
   </Body>
-  <Width>7.63167in</Width>
+  <Width>7.37125in</Width>
   <Page>
     <PageHeader>
       <Height>1.30209in</Height>

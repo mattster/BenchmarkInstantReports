@@ -89,7 +89,7 @@
         </div>
         <div class="main">
             <div class="attentionitem">
-                Now With More Speed -- Faster Reports Phase 2 (still more speediness to come)</div>
+                Lots of Internal Improvements plus New Info on Scan Report</div>
             <asp:ContentPlaceHolder ID="MainContent" runat="server" />
         </div>
         <div class="clear">
@@ -97,7 +97,7 @@
     </div>
     <div class="footer">
         <div class="versionlabel">
-            <asp:Label ID="lblVersion" runat="server" Text="bir 1.9.9.i.x"></asp:Label>
+            <asp:Label ID="lblVersion" runat="server" Text="bir 2.0.0"></asp:Label>
         </div>
     </div>
     </form>

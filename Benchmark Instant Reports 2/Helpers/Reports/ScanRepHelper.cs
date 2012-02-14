@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using Benchmark_Instant_Reports_2.Grading;
+using Benchmark_Instant_Reports_2.Infrastructure.DataStruct;
 using Benchmark_Instant_Reports_2.Infrastructure.Entities;
 using Benchmark_Instant_Reports_2.Infrastructure.IRepositories;
-using Benchmark_Instant_Reports_2.Interfaces.DBDataStruct;
 
 namespace Benchmark_Instant_Reports_2.Helpers.Reports
 {
@@ -67,8 +67,58 @@ namespace Benchmark_Instant_Reports_2.Helpers.Reports
                     }
                 }
             }
-                    
-            return finalData;                    
+
+            return finalData;
+        }
+
+
+        /// <summary>
+        /// find a list of students who meet the criteria for a test but have no scans for that test
+        /// </summary>
+        /// <param name="dataservice">IRepoService access to data</param>
+        /// <param name="schools">list of applicable schools to check</param>
+        /// <param name="tests">list of applicable tests to check</param>
+        /// <returns>student data via a PreslugData item collection</returns>
+        public static PreslugData GenerateMissingStudentData(IRepoService dataservice, List<School> schools, List<Test> tests)
+        {
+            List<PreslugData> finalDataList = new List<PreslugData>();
+            PreslugData finalData = new PreslugData();
+
+            // go through each test
+            foreach (Test curTest in tests)
+            {
+                IQueryable<Scan> scannedWithCurTest = StudentData.GetScannedData(dataservice, curTest);
+
+                // go through each school for this test
+                foreach (School curSchool in schools)
+                {
+                    // get preslugged / queried data
+                    PreslugData presluggedWithCurTestSch = StudentData.GetPreslugData(dataservice, curTest, curSchool);
+
+                    if (presluggedWithCurTestSch.Count > 0)
+                    {
+                        // get scanned data
+                        DataToGradeItemCollection scannedWithCurTestSch = StudentData.GetStudentDataToGrade(dataservice,
+                            curTest, curSchool, presluggedWithCurTestSch, scannedWithCurTest);
+
+                        // hey this is kinda cool
+                        PreslugData presluggedNotScanned = StudentData.GetPresluggedNotScanned(presluggedWithCurTestSch,
+                            scannedWithCurTestSch);
+                        finalDataList.Add(presluggedNotScanned);
+                    }
+                }
+            }
+
+            foreach (var preslugdata in finalDataList)
+            {
+                foreach (var preslugitem in preslugdata.GetItems())
+                {
+                    if (finalData.GetItemsWhere(d => d.StudentID == preslugitem.StudentID).Count() == 0)
+                        finalData.Add(preslugitem);
+                }
+            }
+
+            return finalData;
         }
     }
 }

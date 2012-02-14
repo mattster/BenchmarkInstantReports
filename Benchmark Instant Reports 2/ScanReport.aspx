@@ -162,7 +162,17 @@
                 &nbsp;
             </td>
             <td class="tcol2">
-                &nbsp;
+                <br />
+                <asp:Panel ID="pnlRepType" runat="server">
+                    <asp:UpdatePanel ID="updpnlRepType" class="RepTypeUpdatePanel" runat="server">
+                        <ContentTemplate>
+                            <asp:RadioButton ID="rbJustScanData" Text="Show Only Scanned Data" Checked="true"
+                                GroupName="RadioShow" runat="server" /><br />
+                            <asp:RadioButton ID="rbScanAndMissing" Text="Show Scanned Data and Missing Students"
+                                Checked="false" GroupName="RadioShow" runat="server" /><br />&nbsp;
+                        </ContentTemplate>
+                    </asp:UpdatePanel>
+                </asp:Panel>
             </td>
             <td class="tcol3">
                 &nbsp;

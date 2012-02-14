@@ -1,4 +1,4 @@
-﻿using Benchmark_Instant_Reports_2.Interfaces.DBDataStruct;
+﻿using Benchmark_Instant_Reports_2.Infrastructure.DataStruct;
 
 namespace Benchmark_Instant_Reports_2.Helpers.Reports
 {

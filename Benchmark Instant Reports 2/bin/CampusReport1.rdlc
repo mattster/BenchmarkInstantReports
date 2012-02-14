@@ -102,7 +102,7 @@
               <Width>0.58333in</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>0.61458in</Width>
+              <Width>1.03125in</Width>
             </TablixColumn>
             <TablixColumn>
               <Width>1.02083in</Width>
@@ -617,10 +617,10 @@
           </TablixMembers>
         </TablixRowHierarchy>
         <DataSetName>TStudentGradeRep</DataSetName>
-        <Top>0.10431in</Top>
+        <Top>0.47931in</Top>
         <Left>0.41479in</Left>
         <Height>0.75in</Height>
-        <Width>4.02082in</Width>
+        <Width>4.43749in</Width>
         <Style>
           <Border>
             <Style>None</Style>
@@ -1402,8 +1402,9 @@
             </TablixMember>
           </TablixMembers>
         </TablixRowHierarchy>
+        <RepeatRowHeaders>true</RepeatRowHeaders>
         <DataSetName>TStudentGradeRep</DataSetName>
-        <Top>1.14597in</Top>
+        <Top>1.52097in</Top>
         <Left>0.41479in</Left>
         <Height>0.96514in</Height>
         <Width>4.79166in</Width>
@@ -1415,7 +1416,7 @@
         </Style>
       </Tablix>
       <Line Name="Line2">
-        <Top>0.99181in</Top>
+        <Top>1.36681in</Top>
         <Left>0.41479in</Left>
         <Height>0in</Height>
         <Width>4.89583in</Width>
@@ -1529,7 +1530,7 @@
         </TablixRowHierarchy>
         <DataSetName>TStudentGradeRep</DataSetName>
         <Top>0.12097in</Top>
-        <Left>4.75708in</Left>
+        <Left>0.41479in</Left>
         <Height>0.22917in</Height>
         <Width>2.10548in</Width>
         <ZIndex>3</ZIndex>
@@ -1540,14 +1541,14 @@
         </Style>
       </Tablix>
     </ReportItems>
-    <Height>2.18403in</Height>
+    <Height>2.56945in</Height>
     <Style>
       <Border>
         <Style>None</Style>
       </Border>
     </Style>
   </Body>
-  <Width>7.45631in</Width>
+  <Width>6.98756in</Width>
   <Page>
     <PageHeader>
       <Height>1.29861in</Height>

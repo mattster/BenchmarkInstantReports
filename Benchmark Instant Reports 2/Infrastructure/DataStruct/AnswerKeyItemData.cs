@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using Benchmark_Instant_Reports_2.Infrastructure;
+﻿using System.Collections.Generic;
 using Benchmark_Instant_Reports_2.Infrastructure.Entities;
 
-namespace Benchmark_Instant_Reports_2.Interfaces.DBDataStruct
+namespace Benchmark_Instant_Reports_2.Infrastructure.DataStruct
 {
     /// <summary>
     /// used as a collection of Answer Key Items (AnswerKeyItem)

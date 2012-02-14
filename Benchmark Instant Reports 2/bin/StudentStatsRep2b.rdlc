@@ -3850,7 +3850,6 @@ Iif(Fields!LetterGrade.Value = "P","Pass",
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
                     </Textbox>
-                    <rd:Selected>true</rd:Selected>
                   </CellContents>
                 </TablixCell>
               </TablixCells>
@@ -3890,7 +3889,7 @@ Iif(Fields!LetterGrade.Value = "P","Pass",
     <Height>2.11459in</Height>
     <Style />
   </Body>
-  <Width>8.19736in</Width>
+  <Width>7.84319in</Width>
   <Page>
     <PageHeader>
       <Height>1.30209in</Height>
@@ -4434,10 +4433,12 @@ Iif(Fields!LetterGrade.Value = "P","Pass",
         </Border>
       </Style>
     </PageFooter>
+    <PageHeight>8.5in</PageHeight>
+    <PageWidth>11in</PageWidth>
     <LeftMargin>0.5in</LeftMargin>
     <RightMargin>0.5in</RightMargin>
-    <TopMargin>0.75in</TopMargin>
-    <BottomMargin>0.75in</BottomMargin>
+    <TopMargin>0.25in</TopMargin>
+    <BottomMargin>0.25in</BottomMargin>
     <Style />
   </Page>
   <EmbeddedImages>

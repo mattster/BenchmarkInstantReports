@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using Benchmark_Instant_Reports_2.Infrastructure;
-using Benchmark_Instant_Reports_2.Infrastructure.Entities;
+﻿using Benchmark_Instant_Reports_2.Infrastructure.Entities;
 
-namespace Benchmark_Instant_Reports_2.Interfaces.DBDataStruct
+namespace Benchmark_Instant_Reports_2.Infrastructure.DataStruct
 {
     /// <summary>
     /// data item that is returned by a test's query (custom_query)
@@ -26,6 +21,7 @@ namespace Benchmark_Instant_Reports_2.Interfaces.DBDataStruct
         public string Grade { get; set; }
         public string TeacherName { get; set; }
         public string Period { get; set; }
+        public string TestID { get; set; }                  // key - added after the query
 
         /// <summary>
         /// default constructor - blank / empty / zero items
@@ -41,6 +37,7 @@ namespace Benchmark_Instant_Reports_2.Interfaces.DBDataStruct
             Grade = "";
             TeacherName = "";
             Period = "";
+            TestID = "";
         }
 
         /// <summary>
@@ -48,10 +45,11 @@ namespace Benchmark_Instant_Reports_2.Interfaces.DBDataStruct
         /// </summary>
         /// <param name="studentid">Student ID</param>
         /// <param name="courseid">Course ID</param>
-        public PreslugItem(string studentid, string courseid)
+        public PreslugItem(string studentid, string courseid, string testid)
         {
             StudentID = studentid;
             CourseID = courseid;
+            TestID = testid;
         }
 
 
@@ -59,7 +57,7 @@ namespace Benchmark_Instant_Reports_2.Interfaces.DBDataStruct
         /// constructor that takes a Roster entity item and converts it to a PreslugItem
         /// </summary>
         /// <param name="rosterItem">Roster item</param>
-        public PreslugItem(Roster rosterItem)
+        public PreslugItem(Roster rosterItem, string testid)
         {
             StudentName = rosterItem.StudentName;
             StudentID = rosterItem.StudentID;
@@ -70,6 +68,7 @@ namespace Benchmark_Instant_Reports_2.Interfaces.DBDataStruct
             Grade = rosterItem.Grade;
             TeacherName = rosterItem.TeacherName;
             Period = rosterItem.Period;
+            TestID = testid;
         }
     }
 
@@ -95,7 +94,8 @@ namespace Benchmark_Instant_Reports_2.Interfaces.DBDataStruct
             return new object[] 
             {
                 ClassReference.StudentID,
-                ClassReference.CourseID
+                ClassReference.CourseID,
+                ClassReference.TestID
             };
         }
     }

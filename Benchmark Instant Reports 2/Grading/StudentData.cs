@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Benchmark_Instant_Reports_2.Helpers;
+using Benchmark_Instant_Reports_2.Infrastructure.DataStruct;
 using Benchmark_Instant_Reports_2.Infrastructure.Entities;
 using Benchmark_Instant_Reports_2.Infrastructure.IRepositories;
-using Benchmark_Instant_Reports_2.Interfaces.DBDataStruct;
 using Benchmark_Instant_Reports_2.References;
 
 namespace Benchmark_Instant_Reports_2.Grading
@@ -157,7 +157,7 @@ namespace Benchmark_Instant_Reports_2.Grading
                 if (foundPreslugs.ToList().Count > 0)
                 {
                     DataToGradeItem newDataToGradeItem = new DataToGradeItem();
-                    newDataToGradeItem.StudentID = scan.StudentID.ToString();
+                    newDataToGradeItem.StudentID = dataservice.StudentIDString(scan.StudentID);
                     newDataToGradeItem.StudentName = foundPreslugs.First().StudentName;
                     newDataToGradeItem.TeacherName = foundPreslugs.First().TeacherName;
                     newDataToGradeItem.Period = foundPreslugs.First().Period;
@@ -254,7 +254,8 @@ namespace Benchmark_Instant_Reports_2.Grading
             var rosterstudents = dataservice.RosterRepo.ExecuteTestQuery(schoolCustomQuery);
 
             foreach (var student in rosterstudents)
-                finalData.Add(new PreslugItem(student));
+                if (finalData.GetItemsWhere(d => d.StudentID == student.StudentID).Count() == 0)
+                    finalData.Add(new PreslugItem(student, test.TestID));
 
             return finalData;
         }
@@ -273,6 +274,24 @@ namespace Benchmark_Instant_Reports_2.Grading
         }
 
 
+        /// <summary>
+        /// find specific students (via PreslugData) who are preslugged but not scanned
+        /// </summary>
+        /// <param name="preslugged">set of preslugged data to search</param>
+        /// <param name="scanned">set of scanned data, as a DataToGradeItemCollection</param>
+        /// <returns>set of PreslugData containing students who are preslugged but not scanned</returns>
+        public static PreslugData GetPresluggedNotScanned(PreslugData preslugged,
+            DataToGradeItemCollection scanned)
+        {
+            PreslugData finalData = new PreslugData();
+
+            foreach (var preslugItem in preslugged.GetItems())
+                if (scanned.GetItemsWhere(s => s.StudentID == preslugItem.StudentID).Count() == 0)
+                    if (finalData.GetItemsWhere(d => d.StudentID == preslugItem.StudentID).Count() == 0)
+                        finalData.Add(preslugItem);
+
+            return finalData;
+        }
 
 
 
@@ -418,5 +437,6 @@ namespace Benchmark_Instant_Reports_2.Grading
         }
 
         #endregion
+
     }
 }

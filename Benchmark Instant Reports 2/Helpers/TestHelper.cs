@@ -1,9 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Benchmark_Instant_Reports_2.Infrastructure.DataStruct;
 using Benchmark_Instant_Reports_2.Infrastructure.Entities;
 using Benchmark_Instant_Reports_2.Infrastructure.IRepositories;
-using Benchmark_Instant_Reports_2.Interfaces.DBDataStruct;
-using System.Text.RegularExpressions;
 
 namespace Benchmark_Instant_Reports_2.Helpers
 {

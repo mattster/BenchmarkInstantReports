@@ -83,7 +83,6 @@
   <ItemGroup>
     <Content Include="About.aspx" />
     <Content Include="CampusReport.aspx" />
-    <Content Include="CascadingDropDown1.asmx" />
     <Content Include="content\files\LxmCleanGlassP1.avi">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -148,10 +147,6 @@
     <Compile Include="CampusReport.aspx.designer.cs">
       <DependentUpon>CampusReport.aspx</DependentUpon>
     </Compile>
-    <Compile Include="CascadingDropDown1.asmx.cs">
-      <DependentUpon>CascadingDropDown1.asmx</DependentUpon>
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="Dapper\SqlMapper.cs" />
     <Compile Include="DataSetBenchmarkStats2.cs">
       <DependentUpon>DataSetBenchmarkStats2.xsd</DependentUpon>
@@ -203,7 +198,7 @@
     <Compile Include="Infrastructure\Repositories\ScanRepositoryODA.cs" />
     <Compile Include="Infrastructure\Repositories\SchoolRepositoryODA.cs" />
     <Compile Include="Infrastructure\Repositories\TestRepositoryODA.cs" />
-    <Compile Include="Interfaces\DBDataStruct\AnswerKeyItem.cs" />
+    <Compile Include="Infrastructure\DataStruct\AnswerKeyItem.cs" />
     <Compile Include="Grading\GradeTests.cs" />
     <Compile Include="Grading\StudentData.cs" />
     <Compile Include="Helpers\Reports\AnswerCounter.cs" />
@@ -231,20 +226,17 @@
     <Compile Include="Infrastructure\ReportPage.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Interfaces\DBDataStruct\AnswerKeyItemData.cs" />
-    <Compile Include="Interfaces\DBDataStruct\GradedTestData.cs" />
-    <Compile Include="Interfaces\DBDataStruct\GradedItemDetail.cs" />
-    <Compile Include="Interfaces\DBDataStruct\IAReportData.cs" />
-    <Compile Include="Interfaces\DBDataStruct\IAReportItem.cs" />
-    <Compile Include="Interfaces\DBDataStruct\PreslugData.cs" />
-    <Compile Include="Interfaces\DBDataStruct\PreslugItem.cs" />
-    <Compile Include="Interfaces\DBDataStruct\ScanItem.cs" />
-    <Compile Include="Interfaces\DBDataStruct\ScanItemData.cs" />
-    <Compile Include="Interfaces\DBDataStruct\ScanReportData.cs" />
-    <Compile Include="Interfaces\DBDataStruct\ScanReportItem.cs" />
-    <Compile Include="Interfaces\DBDataStruct\StGradeReportData.cs" />
-    <Compile Include="Interfaces\DBDataStruct\StGradeReportItem.cs" />
-    <Compile Include="Interfaces\DBDataStruct\DataToGradeItem.cs" />
+    <Compile Include="Infrastructure\DataStruct\AnswerKeyItemData.cs" />
+    <Compile Include="Infrastructure\DataStruct\GradedTestData.cs" />
+    <Compile Include="Infrastructure\DataStruct\IAReportData.cs" />
+    <Compile Include="Infrastructure\DataStruct\IAReportItem.cs" />
+    <Compile Include="Infrastructure\DataStruct\PreslugData.cs" />
+    <Compile Include="Infrastructure\DataStruct\PreslugItem.cs" />
+    <Compile Include="Infrastructure\DataStruct\ScanReportData.cs" />
+    <Compile Include="Infrastructure\DataStruct\ScanReportItem.cs" />
+    <Compile Include="Infrastructure\DataStruct\StGradeReportData.cs" />
+    <Compile Include="Infrastructure\DataStruct\StGradeReportItem.cs" />
+    <Compile Include="Infrastructure\DataStruct\DataToGradeItem.cs" />
     <Compile Include="Metadata\AllTestMetadata.cs" />
     <Compile Include="Metadata\Curriculum.cs" />
     <Compile Include="Metadata\Subject.cs" />
@@ -424,7 +416,7 @@
       <DependentUpon>DataSetStudentStats.xsd</DependentUpon>
     </None>
     <Content Include="packages.config" />
-    <Compile Include="Interfaces\DBDataStruct\DataToGradeItemCollection.cs" />
+    <Compile Include="Infrastructure\DataStruct\DataToGradeItemCollection.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="ScanReportRep1.rdlc">

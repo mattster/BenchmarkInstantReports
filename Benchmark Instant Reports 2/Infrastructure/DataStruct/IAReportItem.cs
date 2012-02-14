@@ -1,6 +1,5 @@
-﻿using Benchmark_Instant_Reports_2.Infrastructure;
-
-namespace Benchmark_Instant_Reports_2.Interfaces.DBDataStruct
+﻿
+namespace Benchmark_Instant_Reports_2.Infrastructure.DataStruct
 {
     /// <summary>
     /// Item Analysis report data item

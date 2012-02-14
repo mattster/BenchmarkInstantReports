@@ -921,7 +921,7 @@
         <FixedColumnHeaders>true</FixedColumnHeaders>
         <KeepTogether>true</KeepTogether>
         <DataSetName>TScanReportData</DataSetName>
-        <Top>0.06944in</Top>
+        <Top>1.34027in</Top>
         <Left>0.16479in</Left>
         <Height>1.25in</Height>
         <Width>3.26029in</Width>
@@ -940,6 +940,7 @@
               <TextRun>
                 <Value>Data shows </Value>
                 <Style>
+                  <FontSize>8pt</FontSize>
                   <FontWeight>Normal</FontWeight>
                   <TextDecoration>None</TextDecoration>
                 </Style>
@@ -947,6 +948,7 @@
               <TextRun>
                 <Value># Scanned / Num Possible</Value>
                 <Style>
+                  <FontSize>8pt</FontSize>
                   <FontWeight>Bold</FontWeight>
                   <TextDecoration>None</TextDecoration>
                 </Style>
@@ -959,6 +961,7 @@
               <TextRun>
                 <Value />
                 <Style>
+                  <FontSize>8pt</FontSize>
                   <FontWeight>Bold</FontWeight>
                   <TextDecoration>None</TextDecoration>
                 </Style>
@@ -971,13 +974,16 @@
               <TextRun>
                 <Value># Scanned</Value>
                 <Style>
+                  <FontSize>8pt</FontSize>
                   <FontWeight>Bold</FontWeight>
                   <TextDecoration>Underline</TextDecoration>
                 </Style>
               </TextRun>
               <TextRun>
                 <Value EvaluationMode="Constant"> = number of answer documents scanned for this test</Value>
-                <Style />
+                <Style>
+                  <FontSize>8pt</FontSize>
+                </Style>
               </TextRun>
             </TextRuns>
             <Style />
@@ -986,7 +992,9 @@
             <TextRuns>
               <TextRun>
                 <Value />
-                <Style />
+                <Style>
+                  <FontSize>8pt</FontSize>
+                </Style>
               </TextRun>
             </TextRuns>
             <Style />
@@ -996,23 +1004,26 @@
               <TextRun>
                 <Value># Possible</Value>
                 <Style>
+                  <FontSize>8pt</FontSize>
                   <FontWeight>Bold</FontWeight>
                   <TextDecoration>Underline</TextDecoration>
                 </Style>
               </TextRun>
               <TextRun>
                 <Value EvaluationMode="Constant"> = number of students who currently match the criteria for this test; this may or not be 100% accurate to the number of students who actually take this test due to absences, roster or SpEd updates</Value>
-                <Style />
+                <Style>
+                  <FontSize>8pt</FontSize>
+                </Style>
               </TextRun>
             </TextRuns>
             <Style />
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox17</rd:DefaultName>
-        <Top>2.01056in</Top>
-        <Left>0.2468in</Left>
-        <Height>1.0625in</Height>
-        <Width>6.61576in</Width>
+        <Top>0.06944in</Top>
+        <Left>0.16479in</Left>
+        <Height>0.92708in</Height>
+        <Width>6.69777in</Width>
         <ZIndex>1</ZIndex>
         <Style>
           <Border>
@@ -1186,7 +1197,7 @@
             <Value>=Fields!TestID.Value</Value>
           </SortExpression>
         </SortExpressions>
-        <Top>1.44806in</Top>
+        <Top>1.03472in</Top>
         <Left>0.16479in</Left>
         <Height>0.25in</Height>
         <Width>6.18735in</Width>
@@ -1198,17 +1209,17 @@
         </Style>
       </Tablix>
     </ReportItems>
-    <Height>3.13195in</Height>
+    <Height>2.63195in</Height>
     <Style>
       <Border>
         <Style>None</Style>
       </Border>
     </Style>
   </Body>
-  <Width>7.86256in</Width>
+  <Width>6.91464in</Width>
   <Page>
     <PageHeader>
-      <Height>1.29861in</Height>
+      <Height>1.21528in</Height>
       <PrintOnFirstPage>true</PrintOnFirstPage>
       <PrintOnLastPage>true</PrintOnLastPage>
       <ReportItems>

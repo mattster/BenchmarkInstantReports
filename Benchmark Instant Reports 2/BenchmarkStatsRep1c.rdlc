@@ -890,6 +890,7 @@
         <RepeatRowHeaders>true</RepeatRowHeaders>
         <FixedColumnHeaders>true</FixedColumnHeaders>
         <FixedRowHeaders>true</FixedRowHeaders>
+        <KeepTogether>true</KeepTogether>
         <DataSetName>TBenchmarkStats</DataSetName>
         <Top>0.105in</Top>
         <Left>0.08412in</Left>

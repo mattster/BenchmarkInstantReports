@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
-using Benchmark_Instant_Reports_2.Interfaces.DBDataStruct;
-using Benchmark_Instant_Reports_2.References;
 using Benchmark_Instant_Reports_2.Infrastructure;
+using Benchmark_Instant_Reports_2.Infrastructure.DataStruct;
+using Benchmark_Instant_Reports_2.References;
 
 namespace Benchmark_Instant_Reports_2.Grading
 {
@@ -87,6 +86,66 @@ namespace Benchmark_Instant_Reports_2.Grading
         }
 
 
-        //
+
+        /// <summary>
+        /// creates a formatted answer string containing item numbers and student responses
+        /// for use in the Student Summary report
+        /// </summary>
+        /// <param name="gradedAnsString">a comma-separated string of just student responses:
+        /// CorrectAnswerIndicator if student's response was correct, the actual response otherwise</param>
+        /// <param name="ansKey">the answer key for this test</param>
+        /// <returns>a formatted string with newlines for displaying in the Student Summary report</returns>
+        public static string createStudentGradedAnsString(List<ItemInfo<string>> gradedAnswers, AnswerKeyItemData ansKey)
+        {
+            string[] resultsString = new string[Constants.MaxFormattedAnsGroups];
+            string[] titleString = new string[Constants.MaxFormattedAnsGroups];
+            string formattedString = "";
+            int rowIndex = 0;
+
+            int[] itemNums = ansKey.GetItems().Select(ak => ak.ItemNum).ToArray();
+            Array.Sort(itemNums);
+
+            for (int i = 0; i < gradedAnswers.Count - 1; i++)
+            {
+                // write this one
+                if ((i + 1).ToString().Length <= 2)
+                {
+                    titleString[rowIndex] = titleString[rowIndex] + string.Format("{0,2} ", itemNums[i]);
+                    resultsString[rowIndex] = resultsString[rowIndex] + string.Format("{0,2} ",
+                        gradedAnswers.Where(ga => ga.ItemNum == itemNums[i]).First().Info);
+                }
+                else
+                {
+                    titleString[rowIndex] = titleString[rowIndex] + string.Format("{0,3} ", itemNums[i]);
+                    resultsString[rowIndex] = resultsString[rowIndex] + string.Format("{0,3} ",
+                        gradedAnswers.Where(ga => ga.ItemNum == itemNums[i]).First().Info);
+                }
+
+
+                // check if the next one will fit on this row
+                if ((i + 1) <= gradedAnswers.Count)
+                {
+                    if ((Constants.NumColumnsInFormattedLine -
+                        (resultsString[rowIndex].Length + itemNums[i + 1].ToString().Length)) < 2)
+                    {
+                        // next item will not fit; delete extra space at end and go to next row
+                        titleString[rowIndex] = titleString[rowIndex].Substring(0, titleString[rowIndex].Length - 1);
+                        resultsString[rowIndex] = resultsString[rowIndex].Substring(0, resultsString[rowIndex].Length - 1);
+                        rowIndex++;
+                    }
+                }
+            }
+
+            // put the rows together, insert newlines
+            for (int j = 0; j <= rowIndex; j++)
+            {
+                formattedString = formattedString + String.Format("{0}\n{1}\n", titleString[j], resultsString[j]);
+            }
+
+            // remove the last newline - we don't need it
+            formattedString = formattedString.Substring(0, formattedString.Length - 1);
+
+            return formattedString;
+        }
     }
 }

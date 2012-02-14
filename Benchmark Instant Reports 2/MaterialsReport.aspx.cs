@@ -5,7 +5,7 @@ using Benchmark_Instant_Reports_2.Account;
 using Benchmark_Instant_Reports_2.Helpers;
 using Benchmark_Instant_Reports_2.Helpers.Reports;
 using Benchmark_Instant_Reports_2.Infrastructure;
-using Benchmark_Instant_Reports_2.Interfaces.DBDataStruct;
+using Benchmark_Instant_Reports_2.Infrastructure.DataStruct;
 using Microsoft.Reporting.WebForms;
 
 

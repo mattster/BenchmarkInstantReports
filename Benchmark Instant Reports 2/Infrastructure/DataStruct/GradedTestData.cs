@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using Benchmark_Instant_Reports_2.Infrastructure;
+﻿using System.Collections.Generic;
 
-namespace Benchmark_Instant_Reports_2.Interfaces.DBDataStruct
+namespace Benchmark_Instant_Reports_2.Infrastructure.DataStruct
 {
+    /// <summary>
+    /// data structure used to hold the results of a graded test for a student
+    /// </summary>
     public class GradedTestData
     {
         public string LetterGrade { get; set; }

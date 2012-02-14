@@ -708,6 +708,7 @@
         <RepeatRowHeaders>true</RepeatRowHeaders>
         <FixedColumnHeaders>true</FixedColumnHeaders>
         <FixedRowHeaders>true</FixedRowHeaders>
+        <KeepTogether>true</KeepTogether>
         <DataSetName>TBenchmarkStats</DataSetName>
         <Top>0.08514in</Top>
         <Left>0.08001in</Left>
@@ -737,7 +738,7 @@
     <Height>0.79876in</Height>
     <Style />
   </Body>
-  <Width>7.39403in</Width>
+  <Width>7.3107in</Width>
   <Page>
     <PageHeader>
       <Height>1.20833in</Height>
@@ -1260,8 +1261,8 @@
     </PageFooter>
     <PageHeight>8.5in</PageHeight>
     <PageWidth>11in</PageWidth>
-    <LeftMargin>0.25in</LeftMargin>
-    <RightMargin>0.25in</RightMargin>
+    <LeftMargin>0.5in</LeftMargin>
+    <RightMargin>0.5in</RightMargin>
     <TopMargin>0.5in</TopMargin>
     <BottomMargin>0.5in</BottomMargin>
     <Style />
