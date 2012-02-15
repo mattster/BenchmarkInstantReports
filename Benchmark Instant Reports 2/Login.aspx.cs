@@ -16,7 +16,7 @@ namespace Benchmark_Instant_Reports_2
 
             if (!IsPostBack)
             {
-                ddLoginCampus.DataSource = DataService.ScanRepo.FindAll();
+                ddLoginCampus.DataSource = DataService.SchoolRepo.FindAll();
                 ddLoginCampus.DataTextField = "Name";
                 ddLoginCampus.DataValueField = "Abbr";
                 ddLoginCampus.DataBind();

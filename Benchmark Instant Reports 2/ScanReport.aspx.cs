@@ -89,7 +89,12 @@ namespace Benchmark_Instant_Reports_2
         protected void lbListTests_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (lbListTests.SelectedIndex > -1)
+            {
                 RememberHelper.SavedSelectedTestIDs(Response, UIHelper.GetLBSelectionsAsArray(lbListTests));
+                btnGenReport.Enabled = true;
+            }
+            else
+                btnGenReport.Enabled = false;
 
             repvwScanReport1.Visible = false;
             repvwScanReport2.Visible = false;
@@ -165,7 +170,7 @@ namespace Benchmark_Instant_Reports_2
             ddCampus.AutoPostBack = true;
             lbListTests.Enabled = true;
             lbListTests.AutoPostBack = true;
-            btnGenReport.Enabled = true;
+            btnGenReport.Enabled = false;
             repvwScanReport1.Visible = false;
             repvwScanReport2.Visible = false;
 
