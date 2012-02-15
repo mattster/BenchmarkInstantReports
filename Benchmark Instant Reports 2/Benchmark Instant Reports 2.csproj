@@ -162,6 +162,7 @@
       <DependentUpon>DataSetStudentStats2.xsd</DependentUpon>
     </Compile>
     <Compile Include="Grading\GradeFormatting.cs" />
+    <Compile Include="Helpers\Reports\MatCheckRepHelper.cs" />
     <Compile Include="Infrastructure\ItemInfo.cs" />
     <Compile Include="Helpers\AnswerKeyHelper.cs" />
     <Compile Include="Helpers\RememberHelper.cs" />
@@ -477,6 +478,7 @@
   <ItemGroup>
     <Content Include="MaterialsChecklistRep.rdlc">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
     </Content>
   </ItemGroup>
   <ItemGroup>

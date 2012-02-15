@@ -6,6 +6,7 @@ using Benchmark_Instant_Reports_2.Helpers;
 using Benchmark_Instant_Reports_2.Helpers.Reports;
 using Benchmark_Instant_Reports_2.Infrastructure;
 using Benchmark_Instant_Reports_2.Infrastructure.DataStruct;
+using Benchmark_Instant_Reports_2.References;
 using Microsoft.Reporting.WebForms;
 
 
@@ -89,11 +90,16 @@ namespace Benchmark_Instant_Reports_2
         {
             var selectedSchools = GetSelectedSchools();
             reportData = ScanRepHelper.GenerateScanReportData(DataService, selectedSchools, GetSelectedTests());
+            var reportTitleData = MatCheckRepHelper.GetReportTitle(tbRepTitle.Text);
 
             repvwMaterialsRep1.Visible = true;
-            ReportDataSource rds = new ReportDataSource(repvwMaterialsRep1.LocalReport.GetDataSourceNames()[0], reportData.GetItems());
+            ReportDataSource rds = new ReportDataSource(repvwMaterialsRep1.LocalReport.GetDataSourceNames()[0], 
+                reportData.GetItems());
+            ReportDataSource rds2 = new ReportDataSource(repvwMaterialsRep1.LocalReport.GetDataSourceNames()[1],
+                reportTitleData);
             repvwMaterialsRep1.LocalReport.DataSources.Clear();
             repvwMaterialsRep1.LocalReport.DataSources.Add(rds);
+            repvwMaterialsRep1.LocalReport.DataSources.Add(rds2);
             repvwMaterialsRep1.ShowPrintButton = true;
             repvwMaterialsRep1.LocalReport.Refresh();
 
@@ -123,6 +129,14 @@ namespace Benchmark_Instant_Reports_2
             ddCampus.DataTextField = "Name";
             ddCampus.DataValueField = "Abbr";
             ddCampus.DataBind();
+
+            // add option for "ALL" if authorized as admin
+            if (Authorize.IsAuthorizedForAllCampuses(Context.User.Identity.Name))
+            {
+                ddCampus.Items.Insert(0, new ListItem(Constants.DispAllSecondary, Constants.DispAllSecondary));
+                ddCampus.Items.Insert(0, new ListItem(Constants.DispAllElementary, Constants.DispAllElementary));
+                ddCampus.SelectedIndex = 0;
+            }
 
             int cidx = UIHelper.GetIndexOfItemInDD(RememberHelper.SavedSelectedCampus(Request), ddCampus);
             if (cidx != -1)
