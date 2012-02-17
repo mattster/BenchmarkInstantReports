@@ -1,6 +1,7 @@
 ﻿using System.Configuration;
 using System.Data;
 using System.Data.OracleClient;
+using Benchmark_Instant_Reports_2.References;
 
 namespace Benchmark_Instant_Reports_2.Infrastructure.Repositories
 {
@@ -9,8 +10,6 @@ namespace Benchmark_Instant_Reports_2.Infrastructure.Repositories
     /// </summary>
     public class ODAHelper
     {
-        private static string databaseName = "SISPRODOracleDb";             // used in the Connection String
-
         /// <summary>
         /// returns a DataSet using an OracleDataAdapter executing a query string
         /// </summary>
@@ -20,7 +19,7 @@ namespace Benchmark_Instant_Reports_2.Infrastructure.Repositories
         {
             DataSet ds = new DataSet();
 
-            string connectionString = ConfigurationManager.ConnectionStrings[databaseName].ConnectionString;
+            string connectionString = ConfigurationManager.ConnectionStrings[DatabaseDefn.databaseName].ConnectionString;
             using (OracleConnection connection =
                 new OracleConnection(connectionString))
             {
@@ -30,6 +29,7 @@ namespace Benchmark_Instant_Reports_2.Infrastructure.Repositories
                 return ds;
             }
         }
+
 
 
         /// <summary>

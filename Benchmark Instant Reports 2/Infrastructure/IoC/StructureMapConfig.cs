@@ -30,10 +30,12 @@ namespace Benchmark_Instant_Reports_2.Infrastructure.IoC
                     x.For<IAnswerKeyCampusRepository>().LifecycleIs(new HttpContextLifecycle()).Use<AnswerKeyCampusRepositoryODA>();
 
                     // Roster repo; scoped as a Singleton; use Oracle Data Adapter rep
-                    x.For<IRosterRepository>().Singleton().Use<RosterRepositoryODA>();
+                    //x.For<IRosterRepository>().Singleton().Use<RosterRepositoryODA>();
+                    x.For<IRosterRepository>().Singleton().Use<RosterRepositoryDapper>();
 
                     // Scan repo; scoped to the HTTP Context; use Oracle Data Adapter repo
-                    x.For<IScanRepository>().LifecycleIs(new HttpContextLifecycle()).Use<ScanRepositoryODA>();
+                    //x.For<IScanRepository>().LifecycleIs(new HttpContextLifecycle()).Use<ScanRepositoryODA>();
+                    x.For<IScanRepository>().LifecycleIs(new HttpContextLifecycle()).Use<ScanRepositoryDapper>();
 
                     // Test Definition repo; scoped to the HTTP Context; use Oracle Data Adapter repo
                     x.For<ITestRepository>().LifecycleIs(new HttpContextLifecycle()).Use<TestRepositoryODA>();

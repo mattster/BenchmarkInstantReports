@@ -18,15 +18,7 @@ namespace Benchmark_Instant_Reports_2.References
         public static string TeacherNameNumFieldName = "R.TEACHER_NAME||\'-\'||R.TEACHER_NBR";
         public static string TeacherNameFieldNameR = "R.TEACHER_NAME";
         public static string TeacherNameFieldName = "TEACHER_NAME";
-        public static string TeacherNameNumFieldNameNew = "TEACHER_NAMENUM";
 
-        // for substitution when building some queries
-        public static string SchoolCriteriaInCustomQ1 = "AND R.SCHOOL2 = @school"; // "AND R.SCHOOL_ABBR = @school";
-        public static string SchoolCriteriaInCustomQ2 = "AND SCHOOL2 = @school"; //"AND SCHOOL_ABBR = @school";
-        public static string SchoolCriteriaInCustomQ3 = "and school2 = @school"; //"and school_abbr = @school";
-        public static string SchoolCriteriaInCustomQ4 = "AND R.SCHOOL_ABBR = @school";
-        public static string SchoolCriteriaInCustomQ5 = "AND SCHOOL_ABBR = @school";
-        public static string SchoolCriteriaInCustomQ6 = "and school_abbr = @school";
         #endregion
 
 

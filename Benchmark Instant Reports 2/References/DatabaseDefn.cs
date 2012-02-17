@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
+﻿
 namespace Benchmark_Instant_Reports_2.References
 {
     public static class DatabaseDefn
@@ -20,6 +16,9 @@ namespace Benchmark_Instant_Reports_2.References
         public static string DBResultsBenchmarkStats = "ACI.TEMP_RESULTS_BENCHMARKSTATS";
         public static string DBResultsScanReport = "ACI.TEMP_RESULTS_SCANREPORT";
         public static string DBResultsStudentStats = "ACI.TEMP_RESULTS_STUDENTSTATS";
+
+        // the database name used in the connection string
+        public static string databaseName = "SISPRODOracleDb";
 
     }
 }

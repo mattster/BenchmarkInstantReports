@@ -4,7 +4,6 @@ namespace Benchmark_Instant_Reports_2.References
     public static class Queries
     {
 
-
         // ***** get campuses
         #region get_campuses
 

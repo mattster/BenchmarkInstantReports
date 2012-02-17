@@ -192,9 +192,12 @@
     <Compile Include="Infrastructure\IRepositories\ITestRepository.cs" />
     <Compile Include="Infrastructure\Repositories\AnswerKeyCampusRepositoryODA.cs" />
     <Compile Include="Infrastructure\Repositories\AnswerKeyRepositoryODA.cs" />
+    <Compile Include="Infrastructure\Repositories\DapperHelper.cs" />
     <Compile Include="Infrastructure\Repositories\ODAHelper.cs" />
     <Compile Include="Infrastructure\Repositories\RepoService.cs" />
+    <Compile Include="Infrastructure\Repositories\RosterRepositoryDapper.cs" />
     <Compile Include="Infrastructure\Repositories\RosterRepositoryODA.cs" />
+    <Compile Include="Infrastructure\Repositories\ScanRepositoryDapper.cs" />
     <Compile Include="Infrastructure\Repositories\ScanRepositoryODA.cs" />
     <Compile Include="Infrastructure\Repositories\SchoolRepositoryODA.cs" />
     <Compile Include="Infrastructure\Repositories\TestRepositoryODA.cs" />
