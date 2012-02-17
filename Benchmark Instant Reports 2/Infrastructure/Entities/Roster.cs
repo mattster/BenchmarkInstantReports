@@ -21,5 +21,28 @@ namespace Benchmark_Instant_Reports_2.Infrastructure.Entities
         public string FirstYear { get; set; }
         public string ModifiedFlag { get; set; }
         public string CourseCampus { get; set; }
+
+
+        public Roster()
+        {
+            StudentName = "";
+            StudentID = "";
+            LEPCode = "";
+            SPEDFlag = "";
+            Grade = "";
+            SchoolID = "";
+            TeacherNum = "";
+            TeacherName = "";
+            Active = "";
+            CourseID = "";
+            CourseTitle = "";
+            Semester = "";
+            Period = "";
+            HomeCampus = "";
+            USYears = "";
+            FirstYear = "";
+            ModifiedFlag = "";
+            CourseCampus = "";
+        }
     }
 }
