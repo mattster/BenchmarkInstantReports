@@ -105,25 +105,29 @@ namespace Benchmark_Instant_Reports_2.Grading
             int[] itemNums = ansKey.GetItems().Select(ak => ak.ItemNum).ToArray();
             Array.Sort(itemNums);
 
-            for (int i = 0; i < gradedAnswers.Count - 1; i++)
+            for (int i = 0; i < itemNums.Length; i++)
             {
                 // write this one
-                if ((i + 1).ToString().Length <= 2)
+                if (itemNums[i].ToString().Length <= 2)
                 {
-                    titleString[rowIndex] = titleString[rowIndex] + string.Format("{0,2} ", itemNums[i]);
-                    resultsString[rowIndex] = resultsString[rowIndex] + string.Format("{0,2} ",
-                        gradedAnswers.Where(ga => ga.ItemNum == itemNums[i]).First().Info);
+                    titleString[rowIndex] += string.Format("{0,2} ", itemNums[i]);
+                    resultsString[rowIndex] += string.Format("{0,2} ",
+                        (gradedAnswers.Where(ga => ga.ItemNum == itemNums[i]).First().Info) != "" 
+                        ? gradedAnswers.Where(ga => ga.ItemNum == itemNums[i]).First().Info 
+                        : "_");
                 }
                 else
                 {
-                    titleString[rowIndex] = titleString[rowIndex] + string.Format("{0,3} ", itemNums[i]);
-                    resultsString[rowIndex] = resultsString[rowIndex] + string.Format("{0,3} ",
-                        gradedAnswers.Where(ga => ga.ItemNum == itemNums[i]).First().Info);
+                    titleString[rowIndex] += string.Format("{0,3} ", itemNums[i]);
+                    resultsString[rowIndex] += string.Format("{0,3} ",
+                        (gradedAnswers.Where(ga => ga.ItemNum == itemNums[i]).First().Info) != ""
+                        ? gradedAnswers.Where(ga => ga.ItemNum == itemNums[i]).First().Info
+                        : "_");
                 }
 
 
                 // check if the next one will fit on this row
-                if ((i + 1) <= gradedAnswers.Count)
+                if ((i + 1) < itemNums.Length)
                 {
                     if ((Constants.NumColumnsInFormattedLine -
                         (resultsString[rowIndex].Length + itemNums[i + 1].ToString().Length)) < 2)
@@ -138,9 +142,7 @@ namespace Benchmark_Instant_Reports_2.Grading
 
             // put the rows together, insert newlines
             for (int j = 0; j <= rowIndex; j++)
-            {
-                formattedString = formattedString + String.Format("{0}\n{1}\n", titleString[j], resultsString[j]);
-            }
+                formattedString += String.Format("{0}\n{1}\n", titleString[j], resultsString[j]);
 
             // remove the last newline - we don't need it
             formattedString = formattedString.Substring(0, formattedString.Length - 1);
