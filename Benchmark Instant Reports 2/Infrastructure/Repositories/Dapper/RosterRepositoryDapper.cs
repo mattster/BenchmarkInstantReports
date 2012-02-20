@@ -70,25 +70,45 @@ namespace Benchmark_Instant_Reports_2.Infrastructure.Repositories
             foreach (var item in rawdata)
             {
                 Roster newRoster = new Roster();
-                DapperHelper.AssignPropertySafely(newRoster.StudentName, item, "STUDENT_NAME");
-                DapperHelper.AssignPropertySafely(newRoster.StudentID, item, "STUDENT_ID");
-                DapperHelper.AssignPropertySafely(newRoster.LEPCode, item, "LEP_CODE");
-                DapperHelper.AssignPropertySafely(newRoster.SPEDFlag, item, "SPECIAL_ED_FLAG");
-                DapperHelper.AssignPropertySafely(newRoster.Grade, item, "GRADE_LEVEL");
-                DapperHelper.AssignPropertySafely(newRoster.SchoolID, item, "STATE_SCHOOL_ID");
-                DapperHelper.AssignPropertySafely(newRoster.TeacherNum, item, "TEACHER_NBR");
-                DapperHelper.AssignPropertySafely(newRoster.TeacherName, item, "TEACHER_NAME");
-                DapperHelper.AssignPropertySafely(newRoster.Active, item, "ACTIVE");
-                DapperHelper.AssignPropertySafely(newRoster.CourseID, item, "LOCAL_COURSE_ID");
-                DapperHelper.AssignPropertySafely(newRoster.CourseTitle, item, "DISTRICT_COURSE_TITLE");
-                DapperHelper.AssignPropertySafely(newRoster.Semester, item, "SEMESTER");
-                DapperHelper.AssignPropertySafely(newRoster.Period, item, "PERIOD");
-                DapperHelper.AssignPropertySafely(newRoster.HomeCampus, item, "SCHOOL_ABBR");
-                DapperHelper.AssignPropertySafely(newRoster.USYears, item, "US_YRS"); 
-                DapperHelper.AssignPropertySafely(newRoster.FirstYear, item, "FIRST_YEAR");
-                DapperHelper.AssignPropertySafely(newRoster.ModifiedFlag, item, "BENCHMARK_MOD");
-                DapperHelper.AssignPropertySafely(newRoster.CourseCampus, item, "SCHOOL2");
-                newRoster.CourseCampus = item.SCHOOL2;
+
+                newRoster.StudentName = item.STUDENT_NAME;
+                newRoster.StudentID = item.LOCAL_STUDENT_ID;
+                newRoster.LEPCode = item.LEP_CODE;
+                newRoster.SPEDFlag = item.SPECIAL_ED_FLAG;
+                newRoster.Grade = item.GRADE_LEVEL;
+                newRoster.SchoolID = item.STATE_SCHOOL_ID;
+                newRoster.TeacherNum = item.TEACHER_NBR;
+                newRoster.TeacherName = item.TEACHER_NAME;
+                newRoster.Active = item.ACTIVE.ToString();
+                newRoster.CourseID = item.LOCAL_COURSE_ID;
+                newRoster.CourseTitle = item.DISTRICT_COURSE_TITLE;
+                newRoster.Semester = item.SEMESTER;
+                newRoster.Period = item.PERIOD;
+                newRoster.HomeCampus = item.SCHOOL_ABBR;
+                newRoster.USYears = item.US_YRS;
+                newRoster.FirstYear = item.FIRST_YEAR;
+                newRoster.ModifiedFlag = item.BENCHMARK_MOD;
+                newRoster.CourseCampus = item.SCHOOL2; 
+
+                //DapperHelper.AssignPropertySafely(newRoster.StudentName, item, "STUDENT_NAME");
+                //DapperHelper.AssignPropertySafely(newRoster.StudentID, item, "STUDENT_ID");
+                //DapperHelper.AssignPropertySafely(newRoster.LEPCode, item, "LEP_CODE");
+                //DapperHelper.AssignPropertySafely(newRoster.SPEDFlag, item, "SPECIAL_ED_FLAG");
+                //DapperHelper.AssignPropertySafely(newRoster.Grade, item, "GRADE_LEVEL");
+                //DapperHelper.AssignPropertySafely(newRoster.SchoolID, item, "STATE_SCHOOL_ID");
+                //DapperHelper.AssignPropertySafely(newRoster.TeacherNum, item, "TEACHER_NBR");
+                //DapperHelper.AssignPropertySafely(newRoster.TeacherName, item, "TEACHER_NAME");
+                //DapperHelper.AssignPropertySafely(newRoster.Active, item, "ACTIVE");
+                //DapperHelper.AssignPropertySafely(newRoster.CourseID, item, "LOCAL_COURSE_ID");
+                //DapperHelper.AssignPropertySafely(newRoster.CourseTitle, item, "DISTRICT_COURSE_TITLE");
+                //DapperHelper.AssignPropertySafely(newRoster.Semester, item, "SEMESTER");
+                //DapperHelper.AssignPropertySafely(newRoster.Period, item, "PERIOD");
+                //DapperHelper.AssignPropertySafely(newRoster.HomeCampus, item, "SCHOOL_ABBR");
+                //DapperHelper.AssignPropertySafely(newRoster.USYears, item, "US_YRS"); 
+                //DapperHelper.AssignPropertySafely(newRoster.FirstYear, item, "FIRST_YEAR");
+                //DapperHelper.AssignPropertySafely(newRoster.ModifiedFlag, item, "BENCHMARK_MOD");
+                //DapperHelper.AssignPropertySafely(newRoster.CourseCampus, item, "SCHOOL2");
+
                 finalData.Add(newRoster);
             }
 

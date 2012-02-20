@@ -260,11 +260,22 @@ namespace Benchmark_Instant_Reports_2.References
         // ***** get Roster data
         #region get_roster_data
         public static string GetRosterDataForID =
-                "select * from " + DatabaseDefn.DBStudentRoster + " " +
+                "select STUDENT_NAME, LOCAL_STUDENT_ID, LEP_CODE, " +
+                "SPECIAL_ED_FLAG, GRADE_LEVEL, STATE_SCHOOL_ID, " +
+                "TEACHER_NBR, TEACHER_NAME, ACTIVE, LOCAL_COURSE_ID, " +
+                "DISTRICT_COURSE_TITLE, SEMESTER, PERIOD, SCHOOL_ABBR, " +
+                "US_YRS, FIRST_YEAR, BENCHMARK_MOD, SCHOOL2 " +
+                "from " + DatabaseDefn.DBStudentRoster + " " +
                 "where local_student_id = \'@studentId\'";
 
         public static string GetAbbreviatedRosterDataForSchool =
-                "select local_student_id, teacher_name, period, semester, school2 " +
+                "SELECT LOCAL_STUDENT_ID, TEACHER_NAME, PERIOD, SEMESTER, SCHOOL2, " +
+                "\' \' AS STUDENT_NAME, \' \' AS LEP_CODE, " +
+                "\' \' AS SPECIAL_ED_FLAG, \' \' AS GRADE_LEVEL, " +
+                "\' \' AS STATE_SCHOOL_ID, \' \' AS TEACHER_NBR, " +
+                "\' \' AS ACTIVE, \' \' AS LOCAL_COURSE_ID, " +
+                "\' \' AS DISTRICT_COURSE_TITLE, \' \' AS SCHOOL_ABBR, " +
+                "\' \' AS US_YRS, \' \' AS FIRST_YEAR, \' \' AS BENCHMARK_MOD " +
                 "from " + DatabaseDefn.DBStudentRoster + " " +
                 "where school2 = \'@school\' ";
 
