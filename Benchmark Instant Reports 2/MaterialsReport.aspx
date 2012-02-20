@@ -41,7 +41,7 @@
                 <asp:Panel ID="pnlCampus" runat="server">
                     <asp:UpdatePanel ID="updpnlCampus" class="CampusUpdatePanel" runat="server">
                         <ContentTemplate>
-                            <asp:DropDownList ID="DropDownList1" runat="server" Height="28px" Width="240px" OnSelectedIndexChanged="ddCampus_SelectedIndexChanged">
+                            <asp:DropDownList ID="ddCampus" runat="server" Height="28px" Width="240px" OnSelectedIndexChanged="ddCampus_SelectedIndexChanged">
                             </asp:DropDownList>
                         </ContentTemplate>
                     </asp:UpdatePanel>
@@ -170,6 +170,18 @@
             <td class="tcol4">
                 Use SHIFT and CTRL keys for multiple values
             </td>
+        </tr>
+        <tr>
+            <td class="tcol1">
+                Test Group Title
+            </td>
+            <td class="tcol2">
+                <asp:TextBox ID="tbRepTitle" runat="server" Width="300" MaxLength="35"></asp:TextBox>
+            </td>
+            <td class="tcol3">
+                &nbsp;
+            </td>
+            <td class="tcol4">&nbsp;</td>
         </tr>
         <tr>
             <td class="tcol1">

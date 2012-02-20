@@ -254,7 +254,7 @@ namespace Benchmark_Instant_Reports_2.Grading
             var rosterstudents = dataservice.RosterRepo.ExecuteTestQuery(schoolCustomQuery);
 
             foreach (var student in rosterstudents)
-                if (finalData.GetItemsWhere(d => d.StudentID == student.StudentID).Count() == 0)
+                //if (finalData.GetItemsWhere(d => d.StudentID == student.StudentID).Count() == 0)
                     finalData.Add(new PreslugItem(student, test.TestID));
 
             return finalData;
