@@ -34,6 +34,7 @@ namespace Benchmark_Instant_Reports_2
             return;
         }
 
+
         protected void ddCampus_SelectedIndexChanged(object sender, EventArgs e)
         {
             theMasterPage = Page.Master as SiteMaster;
@@ -85,6 +86,7 @@ namespace Benchmark_Instant_Reports_2
             }
             return;
         }
+
 
         protected void btnGenReport_Click(object sender, EventArgs e)
         {
