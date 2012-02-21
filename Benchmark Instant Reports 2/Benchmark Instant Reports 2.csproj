@@ -191,6 +191,7 @@
     <Compile Include="Infrastructure\IRepositories\IScanRepository.cs" />
     <Compile Include="Infrastructure\IRepositories\ISchoolRepository.cs" />
     <Compile Include="Infrastructure\IRepositories\ITestRepository.cs" />
+    <Compile Include="Infrastructure\Repositories\Dapper\SchoolRepositoryDapper.cs" />
     <Compile Include="Infrastructure\Repositories\ODA\AnswerKeyCampusRepositoryODA.cs" />
     <Compile Include="Infrastructure\Repositories\ODA\AnswerKeyRepositoryODA.cs" />
     <Compile Include="Infrastructure\Repositories\Dapper\DapperHelper.cs" />
