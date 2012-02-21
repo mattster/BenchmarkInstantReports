@@ -156,6 +156,8 @@ namespace Benchmark_Instant_Reports_2.Infrastructure.Repositories
                 retTest.SecSchoolType = Constants.SchoolType.JuniorHigh;
             else if (secSchType == "H")
                 retTest.SecSchoolType = Constants.SchoolType.HighSchool;
+            else if (secSchType == "B")
+                retTest.SecSchoolType = Constants.SchoolType.AllSecondary;
             else retTest.SecSchoolType = Constants.SchoolType.Unknown;
 
             return retTest;
