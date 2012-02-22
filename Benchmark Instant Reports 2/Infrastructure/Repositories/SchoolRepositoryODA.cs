@@ -27,7 +27,7 @@ namespace Benchmark_Instant_Reports_2.Infrastructure.Repositories
 
             return ConvertRowToSchool(ds.Tables[0].Rows[0]);
         }
-
+        
 
         /// <summary>
         /// finds a School by its abbreviation
