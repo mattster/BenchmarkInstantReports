@@ -67,15 +67,17 @@ namespace Benchmark_Instant_Reports_2.Infrastructure.Repositories
 
             var sch = SchoolRepo.FindBySchoolAbbr(abbr);
             var schType = SchoolRepo.GetSchoolType(sch);
-            
+
             if (schType == Constants.SchoolType.HighSchool)
                 return TestRepo.FindActiveTests()
-                               .Where(t => t.SecSchoolType == Constants.SchoolType.HighSchool)
+                               .Where(t => t.SecSchoolType == Constants.SchoolType.HighSchool ||
+                                           t.SecSchoolType == Constants.SchoolType.AllSecondary)
                                .Select(t => t.TestID)
                                .ToList();
             else if (schType == Constants.SchoolType.JuniorHigh)
                 return TestRepo.FindActiveTests()
-                               .Where(t => t.SecSchoolType == Constants.SchoolType.JuniorHigh)
+                               .Where(t => t.SecSchoolType == Constants.SchoolType.JuniorHigh ||
+                                           t.SecSchoolType == Constants.SchoolType.AllSecondary)
                                .Select(t => t.TestID)
                                .ToList();
             else if (schType == Constants.SchoolType.Elementary)
@@ -86,6 +88,17 @@ namespace Benchmark_Instant_Reports_2.Infrastructure.Repositories
             else
                 return TestRepo.FindActiveTests().Select(t => t.TestID).ToList();
         }
+
+
+
+        public IList<string> GetCoursesForTest(string testid)
+        {
+            string customqueryraw = TestRepo.FindByTestID(testid).CustomQuery;
+            string customquerynosch = customqueryraw.Replace("= @school", "is not null");
+            string qs = Queries.GetCoursesForTest.Replace("@query", customquerynosch);
+
+        }
+
 
 
         /// <summary>

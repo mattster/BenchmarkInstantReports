@@ -30,6 +30,9 @@ namespace Benchmark_Instant_Reports_2.Grading
                 IQueryable<Scan> scanDataCurTest = GetScannedData(dataservice, curTest);
                 string semesterForTest = TestHelper.SemesterForTest(curTest);
 
+                // get list of courses for this test
+                List<string> coursesCurTest = dataservice.GetCoursesForTest(curTest.TestID);
+
                 // go through each school
                 foreach (School curSchool in schools)
                 {
@@ -40,8 +43,9 @@ namespace Benchmark_Instant_Reports_2.Grading
                     PreslugData preslugged = GetPreslugData(dataservice, curTest, curSchool);
 
                     // get a set of the student scans for this test & campus
-                    List<TeacherPeriodItem> teachersperiods = GetTeacherPeriodList(preslugged, semesterForTest);
-                    IQueryable<Scan> scanDataCurTestSch = FilterScans(dataservice, scanDataCurTest, rosterData, teachersperiods);
+                    //List<TeacherPeriodItem> teachersperiods = GetTeacherPeriodList(preslugged, semesterForTest);
+                    //IQueryable<Scan> scanDataCurTestSch = FilterScans(dataservice, scanDataCurTest, rosterData, teachersperiods);
+                    IQueryable<Scan> scanDataCurTestSch = FilterScans(dataservice, scanDataCurTest, rosterData);
 
                     // find data that is both preslugged and scanned
                     var scannedItemsNotPreslugged = new HashSet<Scan>();
@@ -87,17 +91,40 @@ namespace Benchmark_Instant_Reports_2.Grading
                                 {
                                     // found a match
                                     DataToGradeItem newItem = new DataToGradeItem();
-                                    newItem.StudentID = scan.StudentID.ToString();
+                                    newItem.StudentID = dataservice.StudentIDString(scan.StudentID);
                                     newItem.StudentName = rosterItem.StudentName;
                                     newItem.TeacherName = rosterItem.TeacherName;
                                     newItem.Period = rosterItem.Period;
                                     newItem.CourseID = rosterItem.CourseID;
-                                    newItem.Campus = curSchool.Abbr;// rosterItem.CourseCampus;
+                                    newItem.Campus = curSchool.Abbr;
                                     newItem.TestID = scan.TestID;
                                     newItem.ScanItem = scan;
                                     finalData.Add(newItem);
                                     found = true;
                                 }
+
+                                if (found) break;
+                                else
+                                {
+                                    // does this student have any courses in the Preslug data?
+                                    var foundPreslugged2 = preslugged.GetItemsWhere(p => p.CourseID == rosterItem.CourseID);
+                                    if (foundPreslugged2.Count() > 0)
+                                    {
+                                        // found a match
+                                        DataToGradeItem newItem = new DataToGradeItem();
+                                        newItem.StudentID = dataservice.StudentIDString(scan.StudentID);
+                                        newItem.StudentName = rosterItem.StudentName;
+                                        newItem.TeacherName = rosterItem.TeacherName;
+                                        newItem.Period = rosterItem.Period;
+                                        newItem.CourseID = rosterItem.CourseID;
+                                        newItem.Campus = curSchool.Abbr;
+                                        newItem.TestID = scan.TestID;
+                                        newItem.ScanItem = scan;
+                                        finalData.Add(newItem);
+                                        found = true;
+                                    }
+                                }
+
                                 if (found) break;
                             }
 
@@ -401,6 +428,33 @@ namespace Benchmark_Instant_Reports_2.Grading
             return finalData.AsQueryable();
         }
 
+
+
+        private static IQueryable<Scan> FilterScans(IRepoService dataservice, IQueryable<Scan> scanDataCurTest,
+            IQueryable<Roster> rosterData)
+        {
+            HashSet<Scan> finalData = new HashSet<Scan>();
+
+            //var scanDataWithRosterData =
+            //    from scan in scanDataCurTest
+            //    join roster in rosterData on dataservice.StudentIDString(scan.StudentID) equals roster.StudentID
+            //        into scanRosterData
+            //    select new { Scandata = scan, RosterData = scanRosterData };
+
+            //foreach (var scanrosterdataitem in scanDataWithRosterData)
+            //{
+            //    if (finalData.Where(fd => fd.StudentID == scanrosterdataitem.Scandata.StudentID).Count() == 0)
+            //        finalData.Add(scanrosterdataitem.Scandata);
+            //}
+
+            foreach (var scan in scanDataCurTest)
+            {
+                if (rosterData.Where(rd => rd.StudentID == dataservice.StudentIDString(scan.StudentID)).Count() > 0)
+                    finalData.Add(scan);
+            }
+
+            return finalData.AsQueryable();
+        }
 
 
 

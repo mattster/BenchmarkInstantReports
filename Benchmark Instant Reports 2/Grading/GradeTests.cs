@@ -76,6 +76,8 @@ namespace Benchmark_Instant_Reports_2.Grading
                     {
                         // student's answer is incorrect
                         responsescorrect.Add(new ItemInfo<bool>(curItemNum, false));
+                        if (studentAnswer == " " || studentAnswer == "")
+                            studentAnswer = Constants.BlankAnswerIndicator;
                         gradedAnswers.Add(new ItemInfo<string>(curItemNum, studentAnswer));
                         //curGradedAnsString = curGradedAnsString + studentAnswer + ",";
                     }

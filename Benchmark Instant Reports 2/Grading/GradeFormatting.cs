@@ -27,6 +27,7 @@ namespace Benchmark_Instant_Reports_2.Grading
         private static string _dispDataRowRespStart = @"<td>";
         private static string _dispDataRowRespEnd = @"</td>";
 
+        private static string linestarthtmlthing = @"<span style=""color:white"">.</span>";
 
         /// <summary>
         /// creates a string containing html formatting for the Student Summary item data
@@ -105,32 +106,46 @@ namespace Benchmark_Instant_Reports_2.Grading
             int[] itemNums = ansKey.GetItems().Select(ak => ak.ItemNum).ToArray();
             Array.Sort(itemNums);
 
-            for (int i = 0; i < gradedAnswers.Count - 1; i++)
+            for (int itemNumIdx = 0; itemNumIdx < itemNums.Length; itemNumIdx++)
             {
                 // write this one
-                if ((i + 1).ToString().Length <= 2)
+                int curItemNum = itemNums[itemNumIdx];
+                string curItemNumStr = curItemNum.ToString();
+                string curAnswer = gradedAnswers.Where(ga => ga.ItemNum == curItemNum).First().Info;
+
+                // do this because the reportviewer doesn't render an initial first &nbsp;
+                if (resultsString[rowIndex] == null)
                 {
-                    titleString[rowIndex] = titleString[rowIndex] + string.Format("{0,2} ", itemNums[i]);
-                    resultsString[rowIndex] = resultsString[rowIndex] + string.Format("{0,2} ",
-                        gradedAnswers.Where(ga => ga.ItemNum == itemNums[i]).First().Info);
-                }
-                else
-                {
-                    titleString[rowIndex] = titleString[rowIndex] + string.Format("{0,3} ", itemNums[i]);
-                    resultsString[rowIndex] = resultsString[rowIndex] + string.Format("{0,3} ",
-                        gradedAnswers.Where(ga => ga.ItemNum == itemNums[i]).First().Info);
+                    titleString[rowIndex] = linestarthtmlthing;
+                    resultsString[rowIndex] = linestarthtmlthing;
                 }
 
+                // add leading spaces to right-justify if needed
+                int cellLength = Math.Max(2, Math.Max(curItemNumStr.Length, curAnswer.Length));
+                titleString[rowIndex] += 
+                    RepeatStr("&nbsp;", cellLength - curItemNumStr.Length);
+                resultsString[rowIndex] +=
+                    RepeatStr("&nbsp;", cellLength - curAnswer.Length);
+
+
+                // write the item num & answer
+                titleString[rowIndex] += curItemNumStr;
+                resultsString[rowIndex] += curAnswer;
+
+                // add separator space
+                titleString[rowIndex] += "&nbsp;";
+                resultsString[rowIndex] += "&nbsp;";
 
                 // check if the next one will fit on this row
-                if ((i + 1) <= gradedAnswers.Count)
+                if ((itemNumIdx + 1) < itemNums.Length)
                 {
-                    if ((Constants.NumColumnsInFormattedLine -
-                        (resultsString[rowIndex].Length + itemNums[i + 1].ToString().Length)) < 2)
+                    // check if item num will fit
+                    string nextItemNumStr = itemNums[itemNumIdx + 1].ToString();
+                    string nextAnswer = gradedAnswers.Where(ga => ga.ItemNum == itemNums[itemNumIdx + 1]).First().Info;
+                    if (GetDisplayLength(titleString[rowIndex]) + nextItemNumStr.Length >= Constants.NumColumnsInFormattedLine ||
+                        GetDisplayLength(resultsString[rowIndex]) + nextAnswer.Length >= Constants.NumColumnsInFormattedLine)
                     {
-                        // next item will not fit; delete extra space at end and go to next row
-                        titleString[rowIndex] = titleString[rowIndex].Substring(0, titleString[rowIndex].Length - 1);
-                        resultsString[rowIndex] = resultsString[rowIndex].Substring(0, resultsString[rowIndex].Length - 1);
+                        // next item will not fit; go to next row
                         rowIndex++;
                     }
                 }
@@ -138,14 +153,25 @@ namespace Benchmark_Instant_Reports_2.Grading
 
             // put the rows together, insert newlines
             for (int j = 0; j <= rowIndex; j++)
-            {
-                formattedString = formattedString + String.Format("{0}\n{1}\n", titleString[j], resultsString[j]);
-            }
-
-            // remove the last newline - we don't need it
-            formattedString = formattedString.Substring(0, formattedString.Length - 1);
+                formattedString += titleString[j] + "<br />" + resultsString[j] + "<br />";
 
             return formattedString;
+        }
+
+
+
+
+        private static int GetDisplayLength(string str)
+        {
+            //str = str.Replace("&nbsp;", " ");
+            return str.Replace("&nbsp;", " ").Replace(linestarthtmlthing, "").Length;
+        }
+
+
+        private static string RepeatStr(string s, int n)
+        {
+            if (n == 0) return "";
+            return String.Concat(Enumerable.Repeat(s, n));
         }
     }
 }

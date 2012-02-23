@@ -16,6 +16,7 @@ namespace Benchmark_Instant_Reports_2.Infrastructure.IRepositories
         ITestRepository TestRepo { get; set; }
 
         IList<string> GetTestIDsForSchool(string abbr);
+        IList<string> GetCoursesForTest(string testid);
 
         string StudentIDString(int id);
         string StudentIDString(string id);
