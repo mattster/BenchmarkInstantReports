@@ -166,6 +166,10 @@ namespace Benchmark_Instant_Reports_2.References
                 "from " + DatabaseDefn.DBStudentRoster + " " +
                 "where school2 = \'@school\' ";
 
+        public static string GetCoursesForTest = 
+                "select unique(local_course_id) " +
+                "from ( @query ) "; 
+
         #endregion
 
 

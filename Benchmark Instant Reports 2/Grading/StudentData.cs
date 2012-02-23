@@ -30,6 +30,9 @@ namespace Benchmark_Instant_Reports_2.Grading
                 IQueryable<Scan> scanDataCurTest = GetScannedData(dataservice, curTest);
                 string semesterForTest = TestHelper.SemesterForTest(curTest);
 
+                // get list of courses for this test
+                List<string> coursesCurTest = dataservice.GetCoursesForTest(curTest.TestID);
+
                 // go through each school
                 foreach (School curSchool in schools)
                 {
