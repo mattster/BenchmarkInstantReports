@@ -40,7 +40,7 @@ namespace Benchmark_Instant_Reports_2.Grading
                     PreslugData preslugged = GetPreslugData(dataservice, curTest, curSchool);
 
                     // get a set of the student scans for this test & campus
-                    List<TeacherPeriodItem> teachersperiods = GetTeacherPeriodList(preslugged, semesterForTest);
+                    //List<TeacherPeriodItem> teachersperiods = GetTeacherPeriodList(preslugged, semesterForTest);
                     //IQueryable<Scan> scanDataCurTestSch = FilterScans(dataservice, scanDataCurTest, rosterData, teachersperiods);
                     IQueryable<Scan> scanDataCurTestSch = FilterScans(dataservice, scanDataCurTest, rosterData);
 

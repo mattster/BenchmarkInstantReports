@@ -89,7 +89,7 @@
         </div>
         <div class="main">
             <div class="attentionitem">
-                Lots of Internal Improvements plus New Info on Scan Report</div>
+                Student Summary Report On-Screen Alignment Fixed</div>
             <asp:ContentPlaceHolder ID="MainContent" runat="server" />
         </div>
         <div class="clear">
@@ -97,7 +97,7 @@
     </div>
     <div class="footer">
         <div class="versionlabel">
-            <asp:Label ID="lblVersion" runat="server" Text="bir 2.0.3"></asp:Label>
+            <asp:Label ID="lblVersion" runat="server" Text="bir 2.0.4"></asp:Label>
         </div>
     </div>
     </form>
