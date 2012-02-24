@@ -8,7 +8,7 @@ namespace Benchmark_Instant_Reports_2.Infrastructure.IRepositories
     /// </summary>
     public interface IRosterRepository : IRepository<Roster>
     {
-        IQueryable<Roster> ExecuteTestQuery(string qs);
+        IQueryable<Roster> ExecuteQuery(string qs);
         IQueryable<Roster> FindByStudentID(string id);
         IQueryable<Roster> FindBySchool(string schoolAbbr);
     }

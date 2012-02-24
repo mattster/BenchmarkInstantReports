@@ -97,6 +97,15 @@ namespace Benchmark_Instant_Reports_2.Infrastructure.Repositories
             string customquerynosch = customqueryraw.Replace("= @school", "is not null");
             string qs = Queries.GetCoursesForTest.Replace("@query", customquerynosch);
 
+            var rosterwithuniquecourses = RosterRepo.ExecuteQuery(qs);
+
+            List<string> finalData = new List<string>();
+            foreach (var item in rosterwithuniquecourses)
+            {
+                finalData.Add(item.CourseID);
+            }
+
+            return finalData;
         }
 
 

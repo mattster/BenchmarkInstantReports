@@ -10,7 +10,7 @@ namespace Benchmark_Instant_Reports_2.Infrastructure.Repositories
 {
     public class RosterRepositoryDapper : IRosterRepository
     {
-        public IQueryable<Roster> ExecuteTestQuery(string qs)
+        public IQueryable<Roster> ExecuteQuery(string qs)
         {
             var results = DapperHelper.DQuery(qs);
             return ConvertPreslugToRosterQ(results);

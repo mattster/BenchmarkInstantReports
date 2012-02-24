@@ -18,7 +18,7 @@ namespace Benchmark_Instant_Reports_2.Infrastructure.Repositories
         /// </summary>
         /// <param name="qs">query string of the query to perform</param>
         /// <returns>IQueryable-Roster- data</returns>
-        public IQueryable<Roster> ExecuteTestQuery(string qs)
+        public IQueryable<Roster> ExecuteQuery(string qs)
         {
             DataSet ds = ODAHelper.getDataRows(qs);
             if (ds.Tables.Count == 0)

@@ -31,7 +31,7 @@ namespace Benchmark_Instant_Reports_2.Grading
                 string semesterForTest = TestHelper.SemesterForTest(curTest);
 
                 // get list of courses for this test
-                List<string> coursesCurTest = dataservice.GetCoursesForTest(curTest.TestID);
+                IList<string> coursesCurTest = dataservice.GetCoursesForTest(curTest.TestID);
 
                 // go through each school
                 foreach (School curSchool in schools)
@@ -109,6 +109,28 @@ namespace Benchmark_Instant_Reports_2.Grading
                                     // does this student have any courses in the Preslug data?
                                     var foundPreslugged2 = preslugged.GetItemsWhere(p => p.CourseID == rosterItem.CourseID);
                                     if (foundPreslugged2.Count() > 0)
+                                    {
+                                        // found a match
+                                        DataToGradeItem newItem = new DataToGradeItem();
+                                        newItem.StudentID = dataservice.StudentIDString(scan.StudentID);
+                                        newItem.StudentName = rosterItem.StudentName;
+                                        newItem.TeacherName = rosterItem.TeacherName;
+                                        newItem.Period = rosterItem.Period;
+                                        newItem.CourseID = rosterItem.CourseID;
+                                        newItem.Campus = curSchool.Abbr;
+                                        newItem.TestID = scan.TestID;
+                                        newItem.ScanItem = scan;
+                                        finalData.Add(newItem);
+                                        found = true;
+                                    }
+                                }
+
+                                if (found) break;
+                                else
+                                {
+                                    // does this student have any courses in the list of courses for this test?
+                                    var foundcourses = coursesCurTest.Where(c => c == rosterItem.CourseID);
+                                    if (foundcourses.Count() > 0)
                                     {
                                         // found a match
                                         DataToGradeItem newItem = new DataToGradeItem();
@@ -278,7 +300,7 @@ namespace Benchmark_Instant_Reports_2.Grading
             schoolCustomQuery = schoolCustomQuery.Replace(Constants.TeacherNameNumFieldName, Constants.TeacherNameFieldNameR);
 
             // run the query
-            var rosterstudents = dataservice.RosterRepo.ExecuteTestQuery(schoolCustomQuery);
+            var rosterstudents = dataservice.RosterRepo.ExecuteQuery(schoolCustomQuery);
 
             foreach (var student in rosterstudents)
                 //if (finalData.GetItemsWhere(d => d.StudentID == student.StudentID).Count() == 0)
