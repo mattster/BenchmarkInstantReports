@@ -23,6 +23,7 @@ namespace Benchmark_Instant_Reports_2.Grading
             new TestTemplate("37-AE-FK-1GRID-G45", 1, 37, 37, TestTemplate.TestTemplatetype.Grade3Grids),
             new TestTemplate("38-AE-FK-2GRID-G68", 2, 38, 39, TestTemplate.TestTemplatetype.Grade68Grids),
             new TestTemplate("39-AE-FK-1GRID-G45", 1, 39, 39, TestTemplate.TestTemplatetype.Grade45Grids),
+            new TestTemplate("41-AE-FK-1GRID-G68", 1, 41, 41, TestTemplate.TestTemplatetype.Grade68Grids),
             new TestTemplate("43-AE-FK-3GRID-G3", 3, 43, 45, TestTemplate.TestTemplatetype.Grade3Grids),
             new TestTemplate("45-AE-FK-3GRID-G45", 3, 45, 47, TestTemplate.TestTemplatetype.Grade45Grids),
             new TestTemplate("46-AE-FK-4GRID-G45", 4, 46, 49, TestTemplate.TestTemplatetype.Grade45Grids),
@@ -30,6 +31,7 @@ namespace Benchmark_Instant_Reports_2.Grading
             new TestTemplate("60-AE-FK-3GRID-G68", 3, 60, 62, TestTemplate.TestTemplatetype.Grade68Grids),
             new TestTemplate("60-AE-3GRID-EOC", 3, 60, 62, TestTemplate.TestTemplatetype.EOCGrids),
             new TestTemplate("60-AE-3GRID-G68", 3, 60, 62, TestTemplate.TestTemplatetype.Grade68Grids),
+            new TestTemplate("4GRID-G68", 4, 0, 3, TestTemplate.TestTemplatetype.Grade68Grids),
         };
     }
 }

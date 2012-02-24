@@ -56,6 +56,8 @@ namespace Benchmark_Instant_Reports_2.Exceptions
             new GridNonExactMatch("2012-01 EC Grade 5 Science TC 19-66", 25),
             new GridNonExactMatch("2012-01 EM Grade 5 Math SIM 21-67", new int[] { 47, 48, 49, 50}),
             new GridNonExactMatch("2012-01 EM Grade 5 Math-M SIM 21-68", 40),
+            new GridNonExactMatch("2012-02 EM 6th Grade Math Grids SIM 27-86", new int[] { 1, 2, 3, 4 }),
+            new GridNonExactMatch("2012-02 EM 6th Grade Math-M SIM 27-85", 42),
 
         };
 

@@ -91,13 +91,7 @@ namespace Benchmark_Instant_Reports_2.Infrastructure.Repositories
 
 
 
-        public IList<string> GetCoursesForTest(string testid)
-        {
-            string customqueryraw = TestRepo.FindByTestID(testid).CustomQuery;
-            string customquerynosch = customqueryraw.Replace("= @school", "is not null");
-            string qs = Queries.GetCoursesForTest.Replace("@query", customquerynosch);
-
-        }
+      
 
 
 
