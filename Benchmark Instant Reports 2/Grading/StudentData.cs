@@ -41,6 +41,7 @@ namespace Benchmark_Instant_Reports_2.Grading
 
                     // get a set of the preslugged data for this test & campus
                     PreslugData preslugged = GetPreslugData(dataservice, curTest, curSchool);
+                    IEnumerable<PreslugItem> presluggedList = preslugged.GetItems();
 
                     // get a set of the student scans for this test & campus
                     //List<TeacherPeriodItem> teachersperiods = GetTeacherPeriodList(preslugged, semesterForTest);
@@ -78,11 +79,14 @@ namespace Benchmark_Instant_Reports_2.Grading
                     {
                         foreach (Scan scan in scannedItemsNotPreslugged)
                         {
-                            var thisStudentsRoster = dataservice.RosterRepo.
-                                FindByStudentID(dataservice.StudentIDString(scan.StudentID));
+                            //var thisStudentsRoster = dataservice.RosterRepo.
+                            //    FindByStudentID(dataservice.StudentIDString(scan.StudentID));
+                            var thisStudentsRoster = rosterData.Where(rd => 
+                                rd.StudentID == dataservice.StudentIDString(scan.StudentID));
                             bool found = false;
 
                             // does this student match a teacher who already has preslugged data?
+
                             foreach (var rosterItem in thisStudentsRoster)
                             {
                                 var foundPreslugged = preslugged.GetItemsWhere(p => p.TeacherName == rosterItem.TeacherName &&
@@ -469,12 +473,23 @@ namespace Benchmark_Instant_Reports_2.Grading
             //        finalData.Add(scanrosterdataitem.Scandata);
             //}
 
-            foreach (var scan in scanDataCurTest)
-            {
-                if (rosterData.Where(rd => rd.StudentID == dataservice.StudentIDString(scan.StudentID)).Count() > 0)
-                    finalData.Add(scan);
-            }
+            //foreach (var scan in scanDataCurTest)
+            //{
+            //    if (rosterData.Where(rd => rd.StudentID == dataservice.StudentIDString(scan.StudentID)).Count() > 0)
+            //        finalData.Add(scan);
+            //}
 
+            var something =
+                from scan in scanDataCurTest
+                join roster in rosterData on dataservice.StudentIDString(scan.StudentID) equals roster.StudentID
+                    //into somethingnew
+                select new { Scandata = scan };
+
+            foreach (var thisthing in something)
+            {
+                finalData.Add(thisthing.Scandata);
+            }
+            
             return finalData.AsQueryable();
         }
 

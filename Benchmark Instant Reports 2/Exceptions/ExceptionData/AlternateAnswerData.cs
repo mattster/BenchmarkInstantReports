@@ -18,6 +18,8 @@ namespace Benchmark_Instant_Reports_2.Exceptions
             new AlternateAnswer("2011-12 SC Chemistry Unit 6 T2-T4 CUT 90-61", "LHHS", 61, "149.1"),
 
             new AlternateAnswer("2012-01 EM Grade 5 Math-M SIM 21-68", 9, "C"),
+
+            new AlternateAnswer("2012-03 SC Physics Unit 4 T4 CUT 91-81", 61, "6.0"),
         };
 
     }

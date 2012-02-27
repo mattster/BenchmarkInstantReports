@@ -65,7 +65,6 @@ namespace Benchmark_Instant_Reports_2
             listTests.Enabled = true;
             UIHelper.ToggleDDInitView(listTests, true);
             repvwStudentSummary.Visible = false;
-            lblAlignmentNote.Visible = false;
 
             int bidx = UIHelper.GetIndexOfItemInDD(RememberHelper.SavedSelectedTestID(Request), listTests);
             if (bidx != -1)
@@ -93,7 +92,6 @@ namespace Benchmark_Instant_Reports_2
             if (listOfTeachers.Length == 0)
             {
                 repvwStudentSummary.Visible = false;
-                lblAlignmentNote.Visible = false;
                 lblNoScanData.Visible = true;
                 return;
             }
@@ -106,7 +104,6 @@ namespace Benchmark_Instant_Reports_2
             ddTeacher.DataBind();
             UIHelper.ToggleDDInitView(ddTeacher, true);
             repvwStudentSummary.Visible = false;
-            lblAlignmentNote.Visible = false;
 
             return;
         }
@@ -115,7 +112,6 @@ namespace Benchmark_Instant_Reports_2
         protected void ddTeacher_SelectedIndexChanged(object sender, EventArgs e)
         {
             repvwStudentSummary.Visible = false;
-            lblAlignmentNote.Visible = false;
             btnGenReport.Enabled = true;
 
             return;
@@ -133,7 +129,6 @@ namespace Benchmark_Instant_Reports_2
             reportData = StGradesRepHelper.GenerateStudentGradesReportData(DataService, studentDataToGrade, tests);
 
             repvwStudentSummary.Visible = true;
-            lblAlignmentNote.Visible = true;
 
             ReportDataSource rds = new ReportDataSource(repvwStudentSummary.LocalReport.GetDataSourceNames()[0],
                 reportData.GetItemsWhere(i => i.Teacher == ddTeacher.SelectedItem.ToString(), i => i.StudentName));
@@ -170,7 +165,6 @@ namespace Benchmark_Instant_Reports_2
             ddTeacher.AutoPostBack = true;
             btnGenReport.Enabled = false;
             repvwStudentSummary.Visible = false;
-            lblAlignmentNote.Visible = false;
             lblNoScanData.Visible = false;
 
             // load list of campuses in Campus dropdown

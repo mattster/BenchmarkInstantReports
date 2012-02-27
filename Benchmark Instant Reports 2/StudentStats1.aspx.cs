@@ -82,6 +82,8 @@ namespace Benchmark_Instant_Reports_2
         protected void listTests_SelectedIndexChanged(object sender, EventArgs e)
         {
             lblNoScanData.Visible = false;
+            ddTeacher.DataSource = "";
+            ddTeacher.DataBind();
             RememberHelper.SaveSelectedTestID(Response, listTests.SelectedItem.ToString());
 
             studentDataToGrade = StudentData.GetStudentDataToGrade(DataService, GetSelectedTests(), GetSelectedSchools());

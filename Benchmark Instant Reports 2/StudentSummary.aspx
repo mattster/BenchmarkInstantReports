@@ -233,14 +233,6 @@
             </td>
         </tr>
     </table>
-    <asp:Panel ID="pnlLblAlignmentNote" runat="server">
-        <asp:UpdatePanel ID="updpnlLblAlignmentNote" runat="server">
-            <ContentTemplate>
-                <asp:Label ID="lblAlignmentNote" runat="server" Font-Bold="False" ForeColor="#FF3300">
-                        ** Report is optimally formatted for printing from Internet Explorer and may not appear to be aligned correctly on screen</asp:Label>
-            </ContentTemplate>
-        </asp:UpdatePanel>
-    </asp:Panel>
     <asp:Panel ID="pnlReportViewer" runat="server">
         <asp:UpdatePanel ID="updpnlReportViewer" runat="server">
             <ContentTemplate>
