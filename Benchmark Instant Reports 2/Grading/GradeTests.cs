@@ -90,7 +90,6 @@ namespace Benchmark_Instant_Reports_2.Grading
             //calculate stuff
             pctCorrect = numPoints / numTotalPoints;
             letterGrade = CalcLetterGrade(numPoints, test.PassNum);
-            //string formattedAnsString = GradeFormatting.CreateStudentSummaryDisplayField(gradedAnswers, ansKey);
             string formattedAnsString = GradeFormatting.createStudentGradedAnsString(gradedAnswers, ansKey);
 
             //return the results

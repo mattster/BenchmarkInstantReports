@@ -81,7 +81,6 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="About.aspx" />
     <Content Include="CampusReport.aspx" />
     <Content Include="content\files\LxmCleanGlassP1.avi">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -126,18 +125,11 @@
     <Content Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
-    <Content Include="StudentStats1.aspx" />
-    <Content Include="BenchmarkStats.aspx" />
+    <Content Include="StudentGrades.aspx" />
+    <Content Include="IAReport.aspx" />
     <Content Include="StudentSummary.aspx" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="About.aspx.cs">
-      <DependentUpon>About.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="About.aspx.designer.cs">
-      <DependentUpon>About.aspx</DependentUpon>
-    </Compile>
     <Compile Include="Account\Authorize.cs" />
     <Compile Include="Account\Security.cs" />
     <Compile Include="CampusReport.aspx.cs">
@@ -148,19 +140,6 @@
       <DependentUpon>CampusReport.aspx</DependentUpon>
     </Compile>
     <Compile Include="Dapper\SqlMapper.cs" />
-    <Compile Include="DataSetBenchmarkStats2.cs">
-      <DependentUpon>DataSetBenchmarkStats2.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="DataSetBenchmarkStats2.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>DataSetBenchmarkStats2.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="DataSetStudentStats2.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>DataSetStudentStats2.xsd</DependentUpon>
-    </Compile>
     <Compile Include="Grading\GradeFormatting.cs" />
     <Compile Include="Helpers\Reports\MatCheckRepHelper.cs" />
     <Compile Include="Infrastructure\ItemInfo.cs" />
@@ -261,15 +240,6 @@
     <Compile Include="MaterialsReport.aspx.designer.cs">
       <DependentUpon>MaterialsReport.aspx</DependentUpon>
     </Compile>
-    <Compile Include="DataSetScanReport.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>DataSetScanReport.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="DataSetStudentStats.cs">
-      <DependentUpon>DataSetStudentStats.xsd</DependentUpon>
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="Info.aspx.cs">
       <DependentUpon>Info.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -287,20 +257,6 @@
     </Compile>
     <Compile Include="ScanReport.aspx.designer.cs">
       <DependentUpon>ScanReport.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="DataSetBenchmarkStats.cs">
-      <DependentUpon>DataSetBenchmarkStats.xsd</DependentUpon>
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="DataSetBenchmarkStats.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>DataSetBenchmarkStats.xsd</DependentUpon>
-    </Compile>
-    <Compile Include="DataSetStudentStats.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>DataSetStudentStats.xsd</DependentUpon>
     </Compile>
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
@@ -320,19 +276,19 @@
     <Compile Include="Site.Master.designer.cs">
       <DependentUpon>Site.Master</DependentUpon>
     </Compile>
-    <Compile Include="StudentStats1.aspx.cs">
-      <DependentUpon>StudentStats1.aspx</DependentUpon>
+    <Compile Include="StudentGrades.aspx.cs">
+      <DependentUpon>StudentGrades.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="StudentStats1.aspx.designer.cs">
-      <DependentUpon>StudentStats1.aspx</DependentUpon>
+    <Compile Include="StudentGrades.aspx.designer.cs">
+      <DependentUpon>StudentGrades.aspx</DependentUpon>
     </Compile>
-    <Compile Include="BenchmarkStats.aspx.cs">
-      <DependentUpon>BenchmarkStats.aspx</DependentUpon>
+    <Compile Include="IAReport.aspx.cs">
+      <DependentUpon>IAReport.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="BenchmarkStats.aspx.designer.cs">
-      <DependentUpon>BenchmarkStats.aspx</DependentUpon>
+    <Compile Include="IAReport.aspx.designer.cs">
+      <DependentUpon>IAReport.aspx</DependentUpon>
     </Compile>
     <Compile Include="StudentSummary.aspx.cs">
       <DependentUpon>StudentSummary.aspx</DependentUpon>
@@ -344,7 +300,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="db\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Site.Master" />
@@ -365,148 +320,85 @@
     <Content Include="content\files\Benchmark Instant Reports reference.pdf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <None Include="DataSetBenchmarkStats2.xsc">
-      <DependentUpon>DataSetBenchmarkStats2.xsd</DependentUpon>
-    </None>
-    <None Include="DataSetBenchmarkStats2.xsd">
-      <SubType>Designer</SubType>
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>DataSetBenchmarkStats2.Designer.cs</LastGenOutput>
-    </None>
-    <None Include="DataSetBenchmarkStats2.xss">
-      <DependentUpon>DataSetBenchmarkStats2.xsd</DependentUpon>
-    </None>
-    <None Include="DataSetStudentStats2.xsc">
-      <DependentUpon>DataSetStudentStats2.xsd</DependentUpon>
-    </None>
-    <None Include="DataSetStudentStats2.xsd">
-      <SubType>Designer</SubType>
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>DataSetStudentStats2.Designer.cs</LastGenOutput>
-    </None>
-    <None Include="DataSetStudentStats2.xss">
-      <DependentUpon>DataSetStudentStats2.xsd</DependentUpon>
-    </None>
-    <None Include="DataSetScanReport.xsc">
-      <DependentUpon>DataSetScanReport.xsd</DependentUpon>
-    </None>
-    <None Include="DataSetScanReport.xsd">
-      <SubType>Designer</SubType>
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>DataSetScanReport.Designer.cs</LastGenOutput>
-    </None>
-    <None Include="DataSetScanReport.xss">
-      <DependentUpon>DataSetScanReport.xsd</DependentUpon>
-    </None>
-    <None Include="DataSetBenchmarkStats.xsc">
-      <DependentUpon>DataSetBenchmarkStats.xsd</DependentUpon>
-    </None>
-    <None Include="DataSetBenchmarkStats.xsd">
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>DataSetBenchmarkStats.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="DataSetBenchmarkStats.xss">
-      <DependentUpon>DataSetBenchmarkStats.xsd</DependentUpon>
-    </None>
-    <None Include="DataSetStudentStats.xsc">
-      <DependentUpon>DataSetStudentStats.xsd</DependentUpon>
-    </None>
-    <None Include="DataSetStudentStats.xsd">
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>DataSetStudentStats.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="DataSetStudentStats.xss">
-      <DependentUpon>DataSetStudentStats.xsd</DependentUpon>
-    </None>
     <Content Include="packages.config" />
     <Compile Include="Infrastructure\DataStruct\DataToGradeItemCollection.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="ScanReportRep1.rdlc">
+    <Content Include="Reports\Scan\ScanRep1.rdlc">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="BenchmarkStatsRep1a.rdlc">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="BenchmarkStatsRep1b.rdlc">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="BenchmarkStatsRep1c.rdlc">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="BenchmarkStatsRep2b.rdlc">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="BenchmarkStatsRep2c.rdlc">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="BenchmarkStatsRep3a.rdlc">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="BenchmarkStatsRep3b.rdlc">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="BenchmarkStatsRep3c.rdlc">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="BenchmarkStatsRep4a.rdlc">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="BenchmarkStatsRep4b.rdlc">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="BenchmarkStatsRep4c.rdlc">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="BenchmarkStatsRep2a.rdlc">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="StudentSummaryRep.rdlc">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="ScanReportRep2.rdlc">
+    <Content Include="Reports\IA\IARep1a.rdlc">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <SubType>Designer</SubType>
     </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="PreslugReportRep.rdlc">
+    <Content Include="Reports\IA\IARep1b.rdlc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Reports\IA\IARep1c.rdlc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Reports\IA\IARep2b.rdlc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Reports\IA\IARep2c.rdlc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Reports\IA\IARep3a.rdlc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Reports\IA\IARep3b.rdlc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Reports\IA\IARep3c.rdlc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Reports\IA\IARep4a.rdlc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Reports\IA\IARep4b.rdlc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Reports\IA\IARep4c.rdlc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Reports\IA\IARep2a.rdlc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Reports\Grades\StudentSummaryRep.rdlc">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="MaterialsChecklistRep.rdlc">
+    <Content Include="Reports\Scan\ScanRep2.rdlc">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <SubType>Designer</SubType>
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="CampusReport1.rdlc">
+    <Content Include="Reports\Checklist\MaterialsRep.rdlc">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="CampusReport2.rdlc">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="StudentStatsRep2a.rdlc">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="StudentStatsRep2b.rdlc">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <EmbeddedResource Include="Report1.rdlc">
       <SubType>Designer</SubType>
-    </EmbeddedResource>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Reports\Campus\CampusRep1.rdlc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Reports\Campus\CampusRep2.rdlc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Reports\Grades\StudentGradesRep1.rdlc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Reports\Grades\StudentGradesRep2.rdlc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

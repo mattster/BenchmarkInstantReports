@@ -20,6 +20,8 @@ namespace Benchmark_Instant_Reports_2.Exceptions
             new AlternateAnswer("2012-01 EM Grade 5 Math-M SIM 21-68", 9, "C"),
 
             new AlternateAnswer("2012-03 SC Physics Unit 4 T4 CUT 91-81", 61, "6.0"),
+
+            new AlternateAnswer("2012-02 SM Exit Level Math SIM 30-99", 49, "B"),
         };
 
     }

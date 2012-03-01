@@ -21,7 +21,6 @@ namespace Benchmark_Instant_Reports_2.Helpers.Reports
         {
             Hashtable finalDataH = new Hashtable();
             ScanReportData finalData = new ScanReportData();
-            //DataToGradeItemCollection scannedData = StudentData.GetStudentDataToGrade(dataservice, tests, schools);
 
             // go through each test
             foreach (Test curTest in tests)

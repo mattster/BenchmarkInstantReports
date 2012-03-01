@@ -1,4 +1,6 @@
 ﻿using System;
+using System.IO;
+using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Benchmark_Instant_Reports_2.Account;
@@ -23,6 +25,9 @@ namespace Benchmark_Instant_Reports_2
             get { return _thisTestFilterState; }
             set { _thisTestFilterState = value; }
         }
+        private static string appPath;
+        private static string physicalPath;
+        private static string reportPath;
 
 
         protected void Page_Load(object sender, EventArgs e)
@@ -56,8 +61,7 @@ namespace Benchmark_Instant_Reports_2
             setupTestFilters();
             listTests.Enabled = true;
             listTests.SelectedIndex = 0;
-            repvwCampusReport1.Visible = false;
-            repvwCampusReport2.Visible = false;
+            repvwCampusRep.Visible = false;
 
 
             int bidx = UIHelper.GetIndexOfItemInDD(RememberHelper.SavedSelectedTestID(Request), listTests);
@@ -74,11 +78,11 @@ namespace Benchmark_Instant_Reports_2
         {
             RememberHelper.SaveSelectedTestID(Response, listTests.SelectedItem.ToString());
 
-            repvwCampusReport1.Visible = false;
-            repvwCampusReport2.Visible = false;
+            repvwCampusRep.Visible = false;            
             
             return;
         }
+
 
         protected void btnGenReport_Click(object sender, EventArgs e)
         {
@@ -86,51 +90,38 @@ namespace Benchmark_Instant_Reports_2
             var tests = GetSelectedTests();
             studentDataToGrade = StudentData.GetStudentDataToGrade(DataService, tests, schools);
             reportData = StGradesRepHelper.GenerateStudentGradesReportData(DataService, studentDataToGrade, tests);
+            repvwCampusRep.Visible = true;
 
             if (schools.Count > 1)
             {   
                 // Show All Campuses
-                this.repvwCampusReport1.Visible = false;
-                this.repvwCampusReport2.Visible = true;
-
-                ReportDataSource rds = new ReportDataSource(repvwCampusReport2.LocalReport.GetDataSourceNames()[0],
-                    reportData.GetItems());
-                this.repvwCampusReport2.LocalReport.DataSources.Clear();
-                this.repvwCampusReport2.LocalReport.DataSources.Add(rds);
-                this.repvwCampusReport2.ShowPrintButton = true;
-                this.repvwCampusReport2.LocalReport.Refresh();
-                
+                reportPath = Path.Combine(physicalPath, @"Reports\Campus\CampusRep2.rdlc");
             }
             else
             {   
                 // Show One Campus
-                this.repvwCampusReport1.Visible = true;
-                this.repvwCampusReport2.Visible = false;
-
-                ReportDataSource rds = new ReportDataSource(repvwCampusReport1.LocalReport.GetDataSourceNames()[0],
-                    reportData.GetItems());
-                this.repvwCampusReport1.LocalReport.DataSources.Clear();
-                this.repvwCampusReport1.LocalReport.DataSources.Add(rds);
-                this.repvwCampusReport1.ShowPrintButton = true;
-                this.repvwCampusReport1.LocalReport.Refresh();
+                reportPath = Path.Combine(physicalPath, @"Reports\Campus\CampusRep1.rdlc");
             }
+
+            repvwCampusRep.LocalReport.ReportPath = reportPath;
+            ReportDataSource rds = new ReportDataSource(repvwCampusRep.LocalReport.GetDataSourceNames()[0],
+                reportData.GetItems());
+            this.repvwCampusRep.LocalReport.DataSources.Clear();
+            this.repvwCampusRep.LocalReport.DataSources.Add(rds);
+            this.repvwCampusRep.ShowPrintButton = true;
+            this.repvwCampusRep.LocalReport.Refresh();
 
             return;
         }
 
 
 
-        //************************************************************************************************
-        //** some stuff
-        //************************************************************************************************
 
-
-        //**********************************************************************//
-        //** initialize the page
-        //**
         private void initPage()
         {
             theMasterPage = Page.Master as SiteMaster;
+            appPath = HttpContext.Current.Request.ApplicationPath;
+            physicalPath = HttpContext.Current.Request.MapPath(appPath);
 
             // disable all dialog boxes & stuff except campus
             ddCampus.Enabled = true;
@@ -138,8 +129,7 @@ namespace Benchmark_Instant_Reports_2
             listTests.Enabled = true;
             listTests.AutoPostBack = true;
             btnGenReport.Enabled = true;
-            repvwCampusReport1.Visible = false;
-            repvwCampusReport2.Visible = false;
+            repvwCampusRep.Visible = false;
             
 
             // load list of campuses in Campus dropdown

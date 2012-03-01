@@ -1,5 +1,7 @@
 ﻿using System;
+using System.IO;
 using System.Linq;
+using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Benchmark_Instant_Reports_2.Account;
@@ -13,7 +15,7 @@ using Microsoft.Reporting.WebForms;
 
 namespace Benchmark_Instant_Reports_2
 {
-    public partial class StudentStats : ReportPage<DropDownList>
+    public partial class StudentGrades : ReportPage<DropDownList>
     {
         #region globals
 
@@ -26,6 +28,9 @@ namespace Benchmark_Instant_Reports_2
             get { return _thisTestFilterState; }
             set { _thisTestFilterState = value; }
         }
+        private static string appPath;
+        private static string physicalPath;
+        private static string reportPath;
 
         #endregion
 
@@ -65,8 +70,7 @@ namespace Benchmark_Instant_Reports_2
             listTests.Enabled = true;
             UIHelper.ToggleDDInitView(listTests, true);
             btnGenReport.Enabled = false;
-            repvwStudentStats2a.Visible = false;
-            repvwStudentStats2b.Visible = false;
+            repvwStudentGrades.Visible = false;
 
             int bidx = UIHelper.GetIndexOfItemInDD(RememberHelper.SavedSelectedTestID(Request), listTests);
             if (bidx != -1)
@@ -95,8 +99,7 @@ namespace Benchmark_Instant_Reports_2
             // if there are no students taking this test at this campus (based on the number of teachers applicable), deal with it
             if (listOfTeachers.Length == 0)
             {
-                repvwStudentStats2a.Visible = false;
-                repvwStudentStats2b.Visible = false;
+                repvwStudentGrades.Visible = false;
                 lblNoScanData.Visible = true;
                 return;
             }
@@ -108,12 +111,8 @@ namespace Benchmark_Instant_Reports_2
             ddTeacher.DataSource = listOfTeachers;
             ddTeacher.DataBind();
 
-            // add option for All Teachers
-            //ddTeacher.Items.Insert(0, new ListItem(birIF.allTeachers, birIF.allTeachers));
-
             UIHelper.ToggleDDInitView(ddTeacher, true);
-            repvwStudentStats2a.Visible = false;
-            repvwStudentStats2b.Visible = false;
+            repvwStudentGrades.Visible = false;
 
             return;
         }
@@ -121,8 +120,7 @@ namespace Benchmark_Instant_Reports_2
 
         protected void ddTeacher_SelectedIndexChanged(object sender, EventArgs e)
         {
-            repvwStudentStats2a.Visible = false;
-            repvwStudentStats2b.Visible = false;
+            repvwStudentGrades.Visible = false;
             btnGenReport.Enabled = true;
 
             return;
@@ -140,32 +138,35 @@ namespace Benchmark_Instant_Reports_2
             reportData = StGradesRepHelper.GenerateStudentGradesReportData(DataService,
                 studentDataToGrade, tests);
 
+            repvwStudentGrades.Visible = true;
 
             if (TestHelper.UsesWeightedAnswers(DataService, GetSelectedTests().First()))
             {
-                //test with weighted items
-                ReportDataSource rds = new ReportDataSource(repvwStudentStats2b.LocalReport.GetDataSourceNames()[0],
+                // test with weighted items
+                reportPath = Path.Combine(physicalPath, @"Reports\Grades\StudentGradesRep2.rdlc");
+                repvwStudentGrades.LocalReport.ReportPath = reportPath;
+                ReportDataSource rds = new ReportDataSource(repvwStudentGrades.LocalReport.GetDataSourceNames()[0],
                     reportData.GetItemsWhere(i => i.Teacher == ddTeacher.SelectedItem.ToString(), i => i.StudentID));
-                repvwStudentStats2b.Visible = true;
-                repvwStudentStats2a.Visible = false;
 
-                this.repvwStudentStats2b.LocalReport.DataSources.Clear();
-                this.repvwStudentStats2b.LocalReport.DataSources.Add(rds);
-                this.repvwStudentStats2b.ShowPrintButton = true;
-                this.repvwStudentStats2b.LocalReport.Refresh();
+                repvwStudentGrades.LocalReport.DataSources.Clear();
+                repvwStudentGrades.LocalReport.DataSources.Add(rds);
+                repvwStudentGrades.ShowPrintButton = true;
+                repvwStudentGrades.LocalReport.Refresh();
             }
             else
             {
-                ReportDataSource rds = new ReportDataSource(repvwStudentStats2a.LocalReport.GetDataSourceNames()[0],
+                // test with non-weighted items
+                reportPath = Path.Combine(physicalPath, @"Reports\Grades\StudentGradesRep1.rdlc");
+                repvwStudentGrades.LocalReport.ReportPath = reportPath;
+                ReportDataSource rds = new ReportDataSource(repvwStudentGrades.LocalReport.GetDataSourceNames()[0],
                     reportData.GetItemsWhere(i => i.Teacher == ddTeacher.SelectedItem.ToString(), i => i.StudentName));
-                repvwStudentStats2a.Visible = true;
-                repvwStudentStats2b.Visible = false;
 
-                this.repvwStudentStats2a.LocalReport.DataSources.Clear();
-                this.repvwStudentStats2a.LocalReport.DataSources.Add(rds);
-                this.repvwStudentStats2a.ShowPrintButton = true;
-                this.repvwStudentStats2a.LocalReport.Refresh();
+                repvwStudentGrades.LocalReport.DataSources.Clear();
+                repvwStudentGrades.LocalReport.DataSources.Add(rds);
+                repvwStudentGrades.ShowPrintButton = true;
+                repvwStudentGrades.LocalReport.Refresh();
             }
+
 
             return;
         }
@@ -180,6 +181,8 @@ namespace Benchmark_Instant_Reports_2
         private void initPage()
         {
             theMasterPage = Page.Master as SiteMaster;
+            appPath = HttpContext.Current.Request.ApplicationPath;
+            physicalPath = HttpContext.Current.Request.MapPath(appPath);
 
             // disable all dialog boxes & stuff except campus
             ddCampus.Enabled = true;
@@ -189,8 +192,7 @@ namespace Benchmark_Instant_Reports_2
             ddTeacher.Enabled = true;
             ddTeacher.AutoPostBack = true;
             btnGenReport.Enabled = false;
-            repvwStudentStats2a.Visible = false;
-            repvwStudentStats2b.Visible = false;
+            repvwStudentGrades.Visible = false;
             lblNoScanData.Visible = false;
 
             // load list of campuses in Campus dropdown

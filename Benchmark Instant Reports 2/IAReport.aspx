@@ -1,5 +1,5 @@
 ﻿<%@ Page Title="Item Analysis" Language="C#" MasterPageFile="~/Site.Master" EnableEventValidation="false"
-    AutoEventWireup="true" CodeBehind="BenchmarkStats.aspx.cs" Inherits="Benchmark_Instant_Reports_2.BenchmarkStats" %>
+    AutoEventWireup="true" CodeBehind="IAReport.aspx.cs" Inherits="Benchmark_Instant_Reports_2.IAReport" %>
 
 <%@ Register Assembly="Microsoft.ReportViewer.WebForms, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a"
     Namespace="Microsoft.Reporting.WebForms" TagPrefix="rsweb" %>
@@ -255,77 +255,9 @@
     <asp:Panel ID="pnlReportViewer" runat="server">
         <asp:UpdatePanel ID="updpnlReportViewer" runat="server">
             <ContentTemplate>
-                <rsweb:ReportViewer ID="repvwBenchmarkStats1a" runat="server" Font-Names="Verdana"
+                <rsweb:ReportViewer ID="repvwIA" runat="server" Font-Names="Verdana"
                     Font-Size="8pt" InteractiveDeviceInfos="(Collection)" WaitMessageFont-Names="Verdana"
                     WaitMessageFont-Size="14pt" Width="700px" Height="800px" SizeToReportContent="True">
-                    <LocalReport ReportPath="BenchmarkStatsRep1a.rdlc">
-                    </LocalReport>
-                </rsweb:ReportViewer>
-                <rsweb:ReportViewer ID="repvwBenchmarkStats1b" runat="server" Font-Names="Verdana"
-                    Font-Size="8pt" Height="800px" InteractiveDeviceInfos="(Collection)" WaitMessageFont-Names="Verdana"
-                    WaitMessageFont-Size="14pt" Width="700px" SizeToReportContent="True">
-                    <LocalReport ReportPath="BenchmarkStatsRep1b.rdlc">
-                    </LocalReport>
-                </rsweb:ReportViewer>
-                <rsweb:ReportViewer ID="repvwBenchmarkStats1c" runat="server" Font-Names="Verdana"
-                    Font-Size="8pt" Height="800px" InteractiveDeviceInfos="(Collection)" SizeToReportContent="True"
-                    WaitMessageFont-Names="Verdana" WaitMessageFont-Size="14pt" Width="700px">
-                    <LocalReport ReportPath="BenchmarkStatsRep1c.rdlc">
-                    </LocalReport>
-                </rsweb:ReportViewer>
-                <rsweb:ReportViewer ID="repvwBenchmarkStats2a" runat="server" Font-Names="Verdana"
-                    Font-Size="8pt" Height="800px" InteractiveDeviceInfos="(Collection)" WaitMessageFont-Names="Verdana"
-                    WaitMessageFont-Size="14pt" Width="700px" SizeToReportContent="True">
-                    <LocalReport ReportPath="BenchmarkStatsRep2a.rdlc">
-                    </LocalReport>
-                </rsweb:ReportViewer>
-                <rsweb:ReportViewer ID="repvwBenchmarkStats2b" runat="server" Font-Names="Verdana"
-                    Font-Size="8pt" Height="800px" InteractiveDeviceInfos="(Collection)" WaitMessageFont-Names="Verdana"
-                    WaitMessageFont-Size="14pt" Width="700px" SizeToReportContent="True">
-                    <LocalReport ReportPath="BenchmarkStatsRep2b.rdlc">
-                    </LocalReport>
-                </rsweb:ReportViewer>
-                <rsweb:ReportViewer ID="repvwBenchmarkStats2c" runat="server" Font-Names="Verdana"
-                    Font-Size="8pt" Height="800px" InteractiveDeviceInfos="(Collection)" WaitMessageFont-Names="Verdana"
-                    WaitMessageFont-Size="14pt" Width="700px" SizeToReportContent="True">
-                    <LocalReport ReportPath="BenchmarkStatsRep2c.rdlc">
-                    </LocalReport>
-                </rsweb:ReportViewer>
-                <rsweb:ReportViewer ID="repvwBenchmarkStats3a" runat="server" Font-Names="Verdana"
-                    Font-Size="8pt" Height="800px" InteractiveDeviceInfos="(Collection)" WaitMessageFont-Names="Verdana"
-                    WaitMessageFont-Size="14pt" Width="700px" SizeToReportContent="True">
-                    <LocalReport ReportPath="BenchmarkStatsRep3a.rdlc">
-                    </LocalReport>
-                </rsweb:ReportViewer>
-                <rsweb:ReportViewer ID="repvwBenchmarkStats3b" runat="server" Font-Names="Verdana"
-                    Font-Size="8pt" Height="800px" InteractiveDeviceInfos="(Collection)" WaitMessageFont-Names="Verdana"
-                    WaitMessageFont-Size="14pt" Width="700px" SizeToReportContent="True">
-                    <LocalReport ReportPath="BenchmarkStatsRep3b.rdlc">
-                    </LocalReport>
-                </rsweb:ReportViewer>
-                <rsweb:ReportViewer ID="repvwBenchmarkStats3c" runat="server" Font-Names="Verdana"
-                    Font-Size="8pt" Height="800px" InteractiveDeviceInfos="(Collection)" WaitMessageFont-Names="Verdana"
-                    WaitMessageFont-Size="14pt" Width="700px" SizeToReportContent="True">
-                    <LocalReport ReportPath="BenchmarkStatsRep3c.rdlc">
-                    </LocalReport>
-                </rsweb:ReportViewer>
-                <rsweb:ReportViewer ID="repvwBenchmarkStats4a" runat="server" Font-Names="Verdana"
-                    Font-Size="8pt" Height="800px" InteractiveDeviceInfos="(Collection)" WaitMessageFont-Names="Verdana"
-                    WaitMessageFont-Size="14pt" Width="700px" SizeToReportContent="True">
-                    <LocalReport ReportPath="BenchmarkStatsRep4a.rdlc">
-                    </LocalReport>
-                </rsweb:ReportViewer>
-                <rsweb:ReportViewer ID="repvwBenchmarkStats4b" runat="server" Font-Names="Verdana"
-                    Font-Size="8pt" Height="800px" InteractiveDeviceInfos="(Collection)" WaitMessageFont-Names="Verdana"
-                    WaitMessageFont-Size="14pt" Width="700px" SizeToReportContent="True">
-                    <LocalReport ReportPath="BenchmarkStatsRep4b.rdlc">
-                    </LocalReport>
-                </rsweb:ReportViewer>
-                <rsweb:ReportViewer ID="repvwBenchmarkStats4c" runat="server" Font-Names="Verdana"
-                    Font-Size="8pt" Height="800px" InteractiveDeviceInfos="(Collection)" WaitMessageFont-Names="Verdana"
-                    WaitMessageFont-Size="14pt" Width="700px" SizeToReportContent="True">
-                    <LocalReport ReportPath="BenchmarkStatsRep4c.rdlc">
-                    </LocalReport>
                 </rsweb:ReportViewer>
             </ContentTemplate>
         </asp:UpdatePanel>

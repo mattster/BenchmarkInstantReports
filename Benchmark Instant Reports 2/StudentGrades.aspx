@@ -1,5 +1,5 @@
 ﻿<%@ Page Title="Student Grades" Language="C#" MasterPageFile="~/Site.Master" EnableEventValidation="false"
-    AutoEventWireup="true" CodeBehind="StudentStats1.aspx.cs" Inherits="Benchmark_Instant_Reports_2.StudentStats" %>
+    AutoEventWireup="true" CodeBehind="StudentGrades.aspx.cs" Inherits="Benchmark_Instant_Reports_2.StudentGrades" %>
 
 <%@ Register Assembly="Microsoft.ReportViewer.WebForms, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a"
     Namespace="Microsoft.Reporting.WebForms" TagPrefix="rsweb" %>
@@ -236,17 +236,9 @@
     <asp:Panel ID="pnlReportViewer" runat="server">
         <asp:UpdatePanel ID="updpnlReportViewer" runat="server">
             <ContentTemplate>
-                <rsweb:ReportViewer ID="repvwStudentStats2a" runat="server" Font-Names="Verdana"
+                <rsweb:ReportViewer ID="repvwStudentGrades" runat="server" Font-Names="Verdana"
                     Font-Size="8pt" InteractiveDeviceInfos="(Collection)" WaitMessageFont-Names="Verdana"
                     WaitMessageFont-Size="14pt" Width="800px" Height="113px" SizeToReportContent="True">
-                    <LocalReport ReportPath="StudentStatsRep2a.rdlc">
-                    </LocalReport>
-                </rsweb:ReportViewer>
-                <rsweb:ReportViewer ID="repvwStudentStats2b" runat="server" Font-Names="Verdana"
-                    Font-Size="8pt" InteractiveDeviceInfos="(Collection)" WaitMessageFont-Names="Verdana"
-                    WaitMessageFont-Size="14pt" Width="800px" Height="113px" SizeToReportContent="True">
-                    <LocalReport ReportPath="StudentStatsRep2b.rdlc">
-                    </LocalReport>
                 </rsweb:ReportViewer>
             </ContentTemplate>
         </asp:UpdatePanel>

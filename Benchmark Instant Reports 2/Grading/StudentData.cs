@@ -393,36 +393,6 @@ namespace Benchmark_Instant_Reports_2.Grading
         {
             HashSet<Scan> finalData = new HashSet<Scan>();
 
-            #region A_enumerate_scans
-            //// get Scan data + Roster data for students that have scans
-            //var scanDataWithRosterData =
-            //    from scan in scanDataCurTest
-            //    join roster in rosterData on dataservice.StudentIDString(scan.StudentID) equals roster.StudentID
-            //        into scanRosterData
-            //    select new { Scandata = scan, RosterData = scanRosterData };
-
-            //// select just the scan data for students who have the applicable teachers, periods, semester
-            //bool found = false;
-            //foreach (var scanrosterdataItem in scanDataWithRosterData)
-            //{
-            //    found = false;
-            //    foreach (var rosterItem in scanrosterdataItem.RosterData)
-            //    {
-            //        if (teachersperiods.Where(tp => tp.Teacher == rosterItem.TeacherName &&
-            //                                        tp.Period == rosterItem.Period &&
-            //                                        (tp.Semester == rosterItem.Semester ||
-            //                                                        rosterItem.Semester == "4"))
-            //                           .Count() > 0)
-            //        {
-            //            finalData.Add(scanrosterdataItem.Scandata);
-            //            found = true;
-            //        }
-            //        if (found) break;
-            //    }
-            //}
-            #endregion
-
-            #region B_enumerate_teachersperiods
             string semester = teachersperiods[0].Semester;
             foreach (string curTeacher in teachersperiods.Select(tp => tp.Teacher).Distinct())
             {
@@ -449,35 +419,23 @@ namespace Benchmark_Instant_Reports_2.Grading
                     }
                 }
             }
-            #endregion
 
             return finalData.AsQueryable();
         }
 
 
-
+        /// <summary>
+        /// filter a list of Scan items to only those applicable to a specific school
+        /// </summary>
+        /// <param name="dataservice">IRepo access to data</param>
+        /// <param name="scanDataCurTest">set of Scan data that includes all scanned items
+        /// for a specific test</param>
+        /// <param name="rosterData">a set of Roster data for an entire school</param>
+        /// <returns>IQueryable-Scan- set of Scan data for students at the school in rosterData</returns>
         private static IQueryable<Scan> FilterScans(IRepoService dataservice, IQueryable<Scan> scanDataCurTest,
             IQueryable<Roster> rosterData)
         {
             HashSet<Scan> finalData = new HashSet<Scan>();
-
-            //var scanDataWithRosterData =
-            //    from scan in scanDataCurTest
-            //    join roster in rosterData on dataservice.StudentIDString(scan.StudentID) equals roster.StudentID
-            //        into scanRosterData
-            //    select new { Scandata = scan, RosterData = scanRosterData };
-
-            //foreach (var scanrosterdataitem in scanDataWithRosterData)
-            //{
-            //    if (finalData.Where(fd => fd.StudentID == scanrosterdataitem.Scandata.StudentID).Count() == 0)
-            //        finalData.Add(scanrosterdataitem.Scandata);
-            //}
-
-            //foreach (var scan in scanDataCurTest)
-            //{
-            //    if (rosterData.Where(rd => rd.StudentID == dataservice.StudentIDString(scan.StudentID)).Count() > 0)
-            //        finalData.Add(scan);
-            //}
 
             var something =
                 from scan in scanDataCurTest
@@ -494,7 +452,12 @@ namespace Benchmark_Instant_Reports_2.Grading
         }
 
 
-
+        /// <summary>
+        /// identified a list of unique teachers and periods contained in a set of Preslugged data
+        /// </summary>
+        /// <param name="preslugData">a collection of preslugged data items</param>
+        /// <param name="semester">specific semster to check</param>
+        /// <returns>List of unique teachers and periods in the preslugged data</returns>
         private static List<TeacherPeriodItem> GetTeacherPeriodList(PreslugData preslugData, string semester)
         {
             List<TeacherPeriodItem> finalData = new List<TeacherPeriodItem>();
@@ -512,7 +475,9 @@ namespace Benchmark_Instant_Reports_2.Grading
         }
 
 
-
+        /// <summary>
+        /// class used to contain a list of teachers and periods (and semester)
+        /// </summary>
         private class TeacherPeriodItem
         {
             public string Teacher { get; set; }

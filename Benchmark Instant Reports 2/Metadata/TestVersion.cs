@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
+﻿
 namespace Benchmark_Instant_Reports_2.Metadata
 {
     public class TestVersion : TestMetadataItem
     {
-        //private static string baseRegExPattern1 = @"[0-9]{4}-[0-9]{2} [ES] ";
         private static string baseRegExPattern1 = "^";
         private static string baseRegExPattern2 = @" \d{1,2}-\d{2}";
         public override string RegEx

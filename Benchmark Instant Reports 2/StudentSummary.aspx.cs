@@ -1,5 +1,7 @@
 ﻿using System;
+using System.IO;
 using System.Linq;
+using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Benchmark_Instant_Reports_2.Account;
@@ -28,6 +30,9 @@ namespace Benchmark_Instant_Reports_2
             set { _thisTestFilterState = value; }
         }
 
+        private static string appPath;
+        private static string physicalPath;
+        private static string reportPath;
         #endregion
 
 
@@ -130,6 +135,8 @@ namespace Benchmark_Instant_Reports_2
 
             repvwStudentSummary.Visible = true;
 
+            reportPath = Path.Combine(physicalPath, @"Reports\Grades\StudentSummaryRep.rdlc");
+            repvwStudentSummary.LocalReport.ReportPath = reportPath;
             ReportDataSource rds = new ReportDataSource(repvwStudentSummary.LocalReport.GetDataSourceNames()[0],
                 reportData.GetItemsWhere(i => i.Teacher == ddTeacher.SelectedItem.ToString(), i => i.StudentName));
             repvwStudentSummary.LocalReport.DataSources.Clear();
@@ -144,17 +151,12 @@ namespace Benchmark_Instant_Reports_2
 
 
 
-        //************************************************************************************************
-        //** some stuff
-        //************************************************************************************************
-
-
-        //**********************************************************************//
-        //** initialize the page
-        //**
         private void initPage()
         {
             theMasterPage = Page.Master as SiteMaster;
+            appPath = HttpContext.Current.Request.ApplicationPath;
+            physicalPath = HttpContext.Current.Request.MapPath(appPath);
+
 
             // disable all dialog boxes & stuff except campus
             ddCampus.Enabled = true;

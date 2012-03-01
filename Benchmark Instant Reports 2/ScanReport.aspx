@@ -1,4 +1,4 @@
-﻿<%@ Page Title="Scan Summary" Language="C#" MasterPageFile="~/Site.Master" EnableEventValidation="false"
+﻿<%@ Page Title="Scan Data" Language="C#" MasterPageFile="~/Site.Master" EnableEventValidation="false"
     AutoEventWireup="true" CodeBehind="ScanReport.aspx.cs" Inherits="Benchmark_Instant_Reports_2.ScanReport" %>
 
 <%@ Register Assembly="Microsoft.ReportViewer.WebForms, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a"
@@ -25,9 +25,9 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <h1>
-        Scan Summary</h1>
+        Scan Data</h1>
     <p>
-        The Benchmark Scan Summary Report shows the number of unique answer sheets scanned
+        The Scan Data Report shows the number of unique answer sheets scanned
         in for a specified list of tests for each teacher. Use this report to help quickly
         determine if the scanning is complete for a set of tests at a campus.</p>
     <table style="width: 98%;">
@@ -211,17 +211,9 @@
     <asp:Panel ID="pnlReportViewer" runat="server">
         <asp:UpdatePanel ID="updpnlReportViewer" runat="server">
             <ContentTemplate>
-                <rsweb:ReportViewer ID="repvwScanReport1" runat="server" Font-Names="Verdana" Font-Size="8pt"
+                <rsweb:ReportViewer ID="repvwScanReport" runat="server" Font-Names="Verdana" Font-Size="8pt"
                     Height="800px" InteractiveDeviceInfos="(Collection)" WaitMessageFont-Names="Verdana"
                     WaitMessageFont-Size="14pt" Width="700px" SizeToReportContent="True">
-                    <LocalReport ReportPath="ScanReportRep1.rdlc">
-                    </LocalReport>
-                </rsweb:ReportViewer>
-                <rsweb:ReportViewer ID="repvwScanReport2" runat="server" Font-Names="Verdana" Font-Size="8pt"
-                    Height="700px" InteractiveDeviceInfos="(Collection)" WaitMessageFont-Names="Verdana"
-                    WaitMessageFont-Size="14pt" Width="500px" SizeToReportContent="True">
-                    <LocalReport ReportPath="ScanReportRep2.rdlc">
-                    </LocalReport>
                 </rsweb:ReportViewer>
             </ContentTemplate>
         </asp:UpdatePanel>

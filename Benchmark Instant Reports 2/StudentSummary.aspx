@@ -239,8 +239,6 @@
                 <rsweb:ReportViewer ID="repvwStudentSummary" runat="server" Font-Names="Verdana"
                     Font-Size="8pt" InteractiveDeviceInfos="(Collection)" SizeToReportContent="True"
                     WaitMessageFont-Names="Verdana" WaitMessageFont-Size="14pt">
-                    <LocalReport ReportPath="StudentSummaryRep.rdlc">
-                    </LocalReport>
                 </rsweb:ReportViewer>
             </ContentTemplate>
         </asp:UpdatePanel>

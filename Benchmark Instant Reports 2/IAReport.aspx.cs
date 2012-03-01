@@ -1,5 +1,7 @@
 ﻿using System;
+using System.IO;
 using System.Linq;
+using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Benchmark_Instant_Reports_2.Account;
@@ -14,7 +16,7 @@ using Microsoft.Reporting.WebForms;
 
 namespace Benchmark_Instant_Reports_2
 {
-    public partial class BenchmarkStats : ReportPage<DropDownList>
+    public partial class IAReport : ReportPage<DropDownList>
     {
         #region globals
 
@@ -36,10 +38,12 @@ namespace Benchmark_Instant_Reports_2
         private static string groupByQ = "Question Num.";
         private static string groupByObj = "Rep. Category";
         private static string groupByTEKS = "TEKS";
-        private static string repsNone = "NONE";
         private static string[] reportTypesList = { repTypePctCorrectAllTeachers, repTypePctCorrectOneTeacher, repTypeAnsChoiceAllTeachers, repTypeAnsChoiceOneTeacher };
         private static string[] reportTypesListTeacherOnly = { repTypePctCorrectOneTeacher, repTypeAnsChoiceOneTeacher, repTypeAnsChoiceAllTeachers };
         private static string[] groupByList = { groupByQ, groupByObj, groupByTEKS };
+        private static string appPath;
+        private static string physicalPath;
+        private static string reportPath;
 
         private static IAReportData resultsData = new IAReportData();
 
@@ -79,7 +83,7 @@ namespace Benchmark_Instant_Reports_2
             listTests.Enabled = true;
             ddTeacher.Visible = false;
             lblSelectTeacher.Visible = false;
-            makeRepsVisible(repsNone, repsNone);
+            repvwIA.Visible = false;
             reportDataParmsHaveChanged = true;
 
             ddRepType.DataSource = reportTypesList;
@@ -116,7 +120,7 @@ namespace Benchmark_Instant_Reports_2
             {
                 ddTeacher.Visible = false;
                 lblSelectTeacher.Visible = false;
-                makeRepsVisible(repsNone, repsNone);
+                repvwIA.Visible = false;
                 reportDataParmsHaveChanged = true;
                 lblNoScanData.Visible = true;
 
@@ -124,7 +128,7 @@ namespace Benchmark_Instant_Reports_2
             }
 
             lblNoScanData.Visible = false;
-            makeRepsVisible(repsNone, repsNone);
+            repvwIA.Visible = false;
             reportDataParmsHaveChanged = true;
 
             return;
@@ -138,7 +142,7 @@ namespace Benchmark_Instant_Reports_2
                 lblSelectTeacher.Visible = false;
                 ddTeacher.Visible = false;
                 btnGenReport.Enabled = true;
-                makeRepsVisible(repsNone, repsNone);
+                repvwIA.Visible = false;
                 if (!reportDataParmsHaveChanged)
                     setupReportPctCorrectAllTeachers(ddGroupBy.SelectedItem.ToString());
             }
@@ -147,7 +151,7 @@ namespace Benchmark_Instant_Reports_2
                 lblSelectTeacher.Visible = true;
                 ddTeacher.Visible = true;
                 btnGenReport.Enabled = true;
-                makeRepsVisible(repsNone, repsNone);
+                repvwIA.Visible = false;
                 if (!reportDataParmsHaveChanged && ddTeacher.SelectedIndex >= 0)
                     setupReportPctCorrectOneTeacher(ddGroupBy.SelectedItem.ToString());
             }
@@ -156,7 +160,7 @@ namespace Benchmark_Instant_Reports_2
                 lblSelectTeacher.Visible = true;
                 ddTeacher.Visible = true;
                 btnGenReport.Enabled = true;
-                makeRepsVisible(repsNone, repsNone);
+                repvwIA.Visible = false;
                 if (!reportDataParmsHaveChanged && ddTeacher.SelectedIndex >= 0)
                     setupReportAnsChoiceOneTeacher(ddGroupBy.SelectedItem.ToString());
             }
@@ -165,7 +169,7 @@ namespace Benchmark_Instant_Reports_2
                 lblSelectTeacher.Visible = false;
                 ddTeacher.Visible = false;
                 btnGenReport.Enabled = true;
-                makeRepsVisible(repsNone, repsNone);
+                repvwIA.Visible = false;
                 if (!reportDataParmsHaveChanged)
                     setupReportAnsChoiceAllTeachers(ddGroupBy.SelectedItem.ToString());
             }
@@ -178,7 +182,7 @@ namespace Benchmark_Instant_Reports_2
         {
             UIHelper.ToggleDDInitView(ddTeacher, false);
             btnGenReport.Enabled = true;
-            makeRepsVisible(repsNone, repsNone);
+            repvwIA.Visible = false;
 
             if (!reportDataParmsHaveChanged)
                 if (ddRepType.SelectedItem.ToString() == repTypePctCorrectOneTeacher)
@@ -237,17 +241,12 @@ namespace Benchmark_Instant_Reports_2
 
 
 
-        //************************************************************************************************
-        //** some stuff
-        //************************************************************************************************
-
-
-        //**********************************************************************//
-        //** initialize the page
-        //**
         private void initPage()
         {
             theMasterPage = Page.Master as SiteMaster;
+            appPath = HttpContext.Current.Request.ApplicationPath;
+            physicalPath = HttpContext.Current.Request.MapPath(appPath);
+
 
             // disable all dialog boxes & stuff except campus
             ddCampus.Enabled = true;
@@ -262,7 +261,8 @@ namespace Benchmark_Instant_Reports_2
             ddGroupBy.Enabled = true;
             ddGroupBy.AutoPostBack = true;
             btnGenReport.Enabled = true;
-            makeRepsVisible(repsNone, repsNone);
+            //makeRepsVisible(repsNone, repsNone);
+            repvwIA.Visible = false;
             lblNoScanData.Visible = false;
 
             // load list of campuses in Campus dropdown
@@ -304,216 +304,115 @@ namespace Benchmark_Instant_Reports_2
         }
 
 
-        //**********************************************************************//
-        //** setup the Report by Teacher report
-        //**
         private void setupReportPctCorrectAllTeachers(string groupBySelection)
         {
-            makeRepsVisible(repTypePctCorrectAllTeachers, groupBySelection);
+            repvwIA.Visible = true;
 
             if (groupBySelection == groupByQ)
             {
-                ReportDataSource rds = new ReportDataSource(repvwBenchmarkStats1a.LocalReport.GetDataSourceNames()[0], resultsData.GetItems());
-                repvwBenchmarkStats1a.LocalReport.DataSources.Clear();
-                repvwBenchmarkStats1a.LocalReport.DataSources.Add(rds);
-                repvwBenchmarkStats1a.ShowPrintButton = true;
-                repvwBenchmarkStats1a.LocalReport.Refresh();
+                reportPath = Path.Combine(physicalPath, @"Reports\IA\IARep1a.rdlc");
             }
             else if (groupBySelection == groupByObj)
             {
-                ReportDataSource rds = new ReportDataSource(repvwBenchmarkStats1b.LocalReport.GetDataSourceNames()[0], resultsData.GetItems());
-                repvwBenchmarkStats1b.LocalReport.DataSources.Clear();
-                repvwBenchmarkStats1b.LocalReport.DataSources.Add(rds);
-                repvwBenchmarkStats1b.ShowPrintButton = true;
-                repvwBenchmarkStats1b.LocalReport.Refresh();
+                reportPath = Path.Combine(physicalPath, @"Reports\IA\IARep1b.rdlc");
             }
             else if (groupBySelection == groupByTEKS)
             {
-                ReportDataSource rds = new ReportDataSource(repvwBenchmarkStats1c.LocalReport.GetDataSourceNames()[0], resultsData.GetItems());
-                repvwBenchmarkStats1c.LocalReport.DataSources.Clear();
-                repvwBenchmarkStats1c.LocalReport.DataSources.Add(rds);
-                repvwBenchmarkStats1c.ShowPrintButton = true;
-                repvwBenchmarkStats1c.LocalReport.Refresh();
+                reportPath = Path.Combine(physicalPath, @"Reports\IA\IARep1c.rdlc");
             }
+
+            repvwIA.LocalReport.ReportPath = reportPath;
+            ReportDataSource rds = new ReportDataSource(repvwIA.LocalReport.GetDataSourceNames()[0], resultsData.GetItems());
+            repvwIA.LocalReport.DataSources.Clear();
+            repvwIA.LocalReport.DataSources.Add(rds);
+            repvwIA.ShowPrintButton = true;
+            repvwIA.LocalReport.Refresh();
 
             return;
         }
 
 
-        //**********************************************************************//
-        //** setup the Report by Period report
-        //**
         private void setupReportPctCorrectOneTeacher(string groupBySelection)
         {
-            makeRepsVisible(repTypePctCorrectOneTeacher, groupBySelection);
+            repvwIA.Visible = true;
 
             if (groupBySelection == groupByQ)
             {
-                ReportDataSource rds = new ReportDataSource(repvwBenchmarkStats2a.LocalReport.GetDataSourceNames()[0],
-                    resultsData.GetItemsWhere(d => d.Teacher == ddTeacher.SelectedItem.ToString().Replace("'", "''")));
-                repvwBenchmarkStats2a.LocalReport.DataSources.Clear();
-                repvwBenchmarkStats2a.LocalReport.DataSources.Add(rds);
-                repvwBenchmarkStats2a.ShowPrintButton = true;
-                repvwBenchmarkStats2a.LocalReport.Refresh();
+                reportPath = Path.Combine(physicalPath, @"Reports\IA\IARep2a.rdlc");
             }
             else if (groupBySelection == groupByObj)
             {
-                ReportDataSource rds = new ReportDataSource(repvwBenchmarkStats2b.LocalReport.GetDataSourceNames()[0],
-                    resultsData.GetItemsWhere(d => d.Teacher == ddTeacher.SelectedItem.ToString().Replace("'", "''")));
-                repvwBenchmarkStats2b.LocalReport.DataSources.Clear();
-                repvwBenchmarkStats2b.LocalReport.DataSources.Add(rds);
-                repvwBenchmarkStats2b.ShowPrintButton = true;
-                repvwBenchmarkStats2b.LocalReport.Refresh();
+                reportPath = Path.Combine(physicalPath, @"Reports\IA\IARep2b.rdlc");
             }
             else if (groupBySelection == groupByTEKS)
             {
-                ReportDataSource rds = new ReportDataSource(repvwBenchmarkStats2c.LocalReport.GetDataSourceNames()[0],
-                    resultsData.GetItemsWhere(d => d.Teacher == ddTeacher.SelectedItem.ToString().Replace("'", "''")));
-                repvwBenchmarkStats2c.LocalReport.DataSources.Clear();
-                repvwBenchmarkStats2c.LocalReport.DataSources.Add(rds);
-                repvwBenchmarkStats2c.ShowPrintButton = true;
-                repvwBenchmarkStats2c.LocalReport.Refresh();
+                reportPath = Path.Combine(physicalPath, @"Reports\IA\IARep2c.rdlc");
             }
+
+            repvwIA.LocalReport.ReportPath = reportPath;
+            ReportDataSource rds = new ReportDataSource(repvwIA.LocalReport.GetDataSourceNames()[0],
+                resultsData.GetItemsWhere(d => d.Teacher == ddTeacher.SelectedItem.ToString().Replace("'", "''")));
+            repvwIA.LocalReport.DataSources.Clear();
+            repvwIA.LocalReport.DataSources.Add(rds);
+            repvwIA.ShowPrintButton = true;
+            repvwIA.LocalReport.Refresh();
 
             return;
         }
 
 
-        //**********************************************************************//
-        //** setup the Report by Answer Choice by Teacher report
-        //**
         private void setupReportAnsChoiceOneTeacher(string groupBySelection)
         {
-            makeRepsVisible(repTypeAnsChoiceOneTeacher, groupBySelection);
+            repvwIA.Visible = true;
 
             if (groupBySelection == groupByQ)
             {
-                ReportDataSource rds = new ReportDataSource(repvwBenchmarkStats3a.LocalReport.GetDataSourceNames()[0],
-                    resultsData.GetItemsWhere(d => d.Teacher == ddTeacher.SelectedItem.ToString().Replace("'", "''")));
-                repvwBenchmarkStats3a.LocalReport.DataSources.Clear();
-                repvwBenchmarkStats3a.LocalReport.DataSources.Add(rds);
-                repvwBenchmarkStats3a.ShowPrintButton = true;
-                repvwBenchmarkStats3a.LocalReport.Refresh();
+                reportPath = Path.Combine(physicalPath, @"Reports\IA\IARep3a.rdlc");
             }
             else if (groupBySelection == groupByObj)
             {
-                ReportDataSource rds = new ReportDataSource(repvwBenchmarkStats3b.LocalReport.GetDataSourceNames()[0],
-                    resultsData.GetItemsWhere(d => d.Teacher == ddTeacher.SelectedItem.ToString().Replace("'", "''")));
-                repvwBenchmarkStats3b.LocalReport.DataSources.Clear();
-                repvwBenchmarkStats3b.LocalReport.DataSources.Add(rds);
-                repvwBenchmarkStats3b.ShowPrintButton = true;
-                repvwBenchmarkStats3b.LocalReport.Refresh();
+                reportPath = Path.Combine(physicalPath, @"Reports\IA\IARep3b.rdlc");
             }
             else if (groupBySelection == groupByTEKS)
             {
-                ReportDataSource rds = new ReportDataSource(repvwBenchmarkStats3c.LocalReport.GetDataSourceNames()[0],
-                    resultsData.GetItemsWhere(d => d.Teacher == ddTeacher.SelectedItem.ToString().Replace("'", "''")));
-                repvwBenchmarkStats3c.LocalReport.DataSources.Clear();
-                repvwBenchmarkStats3c.LocalReport.DataSources.Add(rds);
-                repvwBenchmarkStats3c.ShowPrintButton = true;
-                repvwBenchmarkStats3c.LocalReport.Refresh();
+                reportPath = Path.Combine(physicalPath, @"Reports\IA\IARep3c.rdlc");
             }
+
+            repvwIA.LocalReport.ReportPath = reportPath;
+            ReportDataSource rds = new ReportDataSource(repvwIA.LocalReport.GetDataSourceNames()[0],
+                resultsData.GetItemsWhere(d => d.Teacher == ddTeacher.SelectedItem.ToString().Replace("'", "''")));
+            repvwIA.LocalReport.DataSources.Clear();
+            repvwIA.LocalReport.DataSources.Add(rds);
+            repvwIA.ShowPrintButton = true;
+            repvwIA.LocalReport.Refresh();
 
             return;
         }
 
 
-        //**********************************************************************//
-        //** setup the Report by Answer Choice by Campus report
-        //**
         private void setupReportAnsChoiceAllTeachers(string groupBySelection)
         {
-            makeRepsVisible(repTypeAnsChoiceAllTeachers, groupBySelection);
+            repvwIA.Visible = true; 
 
             if (groupBySelection == groupByQ)
             {
-                ReportDataSource rds = new ReportDataSource(repvwBenchmarkStats4a.LocalReport.GetDataSourceNames()[0], resultsData.GetItems());
-                repvwBenchmarkStats4a.LocalReport.DataSources.Clear();
-                repvwBenchmarkStats4a.LocalReport.DataSources.Add(rds);
-                repvwBenchmarkStats4a.ShowPrintButton = true;
-                repvwBenchmarkStats4a.LocalReport.Refresh();
+                reportPath = Path.Combine(physicalPath, @"Reports\IA\IARep4a.rdlc");
             }
             else if (groupBySelection == groupByObj)
             {
-                ReportDataSource rds = new ReportDataSource(repvwBenchmarkStats4b.LocalReport.GetDataSourceNames()[0], resultsData.GetItems());
-                repvwBenchmarkStats4b.LocalReport.DataSources.Clear();
-                repvwBenchmarkStats4b.LocalReport.DataSources.Add(rds);
-                repvwBenchmarkStats4b.ShowPrintButton = true;
-                repvwBenchmarkStats4b.LocalReport.Refresh();
+                reportPath = Path.Combine(physicalPath, @"Reports\IA\IARep4b.rdlc");
             }
             else if (groupBySelection == groupByTEKS)
             {
-                ReportDataSource rds = new ReportDataSource(repvwBenchmarkStats4c.LocalReport.GetDataSourceNames()[0], resultsData.GetItems());
-                repvwBenchmarkStats4c.LocalReport.DataSources.Clear();
-                repvwBenchmarkStats4c.LocalReport.DataSources.Add(rds);
-                repvwBenchmarkStats4c.ShowPrintButton = true;
-                repvwBenchmarkStats4c.LocalReport.Refresh();
+                reportPath = Path.Combine(physicalPath, @"Reports\IA\IARep4c.rdlc");
             }
 
-            return;
-        }
-
-
-        //**********************************************************************//
-        //** make specified reports visible
-        //**
-        private void makeRepsVisible(string theReport, string groupBy)
-        {
-            repvwBenchmarkStats1a.Visible = false;
-            repvwBenchmarkStats1b.Visible = false;
-            repvwBenchmarkStats1c.Visible = false;
-            repvwBenchmarkStats2a.Visible = false;
-            repvwBenchmarkStats2b.Visible = false;
-            repvwBenchmarkStats2c.Visible = false;
-            repvwBenchmarkStats3a.Visible = false;
-            repvwBenchmarkStats3b.Visible = false;
-            repvwBenchmarkStats3c.Visible = false;
-            repvwBenchmarkStats4a.Visible = false;
-            repvwBenchmarkStats4b.Visible = false;
-            repvwBenchmarkStats4c.Visible = false;
-
-            if (theReport == repsNone || groupBy == repsNone)
-                return;
-
-            else if (theReport == repTypePctCorrectAllTeachers)
-            {
-                if (groupBy == groupByQ)
-                    repvwBenchmarkStats1a.Visible = true;
-                else if (groupBy == groupByObj)
-                    repvwBenchmarkStats1b.Visible = true;
-                else if (groupBy == groupByTEKS)
-                    repvwBenchmarkStats1c.Visible = true;
-            }
-
-            else if (theReport == repTypePctCorrectOneTeacher)
-            {
-                if (groupBy == groupByQ)
-                    repvwBenchmarkStats2a.Visible = true;
-                else if (groupBy == groupByObj)
-                    repvwBenchmarkStats2b.Visible = true;
-                else if (groupBy == groupByTEKS)
-                    repvwBenchmarkStats2c.Visible = true;
-            }
-
-            else if (theReport == repTypeAnsChoiceOneTeacher)
-            {
-                if (groupBy == groupByQ)
-                    repvwBenchmarkStats3a.Visible = true;
-                else if (groupBy == groupByObj)
-                    repvwBenchmarkStats3b.Visible = true;
-                else if (groupBy == groupByTEKS)
-                    repvwBenchmarkStats3c.Visible = true;
-            }
-
-            else if (theReport == repTypeAnsChoiceAllTeachers)
-            {
-                if (groupBy == groupByQ)
-                    repvwBenchmarkStats4a.Visible = true;
-                else if (groupBy == groupByObj)
-                    repvwBenchmarkStats4b.Visible = true;
-                else if (groupBy == groupByTEKS)
-                    repvwBenchmarkStats4c.Visible = true;
-            }
+            repvwIA.LocalReport.ReportPath = reportPath; 
+            ReportDataSource rds = new ReportDataSource(repvwIA.LocalReport.GetDataSourceNames()[0], resultsData.GetItems());
+            repvwIA.LocalReport.DataSources.Clear();
+            repvwIA.LocalReport.DataSources.Add(rds);
+            repvwIA.ShowPrintButton = true;
+            repvwIA.LocalReport.Refresh();
 
             return;
         }

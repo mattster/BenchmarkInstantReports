@@ -7,85 +7,13 @@ using Benchmark_Instant_Reports_2.References;
 
 namespace Benchmark_Instant_Reports_2.Grading
 {
+    /// <summary>
+    /// methods to perform proper formatting for displayed information, primarily the 
+    /// info displayed in the Student Summary report
+    /// </summary>
     public class GradeFormatting
     {
-        private static string _dispDataStart = @"<table>";
-        private static string _dispDataEnd = @"</table>";
-
-        private static string _dispDataRowStart = @"<tr><td><table>";
-        private static string _dispDataRowEnd = @"</table></td></tr>";
-
-        private static string _dispDataRowItemNumsStart = @"<tr>";
-        private static string _dispDataRowItemNumsEnd = @"</td>";
-
-        private static string _dispDataRowItemNumStart = @"<td>";
-        private static string _dispDataRowItemNumEnd = @"</td>";
-
-        private static string _dispDataRowRespsStart = @"<tr>";
-        private static string _dispDataRowRespsEnd = @"</td>";
-
-        private static string _dispDataRowRespStart = @"<td>";
-        private static string _dispDataRowRespEnd = @"</td>";
-
         private static string linestarthtmlthing = @"<span style=""color:white"">.</span>";
-
-        /// <summary>
-        /// creates a string containing html formatting for the Student Summary item data
-        /// </summary>
-        /// <param name="gradedAnsString">the student's graded answers for the report</param>
-        /// <param name="ansKey">the answer key for this test</param>
-        /// <returns>a string containing html markup for the Student Summary item data</returns>
-        public static string CreateStudentSummaryDisplayField(List<ItemInfo<string>> gradedAnswers, AnswerKeyItemData ansKey)
-        {
-            //int[] itemNums = ansKey.GetItems().OrderBy(ak => ak.ItemNum).Select(ak => ak.ItemNum).ToArray();
-
-            string finalString = _dispDataStart + _dispDataRowStart;
-
-            // go through each item in the answer key
-            int charsOnCurRow = 0;
-            int newlength = 0;
-            string itemNumString = _dispDataRowItemNumsStart;
-            string responseString = _dispDataRowRespsStart;
-
-            foreach (var curAns in ansKey.GetItems().OrderBy(ak => ak.ItemNum))
-            {
-                string curResponse = gradedAnswers.Where(ga => ga.ItemNum == curAns.ItemNum).First().Info;
-                if (curResponse.Length < curAns.ItemNum.ToString().Length)
-                    newlength = curAns.ItemNum.ToString().Length;
-                else newlength = curResponse.Length;
-
-                if (charsOnCurRow + newlength > Constants.NumColumnsInFormattedLine)
-                {
-                    // need a new row - end the current row and add it to the finalString
-                    itemNumString += _dispDataRowItemNumsEnd;
-                    responseString += _dispDataRowRespsEnd;
-                    finalString += itemNumString + responseString + _dispDataRowEnd;
-
-                    // begin a new row
-                    itemNumString = _dispDataRowItemNumsStart;
-                    responseString = _dispDataRowRespsStart;
-                    charsOnCurRow = 0;
-                }
-
-                itemNumString += _dispDataRowItemNumStart +
-                                 curAns.ItemNum.ToString() +
-                                 _dispDataRowItemNumEnd;
-                responseString += _dispDataRowRespStart +
-                                  curResponse +
-                                  _dispDataRowRespEnd;
-                charsOnCurRow += newlength;
-            }
-
-            // end the current row and add it to the finalString
-            itemNumString += _dispDataRowItemNumsEnd;
-            responseString += _dispDataRowRespsEnd;
-            finalString += itemNumString + responseString + _dispDataRowEnd;
-
-            finalString += _dispDataEnd;
-
-            return finalString;
-        }
-
 
 
         /// <summary>
@@ -161,6 +89,14 @@ namespace Benchmark_Instant_Reports_2.Grading
 
 
 
+
+
+        /// <summary>
+        /// Get the actual displayed length of a string that contains
+        /// the html code "&nbsp;" for spaces
+        /// </summary>
+        /// <param name="str">the string to use</param>
+        /// <returns>the legnth that will be displayed, counting &nbsp; as 1 character</returns>
         private static int GetDisplayLength(string str)
         {
             //str = str.Replace("&nbsp;", " ");
@@ -168,6 +104,13 @@ namespace Benchmark_Instant_Reports_2.Grading
         }
 
 
+        /// <summary>
+        /// simple utility to create a string of repeating characters or 
+        /// groups of characters
+        /// </summary>
+        /// <param name="s">the string to repeat</param>
+        /// <param name="n">the number of times to repeat</param>
+        /// <returns>a string consisting of n repetitions of the string s</returns>
         private static string RepeatStr(string s, int n)
         {
             if (n == 0) return "";

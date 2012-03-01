@@ -8,6 +8,8 @@ using Benchmark_Instant_Reports_2.Infrastructure;
 using Benchmark_Instant_Reports_2.Infrastructure.DataStruct;
 using Benchmark_Instant_Reports_2.References;
 using Microsoft.Reporting.WebForms;
+using System.IO;
+using System.Web;
 
 namespace Benchmark_Instant_Reports_2
 {
@@ -25,6 +27,10 @@ namespace Benchmark_Instant_Reports_2
         private static string repTypeScanData = "Show Scanned Data";
         private static string repTypeMissingData = "Show Students Not Yet Scanned";
         private static string[] repTypesList = new string[] { repTypeScanData, repTypeMissingData };
+
+        private static string appPath;
+        private static string physicalPath;
+        private static string reportPath;
 
 
         protected void Page_Load(object sender, EventArgs e)
@@ -70,8 +76,7 @@ namespace Benchmark_Instant_Reports_2
             setupTestFilters();
             lbListTests.Enabled = true;
             lbListTests.SelectedIndex = 0;
-            repvwScanReport1.Visible = false;
-            repvwScanReport2.Visible = false;
+            repvwScanReport.Visible = false;
 
             string[] savedTests = RememberHelper.SavedSelectedTestIDs(Request);
             if (savedTests != null)
@@ -96,8 +101,7 @@ namespace Benchmark_Instant_Reports_2
             else
                 btnGenReport.Enabled = false;
 
-            repvwScanReport1.Visible = false;
-            repvwScanReport2.Visible = false;
+            repvwScanReport.Visible = false;
 
             return;
         }
@@ -115,41 +119,43 @@ namespace Benchmark_Instant_Reports_2
             if (selectedSchools.Count > 1)
             {
                 // setup the report for multiple schools
-                repvwScanReport2.Visible = true;
-                repvwScanReport1.Visible = false;
-                ReportDataSource rds = new ReportDataSource(repvwScanReport2.LocalReport.GetDataSourceNames()[0], reportData.GetItems());
-                repvwScanReport2.LocalReport.DataSources.Clear();
-                repvwScanReport2.LocalReport.DataSources.Add(rds);
-                repvwScanReport2.ShowPrintButton = true;
-                repvwScanReport2.LocalReport.Refresh();
+                reportPath = Path.Combine(physicalPath, @"Reports\Scan\ScanRep2.rdlc");
+                repvwScanReport.Visible = true;
+                repvwScanReport.LocalReport.ReportPath = reportPath;
+                ReportDataSource rds = new ReportDataSource(repvwScanReport.LocalReport.GetDataSourceNames()[0], reportData.GetItems());
+                repvwScanReport.LocalReport.DataSources.Clear();
+                repvwScanReport.LocalReport.DataSources.Add(rds);
+                repvwScanReport.ShowPrintButton = true;
+                repvwScanReport.LocalReport.Refresh();
             }
 
             else
             {
                 //setup the report for a single school
-                repvwScanReport1.Visible = true;
-                repvwScanReport2.Visible = false;
-                ReportDataSource rds = new ReportDataSource(repvwScanReport1.LocalReport.GetDataSourceNames()[0],
+                reportPath = Path.Combine(physicalPath, @"Reports\Scan\ScanRep1.rdlc");
+                repvwScanReport.Visible = true;
+                repvwScanReport.LocalReport.ReportPath = reportPath;
+                ReportDataSource rds = new ReportDataSource(repvwScanReport.LocalReport.GetDataSourceNames()[0],
                     reportData.GetItems());
-                repvwScanReport1.LocalReport.DataSources.Clear();
-                repvwScanReport1.LocalReport.DataSources.Add(rds);
+                repvwScanReport.LocalReport.DataSources.Clear();
+                repvwScanReport.LocalReport.DataSources.Add(rds);
 
                 if (rbScanAndMissing.Checked)
                 {
-                    ReportDataSource rds2 = new ReportDataSource(repvwScanReport1.LocalReport.GetDataSourceNames()[1],
+                    ReportDataSource rds2 = new ReportDataSource(repvwScanReport.LocalReport.GetDataSourceNames()[1],
                         reportDataMissingStudents.GetItems());
-                    repvwScanReport1.LocalReport.DataSources.Add(rds2);
+                    repvwScanReport.LocalReport.DataSources.Add(rds2);
                 }
                 else
                 {
                     PreslugData blank = new PreslugData();
-                    ReportDataSource rds2 = new ReportDataSource(repvwScanReport1.LocalReport.GetDataSourceNames()[1],
+                    ReportDataSource rds2 = new ReportDataSource(repvwScanReport.LocalReport.GetDataSourceNames()[1],
                         blank.GetItems());
-                    repvwScanReport1.LocalReport.DataSources.Add(rds2);
+                    repvwScanReport.LocalReport.DataSources.Add(rds2);
                 }
 
-                repvwScanReport1.ShowPrintButton = true;
-                repvwScanReport1.LocalReport.Refresh();
+                repvwScanReport.ShowPrintButton = true;
+                repvwScanReport.LocalReport.Refresh();
             }
 
             return;
@@ -164,6 +170,8 @@ namespace Benchmark_Instant_Reports_2
         private void initPage()
         {
             theMasterPage = Page.Master as SiteMaster;
+            appPath = HttpContext.Current.Request.ApplicationPath;
+            physicalPath = HttpContext.Current.Request.MapPath(appPath);
 
             // disable all dialog boxes & stuff except campus
             ddCampus.Enabled = true;
@@ -171,8 +179,7 @@ namespace Benchmark_Instant_Reports_2
             lbListTests.Enabled = true;
             lbListTests.AutoPostBack = true;
             btnGenReport.Enabled = false;
-            repvwScanReport1.Visible = false;
-            repvwScanReport2.Visible = false;
+            repvwScanReport.Visible = false;
 
             // load list of campuses in Campus dropdown
             ddCampus.DataSource = Authorize.GetAuthorizedSchools(Context.User.Identity.Name, DataService);

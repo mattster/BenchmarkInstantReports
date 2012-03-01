@@ -1,4 +1,4 @@
-﻿<%@ Page Title="BIR: Campus Summary" Language="C#" MasterPageFile="~/Site.Master"
+﻿<%@ Page Title="BIR: Campus Grades" Language="C#" MasterPageFile="~/Site.Master"
     EnableEventValidation="false" AutoEventWireup="true" CodeBehind="CampusReport.aspx.cs"
     Inherits="Benchmark_Instant_Reports_2.CampusReport" %>
 
@@ -31,7 +31,7 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <h1>
-        Campus Summary</h1>
+        Campus Grades</h1>
     <p>
         The Campus Report shows passing data for a specific campus for a specific Test.</p>
     <table>
@@ -209,17 +209,9 @@
     <asp:Panel ID="pnlReportViewer" runat="server">
         <asp:UpdatePanel ID="updpnlReportViewer" runat="server">
             <ContentTemplate>
-                <rsweb:ReportViewer ID="repvwCampusReport1" runat="server" Font-Names="Verdana" Font-Size="8pt"
+                <rsweb:ReportViewer ID="repvwCampusRep" runat="server" Font-Names="Verdana" Font-Size="8pt"
                     Height="100px" InteractiveDeviceInfos="(Collection)" WaitMessageFont-Names="Verdana"
                     WaitMessageFont-Size="14pt" Width="550px" SizeToReportContent="True">
-                    <LocalReport ReportPath="CampusReport1.rdlc">
-                    </LocalReport>
-                </rsweb:ReportViewer>
-                <rsweb:ReportViewer ID="repvwCampusReport2" runat="server" Font-Names="Verdana" Font-Size="8pt"
-                    Height="100px" InteractiveDeviceInfos="(Collection)" WaitMessageFont-Names="Verdana"
-                    WaitMessageFont-Size="14pt" Width="550px" SizeToReportContent="True">
-                    <LocalReport ReportPath="CampusReport2.rdlc">
-                    </LocalReport>
                 </rsweb:ReportViewer>
             </ContentTemplate>
         </asp:UpdatePanel>

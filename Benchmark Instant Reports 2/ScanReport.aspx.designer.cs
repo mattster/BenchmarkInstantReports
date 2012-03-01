@@ -211,21 +211,12 @@ namespace Benchmark_Instant_Reports_2 {
         protected global::System.Web.UI.UpdatePanel updpnlReportViewer;
         
         /// <summary>
-        /// repvwScanReport1 control.
+        /// repvwScanReport control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Microsoft.Reporting.WebForms.ReportViewer repvwScanReport1;
-        
-        /// <summary>
-        /// repvwScanReport2 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Microsoft.Reporting.WebForms.ReportViewer repvwScanReport2;
+        protected global::Microsoft.Reporting.WebForms.ReportViewer repvwScanReport;
     }
 }

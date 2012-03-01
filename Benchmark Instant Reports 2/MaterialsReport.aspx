@@ -213,11 +213,9 @@
     <asp:Panel ID="pnlReportViewer" runat="server">
         <asp:UpdatePanel ID="updpnlReportViewer" runat="server">
             <ContentTemplate>
-                <rsweb:ReportViewer ID="repvwMaterialsRep1" runat="server" Font-Names="Verdana" Font-Size="8pt"
+                <rsweb:ReportViewer ID="repvwMaterialsRep" runat="server" Font-Names="Verdana" Font-Size="8pt"
                     Height="800px" InteractiveDeviceInfos="(Collection)" WaitMessageFont-Names="Verdana"
                     WaitMessageFont-Size="14pt" Width="700px" SizeToReportContent="True">
-                    <LocalReport ReportPath="MaterialsChecklistRep.rdlc">
-                    </LocalReport>
                 </rsweb:ReportViewer>
             </ContentTemplate>
         </asp:UpdatePanel>

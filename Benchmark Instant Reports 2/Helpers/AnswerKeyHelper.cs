@@ -2,9 +2,9 @@
 using System.Linq;
 using Benchmark_Instant_Reports_2.Exceptions;
 using Benchmark_Instant_Reports_2.Grading;
+using Benchmark_Instant_Reports_2.Infrastructure.DataStruct;
 using Benchmark_Instant_Reports_2.Infrastructure.Entities;
 using Benchmark_Instant_Reports_2.Infrastructure.IRepositories;
-using Benchmark_Instant_Reports_2.Infrastructure.DataStruct;
 using Benchmark_Instant_Reports_2.References;
 
 namespace Benchmark_Instant_Reports_2.Helpers

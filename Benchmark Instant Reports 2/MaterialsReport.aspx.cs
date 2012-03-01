@@ -1,4 +1,6 @@
 ﻿using System;
+using System.IO;
+using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Benchmark_Instant_Reports_2.Account;
@@ -22,6 +24,10 @@ namespace Benchmark_Instant_Reports_2
             get { return _thisTestFilterState; }
             set { _thisTestFilterState = value; }
         }
+
+        private static string appPath;
+        private static string physicalPath;
+        private static string reportPath;
 
 
         protected void Page_Load(object sender, EventArgs e)
@@ -55,7 +61,7 @@ namespace Benchmark_Instant_Reports_2
             setupTestFilters();
             lbListTests.Enabled = true;
             lbListTests.SelectedIndex = 0;
-            repvwMaterialsRep1.Visible = false;
+            repvwMaterialsRep.Visible = false;
 
             string[] savedTests = RememberHelper.SavedSelectedTestIDs(Request);
             if (savedTests != null)
@@ -77,12 +83,12 @@ namespace Benchmark_Instant_Reports_2
             if (lbListTests.GetSelectedIndices().Length > 0)
             {
                 btnGenReport.Enabled = true;
-                repvwMaterialsRep1.Visible = false;
+                repvwMaterialsRep.Visible = false;
             }
             else
             {
                 btnGenReport.Enabled = false;
-                repvwMaterialsRep1.Visible = false;
+                repvwMaterialsRep.Visible = false;
             }
             return;
         }
@@ -94,16 +100,19 @@ namespace Benchmark_Instant_Reports_2
             reportData = ScanRepHelper.GenerateScanReportData(DataService, selectedSchools, GetSelectedTests());
             var reportTitleData = MatCheckRepHelper.GetReportTitle(tbRepTitle.Text);
 
-            repvwMaterialsRep1.Visible = true;
-            ReportDataSource rds = new ReportDataSource(repvwMaterialsRep1.LocalReport.GetDataSourceNames()[0], 
+            reportPath = Path.Combine(physicalPath, @"Reports\Checklist\MaterialsRep.rdlc");
+
+            repvwMaterialsRep.Visible = true;
+            repvwMaterialsRep.LocalReport.ReportPath = reportPath;
+            ReportDataSource rds = new ReportDataSource(repvwMaterialsRep.LocalReport.GetDataSourceNames()[0], 
                 reportData.GetItems());
-            ReportDataSource rds2 = new ReportDataSource(repvwMaterialsRep1.LocalReport.GetDataSourceNames()[1],
+            ReportDataSource rds2 = new ReportDataSource(repvwMaterialsRep.LocalReport.GetDataSourceNames()[1],
                 reportTitleData);
-            repvwMaterialsRep1.LocalReport.DataSources.Clear();
-            repvwMaterialsRep1.LocalReport.DataSources.Add(rds);
-            repvwMaterialsRep1.LocalReport.DataSources.Add(rds2);
-            repvwMaterialsRep1.ShowPrintButton = true;
-            repvwMaterialsRep1.LocalReport.Refresh();
+            repvwMaterialsRep.LocalReport.DataSources.Clear();
+            repvwMaterialsRep.LocalReport.DataSources.Add(rds);
+            repvwMaterialsRep.LocalReport.DataSources.Add(rds2);
+            repvwMaterialsRep.ShowPrintButton = true;
+            repvwMaterialsRep.LocalReport.Refresh();
 
             return;
         }
@@ -117,6 +126,9 @@ namespace Benchmark_Instant_Reports_2
         private void initPage()
         {
             theMasterPage = Page.Master as SiteMaster;
+            appPath = HttpContext.Current.Request.ApplicationPath;
+            physicalPath = HttpContext.Current.Request.MapPath(appPath);
+
 
             // disable all dialog boxes & stuff except campus
             ddCampus.Enabled = true;
@@ -124,7 +136,7 @@ namespace Benchmark_Instant_Reports_2
             lbListTests.Enabled = true;
             lbListTests.AutoPostBack = true;
             btnGenReport.Enabled = true;
-            repvwMaterialsRep1.Visible = false;
+            repvwMaterialsRep.Visible = false;
 
             // load list of campuses in Campus dropdown
             ddCampus.DataSource = Authorize.GetAuthorizedSchools(Context.User.Identity.Name, DataService);

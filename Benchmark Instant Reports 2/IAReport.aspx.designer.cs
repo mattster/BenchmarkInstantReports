@@ -10,7 +10,7 @@
 namespace Benchmark_Instant_Reports_2 {
     
     
-    public partial class BenchmarkStats {
+    public partial class IAReport {
         
         /// <summary>
         /// pnlCampus control.
@@ -310,111 +310,12 @@ namespace Benchmark_Instant_Reports_2 {
         protected global::System.Web.UI.UpdatePanel updpnlReportViewer;
         
         /// <summary>
-        /// repvwBenchmarkStats1a control.
+        /// repvwIA control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::Microsoft.Reporting.WebForms.ReportViewer repvwBenchmarkStats1a;
-        
-        /// <summary>
-        /// repvwBenchmarkStats1b control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Microsoft.Reporting.WebForms.ReportViewer repvwBenchmarkStats1b;
-        
-        /// <summary>
-        /// repvwBenchmarkStats1c control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Microsoft.Reporting.WebForms.ReportViewer repvwBenchmarkStats1c;
-        
-        /// <summary>
-        /// repvwBenchmarkStats2a control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Microsoft.Reporting.WebForms.ReportViewer repvwBenchmarkStats2a;
-        
-        /// <summary>
-        /// repvwBenchmarkStats2b control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Microsoft.Reporting.WebForms.ReportViewer repvwBenchmarkStats2b;
-        
-        /// <summary>
-        /// repvwBenchmarkStats2c control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Microsoft.Reporting.WebForms.ReportViewer repvwBenchmarkStats2c;
-        
-        /// <summary>
-        /// repvwBenchmarkStats3a control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Microsoft.Reporting.WebForms.ReportViewer repvwBenchmarkStats3a;
-        
-        /// <summary>
-        /// repvwBenchmarkStats3b control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Microsoft.Reporting.WebForms.ReportViewer repvwBenchmarkStats3b;
-        
-        /// <summary>
-        /// repvwBenchmarkStats3c control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Microsoft.Reporting.WebForms.ReportViewer repvwBenchmarkStats3c;
-        
-        /// <summary>
-        /// repvwBenchmarkStats4a control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Microsoft.Reporting.WebForms.ReportViewer repvwBenchmarkStats4a;
-        
-        /// <summary>
-        /// repvwBenchmarkStats4b control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Microsoft.Reporting.WebForms.ReportViewer repvwBenchmarkStats4b;
-        
-        /// <summary>
-        /// repvwBenchmarkStats4c control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::Microsoft.Reporting.WebForms.ReportViewer repvwBenchmarkStats4c;
+        protected global::Microsoft.Reporting.WebForms.ReportViewer repvwIA;
     }
 }

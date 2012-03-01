@@ -5,7 +5,7 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <h1>
-        Instant Reports Login</h1>
+        BIR Login</h1>
     <p>
         Please login for a specific campus or as a District-level Administrator to continue.</p>
     <div id="loginformarea">
