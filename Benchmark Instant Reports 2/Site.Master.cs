@@ -10,6 +10,7 @@ namespace Benchmark_Instant_Reports_2
         protected void Page_Load(object sender, EventArgs e)
         {
             MenuWithCampusRep.Visible = true;
+            MenuSpecial.Visible = false;
 
             CampusAuthLabel.Text = Context.User.Identity.Name;
             if (!Context.User.Identity.IsAuthenticated)

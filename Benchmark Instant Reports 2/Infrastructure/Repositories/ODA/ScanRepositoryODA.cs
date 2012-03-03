@@ -31,6 +31,20 @@ namespace Benchmark_Instant_Reports_2.Infrastructure.Repositories
         }
 
 
+
+        public IQueryable<Scan> FindLatestScansForTest(string testid)
+        {
+            string qs = Queries.GetLatestScansForTest;
+            qs = qs.Replace("@testId", testid);
+            DataSet ds = ODAHelper.getDataRows(qs);
+
+            if (ds.Tables.Count == 0)
+                return null;
+
+            return ConvertTableToScans(ds.Tables[0]);
+        }
+
+
         /// <summary>
         /// finds all the Scans for a specific test for students at
         /// a specified school

@@ -43,6 +43,7 @@ namespace Benchmark_Instant_Reports_2
         protected void ddCampus_SelectedIndexChanged(object sender, EventArgs e)
         {
             theMasterPage = Page.Master as SiteMaster;
+            repvwCampusRep.Visible = false;
 
             // return if it is the separator
             if (UIHelper.IsDDSeparatorValue(ddCampus.SelectedValue.ToString()) || 
@@ -61,7 +62,6 @@ namespace Benchmark_Instant_Reports_2
             setupTestFilters();
             listTests.Enabled = true;
             listTests.SelectedIndex = 0;
-            repvwCampusRep.Visible = false;
 
 
             int bidx = UIHelper.GetIndexOfItemInDD(RememberHelper.SavedSelectedTestID(Request), listTests);

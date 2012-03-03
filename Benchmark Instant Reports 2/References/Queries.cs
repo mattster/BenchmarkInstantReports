@@ -133,6 +133,21 @@ namespace Benchmark_Instant_Reports_2.References
                 "from " + DatabaseDefn.DBScans + " " +
                 "where test_id = \'@testId\'";
 
+        public static string GetLatestScansForTest =
+                "select x.date_scanned as date_scanned, y.scanned_sequence as scanned_sequence, " +
+                "y.imagepath as imagepath, y.name as name, x.student_id as student_id, " +
+                "x.test_id as test_id, y.language_version as language_version, y.exempt as exempt, " +
+                "y.preslugged as preslugged, y.answers as answers " +
+                "from ( " +
+                "      select max(to_date(date_scanned, \'MM/DD/YYYY HH:MI:SS AM\')) as date_scanned, " +
+                "        test_id, student_id " +
+                "      from " + DatabaseDefn.DBScans + " " +
+                "      where test_id = \'@testId\' " +
+                "      group by test_id, student_id) x " +
+                "join " + DatabaseDefn.DBScans + " y " +
+                "  on x.date_scanned = to_date(y.date_scanned, \'MM/DD/YYYY HH:MI:SS AM\') " +
+                "    and x.test_id = y.test_id and x.student_id = y.student_id";
+
         public static string GetScansForTestCampus =
                 "select date_scanned, scanned_sequence, imagepath, name, student_id, test_id, " +
                 " language_version, exempt, preslugged, answers " +

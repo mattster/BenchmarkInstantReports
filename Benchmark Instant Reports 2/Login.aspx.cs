@@ -20,6 +20,9 @@ namespace Benchmark_Instant_Reports_2
                 ddLoginCampus.DataTextField = "Name";
                 ddLoginCampus.DataValueField = "Abbr";
                 ddLoginCampus.DataBind();
+
+                // use this line to disable login
+                //btnSubmit.Enabled = false;
             }
             return;
         }

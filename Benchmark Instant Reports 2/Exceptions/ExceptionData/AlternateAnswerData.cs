@@ -22,6 +22,11 @@ namespace Benchmark_Instant_Reports_2.Exceptions
             new AlternateAnswer("2012-03 SC Physics Unit 4 T4 CUT 91-81", 61, "6.0"),
 
             new AlternateAnswer("2012-02 SM Exit Level Math SIM 30-99", 49, "B"),
+
+            new AlternateAnswer("2012-02 SS Grade 8 Soc St Units 7-8 CUT 88-71", 20, "H"),
+            new AlternateAnswer("2012-02 SS Grade 8 Soc St Units 7-8 PreAP CUT 88-73", 20, "H"),
+
+
         };
 
     }

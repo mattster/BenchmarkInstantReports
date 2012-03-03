@@ -67,6 +67,15 @@ namespace Benchmark_Instant_Reports_2 {
         protected global::System.Web.UI.WebControls.Menu MenuWithCampusRep;
         
         /// <summary>
+        /// MenuSpecial control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Menu MenuSpecial;
+        
+        /// <summary>
         /// MainContent control.
         /// </summary>
         /// <remarks>

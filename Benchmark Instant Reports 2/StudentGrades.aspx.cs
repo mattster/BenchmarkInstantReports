@@ -49,8 +49,8 @@ namespace Benchmark_Instant_Reports_2
         protected void ddCampus_SelectedIndexChanged(object sender, EventArgs e)
         {
             theMasterPage = Page.Master as SiteMaster;
-
-            //*** User selected a campus ***//
+            //repvwStudentGrades.Visible = false;
+            //lblNoScanData.Visible = false;
 
             // return if it is the separator
             if (UIHelper.IsDDSeparatorValue(ddCampus.SelectedValue.ToString()) ||
@@ -61,6 +61,7 @@ namespace Benchmark_Instant_Reports_2
                 return;
             }
 
+
             RememberHelper.SaveSelectedCampus(Response, ddCampus.SelectedItem.ToString());
 
             listTests.DataSource = DataService.GetTestIDsForSchool(ddCampus.SelectedValue.ToString());
@@ -69,8 +70,6 @@ namespace Benchmark_Instant_Reports_2
             setupTestFilters();
             listTests.Enabled = true;
             UIHelper.ToggleDDInitView(listTests, true);
-            btnGenReport.Enabled = false;
-            repvwStudentGrades.Visible = false;
 
             int bidx = UIHelper.GetIndexOfItemInDD(RememberHelper.SavedSelectedTestID(Request), listTests);
             if (bidx != -1)
@@ -86,8 +85,6 @@ namespace Benchmark_Instant_Reports_2
         protected void listTests_SelectedIndexChanged(object sender, EventArgs e)
         {
             lblNoScanData.Visible = false;
-            ddTeacher.DataSource = "";
-            ddTeacher.DataBind();
             RememberHelper.SaveSelectedTestID(Response, listTests.SelectedItem.ToString());
 
             studentDataToGrade = StudentData.GetStudentDataToGrade(DataService, GetSelectedTests(), GetSelectedSchools());

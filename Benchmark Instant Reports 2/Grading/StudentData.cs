@@ -307,7 +307,6 @@ namespace Benchmark_Instant_Reports_2.Grading
             var rosterstudents = dataservice.RosterRepo.ExecuteQuery(schoolCustomQuery);
 
             foreach (var student in rosterstudents)
-                //if (finalData.GetItemsWhere(d => d.StudentID == student.StudentID).Count() == 0)
                     finalData.Add(new PreslugItem(student, test.TestID));
 
             return finalData;
@@ -323,7 +322,8 @@ namespace Benchmark_Instant_Reports_2.Grading
         public static IQueryable<Scan> GetScannedData(IRepoService dataservice, Test test)
         {
             IQueryable<Scan> scannedAll = dataservice.ScanRepo.FindScansForTest(test.TestID);
-            return GetLatestScans(scannedAll);
+            return GetLatestScans(new List<Scan>(scannedAll.AsEnumerable()));
+
         }
 
 
@@ -355,13 +355,14 @@ namespace Benchmark_Instant_Reports_2.Grading
         /// </summary>
         /// <param name="allScannedItems">IQueryable-scan- set of scanned items, including duplicates</param>
         /// <returns>IQueryable-scan- set of only the most recent scans in the set</returns>
-        private static IQueryable<Scan> GetLatestScans(IQueryable<Scan> allScannedItems)
+        private static IQueryable<Scan> GetLatestScans(List<Scan> allScannedItems)
         {
-            HashSet<Scan> finalData = new HashSet<Scan>();
+            List<Scan> finalData = new List<Scan>();
 
             foreach (int thisStudentID in allScannedItems.Select(s => s.StudentID).Distinct())
             {
                 var scans = allScannedItems.Where(i => i.StudentID == thisStudentID);
+
                 if (scans.Count() > 1)
                 {
                     var latestScan = scans.Where(s => s.DateScanned == scans.Select(ss => ss.DateScanned)

@@ -19,6 +19,14 @@ namespace Benchmark_Instant_Reports_2.Infrastructure.Repositories
         }
 
 
+        public IQueryable<Scan> FindLatestScansForTest(string testid)
+        {
+            string qs = Queries.GetLatestScansForTest;
+            qs = qs.Replace("@testId", testid);
+            var results = DapperHelper.DQuery(qs);
+            return ConvertToScanQ(results);
+        }
+
 
         public IQueryable<Scan> FindScansForTestCampus(string testid, string abbr)
         {
